@@ -16,4 +16,3 @@ _ide_helper.php
 .env.testing
 .lando.yml
 /.vscode/launch.json
-.env
