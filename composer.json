@@ -1,0 +1,91 @@
+{
+  "name": "dystcz/dystore",
+  "description": "Dystore Monorepo",
+  "license": "MIT",
+  "homepage": "https://github.com/dystcz/dystore",
+  "keywords": [
+    "dystcz",
+    "lunar",
+    "lunar-api",
+    "laravel",
+    "modules",
+    "php"
+  ],
+  "authors": [
+    {
+      "name": "Dystopia Developers",
+      "email": "dev@dy.st"
+    },
+    {
+      "name": "Jakub Theimer",
+      "email": "jakub@dy.st",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^11.0",
+    "laravel-json-api/hashids": "^3.0",
+    "laravel-json-api/laravel": "^4.0",
+    "laravel-json-api/non-eloquent": "^4.0",
+    "lunarphp/lunar": "^1.0.0-beta.4",
+    "staudenmeir/eloquent-has-many-deep": "^1.20"
+  },
+  "require-dev": {
+    "barryvdh/laravel-ide-helper": "^3.0",
+    "larastan/larastan": "^2.0",
+    "laravel-json-api/testing": "^3.0",
+    "laravel/pint": "^1.7",
+    "orchestra/testbench": "^9.0",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-faker": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.0",
+    "spatie/laravel-ray": "^1.32"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dystore\\Api": "packages/api/src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dystore\\Tests\\Api\\": "tests/api"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystore\\Api\\LunarApiServiceProvider",
+        "Dystore\\Api\\JsonApiServiceProvider",
+        "Dystore\\Api\\LunarApiHashidsServiceProvider"
+      ]
+    }
+  },
+  "replace": {
+    "lunarphp/admin": "self.version",
+    "lunarphp/core": "self.version",
+    "lunarphp/meilisearch": "self.version",
+    "lunarphp/opayo": "self.version",
+    "lunarphp/paypal": "self.version",
+    "lunarphp/stripe": "self.version",
+    "lunarphp/table-rate-shipping": "self.version"
+  },
+  "scripts": {
+    "test:pest": "vendor/bin/pest",
+    "test:phpstan": "vendor/bin/phpstan analyse",
+    "format": "vendor/bin/pint",
+    "test": [
+      "@test:pest",
+      "@test:phpstan"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "php-http/discovery": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
