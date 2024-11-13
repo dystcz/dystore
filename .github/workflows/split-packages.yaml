@@ -1,4 +1,4 @@
-name: Split Monorepo
+name: Split Packages
 on:
   push:
     branches:
@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         package: ["api"]
-        module: ["ares", "discord"]
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -29,19 +28,6 @@ jobs:
           package_directory: "packages/${{ matrix.package }}"
           repository_organization: "dystcz"
           repository_name: "dystore-${{ matrix.package }}"
-          user_name: "GitHub Action"
-          user_email: "action@github.com"
-          branch: ${GITHUB_REF#refs/heads/}
-
-      - name: Split ${{ matrix.module }}
-        uses: "danharrin/monorepo-split-github-action@v2.3.0"
-        if: "!startsWith(github.ref, 'refs/tags/')"
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        with:
-          package_directory: "modules/${{ matrix.module }}"
-          repository_organization: "dystcz"
-          repository_name: "dystore-${{ matrix.module }}"
           user_name: "GitHub Action"
           user_email: "action@github.com"
           branch: ${GITHUB_REF#refs/heads/}
@@ -73,33 +59,6 @@ jobs:
           package_directory: "packages/${{ matrix.package }}"
           repository_organization: "dystcz"
           repository_name: "dystore-${{ matrix.package }}"
-          user_name: "GitHub Action"
-          user_email: "action@github.com"
-          branch: ${GITHUB_TAG%.*}
-
-      - name: Split ${{ matrix.module }}
-        uses: "danharrin/monorepo-split-github-action@v2.3.0"
-        if: "startsWith(github.ref, 'refs/tags/')"
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        with:
-          package_directory: "modules/${{ matrix.module }}"
-          repository_organization: "dystcz"
-          repository_name: "dystore-${{ matrix.module }}"
-          user_name: "GitHub Action"
-          user_email: "action@github.com"
-          branch: ${GITHUB_TAG%.*}
-
-      - name: Tag ${{ matrix.module }}
-        if: "startsWith(github.ref, 'refs/tags/')"
-        uses: "danharrin/monorepo-split-github-action@v2.3.0"
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        with:
-          tag: ${GITHUB_REF#refs/tags/}
-          package_directory: "modules/${{ matrix.module }}"
-          repository_organization: "dystcz"
-          repository_name: "dystore-${{ matrix.module }}"
           user_name: "GitHub Action"
           user_email: "action@github.com"
           branch: ${GITHUB_TAG%.*}
