@@ -2,7 +2,6 @@
   "name": "dystcz/dystore",
   "description": "Dystore Monorepo",
   "license": "MIT",
-  "homepage": "https://github.com/dystcz/dystore",
   "keywords": [
     "dystcz",
     "lunar",
@@ -20,41 +19,51 @@
       "name": "Jakub Theimer",
       "email": "jakub@dy.st",
       "role": "Developer"
+    },
+    {
+      "name": "Marek Lőrincz",
+      "email": "marek@dy.st",
+      "role": "Developer"
     }
   ],
+  "homepage": "https://github.com/dystcz/dystore",
   "require": {
-    "php": "^8.2"
+    "php": "^8.2",
+    "illuminate/support": "^11.0",
+    "laravel-json-api/hashids": "^3.0",
+    "laravel-json-api/laravel": "^4.0",
+    "laravel-json-api/non-eloquent": "^4.0",
+    "lunarphp/lunar": "^1.0.0-beta.5",
+    "staudenmeir/eloquent-has-many-deep": "^1.20"
   },
   "require-dev": {
+    "barryvdh/laravel-ide-helper": "^3.0",
+    "larastan/larastan": "^2.0",
+    "laravel-json-api/testing": "^3.0",
+    "laravel/pint": "^1.7",
+    "orchestra/testbench": "^9.0",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-faker": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.0",
+    "spatie/laravel-ray": "^1.32",
     "symplify/monorepo-builder": "^11.2"
+  },
+  "replace": {
+    "dystcz/dystore-api": "self.version"
   },
   "autoload": {
     "psr-4": {
       "Dystore\\Api\\": "packages/api/src"
-    }
+    },
+    "files": [
+      "packages/api/autoload.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
+      "Dystore\\Api\\Tests\\": "packages/api/tests",
       "Dystore\\Tests\\Api\\": "tests/api"
     }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Dystore\\Api\\LunarApiServiceProvider",
-        "Dystore\\Api\\JsonApiServiceProvider",
-        "Dystore\\Api\\LunarApiHashidsServiceProvider"
-      ]
-    }
-  },
-  "replace": {
-    "lunarphp/admin": "self.version",
-    "lunarphp/core": "self.version",
-    "lunarphp/meilisearch": "self.version",
-    "lunarphp/opayo": "self.version",
-    "lunarphp/paypal": "self.version",
-    "lunarphp/stripe": "self.version",
-    "lunarphp/table-rate-shipping": "self.version"
   },
   "scripts": {
     "test:pest": "vendor/bin/pest",
@@ -70,6 +79,15 @@
     "allow-plugins": {
       "pestphp/pest-plugin": true,
       "php-http/discovery": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystore\\Api\\JsonApiServiceProvider",
+        "Dystore\\Api\\LunarApiHashidsServiceProvider",
+        "Dystore\\Api\\LunarApiServiceProvider"
+      ]
     }
   },
   "minimum-stability": "dev",
