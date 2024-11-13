@@ -1,0 +1,32 @@
+{
+  "name": "dystcz/dystore-ares-module",
+  "type": "laravel-module",
+  "description": "Dystore Ares",
+  "authors": [
+    {
+      "name": "Dystopia Developers",
+      "email": "dev@dy.st"
+    }
+  ],
+  "require": {
+    "h4kuna/ares": "^3.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [],
+      "aliases": {}
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules\\DystoreAres\\": "src/",
+      "Modules\\DystoreAres\\Database\\Factories\\": "database/factories/",
+      "Modules\\DystoreAres\\Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\DystoreAres\\Tests\\": "tests/"
+    }
+  }
+}
