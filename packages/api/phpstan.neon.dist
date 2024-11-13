@@ -1,0 +1,19 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+
+parameters:
+
+    level: 0
+
+    paths:
+        - src
+
+    excludePaths:
+        - /tests/*
+        - /vendor/*
+
+    checkOctaneCompatibility: true
+
+    ignoreErrors:
+        -
+            message: '#Unsafe usage of new static\(\).#'
