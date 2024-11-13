@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: ["api"]
+        package: ["dystore-api"]
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
