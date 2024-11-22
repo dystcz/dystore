@@ -13,7 +13,7 @@ trait HashesRouteKey
     /**
      * Get the value of the model's route key.
      */
-    public function getRouteKey(): string
+    public function getRouteKey(): mixed
     {
         if (! LunarApi::usesHashids()) {
             return parent::getRouteKey();
