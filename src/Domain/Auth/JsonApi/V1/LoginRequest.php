@@ -2,9 +2,12 @@
 
 namespace Dystcz\LunarApi\Domain\Auth\JsonApi\V1;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Dystcz\LunarApi\Facades\LunarApi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Validator;
+use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
-class LoginRequest extends FormRequest
+class LoginRequest extends ResourceRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -48,5 +51,23 @@ class LoginRequest extends FormRequest
             'password.required' => __('lunar-api::validations.auth.password.required'),
             'password.string' => __('lunar-api::validations.auth.password.string'),
         ];
+    }
+
+    /**
+     * Configure the validator instance.
+     */
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function (Validator $validator) {
+            if (! Auth::guard(LunarApi::getAuthGuard())->attempt([
+                'email' => $this->input('data.attributes.email'),
+                'password' => $this->input('data.attributes.password'),
+            ])) {
+                $validator->errors()->add(
+                    'password',
+                    __('lunar-api::validations.auth.attempt.failed'),
+                );
+            }
+        });
     }
 }

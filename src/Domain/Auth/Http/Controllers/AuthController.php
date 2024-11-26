@@ -9,7 +9,6 @@ use Dystcz\LunarApi\Domain\Users\JsonApi\V1\UserQuery;
 use Dystcz\LunarApi\Domain\Users\JsonApi\V1\UserSchema;
 use Dystcz\LunarApi\Domain\Users\Models\User;
 use Dystcz\LunarApi\Facades\LunarApi;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use LaravelJsonApi\Core\Responses\DataResponse;
@@ -19,12 +18,8 @@ class AuthController extends Controller
     /**
      * Get currently logged in User.
      */
-    public function me(
-        UserSchema $schema,
-        Request $request,
-        UserQuery $query,
-        UserContract $user,
-    ): DataResponse {
+    public function me(UserSchema $schema, Request $request, UserQuery $query, UserContract $user): DataResponse
+    {
         /** @var User|null $user */
         $user = $request->user();
 
@@ -42,20 +37,24 @@ class AuthController extends Controller
 
     /**
      * Log the user in.
+     *
+     * NOTE: Login attempt is in the request class
      */
-    public function login(LoginRequest $request): JsonResponse
+    public function login(UserSchema $schema, LoginRequest $request, UserQuery $query, UserContract $user): DataResponse
     {
-        if (! Auth::guard(LunarApi::getAuthGuard())->attempt($request->only('email', 'password'))) {
-            return new JsonResponse([
-                'message' => __('lunar-api::validations.auth.attempt.failed'),
-                'success' => false,
-            ], 422);
-        }
+        /** @var User|null $user */
+        $user = $request->user();
 
-        return new JsonResponse([
-            'message' => __('lunar-api::validations.auth.attempt.success'),
-            'success' => true,
-        ], 200);
+        /** @var Order $model */
+        $model = $schema
+            ->repository()
+            ->queryOne($user)
+            ->withRequest($request)
+            ->first();
+
+        return DataResponse::make($model)
+            ->withQueryParameters($query)
+            ->didntCreate();
     }
 
     /**
