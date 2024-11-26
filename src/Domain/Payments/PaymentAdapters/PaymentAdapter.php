@@ -178,7 +178,7 @@ abstract class PaymentAdapter
     protected function getOrCreateOrder(CartContract $cart): OrderContract
     {
         /** @var Cart $cart */
-        $allowMultiple = Config::get('lunar-api.general.checkout.multiple_orders_per_cart', false);
+        $allowMultiple = Config::get('lunar.cart_session.allow_multiple_orders_per_cart', false);
 
         return $this->getOrderFromCart($cart) ?: $cart->createOrder(allowMultipleOrders: $allowMultiple);
     }

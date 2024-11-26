@@ -37,7 +37,7 @@ class CheckoutCart implements CheckoutCartContract
         /** @var Cart $cart */
         /** @var Order $order */
         $order = $cart->createOrder(
-            allowMultipleOrders: Config::get('lunar-api.general.checkout.multiple_orders_per_cart', false),
+            allowMultipleOrders: Config::get('lunar.cart_session.allow_multiple_orders_per_cart', false),
         );
 
         $model = Order::modelClass()::query()
