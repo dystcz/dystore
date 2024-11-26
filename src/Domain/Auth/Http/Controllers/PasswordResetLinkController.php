@@ -28,7 +28,7 @@ class PasswordResetLinkController extends Controller implements PasswordResetLin
         return DataResponse::make(null)
             ->withMeta([
                 'message' => __('auth.password_reset.confirmation'),
-                'success' => $success,
+                // 'success' => $success,
             ]);
     }
 
