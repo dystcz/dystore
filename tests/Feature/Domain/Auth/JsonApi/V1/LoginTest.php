@@ -57,7 +57,9 @@ it('can log in a user', function () {
         ->withData($data)
         ->post(serverUrl('/auth/-actions/login'));
 
-    $response->assertSuccessful();
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($user);
 });
 
 it('can return a user with customers included after login', function () {
@@ -85,5 +87,6 @@ it('can return a user with customers included after login', function () {
 
     $response
         ->assertSuccessful()
+        ->assertFetchedOne($user)
         ->assertIsIncluded('customers', $user->customers->first());
 });
