@@ -77,10 +77,16 @@ it('can associate existing cart to users after they log in', function () {
     ]);
 
     $response = $this
-        ->post(serverUrl('/auth/-actions/login'), [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+        ->jsonApi()
+        ->expects('users')
+        ->withData([
+            'type' => 'auth',
+            'attributes' => [
+                'email' => $user->email,
+                'password' => 'password',
+            ],
+        ])
+        ->post(serverUrl('/auth/-actions/login'));
 
     /** @var ProductVariant $purchasable */
     $purchasable = ProductVariant::factory()
@@ -104,10 +110,16 @@ it('can associate existing cart to users after they log in', function () {
     ];
 
     $response = $this
-        ->post(serverUrl('/auth/-actions/login'), [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+        ->jsonApi()
+        ->expects('users')
+        ->withData([
+            'type' => 'auth',
+            'attributes' => [
+                'email' => $user->email,
+                'password' => 'password',
+            ],
+        ])
+        ->post(serverUrl('/auth/-actions/login'));
 
     $cart = $cart->fresh();
 

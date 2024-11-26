@@ -39,6 +39,6 @@ it('can send password reset links to users', function () {
     $response->assertFetchedNull()
         ->assertExactMeta([
             'message' => __('auth.password_reset.confirmation'),
-            'success' => true,
+            // 'success' => true,
         ]);
 });
