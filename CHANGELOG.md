@@ -5,6 +5,7 @@
 ### Changes
 
 -   Removed relationship links from responses by default
+-   Changed price taxation config to `lunar.pricing.stored_inclusive_of_tax` from `lunar-api.general.taxation.prices_with_default_tax`
 
 ### ⚠️ Breaking changes
 

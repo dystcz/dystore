@@ -14,7 +14,7 @@ class GetPrice
 
     public function __construct()
     {
-        $this->withTax = Config::get('lunar-api.general.taxation.prices_with_default_tax');
+        $this->withTax = Config::get('lunar.pricing.stored_inclusive_of_tax');
 
         $this->getPriceWithDefaultTax = new GetPriceWithDefaultTax;
     }
@@ -24,10 +24,11 @@ class GetPrice
      */
     public function __invoke(Price $price, Purchasable $purchasable): Price
     {
+        // NOTE: If prices are stored inclusive of tax, we can return the price as is
         if ($this->withTax) {
-            return ($this->getPriceWithDefaultTax)($price, $purchasable);
+            return $price;
         }
 
-        return $price;
+        return ($this->getPriceWithDefaultTax)($price, $purchasable);
     }
 }
