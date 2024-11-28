@@ -23,11 +23,6 @@ return [
         'max_size' => 48,
     ],
 
-    // Tax defaults
-    'taxation' => [
-        'prices_with_default_tax' => true,
-    ],
-
     // Purchasable
     'purchasable' => [
         'non_eloquent_types' => [
