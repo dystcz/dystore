@@ -27,7 +27,8 @@
     "php": "^8.2",
     "illuminate/support": "^11.0",
     "laravel-json-api/hashids": "^3.0",
-    "laravel-json-api/laravel": "^4.0",
+    "laravel-json-api/core": "4.1.0",
+    "laravel-json-api/laravel": "4.1.0",
     "laravel-json-api/non-eloquent": "^4.0",
     "lunarphp/lunar": "^1.0.0-beta.4",
     "staudenmeir/eloquent-has-many-deep": "^1.20"
