@@ -247,6 +247,14 @@ class CartPolicy
     /**
      * Determine whether the user can update payment option.
      */
+    public function updateShippingOption(?Authenticatable $user, CartContract $cart): bool
+    {
+        return $this->check($user, $cart);
+    }
+
+    /**
+     * Determine whether the user can update payment option.
+     */
     public function updatePaymentOption(?Authenticatable $user, CartContract $cart): bool
     {
         return $this->check($user, $cart);
