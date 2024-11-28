@@ -38,6 +38,9 @@ class CheckoutCartController extends Controller implements CheckoutCartControlle
 
         // TODO: Refactor to default json:api links
         return DataResponse::make($order)
+            ->withIncludePaths([
+                'product_lines',
+            ])
             ->withLinks([
                 'self.signed' => URL::signedRoute(
                     'v1.orders.show',
