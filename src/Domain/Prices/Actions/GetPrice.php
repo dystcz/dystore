@@ -24,10 +24,11 @@ class GetPrice
      */
     public function __invoke(Price $price, Purchasable $purchasable): Price
     {
-        if (! $this->withTax) {
-            return ($this->getPriceWithDefaultTax)($price, $purchasable);
+        // NOTE: If prices are stored inclusive of tax, we can return the price as is
+        if ($this->withTax) {
+            return $price;
         }
 
-        return $price;
+        return ($this->getPriceWithDefaultTax)($price, $purchasable);
     }
 }
