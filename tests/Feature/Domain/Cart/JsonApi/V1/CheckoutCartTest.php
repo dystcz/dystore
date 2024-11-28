@@ -61,6 +61,62 @@ test('a user can checkout a cart', function () {
     expect($cart->user_id)->toBeNull();
 })->group('checkout');
 
+test('it returns order with product lines included after checkout', function () {
+    /** @var TestCase $this */
+
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
+    /** @var Cart $cart */
+    $cart = $factory
+        ->withAddresses()
+        ->withLines()
+        ->create();
+
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'agree' => true,
+                'create_user' => false,
+            ],
+        ])
+        ->post(serverUrl('/carts/-actions/checkout'));
+
+    $id = $response
+        ->assertSuccessful()
+        ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
+        ->id();
+
+    $order = Order::query()->where('id', $id)->with(['productLines'])->first();
+
+    $response
+        ->assertIncluded([
+            ...$order->productLines->map(function ($line) {
+                return [
+                    'type' => 'order_lines',
+                    'id' => (string) $line->id,
+                ];
+            })->all(),
+        ]);
+
+    if (LunarApi::usesHashids()) {
+        $id = decodeHashedId($cart->draftOrder, $id);
+    }
+
+    $this->assertDatabaseHas((new Order)->getTable(), [
+        'id' => $id,
+    ]);
+
+    expect($cart->user_id)->toBeNull();
+})->group('checkout');
+
 test('a user cannot checkout a cart if the products are not in stock', function () {
     /** @var TestCase $this */
 
