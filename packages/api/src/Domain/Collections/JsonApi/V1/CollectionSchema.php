@@ -1,0 +1,133 @@
+<?php
+
+namespace Dystcz\LunarApi\Domain\Collections\JsonApi\V1;
+
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Fields\AttributeData;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Sorts\InDefaultOrder;
+use Dystcz\LunarApi\Support\Models\Actions\ModelType;
+use LaravelJsonApi\Eloquent\Fields\Number;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
+use LaravelJsonApi\Eloquent\Filters\Has;
+use LaravelJsonApi\Eloquent\Filters\WhereHas;
+use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Filters\WhereNull;
+use LaravelJsonApi\Eloquent\Resources\Relation;
+use Lunar\Models\Contracts\Collection;
+use Lunar\Models\Contracts\CollectionGroup;
+use Lunar\Models\Contracts\Url;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+class CollectionSchema extends Schema
+{
+    /**
+     * {@inheritDoc}
+     */
+    public static string $model = Collection::class;
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $defaultSort = 'ordered';
+
+    /**
+     * {@inheritDoc}
+     */
+    public function includePaths(): iterable
+    {
+        return [
+            'default-url',
+            'images',
+            'thumbnail',
+            'urls',
+
+            'group',
+
+            'products',
+            'products.default-url',
+            'products.images',
+            'products.lowest-price',
+            'products.prices',
+            'products.thumbnail',
+            'products.urls',
+
+            ...parent::includePaths(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function fields(): array
+    {
+        return [
+            $this->idField(),
+
+            AttributeData::make('attribute_data')
+                ->groupAttributes(),
+
+            Number::make('parent_id', 'parent_id')
+                ->hidden(),
+
+            HasOne::make('default-url', 'defaultUrl')
+                ->type(ModelType::get(Url::class))
+                ->retainFieldName(),
+
+            HasMany::make('images', 'images')
+                ->type(ModelType::get(Media::class))
+                ->canCount(),
+
+            BelongsTo::make('group', 'group')
+                ->type(ModelType::get(CollectionGroup::class))
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+
+            HasMany::make('products')
+                ->canCount(),
+
+            HasOne::make('thumbnail', 'thumbnail')
+                ->type(ModelType::get(Media::class)),
+
+            HasMany::make('urls')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
+
+            ...parent::fields(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function sortables(): iterable
+    {
+        return [
+            ...parent::sortables(),
+
+            InDefaultOrder::make('ordered'),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filters(): array
+    {
+        return [
+            WhereIdIn::make($this),
+
+            WhereHas::make($this, 'urls', 'url')
+                ->singular(),
+
+            WhereHas::make($this, 'urls', 'urls'),
+
+            WhereHas::make($this, 'group', 'group'),
+
+            WhereNull::make('root', 'parent_id'),
+
+            Has::make($this, 'products', 'has_products'),
+
+            ...parent::filters(),
+        ];
+    }
+}
