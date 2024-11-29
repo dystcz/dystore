@@ -1,0 +1,71 @@
+{
+  "name": "dystcz/lunar-api-product-views",
+  "description": "Track product views",
+  "keywords": [
+    "dystcz",
+    "laravel",
+    "php",
+    "lunar",
+    "lunar-api",
+    "lunar-api-product-views"
+  ],
+  "homepage": "https://github.com/dystcz/lunar-api-product-views",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Dystopia",
+      "email": "dev@dy.st",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "ext-redis": "*",
+    "illuminate/support": "^10.0",
+    "dystcz/lunar-api": "^0.8"
+  },
+  "require-dev": {
+    "laravel-json-api/testing": "^2.1",
+    "laravel/pint": "^1.7",
+    "nunomaduro/collision": "^7.0",
+    "orchestra/testbench": "^8.0",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-faker": "^2.0",
+    "spatie/laravel-ray": "^1.32"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dystcz\\LunarApiProductViews\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dystcz\\LunarApiProductViews\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+    "analyse": "vendor/bin/phpstan analyse"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystcz\\LunarApiProductViews\\LunarApiProductViewsServiceProvider",
+        "Dystcz\\LunarApi\\JsonApiServiceProvider"
+      ],
+      "aliases": {
+        "LunarApiProductViews": "Dystcz\\LunarApiProductViews\\LunarApiProductViewsFacade"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
