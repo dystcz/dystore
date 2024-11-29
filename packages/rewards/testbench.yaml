@@ -1,0 +1,4 @@
+env:
+  - DB_CONNECTION="sqlite"
+  - DB_DATABASE=":memory:"
+
