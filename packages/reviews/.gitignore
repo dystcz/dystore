@@ -1,0 +1,15 @@
+/vendor
+composer.phar
+composer.lock
+.DS_Store
+/.idea
+.phpunit.result.cache
+.phpunit.cache
+.php-cs-fixer.cache
+/node_modules
+Session.vim
+phpstan.neon
+ray.php
+_ide_helper.php
+.phpactor.json
+.lando.yml
