@@ -296,6 +296,11 @@ class LunarApiServiceProvider extends ServiceProvider
     {
         $controllers = [
             \Dystcz\LunarApi\Domain\Addresses\Contracts\AddressesController::class => \Dystcz\LunarApi\Domain\Addresses\Http\Controllers\AddressesController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\AuthController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\AuthUserOrdersController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthUserOrdersController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\NewPasswordController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\NewPasswordController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\PasswordResetLinkController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\PasswordResetLinkController::class,
+            \Dystcz\LunarApi\Domain\Auth\Contracts\RegisterUserWithoutPasswordController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\RegisterUserWithoutPasswordController::class,
             \Dystcz\LunarApi\Domain\Brands\Contracts\BrandsController::class => \Dystcz\LunarApi\Domain\Brands\Http\Controllers\BrandsController::class,
             \Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressShippingOptionController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\CartAddressShippingOptionController::class,
             \Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressesController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\CartAddressesController::class,
@@ -304,6 +309,7 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\CartLines\Contracts\CartLinesController::class => \Dystcz\LunarApi\Domain\CartLines\Http\Controllers\CartLinesController::class,
             \Dystcz\LunarApi\Domain\Carts\Contracts\CartCouponsController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartCouponsController::class,
             \Dystcz\LunarApi\Domain\Carts\Contracts\CartPaymentOptionController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartPaymentOptionController::class,
+            \Dystcz\LunarApi\Domain\Carts\Contracts\CartShippingOptionController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartShippingOptionController::class,
             \Dystcz\LunarApi\Domain\Carts\Contracts\CartsController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartsController::class,
             \Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController::class,
             \Dystcz\LunarApi\Domain\Carts\Contracts\ClearUserCartController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController::class,
@@ -328,13 +334,8 @@ class LunarApiServiceProvider extends ServiceProvider
             \Dystcz\LunarApi\Domain\ShippingOptions\Contracts\ShippingOptionsController::class => \Dystcz\LunarApi\Domain\ShippingOptions\Http\Controllers\ShippingOptionsController::class,
             \Dystcz\LunarApi\Domain\Tags\Contracts\TagsController::class => \Dystcz\LunarApi\Domain\Tags\Http\Controllers\TagsController::class,
             \Dystcz\LunarApi\Domain\Urls\Contracts\UrlsController::class => \Dystcz\LunarApi\Domain\Urls\Http\Controllers\UrlsController::class,
-            \Dystcz\LunarApi\Domain\Users\Contracts\UsersController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\UsersController::class,
             \Dystcz\LunarApi\Domain\Users\Contracts\ChangePasswordController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\ChangePasswordController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\AuthUserOrdersController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthUserOrdersController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\RegisterUserWithoutPasswordController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\RegisterUserWithoutPasswordController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\AuthController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\PasswordResetLinkController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\PasswordResetLinkController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\NewPasswordController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\NewPasswordController::class,
+            \Dystcz\LunarApi\Domain\Users\Contracts\UsersController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\UsersController::class,
         ];
 
         foreach ($controllers as $abstract => $concrete) {

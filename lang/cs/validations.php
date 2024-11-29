@@ -80,6 +80,9 @@ return [
     ],
 
     'carts' => [
+        'session' => [
+            'exists' => 'Nákupní košík nebyl nalezen.',
+        ],
         'create_user' => [
             'boolean' => 'Pole vytvořit uživatele musí být logická hodnota.',
         ],

@@ -5,6 +5,7 @@ namespace Dystcz\LunarApi\Domain\Carts\Http\Routing;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CartCouponsController;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CartPaymentOptionController;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CartsController;
+use Dystcz\LunarApi\Domain\Carts\Contracts\CartShippingOptionController;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController;
 use Dystcz\LunarApi\Domain\Carts\Contracts\ClearUserCartController;
 use Dystcz\LunarApi\Domain\Carts\Contracts\CreateEmptyCartAddressesController;
@@ -50,6 +51,13 @@ class CartRouteGroup extends RouteGroup
                     ->only('')
                     ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions->post('create-empty-addresses');
+                    });
+
+                $server->resource($this->getPrefix(), CartShippingOptionController::class)
+                    ->only('')
+                    ->actions('-actions', function (ActionRegistrar $actions) {
+                        $actions->post('set-shipping-option');
+                        $actions->post('unset-shipping-option');
                     });
 
                 $server->resource($this->getPrefix(), CheckoutCartController::class)
