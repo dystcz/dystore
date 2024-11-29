@@ -1,0 +1,15 @@
+/legacy
+/vendor
+composer.phar
+.DS_Store
+/.idea
+.phpunit.result.cache
+.php-cs-fixer.cache
+/node_modules
+Session.vim
+phpstan.neon
+ray.php
+_ide_helper.php
+.phpactor.json
+.env.testing
+/.vscode/launch.json
