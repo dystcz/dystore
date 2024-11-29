@@ -1,0 +1,24 @@
+<?php
+
+namespace Dystcz\LunarApiPaypalAdapter;
+
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+
+class LunarApiPaypalAdapterServiceProvider extends PackageServiceProvider
+{
+    public function configurePackage(Package $package): void
+    {
+        /*
+         * This class is a Package Service Provider
+         *
+         * More info: https://github.com/spatie/laravel-package-tools
+         */
+        $package->name('lunar-api-paypal-adapter')->hasConfigFile();
+    }
+
+    public function packageRegistered()
+    {
+        PaypalPaymentAdapter::register();
+    }
+}
