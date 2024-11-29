@@ -1,0 +1,139 @@
+{
+    "id": "evt_3OEUWGEZ3kRHbqdV0QKRSEUF",
+    "object": "event",
+    "api_version": "2020-08-27",
+    "created": 1700475530,
+    "data": {
+        "object": {
+            "id": "ch_3OEUWGEZ3kRHbqdV0exudprO",
+            "object": "charge",
+            "amount": 16400,
+            "amount_captured": 16400,
+            "amount_refunded": 0,
+            "application": null,
+            "application_fee": null,
+            "application_fee_amount": null,
+            "balance_transaction": "txn_3OEUWG1234HbqdV0CDvlM0E",
+            "billing_details": {
+                "address": {
+                    "city": null,
+                    "country": "CZ",
+                    "line1": null,
+                    "line2": null,
+                    "postal_code": null,
+                    "state": null
+                },
+                "email": null,
+                "name": "never",
+                "phone": null
+            },
+            "calculated_statement_descriptor": "RANDOM",
+            "captured": true,
+            "created": 1700475529,
+            "currency": "czk",
+            "customer": null,
+            "description": null,
+            "destination": null,
+            "dispute": null,
+            "disputed": false,
+            "failure_balance_transaction": null,
+            "failure_code": null,
+            "failure_message": null,
+            "fraud_details": {},
+            "invoice": null,
+            "livemode": true,
+            "metadata": {},
+            "on_behalf_of": null,
+            "order": null,
+            "outcome": {
+                "network_status": "approved_by_network",
+                "reason": null,
+                "risk_level": "normal",
+                "seller_message": "Payment complete.",
+                "type": "authorized"
+            },
+            "paid": true,
+            "payment_intent": "pi_3OEUWGEZ3kRHbqdV0Ux8YRbB",
+            "payment_method": "pm_1OEUZ2EZ3kRHbqdVCUZqHxH5",
+            "payment_method_details": {
+                "card": {
+                    "amount_authorized": 16400,
+                    "brand": "visa",
+                    "checks": {
+                        "address_line1_check": null,
+                        "address_postal_code_check": null,
+                        "cvc_check": "pass"
+                    },
+                    "country": "CZ",
+                    "exp_month": 3,
+                    "exp_year": 2028,
+                    "extended_authorization": {
+                        "status": "disabled"
+                    },
+                    "fingerprint": "8yld7yPLP3cePTcH",
+                    "funding": "debit",
+                    "incremental_authorization": {
+                        "status": "unavailable"
+                    },
+                    "installments": null,
+                    "last4": "9043",
+                    "mandate": null,
+                    "multicapture": {
+                        "status": "unavailable"
+                    },
+                    "network": "visa",
+                    "network_token": {
+                        "used": false
+                    },
+                    "overcapture": {
+                        "maximum_amount_capturable": 16400,
+                        "status": "unavailable"
+                    },
+                    "three_d_secure": null,
+                    "wallet": null
+                },
+                "type": "card"
+            },
+            "receipt_email": null,
+            "receipt_number": null,
+            "receipt_url": "https://pay.stripe.com/receipts/payment/random",
+            "refunded": false,
+            "refunds": {
+                "object": "list",
+                "data": [],
+                "has_more": false,
+                "total_count": 0,
+                "url": "/v1/charges/ch_1234GEZ3kRHbqdV0exudprO/refunds"
+            },
+            "review": null,
+            "shipping": {
+                "address": {
+                    "city": "City",
+                    "country": "CZ",
+                    "line1": "Random address",
+                    "line2": null,
+                    "postal_code": "111 22",
+                    "state": null
+                },
+                "carrier": null,
+                "name": "Random Guy",
+                "phone": null,
+                "tracking_number": null
+            },
+            "source": null,
+            "source_transfer": null,
+            "statement_descriptor": null,
+            "statement_descriptor_suffix": null,
+            "status": "succeeded",
+            "transfer_data": null,
+            "transfer_group": null
+        }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+        "id": "req_x1KXFtO7azV9ur",
+        "idempotency_key": "0991a6e0-9f44-49f5-a261-f9324add9718"
+    },
+    "type": "charge.succeeded"
+}
