@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "dystcz/lunar-api": "^1.0.0-beta.1",
+        "dystcz/lunar-api": "^1.0.0-beta",
         "illuminate/support": "^11.0",
         "lunarphp/stripe": "^1.0.0",
         "spatie/laravel-stripe-webhooks": "^3.6"
@@ -33,7 +33,7 @@
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-arch": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
-        "spatie/laravel-ray": "^1.26"
+        "spatie/laravel-ray": "^1.32"
     },
     "autoload": {
         "psr-4": {

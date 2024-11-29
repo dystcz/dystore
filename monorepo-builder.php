@@ -31,11 +31,6 @@ return static function (MBConfig $mbConfig): void {
         __DIR__.'/modules',
     ]);
 
-    $mbConfig->packageDirectoriesExcludes([
-        __DIR__.'/packages/paypal',
-        __DIR__.'/packages/rewards',
-    ]);
-
     $mbConfig->dataToAppend([
         ComposerJsonSection::REQUIRE_DEV => [
             'barryvdh/laravel-ide-helper' => '^3.0',

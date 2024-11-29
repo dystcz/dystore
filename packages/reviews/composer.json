@@ -21,7 +21,7 @@
   ],
   "require": {
     "php": "^8.2",
-    "dystcz/lunar-api": "^1.0.0-beta.1",
+    "dystcz/lunar-api": "^1.0.0-beta",
     "illuminate/support": "^11.0"
   },
   "require-dev": {
