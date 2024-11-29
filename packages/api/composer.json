@@ -1,0 +1,91 @@
+{
+  "name": "dystcz/lunar-api",
+  "description": "Lunar API",
+  "keywords": [
+    "dystcz",
+    "lunar",
+    "lunar-api",
+    "laravel",
+    "php"
+  ],
+  "homepage": "https://github.com/dystcz/lunar-api",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jakub Theimer",
+      "email": "jakub@dy.st",
+      "role": "Developer"
+    },
+    {
+      "name": "Marek Lőrincz",
+      "email": "marek@dy.st",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^10.0",
+    "laravel-json-api/hashids": "^2.0",
+    "laravel-json-api/laravel": "^3.4",
+    "laravel-json-api/non-eloquent": "^3.0",
+    "spatie/laravel-typescript-transformer": "^2.4",
+    "lunarphp/lunar": "^0.8"
+  },
+  "require-dev": {
+    "driftingly/rector-laravel": "^0.17.0",
+    "laravel-json-api/testing": "^2.1",
+    "laravel/pint": "^1.7",
+    "orchestra/testbench": "^8.0",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.0",
+    "rector/rector": "^0.15.23",
+    "spatie/laravel-ray": "^1.32"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dystcz\\LunarApi\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dystcz\\LunarApi\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "vendor/bin/testbench clear-compiled"
+    ],
+    "post-autoload-dump": "@composer run prepare",
+    "artisan": "vendor/bin/testbench",
+    "clear": "vendor/bin/testbench package:purge --ansi",
+    "prepare": "vendor/bin/testbench package:discover --ansi",
+    "package-test": "vendor/bin/testbench package:test",
+    "test": "vendor/bin/pest",
+    "test-hashids": "vendor/bin/pest -c phpunit.hashids.xml",
+    "test-coverage": "vendor/bin/pest --coverage",
+    "analyse": "vendor/bin/phpstan analyse",
+    "format": "vendor/bin/pint"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystcz\\LunarApi\\LunarApiServiceProvider",
+        "Dystcz\\LunarApi\\JsonApiServiceProvider",
+        "Dystcz\\LunarApi\\LunarApiHashidsServiceProvider",
+        "Dystcz\\LunarApi\\LunarApiTypeScriptTransformerServiceProvider"
+      ],
+      "aliases": {
+        "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
