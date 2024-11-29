@@ -6,33 +6,13 @@
 
 -   Removed relationship links from responses by default
 -   Changed price taxation config to `lunar.pricing.stored_inclusive_of_tax` from `lunar-api.general.taxation.prices_with_default_tax`
+-   Added endpoints to set and unset shipping options directly to / from current session cart
+    ([#210](https://github.com/dystcz/dystore-api/pull/210))
 
 ### ⚠️ Breaking changes
 
 -   Login data have to be sent in `data.attributes` instead of directly in the root of the request body.
-
-    **Before:**
-
-    ```json
-    {
-        "email": "{email}"
-        "password": "{password}"
-    }
-    ```
-
-    **After:**
-
-    ```json
-    {
-        "data": {
-            "type": "auth",
-            "attributes": {
-                "email": "{email}",
-                "password": "{password}"
-            }
-        }
-    }
-    ```
+    ([#205](https://github.com/dystcz/dystore-api/pull/205))
 
 ## 1.0.0-beta.3
 
