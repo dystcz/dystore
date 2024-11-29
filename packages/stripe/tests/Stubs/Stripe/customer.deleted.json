@@ -1,0 +1,45 @@
+{
+    "api_version": "2020-08-27",
+    "created": 1700474903,
+    "data": {
+        "object": {
+            "address": null,
+            "balance": 0,
+            "created": 1619167373,
+            "currency": null,
+            "default_currency": null,
+            "default_source": null,
+            "delinquent": false,
+            "description": null,
+            "discount": null,
+            "email": "email@email.com",
+            "id": "cus_JM2gRBMLaLNdOz",
+            "invoice_prefix": "E1AB0515",
+            "invoice_settings": {
+                "custom_fields": null,
+                "default_payment_method": null,
+                "footer": null,
+                "rendering_options": null
+            },
+            "livemode": true,
+            "metadata": [],
+            "name": null,
+            "next_invoice_sequence": 1,
+            "object": "customer",
+            "phone": null,
+            "preferred_locales": [],
+            "shipping": null,
+            "tax_exempt": "none",
+            "test_clock": null
+        }
+    },
+    "id": "evt_1OEUOxEZ3kRHbqdVHcfdeltK",
+    "livemode": true,
+    "object": "event",
+    "pending_webhooks": 1,
+    "request": {
+        "id": "req_GqMVWou314KWSV",
+        "idempotency_key": "batchapi-batch_1OEUOJEZ3kRHbqdV2vHZDLBy-cus_JM2gRBMLaLNdOz_delete_customer"
+    },
+    "type": "customer.deleted"
+}
