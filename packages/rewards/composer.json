@@ -1,0 +1,82 @@
+{
+  "name": "dystcz/lunar-rewards",
+  "description": "Reward system for Laravel applications using Lunar",
+  "version": "0.8.0",
+  "keywords": [
+    "dystcz",
+    "lunar",
+    "lunar-api",
+    "rewards",
+    "points",
+    "laravel",
+    "php"
+  ],
+  "homepage": "https://github.com/dystcz/lunar-rewards",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jakub Theimer",
+      "email": "jakub@dy.st",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^10.0",
+    "lunarphp/lunar": "^0.8"
+  },
+  "suggest": {
+    "dystcz/lunar-api": "For working with Lunar API"
+  },
+  "require-dev": {
+    "barryvdh/laravel-ide-helper": "^2.13",
+    "laravel-json-api/testing": "^2.1",
+    "laravel/pint": "^1.7",
+    "dystcz/lunar-api": "^0.8",
+    "orchestra/testbench": "^8.0",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.0",
+    "rector/rector": "^0.15.23",
+    "driftingly/rector-laravel": "^0.17.0",
+    "spatie/laravel-ray": "^1.32"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dystcz\\LunarRewards\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dystcz\\LunarRewards\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": "@composer run prepare",
+    "clear": "@php vendor/bin/testbench package:purge --ansi",
+    "prepare": "@php vendor/bin/testbench package:discover --ansi",
+    "test": "vendor/bin/pest",
+    "test-hashids": "vendor/bin/pest -c phpunit.hashids.xml",
+    "test-coverage": "vendor/bin/pest --coverage",
+    "analyse": "vendor/bin/phpstan analyse",
+    "format": "vendor/bin/pint"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystcz\\LunarRewards\\LunarRewardsServiceProvider"
+      ],
+      "aliases": {
+        "LunarRewards": "Dystcz\\LunarRewards\\Facade\\LunarRewards"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
