@@ -1,0 +1,9 @@
+{
+  "name": "DystoreAres",
+  "alias": "dystore-ares",
+  "description": "",
+  "keywords": [],
+  "priority": 0,
+  "providers": ["Modules\\DystoreAres\\Providers\\DystoreAresServiceProvider"],
+  "files": []
+}

@@ -1,0 +1,11 @@
+{
+  "name": "DystoreDiscord",
+  "alias": "dystore-discord",
+  "description": "",
+  "keywords": [],
+  "priority": 0,
+  "providers": [
+    "Modules\\DystoreDiscord\\Providers\\DystoreDiscordServiceProvider"
+  ],
+  "files": []
+}

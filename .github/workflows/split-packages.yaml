@@ -1,0 +1,64 @@
+name: Split Packages
+on:
+  push:
+    branches:
+      - main
+      - "1.*"
+    tags:
+      - "*"
+jobs:
+  tag_split_packages:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ["api"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          coverage: none
+
+      - name: Split ${{ matrix.package }}
+        uses: "danharrin/monorepo-split-github-action@v2.3.0"
+        if: "!startsWith(github.ref, 'refs/tags/')"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        with:
+          package_directory: "packages/${{ matrix.package }}"
+          repository_organization: "dystcz"
+          repository_name: "dystore-${{ matrix.package }}"
+          user_name: "GitHub Action"
+          user_email: "action@github.com"
+          branch: ${GITHUB_REF#refs/heads/}
+
+      - name: Set env
+        if: "startsWith(github.ref, 'refs/tags/')"
+        run: echo "GITHUB_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Split ${{ matrix.package }}
+        uses: "danharrin/monorepo-split-github-action@v2.3.0"
+        if: "startsWith(github.ref, 'refs/tags/')"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        with:
+          package_directory: "packages/${{ matrix.package }}"
+          repository_organization: "dystcz"
+          repository_name: "dystore-${{ matrix.package }}"
+          user_name: "GitHub Action"
+          user_email: "action@github.com"
+          branch: ${GITHUB_TAG%.*}
+
+      - name: Tag ${{ matrix.package }}
+        if: "startsWith(github.ref, 'refs/tags/')"
+        uses: "danharrin/monorepo-split-github-action@v2.3.0"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        with:
+          tag: ${GITHUB_REF#refs/tags/}
+          package_directory: "packages/${{ matrix.package }}"
+          repository_organization: "dystcz"
+          repository_name: "dystore-${{ matrix.package }}"
+          user_name: "GitHub Action"
+          user_email: "action@github.com"
+          branch: ${GITHUB_TAG%.*}

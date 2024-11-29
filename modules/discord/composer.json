@@ -1,0 +1,32 @@
+{
+  "name": "dystcz/dystore-discord-module",
+  "type": "laravel-module",
+  "description": "Dystore Discord",
+  "authors": [
+    {
+      "name": "Dystopia Developers",
+      "email": "dev@dy.st"
+    }
+  ],
+  "require": {
+    "laravel-notification-channels/discord": "^1.5"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [],
+      "aliases": {}
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules\\DystoreDiscord\\": "src/",
+      "Modules\\DystoreDiscord\\Database\\Factories\\": "database/factories/",
+      "Modules\\DystoreDiscord\\Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\DystoreDiscord\\Tests\\": "tests/"
+    }
+  }
+}

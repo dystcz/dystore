@@ -1,0 +1,8 @@
+git@github.com:dystcz/dystore-api.git                       api    packages/api
+git@github.com:dystcz/lunar-api-stripe-adapter.git          stripe    packages/stripe
+git@github.com:dystcz/lunar-api-product-views.git           product-views    packages/product-views
+git@github.com:dystcz/lunar-api-newsletter.git              newsletter    packages/newsletter
+git@github.com:dystcz/lunar-api-reviews.git                 reviews    packages/reviews
+git@github.com:dystcz/lunar-api-product-notifications.git   product-notifications    packages/product-notifications
+git@github.com:dystcz/lunar-rewards.git                     rewards    packages/rewards
+git@github.com:dystcz/lunar-api-paypal-adapter.git          paypal    packages/paypal

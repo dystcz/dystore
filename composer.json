@@ -1,0 +1,107 @@
+{
+    "name": "dystcz/dystore",
+    "description": "Dystore Monorepo",
+    "license": "MIT",
+    "keywords": [
+        "dystcz",
+        "lunar",
+        "lunar-api",
+        "laravel",
+        "modules",
+        "php"
+    ],
+    "authors": [
+        {
+            "name": "Dystopia Developers",
+            "email": "dev@dy.st"
+        },
+        {
+            "name": "Jakub Theimer",
+            "email": "jakub@dy.st",
+            "role": "Developer"
+        },
+        {
+            "name": "Marek Lőrincz",
+            "email": "marek@dy.st",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/dystcz/dystore",
+    "require": {
+        "php": "^8.2",
+        "h4kuna/ares": "^3.0",
+        "illuminate/support": "^11.0",
+        "laravel-json-api/hashids": "^3.0",
+        "laravel-json-api/laravel": "^4.0",
+        "laravel-json-api/non-eloquent": "^4.0",
+        "laravel-notification-channels/discord": "^1.5",
+        "lunarphp/lunar": "^1.0.0-beta.5",
+        "staudenmeir/eloquent-has-many-deep": "^1.20"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.0",
+        "larastan/larastan": "^2.0",
+        "laravel-json-api/testing": "^3.0",
+        "laravel/pint": "^1.7",
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-faker": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0",
+        "spatie/laravel-ray": "^1.32",
+        "symplify/monorepo-builder": "^11.2"
+    },
+    "replace": {
+        "dystcz/dystore-api": "self.version",
+        "dystcz/dystore-ares-module": "self.version",
+        "dystcz/dystore-discord-module": "self.version"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Dystore\\Api\\": "packages/api/src",
+            "Modules\\DystoreAres\\": "modules/ares/src/",
+            "Modules\\DystoreAres\\Database\\Factories\\": "modules/ares/database/factories/",
+            "Modules\\DystoreAres\\Database\\Seeders\\": "modules/ares/database/seeders/",
+            "Modules\\DystoreDiscord\\": "modules/discord/src/",
+            "Modules\\DystoreDiscord\\Database\\Factories\\": "modules/discord/database/factories/",
+            "Modules\\DystoreDiscord\\Database\\Seeders\\": "modules/discord/database/seeders/"
+        },
+        "files": [
+            "packages/api/autoload.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dystore\\Api\\Tests\\": "packages/api/tests",
+            "Dystore\\Tests\\Api\\": "tests/api",
+            "Modules\\DystoreAres\\Tests\\": "modules/ares/tests/",
+            "Modules\\DystoreDiscord\\Tests\\": "modules/discord/tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dystore\\Api\\JsonApiServiceProvider",
+                "Dystore\\Api\\LunarApiHashidsServiceProvider",
+                "Dystore\\Api\\LunarApiServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test:pest": "vendor/bin/pest",
+        "test:phpstan": "vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint",
+        "test": [
+            "@test:pest",
+            "@test:phpstan"
+        ]
+    }
+}
