@@ -80,6 +80,9 @@ return [
     ],
 
     'carts' => [
+        'session' => [
+            'exists' => 'There is no cart in the session.',
+        ],
         'create_user' => [
             'boolean' => 'Create user field must be a boolean.',
         ],
