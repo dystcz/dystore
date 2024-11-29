@@ -1,0 +1,75 @@
+{
+  "name": "dystcz/lunar-api-newsletter",
+  "description": "Add the possibility to sign up to newsletter lists to your Lunar backend",
+  "keywords": [
+    "dystopia",
+    "lunar-api-newsletter",
+    "lunar",
+    "newsletter"
+  ],
+  "homepage": "https://github.com/dystcz/lunar-api-newsletter",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jakub Theimer",
+      "email": "jakub@dy.st",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "dystcz/lunar-api": "^1.0.0-alpha",
+    "illuminate/support": "^11.0",
+    "spatie/laravel-newsletter": "^5.1"
+  },
+  "suggest": {
+    "spatie/mailcoach-sdk-php": "For working with Mailcoach",
+    "drewm/mailchimp-api": "For working with MailChimp",
+    "getbrevo/brevo-php": "For working with Brevo"
+  },
+  "require-dev": {
+    "laravel-json-api/testing": "^3.0",
+    "drewm/mailchimp-api": "^2.5",
+    "getbrevo/brevo-php": "^1.0",
+    "laravel/pint": "^1.7",
+    "orchestra/testbench": "^9.0",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-faker": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.0",
+    "spatie/laravel-ray": "^1.32",
+    "spatie/mailcoach-sdk-php": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dystcz\\LunarApiNewsletter\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dystcz\\LunarApiNewsletter\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystcz\\LunarApiNewsletter\\LunarApiNewsletterServiceProvider"
+      ],
+      "aliases": {
+        "LunarApiNewsletter": "Dystcz\\LunarApiNewsletter\\LunarApiNewsletterFacade"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
