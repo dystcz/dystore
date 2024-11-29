@@ -23,7 +23,7 @@ jobs:
         uses: "danharrin/monorepo-split-github-action@v2.3.0"
         if: "!startsWith(github.ref, 'refs/tags/')"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           package_directory: "packages/${{ matrix.package }}"
           repository_organization: "dystcz"
@@ -40,7 +40,7 @@ jobs:
         uses: "danharrin/monorepo-split-github-action@v2.3.0"
         if: "startsWith(github.ref, 'refs/tags/')"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           package_directory: "packages/${{ matrix.package }}"
           repository_organization: "dystcz"
@@ -53,7 +53,7 @@ jobs:
         if: "startsWith(github.ref, 'refs/tags/')"
         uses: "danharrin/monorepo-split-github-action@v2.3.0"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           tag: ${GITHUB_REF#refs/tags/}
           package_directory: "packages/${{ matrix.package }}"
