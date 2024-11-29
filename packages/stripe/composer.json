@@ -1,0 +1,73 @@
+{
+    "name": "dystcz/lunar-api-stripe-adapter",
+    "description": "Lunar API Stripe Adapter",
+    "keywords": [
+        "dystcz",
+        "laravel",
+        "php",
+        "lunar",
+        "lunar-api",
+        "lunar-api-stripe-adapter",
+        "stripe"
+    ],
+    "homepage": "https://github.com/dystcz/lunar-api-stripe-adapter",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jakub Theimer",
+            "email": "jakub@dy.st",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "dystcz/lunar-api": "^1.0.0-alpha",
+        "illuminate/support": "^11.0",
+        "lunarphp/stripe": "^1.0.0-alpha",
+        "spatie/laravel-stripe-webhooks": "^3.6"
+    },
+    "require-dev": {
+        "laravel-json-api/testing": "^3.0",
+        "laravel/pint": "^1.7",
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-arch": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0",
+        "spatie/laravel-ray": "^1.26"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dystcz\\LunarApiStripeAdapter\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dystcz\\LunarApiStripeAdapter\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@composer run prepare",
+        "clear": "@php vendor/bin/testbench package:purge --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dystcz\\LunarApiStripeAdapter\\LunarApiStripeAdapterServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
