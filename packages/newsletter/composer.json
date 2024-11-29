@@ -1,0 +1,79 @@
+{
+  "name": "dystcz/lunar-api-newsletter",
+  "description": "Add the possibility to sign up to newsletter lists to your Lunar backend",
+  "keywords": [
+    "dystopia",
+    "lunar-api-newsletter",
+    "lunar",
+    "newsletter"
+  ],
+  "homepage": "https://github.com/dystcz/lunar-api-newsletter",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jakub Theimer",
+      "email": "jakub@dy.st",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "dystcz/lunar-api": "^0.8",
+    "illuminate/support": "^10.0",
+    "spatie/laravel-newsletter": "^5.1"
+  },
+  "suggest": {
+    "spatie/mailcoach-sdk-php": "For working with Mailcoach",
+    "drewm/mailchimp-api": "For working with MailChimp",
+    "getbrevo/brevo-php": "For working with Brevo"
+  },
+  "require-dev": {
+    "drewm/mailchimp-api": "^2.5",
+    "driftingly/rector-laravel": "^0.17.0",
+    "getbrevo/brevo-php": "^1.0",
+    "laravel-json-api/testing": "^2.1",
+    "laravel/pint": "^1.7",
+    "mockery/mockery": "^1.5",
+    "nunomaduro/larastan": "^2.5.1",
+    "orchestra/testbench": "^8.0",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-faker": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.0",
+    "rector/rector": "^0.15.23",
+    "spatie/laravel-ray": "^1.32",
+    "spatie/mailcoach-sdk-php": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dystcz\\LunarApiNewsletter\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dystcz\\LunarApiNewsletter\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystcz\\LunarApiNewsletter\\LunarApiNewsletterServiceProvider"
+      ],
+      "aliases": {
+        "LunarApiNewsletter": "Dystcz\\LunarApiNewsletter\\LunarApiNewsletterFacade"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
