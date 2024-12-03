@@ -5,6 +5,8 @@ namespace Dystcz\LunarApi\Domain\Carts\Concerns;
 use Dystcz\LunarApi\Domain\Carts\Events\CartCreated;
 use Dystcz\LunarApi\Domain\Carts\Factories\CartFactory;
 use Dystcz\LunarApi\Hashids\Traits\HashesRouteKey;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Lunar\Models\Contracts\Cart as CartContract;
 
 trait InteractsWithLunarApi
@@ -49,5 +51,15 @@ trait InteractsWithLunarApi
     protected static function newFactory(): CartFactory
     {
         return CartFactory::new();
+    }
+
+    /**
+     * @param  Builder<Model>  $query
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        // NOTE: When cart has order, it is considered inactive
+        // @see scopeActive method on \Lunar\Models\Cart
+        return $query->whereDoesntHave('orders');
     }
 }
