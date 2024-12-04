@@ -13,6 +13,11 @@ jobs:
       matrix:
         package:
           - api
+          - newsletter
+          - product-notifications
+          - product-views
+          - reviews
+          - stripe
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
