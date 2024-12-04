@@ -2,7 +2,6 @@ name: Split Modules
 on:
   push:
     branches:
-      - main
       - "1.*"
     tags:
       - "*"
