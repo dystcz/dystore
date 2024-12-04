@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1
+
+-   Added CustomerGroups domain
+
+## 1.0.0
+
+-   Monorepo 🎉
+
 ## 1.0.0-beta.4
 
 ### Changes
