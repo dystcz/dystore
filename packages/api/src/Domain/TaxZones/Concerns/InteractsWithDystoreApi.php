@@ -5,7 +5,7 @@ namespace Dystore\Api\Domain\TaxZones\Concerns;
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
 use Spatie\LaravelBlink\BlinkFacade;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
 

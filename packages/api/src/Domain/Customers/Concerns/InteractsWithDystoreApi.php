@@ -7,7 +7,7 @@ use Dystore\Api\Domain\Customers\Factories\CustomerFactory;
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
     use InteractsWithAttributes;

@@ -2,7 +2,7 @@
 
 namespace Dystore\Api\Domain\Orders\Models;
 
-use Dystore\Api\Domain\Orders\Concerns\InteractsWithLunarApi;
+use Dystore\Api\Domain\Orders\Concerns\InteractsWithDystoreApi;
 use Dystore\Api\Domain\Orders\Contracts\Order as OrderContract;
 use Lunar\Models\Order as LunarOrder;
 
@@ -22,5 +22,5 @@ use Lunar\Models\Order as LunarOrder;
  */
 class Order extends LunarOrder implements OrderContract
 {
-    use InteractsWithLunarApi;
+    use InteractsWithDystoreApi;
 }

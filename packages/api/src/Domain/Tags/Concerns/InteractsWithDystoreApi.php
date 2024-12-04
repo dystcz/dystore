@@ -5,7 +5,7 @@ namespace Dystore\Api\Domain\Tags\Concerns;
 use Dystore\Api\Domain\Tags\Factories\TagFactory;
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
 

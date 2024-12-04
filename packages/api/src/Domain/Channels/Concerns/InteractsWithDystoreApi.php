@@ -5,7 +5,7 @@ namespace Dystore\Api\Domain\Channels\Concerns;
 use Dystore\Api\Domain\Channels\Factories\ChannelFactory;
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
 

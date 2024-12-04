@@ -22,7 +22,7 @@ use Lunar\Models\ProductVariant as LunarPoductVariant;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
     use HasUrls;

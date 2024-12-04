@@ -2,7 +2,7 @@
 
 namespace Dystore\Api\Domain\Collections\Models;
 
-use Dystore\Api\Domain\Collections\Concerns\InteractsWithLunarApi;
+use Dystore\Api\Domain\Collections\Concerns\InteractsWithDystoreApi;
 use Dystore\Api\Domain\Collections\Contracts\Collection as CollectionContract;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -17,5 +17,5 @@ use Lunar\Models\Collection as LunarCollection;
  */
 class Collection extends LunarCollection implements CollectionContract
 {
-    use InteractsWithLunarApi;
+    use InteractsWithDystoreApi;
 }

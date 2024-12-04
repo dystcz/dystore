@@ -5,7 +5,7 @@ namespace Dystore\Api\Domain\Prices\Concerns;
 use Dystore\Api\Domain\Prices\Factories\PriceFactory;
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
 

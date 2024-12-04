@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Config;
 use Lunar\Base\Casts\Price;
 use Lunar\Models\Transaction;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
 

@@ -6,7 +6,7 @@ use Dystore\Api\Domain\Addresses\Concerns\HasCompanyIdentifiersInMeta;
 use Dystore\Api\Domain\OrderAddresses\Factories\OrderAddressFactory;
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HasCompanyIdentifiersInMeta;
     use HashesRouteKey;

@@ -8,7 +8,7 @@ use Dystore\Api\Hashids\Traits\HashesRouteKey;
 use Illuminate\Database\Eloquent\Builder;
 use Lunar\Models\Contracts\Cart as CartContract;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
     use InteractsWithPaymentOptions;

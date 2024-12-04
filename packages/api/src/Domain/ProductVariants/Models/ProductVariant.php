@@ -4,7 +4,7 @@ namespace Dystore\Api\Domain\ProductVariants\Models;
 
 use Dystore\Api\Base\Contracts\HasAvailability;
 use Dystore\Api\Base\Contracts\Translatable;
-use Dystore\Api\Domain\ProductVariants\Concerns\InteractsWithLunarApi;
+use Dystore\Api\Domain\ProductVariants\Concerns\InteractsWithDystoreApi;
 use Dystore\Api\Domain\ProductVariants\Contracts\ProductVariant as ProductVariantContract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
@@ -19,5 +19,5 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  */
 class ProductVariant extends LunarPoductVariant implements HasAvailability, HasMedia, ProductVariantContract, Translatable
 {
-    use InteractsWithLunarApi;
+    use InteractsWithDystoreApi;
 }

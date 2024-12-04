@@ -2,7 +2,7 @@
 
 namespace Dystore\Api\Domain\Users\Models;
 
-use Dystore\Api\Domain\Users\Concerns\InteractsWithLunarApi;
+use Dystore\Api\Domain\Users\Concerns\InteractsWithDystoreApi;
 use Dystore\Api\Domain\Users\Contracts\User as UserContract;
 use Dystore\Api\Domain\Users\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -24,7 +24,7 @@ class User extends Authenticatable implements LunarUserContract, UserContract
 {
     use HasFactory;
     use HasModelExtending;
-    use InteractsWithLunarApi;
+    use InteractsWithDystoreApi;
     use LunarUser;
     use Notifiable;
 

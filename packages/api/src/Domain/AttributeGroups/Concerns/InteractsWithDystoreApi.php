@@ -4,7 +4,7 @@ namespace Dystore\Api\Domain\AttributeGroups\Concerns;
 
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
 }

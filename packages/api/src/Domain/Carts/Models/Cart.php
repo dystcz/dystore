@@ -2,7 +2,7 @@
 
 namespace Dystore\Api\Domain\Carts\Models;
 
-use Dystore\Api\Domain\Carts\Concerns\InteractsWithLunarApi;
+use Dystore\Api\Domain\Carts\Concerns\InteractsWithDystoreApi;
 use Dystore\Api\Domain\Carts\Contracts\Cart as CartContract;
 use Dystore\Api\Domain\Carts\ValueObjects\PaymentBreakdown;
 use Dystore\Api\Domain\PaymentOptions\Entities\PaymentOption;
@@ -26,5 +26,5 @@ use Lunar\Models\Cart as LunarCart;
  */
 class Cart extends LunarCart implements CartContract
 {
-    use InteractsWithLunarApi;
+    use InteractsWithDystoreApi;
 }

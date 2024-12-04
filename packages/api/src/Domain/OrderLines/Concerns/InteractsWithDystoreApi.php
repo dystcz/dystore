@@ -5,7 +5,7 @@ namespace Dystore\Api\Domain\OrderLines\Concerns;
 use Dystore\Api\Domain\OrderLines\Factories\OrderLineFactory;
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
 

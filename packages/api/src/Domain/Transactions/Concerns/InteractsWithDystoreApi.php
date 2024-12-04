@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystore\Api\Domain\Users\Concerns;
+namespace Dystore\Api\Domain\Transactions\Concerns;
 
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
 
-trait InteractsWithLunarApi
+trait InteractsWithDystoreApi
 {
     use HashesRouteKey;
 }
