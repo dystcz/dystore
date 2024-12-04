@@ -1,0 +1,31 @@
+<?php
+
+namespace Dystore\Api\Domain\Storefront\JsonApi\V1;
+
+use Dystore\Api\Domain\JsonApi\Resources\JsonApiResource;
+
+class StorefrontResource extends JsonApiResource
+{
+    public function id(): string
+    {
+        return $this->resource->getId();
+    }
+
+    /**
+     * Get the resource's relationships.
+     *
+     * @param  Request|null  $request
+     */
+    public function relationships($request): iterable
+    {
+        /** @var \Dystore\Api\Domain\Storefront\Entities\Storefront $resource */
+        $resource = $this->resource;
+
+        return [
+            $this->relation('channel')->withData($resource->getChannel()),
+            $this->relation('customer')->withData($resource->getCustomer()),
+            $this->relation('currency')->withData($resource->getCurrency()),
+            $this->relation('customer_groups')->withData($resource->getCustomerGroups()),
+        ];
+    }
+}

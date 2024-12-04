@@ -336,6 +336,7 @@ class ApiServiceProvider extends ServiceProvider
             \Dystore\Api\Domain\Auth\Contracts\AuthController::class => \Dystore\Api\Domain\Auth\Http\Controllers\AuthController::class,
             \Dystore\Api\Domain\Auth\Contracts\PasswordResetLinkController::class => \Dystore\Api\Domain\Auth\Http\Controllers\PasswordResetLinkController::class,
             \Dystore\Api\Domain\Auth\Contracts\NewPasswordController::class => \Dystore\Api\Domain\Auth\Http\Controllers\NewPasswordController::class,
+            \Dystore\Api\Domain\Storefront\Contracts\StorefrontController::class => \Dystore\Api\Domain\Storefront\Http\Controllers\StorefrontController::class,
         ];
 
         foreach ($controllers as $abstract => $concrete) {

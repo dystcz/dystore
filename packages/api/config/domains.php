@@ -15,6 +15,11 @@ return [
         ],
     ],
 
+    'storefronts' => [
+        'schema' => Dystore\Api\Domain\Storefront\JsonApi\V1\StorefrontSchema::class,
+        'routes' => Dystore\Api\Domain\Storefront\Http\Routing\StorefrontRouteGroup::class,
+    ],
+
     SchemaType::get(Lunar\Models\Contracts\Address::class) => [
         'model' => Dystore\Api\Domain\Addresses\Models\Address::class,
         'model_contract' => Lunar\Models\Contracts\Address::class,
