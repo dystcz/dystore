@@ -5,6 +5,7 @@ namespace Dystore\Api\Domain\Carts\Http\Routing;
 use Dystore\Api\Domain\Carts\Contracts\CartCouponsController;
 use Dystore\Api\Domain\Carts\Contracts\CartPaymentOptionController;
 use Dystore\Api\Domain\Carts\Contracts\CartsController;
+use Dystore\Api\Domain\Carts\Contracts\CartShippingOptionController;
 use Dystore\Api\Domain\Carts\Contracts\CheckoutCartController;
 use Dystore\Api\Domain\Carts\Contracts\ClearUserCartController;
 use Dystore\Api\Domain\Carts\Contracts\CreateEmptyCartAddressesController;
