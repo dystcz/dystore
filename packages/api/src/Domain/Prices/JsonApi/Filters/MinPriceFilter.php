@@ -8,6 +8,7 @@ use LaravelJsonApi\Eloquent\Filters\Concerns\DeserializesValue;
 use LaravelJsonApi\Eloquent\Filters\Concerns\HasColumn;
 use LaravelJsonApi\Eloquent\Filters\Concerns\IsSingular;
 
+/** @phpstan-consistent-constructor */
 class MinPriceFilter implements Filter
 {
     use DeserializesValue;

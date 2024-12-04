@@ -41,6 +41,7 @@ abstract class Action
      */
     public static function run(...$args)
     {
+        /** @phpstan-ignore-next-line */
         $self = new static;
 
         $self->checkIfHandleExists();

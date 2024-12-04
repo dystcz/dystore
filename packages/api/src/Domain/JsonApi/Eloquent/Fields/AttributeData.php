@@ -11,6 +11,7 @@ use LaravelJsonApi\Eloquent\Fields\Attribute;
 use Lunar\FieldTypes\Dropdown;
 use Lunar\Models\Contracts\Attribute as AttributeContract;
 
+/** @phpstan-consistent-constructor */
 class AttributeData extends Attribute
 {
     private ?Closure $keys = null;

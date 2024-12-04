@@ -19,8 +19,11 @@ use Lunar\Models\Contracts\Cart as CartContract;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Contracts\Transaction as TransactionContract;
 
+/** @phpstan-consistent-constructor */
 abstract class PaymentAdapter
 {
+    public function __construct() {}
+
     /**
      * Register payment adapter.
      */

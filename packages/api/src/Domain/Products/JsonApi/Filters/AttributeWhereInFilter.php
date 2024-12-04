@@ -8,6 +8,7 @@ use LaravelJsonApi\Eloquent\Filters\Concerns\DeserializesValue;
 use LaravelJsonApi\Eloquent\Filters\Concerns\HasColumn;
 use LaravelJsonApi\Eloquent\Filters\Concerns\HasDelimiter;
 
+/** @phpstan-consistent-constructor */
 class AttributeWhereInFilter implements Filter
 {
     use DeserializesValue;

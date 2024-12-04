@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Conditionable;
 
+/** @phpstan-consistent-constructor */
 class TransactionData implements Arrayable
 {
     use Conditionable;
