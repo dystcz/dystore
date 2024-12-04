@@ -2,8 +2,8 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Factories;
 
+use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
-use Dystore\Reviews\Tests\Stubs\Users\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
