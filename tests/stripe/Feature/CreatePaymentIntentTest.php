@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\URL;
 use Lunar\Facades\CartSession;
 use Lunar\Models\Transaction;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('payment-intents');
 
 beforeEach(function () {
     /** @var TestCase $this */
@@ -52,7 +53,7 @@ test('can create a payment intent', function (string $paymentMethod) {
     expect($response->json('meta.payment_intent.id'))
         ->toBe($this->cart->fresh()->paymentIntents->first()->intent_id);
 
-})->group('payment-intents')->with(['stripe']);
+})->with(['stripe']);
 
 it('creates a transaction when creating a payement intent', function (string $paymentMethod) {
     /** @var TestCase $this */
@@ -84,4 +85,4 @@ it('creates a transaction when creating a payement intent', function (string $pa
         'reference' => $response->json('meta.payment_intent.id'),
     ]);
 
-})->group('payment-intents')->with(['stripe']);
+})->with(['stripe']);

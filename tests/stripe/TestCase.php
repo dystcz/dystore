@@ -10,18 +10,19 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\Taxes;
 use Lunar\Models\Currency;
+use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
     use MakesJsonApiRequests;
+    use WithWorkbench;
 
     protected function setUp(): void
     {
@@ -38,11 +39,6 @@ abstract class TestCase extends OrchestraTestCase
         ]);
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
-
-        Artisan::call('vendor:publish', [
-            '--provider' => 'Spatie\WebhookClient\WebhookClientServiceProvider',
-            '--tag' => 'webhook-client-migrations',
-        ]);
 
         activity()->disableLogging();
     }
