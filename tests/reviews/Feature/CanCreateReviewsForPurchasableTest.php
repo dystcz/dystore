@@ -2,10 +2,10 @@
 
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
-use Dystcz\LunarApiReviews\Domain\Reviews\Models\Review;
-use Dystcz\LunarApiReviews\Tests\Stubs\Users\User;
-use Dystcz\LunarApiReviews\Tests\Stubs\Users\UserFactory;
-use Dystcz\LunarApiReviews\Tests\TestCase;
+use Dystore\Reviews\Domain\Reviews\Models\Review;
+use Dystore\Reviews\Tests\Stubs\Users\User;
+use Dystore\Reviews\Tests\Stubs\Users\UserFactory;
+use Dystore\Reviews\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 
@@ -91,7 +91,7 @@ it('can save a review with name and meta', function () {
 it('requires a rating and comment, but also a name in order to be saved', function () {
 
     /** @var TestCase $this */
-    Config::set('lunar-api.reviews.domains.reviews.settings.name_required', true);
+    Config::set('dystore.reviews.domains.reviews.settings.name_required', true);
 
     $product = Product::factory()->create();
 
@@ -115,15 +115,15 @@ it('requires a rating and comment, but also a name in order to be saved', functi
 
     $response
         ->assertErrors(422, [
-            ['detail' => __('lunar-api-reviews::validations.rating.required'), 'status' => '422'],
-            ['detail' => __('lunar-api-reviews::validations.name.required'), 'status' => '422'],
+            ['detail' => __('dystore-reviews::validations.rating.required'), 'status' => '422'],
+            ['detail' => __('dystore-reviews::validations.name.required'), 'status' => '422'],
         ]);
 
 })->group('reviews');
 
 it('can store anonymous review when configured', function () {
     /** @var TestCase $this */
-    Config::get('lunar-api.reviews.domains.reviews.settings.auth_required', false);
+    Config::get('dystore.reviews.domains.reviews.settings.auth_required', false);
 
     /** @var Review $review */
     $review = Review::factory()

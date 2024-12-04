@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiReviews;
+namespace Dystore\Reviews;
 
 use Dystcz\LunarApi\Base\Contracts\ResourceManifest;
 use Dystcz\LunarApi\Base\Contracts\SchemaManifest;
@@ -12,10 +12,10 @@ use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
-use Dystcz\LunarApiReviews\Domain\Hub\Components\Slots\ReviewsSlot;
-use Dystcz\LunarApiReviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
-use Dystcz\LunarApiReviews\Domain\Reviews\Models\Review;
-use Dystcz\LunarApiReviews\Domain\Reviews\Observers\ReviewObserver;
+use Dystore\Reviews\Domain\Hub\Components\Slots\ReviewsSlot;
+use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
+use Dystore\Reviews\Domain\Reviews\Models\Review;
+use Dystore\Reviews\Domain\Reviews\Observers\ReviewObserver;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use LaravelJsonApi\Eloquent\Fields\Number;
@@ -26,7 +26,7 @@ use Lunar\Hub\Facades\Slot;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
 
-class LunarReviewsServiceProvider extends ServiceProvider
+class ReviewsServiceProvider extends ServiceProvider
 {
     protected $root = __DIR__.'/..';
 
@@ -39,7 +39,7 @@ class LunarReviewsServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(
             "{$this->root}/lang",
-            'lunar-api-reviews',
+            'dystore-reviews',
         );
 
         $this->registerSchemas();
@@ -59,12 +59,12 @@ class LunarReviewsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom("{$this->root}/database/migrations");
-        $this->loadViewsFrom(__DIR__.'/Domain/Hub/resources/views', 'lunar-api-reviews');
+        $this->loadViewsFrom(__DIR__.'/Domain/Hub/resources/views', 'dystore-reviews');
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
 
         // TODO: Add slots to Filament
         // Livewire::component(
-        //     'lunar-api-reviews::reviews-slot',
+        //     'dystore-reviews::reviews-slot',
         //     ReviewsSlot::class,
         // );
         //
@@ -89,7 +89,7 @@ class LunarReviewsServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             "{$this->root}/config/reviews.php",
-            'lunar-api.reviews',
+            'dystore.reviews',
         );
     }
 
@@ -99,8 +99,8 @@ class LunarReviewsServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            "{$this->root}/config/reviews.php" => config_path('lunar-api.reviews.php'),
-        ], 'lunar-api-reviews');
+            "{$this->root}/config/reviews.php" => config_path('dystore.reviews.php'),
+        ], 'dystore-reviews');
     }
 
     /**
@@ -109,8 +109,8 @@ class LunarReviewsServiceProvider extends ServiceProvider
     protected function publishTranslations(): void
     {
         $this->publishes([
-            __DIR__.'/../lang' => $this->app->langPath('vendor/lunar-api'),
-        ], 'lunar-api-reviews.translations');
+            __DIR__.'/../lang' => $this->app->langPath('vendor/dystore-reviews'),
+        ], 'dystore-reviews.translations');
     }
 
     /**
@@ -119,16 +119,6 @@ class LunarReviewsServiceProvider extends ServiceProvider
     public function registerSchemas(): void
     {
         SchemaManifestFacade::registerSchema(ReviewSchema::class);
-    }
-
-    /**
-     * Publish views.
-     */
-    protected function publishViews(): void
-    {
-        $this->publishes([
-            __DIR__.'/Domain/Hub/resources/views' => resource_path('views/vendor/lunar-api-reviews'),
-        ], 'views');
     }
 
     /**
@@ -239,7 +229,7 @@ class LunarReviewsServiceProvider extends ServiceProvider
      */
     public function registerPolicies(): void
     {
-        DomainConfigCollection::fromConfig('lunar-api.reviews.domains')
+        DomainConfigCollection::fromConfig('dystore.reviews.domains')
             ->getPolicies()
             ->each(
                 fn (string $policy, string $model) => Gate::policy($model, $policy),

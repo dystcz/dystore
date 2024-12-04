@@ -1,8 +1,8 @@
 <?php
 
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
-use Dystcz\LunarApiReviews\Domain\Reviews\Models\Review;
-use Dystcz\LunarApiReviews\Tests\TestCase;
+use Dystore\Reviews\Domain\Reviews\Models\Review;
+use Dystore\Reviews\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Hub\Models\Staff;
 

@@ -2,7 +2,7 @@
 
 use Dystcz\LunarApi\Domain\Products\Models\Product;
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
-use Dystcz\LunarApiReviews\Tests\TestCase;
+use Dystore\Reviews\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Tests\Unit;
+namespace Dystore\Reviews\Tests\Unit;
 
-use Dystcz\LunarApiReviews\Tests\TestCase;
+use Dystore\Reviews\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;

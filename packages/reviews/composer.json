@@ -24,8 +24,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Dystore\\Reviews\\": "src"
-    }
+      "Dystore\\Reviews\\": "src",
+      "Dystore\\Reviews\\Database\\Factories\\": "database/factories",
+      "Dystore\\Reviews\\Database\\State\\": "database/state"
+    },
+    "files": [
+      "autoload.php"
+    ]
   },
   "config": {
     "sort-packages": true,

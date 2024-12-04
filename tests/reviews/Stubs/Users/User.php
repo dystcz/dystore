@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Tests\Stubs\Users;
+namespace Dystore\Reviews\Tests\Stubs\Users;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

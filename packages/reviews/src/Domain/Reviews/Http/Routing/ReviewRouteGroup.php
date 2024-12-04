@@ -1,15 +1,15 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\Http\Routing;
+namespace Dystore\Reviews\Domain\Reviews\Http\Routing;
 
 use Dystcz\LunarApi\Domain\Products\Http\Controllers\ProductsController;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystcz\LunarApi\Domain\ProductVariants\Http\Controllers\ProductVariantsController;
 use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystcz\LunarApi\Routing\RouteGroup;
-use Dystcz\LunarApiReviews\Domain\Reviews\Http\Controllers\PublishReviewsController;
-use Dystcz\LunarApiReviews\Domain\Reviews\Http\Controllers\ReviewsController;
-use Dystcz\LunarApiReviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
+use Dystore\Reviews\Domain\Reviews\Http\Controllers\PublishReviewsController;
+use Dystore\Reviews\Domain\Reviews\Http\Controllers\ReviewsController;
+use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\Relationships;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;

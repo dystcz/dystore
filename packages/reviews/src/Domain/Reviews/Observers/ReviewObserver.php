@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\Observers;
+namespace Dystore\Reviews\Domain\Reviews\Observers;
 
-use Dystcz\LunarApiReviews\Domain\Reviews\Models\Review;
+use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
@@ -13,7 +13,7 @@ class ReviewObserver
      */
     public function creating(Review $review): void
     {
-        if (Config::get('lunar-api.reviews.domains.reviews.settings.auth_required', true)) {
+        if (Config::get('dystore.reviews.domains.reviews.settings.auth_required', true)) {
             $review->user_id = $review->user_id ?: Auth::user()?->id;
         }
     }

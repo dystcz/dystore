@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\Scopes;
+namespace Dystore\Reviews\Domain\Reviews\Scopes;
 
-use Dystcz\LunarApiReviews\Domain\Reviews\Builders\ReviewBuilder;
+use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;

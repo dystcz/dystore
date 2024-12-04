@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApiReviews\Tests\TestCase;
+use Dystore\Reviews\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Admin\Models\Staff;
 use Lunar\Database\Factories\ProductFactory;
@@ -25,5 +25,5 @@ test('product show page contains reviews slot component', function () {
     $this
         ->actingAs($staff, 'staff')
         ->get('/hub/products/'.$product->id)
-        ->assertSeeLivewire('lunar-api-reviews::reviews-slot');
+        ->assertSeeLivewire('dystore-reviews::reviews-slot');
 })->skip('Need to implement slots in Filament');

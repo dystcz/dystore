@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\JsonApi\V1;
+namespace Dystore\Reviews\Domain\Reviews\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Resources\JsonApiResource;
 use Illuminate\Http\Request;

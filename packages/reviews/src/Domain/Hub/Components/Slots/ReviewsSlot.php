@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Hub\Components\Slots;
+namespace Dystore\Reviews\Domain\Hub\Components\Slots;
 
 use Carbon\Carbon;
-use Dystcz\LunarApiReviews\Domain\Reviews\Models\Review;
+use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -18,7 +18,7 @@ class ReviewsSlot extends Component implements AbstractSlot
 
     public static function getName(): string
     {
-        return 'lunar-api-reviews::reviews-slot';
+        return 'dystore-reviews::reviews-slot';
     }
 
     public function getSlotHandle(): string
@@ -54,7 +54,7 @@ class ReviewsSlot extends Component implements AbstractSlot
 
     public function render(): View|Factory
     {
-        return view('lunar-api-reviews::livewire.reviews-slot', [
+        return view('dystore-reviews::livewire.reviews-slot', [
             'reviews' => $this->slotModel->reviews()->paginate(10),
         ]);
     }

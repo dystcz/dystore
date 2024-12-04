@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Tests;
+namespace Dystore\Reviews\Tests;
 
 use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
-use Dystcz\LunarApiReviews\Domain\Reviews\Models\Review;
-use Dystcz\LunarApiReviews\Tests\Stubs\Lunar\TestUrlGenerator;
-use Dystcz\LunarApiReviews\Tests\Stubs\Users\UserSchema;
+use Dystore\Reviews\Domain\Reviews\Models\Review;
+use Dystore\Reviews\Tests\Stubs\Lunar\TestUrlGenerator;
+use Dystore\Reviews\Tests\Stubs\Users\UserSchema;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
@@ -71,7 +71,7 @@ abstract class TestCase extends Orchestra
             \Dystcz\LunarApi\LunarApiHashidsServiceProvider::class,
 
             // Lunar Reviews
-            \Dystcz\LunarApiReviews\LunarReviewsServiceProvider::class,
+            \Dystore\Reviews\LunarReviewsServiceProvider::class,
         ];
     }
 
@@ -89,7 +89,7 @@ abstract class TestCase extends Orchestra
              */
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
-                'model' => \Dystcz\LunarApiReviews\Tests\Stubs\Users\User::class,
+                'model' => \Dystore\Reviews\Tests\Stubs\Users\User::class,
             ]);
 
             $config->set('database.default', 'sqlite');
