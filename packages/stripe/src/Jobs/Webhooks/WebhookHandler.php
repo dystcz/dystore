@@ -75,7 +75,7 @@ abstract class WebhookHandler implements ShouldQueue
      *
      * @throws ModelNotFoundException
      */
-    protected function findOrder(PaymentIntentContract $paymentIntent): Order
+    protected function findOrder(PaymentIntentContract $paymentIntent): ?Order
     {
         try {
             $order = App::make(FindOrderByIntent::class)($paymentIntent);
@@ -102,5 +102,7 @@ abstract class WebhookHandler implements ShouldQueue
         }
 
         $this->fail(new ModelNotFoundException('Order not found.'));
+
+        return null;
     }
 }
