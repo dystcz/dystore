@@ -25,8 +25,8 @@ class ProductsController extends Controller implements ProductsControllerContrac
         /** @var Product $product */
         $productId = $product?->getKey();
 
-        if ($productId && App::has('lunar-api-product-views')) {
-            dispatch(fn () => App::get('lunar-api-product-views')->record($productId));
+        if ($productId && App::has('dystore-product-views')) {
+            dispatch(fn () => App::get('dystore-product-views')->record($productId));
         }
     }
 }

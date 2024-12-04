@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiProductViews\Tests;
+namespace Dystore\ProductViews\Tests;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -75,7 +75,7 @@ abstract class TestCase extends Orchestra
             \Dystcz\LunarApi\LunarApiHashidsServiceProvider::class,
 
             // Lunar API product views
-            \Dystcz\LunarApiProductViews\LunarApiProductViewsServiceProvider::class,
+            \Dystore\ProductViews\LunarApiProductViewsServiceProvider::class,
         ];
     }
 
@@ -93,7 +93,7 @@ abstract class TestCase extends Orchestra
              */
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
-                'model' => \Dystcz\LunarApiProductViews\Tests\Stubs\Users\User::class,
+                'model' => \Dystore\ProductViews\Tests\Stubs\Users\User::class,
             ]);
 
             $config->set('database.default', 'sqlite');

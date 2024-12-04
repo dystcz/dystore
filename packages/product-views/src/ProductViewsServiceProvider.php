@@ -1,14 +1,14 @@
 <?php
 
-namespace Dystcz\LunarApiProductViews;
+namespace Dystore\ProductViews;
 
 use Dystcz\LunarApi\Base\Extensions\SchemaExtension;
 use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
 use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
-use Dystcz\LunarApiProductViews\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
+use Dystore\ProductViews\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
 use Illuminate\Support\ServiceProvider;
 
-class LunarApiProductViewsServiceProvider extends ServiceProvider
+class ProductViewsServiceProvider extends ServiceProvider
 {
     protected $root = __DIR__.'/..';
 
@@ -22,7 +22,7 @@ class LunarApiProductViewsServiceProvider extends ServiceProvider
         $this->extendSchemas();
 
         // Register the main class to use with the facade
-        $this->app->singleton('lunar-api-product-views', function () {
+        $this->app->singleton('dystore-product-views', function () {
             return new LunarApiProductViews;
         });
     }
@@ -44,7 +44,7 @@ class LunarApiProductViewsServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             "{$this->root}/config/product-views.php",
-            'lunar-api.product-views',
+            'dystore.product-views',
         );
     }
 
@@ -54,8 +54,8 @@ class LunarApiProductViewsServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            "{$this->root}/config/product-views.php" => config_path('lunar-api.product-views.php'),
-        ], 'lunar-api-product-views');
+            "{$this->root}/config/product-views.php" => config_path('dystore.product-views.php'),
+        ], 'dystore-product-views');
     }
 
     /**

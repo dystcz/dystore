@@ -1,7 +1,7 @@
 <?php
 
-use Dystcz\LunarApiProductViews\LunarApiProductViews;
-use Dystcz\LunarApiProductViews\Tests\TestCase;
+use Dystore\ProductViews\LunarApiProductViews;
+use Dystore\ProductViews\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;

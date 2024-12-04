@@ -1,19 +1,19 @@
 <?php
 
-namespace Dystcz\LunarApiProductViews;
+namespace Dystore\ProductViews;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
-class LunarApiProductViews
+class ProductViews
 {
     /**
      * Check if tracking product-view is enabled.
      */
     public function enabled(): bool
     {
-        return Config::get('lunar-api.product-views.enabled', false);
+        return Config::get('dystore.product-views.enabled', false);
     }
 
     /**

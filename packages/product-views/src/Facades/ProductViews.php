@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApiProductViews;
+namespace Dystore\ProductViews\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Dystcz\LunarApiProductViews\Skeleton\SkeletonClass
+ * @see \Dystore\ProductViews\Skeleton\SkeletonClass
  */
 class LunarApiProductViewsFacade extends Facade
 {
@@ -16,6 +16,6 @@ class LunarApiProductViewsFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'lunar-api-product-views';
+        return 'dystore-product-views';
     }
 }

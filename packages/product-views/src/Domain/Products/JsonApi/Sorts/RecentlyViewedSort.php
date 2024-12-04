@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiProductViews\Domain\Products\JsonApi\Sorts;
+namespace Dystore\ProductViews\Domain\Products\JsonApi\Sorts;
 
-use Dystcz\LunarApiProductViews\LunarApiProductViews;
+use Dystore\ProductViews\LunarApiProductViews;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Eloquent\Contracts\SortField;
