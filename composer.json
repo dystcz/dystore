@@ -59,13 +59,7 @@
       "Dystore\\ProductNotifications\\": "packages/product-notifications/src",
       "Dystore\\ProductViews\\": "packages/product-views/src",
       "Dystore\\Reviews\\": "packages/reviews/src",
-      "Dystore\\Stripe\\": "packages/stripe/src",
-      "Modules\\DystoreAres\\": "modules/ares/src/",
-      "Modules\\DystoreAres\\Database\\Factories\\": "modules/ares/database/factories/",
-      "Modules\\DystoreAres\\Database\\Seeders\\": "modules/ares/database/seeders/",
-      "Modules\\DystoreDiscord\\": "modules/discord/src/",
-      "Modules\\DystoreDiscord\\Database\\Factories\\": "modules/discord/database/factories/",
-      "Modules\\DystoreDiscord\\Database\\Seeders\\": "modules/discord/database/seeders/"
+      "Dystore\\Stripe\\": "packages/stripe/src"
     }
   },
   "autoload-dev": {
