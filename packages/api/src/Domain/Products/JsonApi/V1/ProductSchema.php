@@ -4,6 +4,7 @@ namespace Dystore\Api\Domain\Products\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InDefaultOrder;
 use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystore\Api\Domain\Products\JsonApi\Filters\InStockFilter;
 use Dystore\Api\Domain\Products\JsonApi\Filters\ProductFilterCollection;
