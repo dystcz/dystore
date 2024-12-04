@@ -12,9 +12,8 @@
   "type": "library",
   "authors": [
     {
-      "name": "Jakub Theimer",
-      "email": "jakub@dy.st",
-      "role": "Developer"
+      "name": "Dystopia",
+      "homepage": "https://dy.st/"
     }
   ],
   "require": {
