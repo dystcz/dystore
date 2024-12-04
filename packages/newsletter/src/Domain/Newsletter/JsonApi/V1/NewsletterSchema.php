@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Domain\Newsletter\JsonApi\V1;
+namespace Dystore\Newsletter\Domain\Newsletter\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApiNewsletter\Domain\Newsletter\Entities\NewsletterSubscription;
+use Dystore\Newsletter\Domain\Newsletter\Entities\NewsletterSubscription;
 use LaravelJsonApi\Eloquent\Fields\Str;
 
 class NewsletterSchema extends Schema

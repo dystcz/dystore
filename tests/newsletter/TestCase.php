@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Tests;
+namespace Dystore\Newsletter\Tests;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -58,7 +58,7 @@ abstract class TestCase extends Orchestra
             \Spatie\Newsletter\NewsletterServiceProvider::class,
 
             // Lunar Api Newsletter
-            \Dystcz\LunarApiNewsletter\LunarApiNewsletterServiceProvider::class,
+            \Dystore\Newsletter\NewsletterServiceProviderServiceProvider::class,
         ];
     }
 

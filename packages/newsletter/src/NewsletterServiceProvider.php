@@ -1,12 +1,12 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter;
+namespace Dystore\Newsletter;
 
 use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
-use Dystcz\LunarApiNewsletter\Domain\Newsletter\JsonApi\V1\NewsletterSchema;
+use Dystore\Newsletter\Domain\Newsletter\JsonApi\V1\NewsletterSchema;
 use Illuminate\Support\ServiceProvider;
 
-class LunarApiNewsletterServiceProvider extends ServiceProvider
+class NewsletterServiceProvider extends ServiceProvider
 {
     protected $root = __DIR__.'/..';
 
@@ -21,12 +21,12 @@ class LunarApiNewsletterServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(
             "{$this->root}/lang",
-            'lunar-api-newsletter',
+            'dystore-newsletter',
         );
 
         // Register the main class to use with the facade
-        $this->app->singleton('lunar-api-newsletter', function () {
-            return new LunarApiNewsletter;
+        $this->app->singleton('dystore-newsletter', function () {
+            return new Newsletter;
         });
     }
 
@@ -50,7 +50,7 @@ class LunarApiNewsletterServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             "{$this->root}/config/newsletter.php",
-            'lunar-api.newsletter',
+            'dystore.newsletter',
         );
     }
 
@@ -60,8 +60,8 @@ class LunarApiNewsletterServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            "{$this->root}/config/newsletter.php" => config_path('lunar-api.newsletter.php'),
-        ], 'lunar-api-newsletter');
+            "{$this->root}/config/newsletter.php" => config_path('dystore.newsletter.php'),
+        ], 'dystore-newsletter');
     }
 
     /**
@@ -70,8 +70,8 @@ class LunarApiNewsletterServiceProvider extends ServiceProvider
     protected function publishTranslations(): void
     {
         $this->publishes([
-            "{$this->root}/lang" => $this->app->langPath('vendor/lunar-api-newsletter'),
-        ], 'lunar-api.translations');
+            "{$this->root}/lang" => $this->app->langPath('vendor/dystore-newsletter'),
+        ], 'dystore-newsletter.translations');
     }
 
     /**

@@ -1,13 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Facades;
+namespace Dystore\Newsletter\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Dystcz\LunarApiNewsletter\Skeleton\SkeletonClass
+ * @see \Dystore\Newsletter\Newsletter
  */
-class LunarApiNewsletterFacade extends Facade
+class Newsletter extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class LunarApiNewsletterFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'lunar-api-newsletter';
+        return 'dystore-newsletter';
     }
 }

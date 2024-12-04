@@ -55,7 +55,7 @@
   "autoload": {
     "psr-4": {
       "Dystore\\Api\\": "packages/api/src",
-      "Dystcz\\LunarApiNewsletter\\": "packages/newsletter/src",
+      "Dystore\\Newsletter\\": "packages/newsletter/src",
       "Dystcz\\LunarApiProductNotification\\": "packages/product-notifications/src",
       "Dystcz\\LunarApiProductViews\\": "packages/product-views/src",
       "Dystcz\\LunarApiReviews\\": "packages/reviews/src",
@@ -84,7 +84,7 @@
         "Dystore\\Api\\LunarApiServiceProvider",
         "Dystore\\Api\\JsonApiServiceProvider",
         "Dystore\\Api\\LunarApiHashidsServiceProvider",
-        "Dystcz\\LunarApiNewsletter\\LunarApiNewsletterServiceProvider",
+        "Dystore\\Newsletter\\NewsletterServiceProvider",
         "Dystcz\\LunarApiProductNotification\\LunarApiProductNotificationServiceProvider",
         "Dystcz\\LunarApiProductViews\\LunarApiProductViewsServiceProvider",
         "Dystcz\\LunarApiReviews\\LunarReviewsServiceProvider",

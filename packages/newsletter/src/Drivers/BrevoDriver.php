@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Drivers;
+namespace Dystore\Newsletter\Drivers;
 
 use Brevo\Client\Api\ContactsApi as Brevo;
 use Brevo\Client\Configuration as BrevoConfiguration;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Tests\Stubs\JsonApi;
+namespace Dystore\Newsletter\Tests\Stubs\JsonApi;
 
 use Dystcz\LunarApi\Domain\JsonApi\V1\Server as BaseServer;
-use Dystcz\LunarApiNewsletter\Domain\Newsletter\JsonApi\V1\NewsletterSchema;
+use Dystore\Newsletter\Domain\Newsletter\JsonApi\V1\NewsletterSchema;
 
 class Server extends BaseServer
 {

@@ -6,16 +6,16 @@ using the [spatie/laravel-newsletter](https://github.com/spatie/laravel-newslett
 
 This initial version only takes an email address and subscribes to a list. There may be more endpoints added upon request in the future.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/lunar-api-newsletter.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api-newsletter)
-[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/lunar-api-newsletter.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api-newsletter)
-![GitHub Actions](https://github.com/dystcz/lunar-api-newsletter/actions/workflows/tests.yaml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-newsletter.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-newsletter)
+[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-newsletter.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-newsletter)
+![GitHub Actions](https://github.com/dystcz/dystore-newsletter/actions/workflows/tests.yaml/badge.svg)
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require dystcz/lunar-api-newsletter
+composer require dystcz/dystore-newsletter
 ```
 
 To publish the [laravel-newsletter](https://github.com/spatie/laravel-newsletter) config file to `config/newsletter.php` run:
@@ -34,7 +34,7 @@ To use Brevo, install this extra package.
 composer require getbrevo/brevo-php "1.x.x"
 ```
 
-The `driver` key of the `newsletter` config file must be set to `Dystcz\LunarApiNewsletter\Drivers\BrevoDriver::class`.
+The `driver` key of the `newsletter` config file must be set to `Dystore\Newsletter\Drivers\BrevoDriver::class`.
 
 Next, you must provide values for the API key and `list.subscribers.id`. You'll find these values in [Brevo settings](https://app.brevo.com/settings/keys/api).
 

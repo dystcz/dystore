@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Domain\Newsletter\Http\Routing;
+namespace Dystore\Newsletter\Domain\Newsletter\Http\Routing;
 
 use Dystcz\LunarApi\Routing\RouteGroup;
-use Dystcz\LunarApiNewsletter\Domain\Newsletter\Http\Controllers\SubscribeToNewsletterController;
+use Dystore\Newsletter\Domain\Newsletter\Http\Controllers\SubscribeToNewsletterController;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 

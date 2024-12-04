@@ -1,8 +1,8 @@
 <?php
 
 use Brevo\Client\Api\ContactsApi as Brevo;
-use Dystcz\LunarApiNewsletter\Drivers\BrevoDriver;
-use Dystcz\LunarApiNewsletter\Tests\TestCase;
+use Dystore\Newsletter\Drivers\BrevoDriver;
+use Dystore\Newsletter\Tests\TestCase;
 use Illuminate\Support\Facades\Config;
 use Spatie\Newsletter\Facades\Newsletter;
 

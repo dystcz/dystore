@@ -5,7 +5,7 @@
  (Store unique product views in Redis)
 - [Product Stock Notifications](https://github.com/dystcz/lunar-api-product-notifications)
  (Notify users when product is in stock again)
-- [Newsletter](https://github.com/dystcz/lunar-api-newsletter)
+- [Newsletter](https://github.com/dystcz/dystore-newsletter)
  (Newsletter sign up with support for Mailchimp / Mailcoach / Brevo)
 - [Stripe Payment Adapter](https://github.com/dystcz/lunar-api-stripe-adapter)
 - [Mollie Payment Adapter](https://github.com/pixelpillow/lunar-api-mollie-adapter)

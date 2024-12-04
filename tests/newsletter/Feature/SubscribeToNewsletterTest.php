@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApiNewsletter\Tests\TestCase;
+use Dystore\Newsletter\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Newsletter\Facades\Newsletter;
 
