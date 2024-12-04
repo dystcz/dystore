@@ -6,7 +6,7 @@ use Dystore\Api\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystore\Api\Domain\Storefront\Entities\Storefront;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Core\Schema\Schema;
-use LaravelJsonApi\Eloquent\Fields\ID;
+use LaravelJsonApi\NonEloquent\Fields\ID;
 use LaravelJsonApi\NonEloquent\Fields\ToMany;
 use LaravelJsonApi\NonEloquent\Fields\ToOne;
 use Lunar\Models\Contracts\Channel;
@@ -27,7 +27,7 @@ class StorefrontSchema extends Schema
     public function fields(): iterable
     {
         return [
-            ID::make(),
+            ID::make()->matchAs('(.*?)'),
 
             ToOne::make('channel')
                 ->type(SchemaType::get(Channel::class)),
