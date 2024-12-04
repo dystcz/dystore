@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Dystore\\ProductViews\\": "src"
+      "Dystore\\ProductViews\\": "src",
       "Dystore\\ProductViews\\Database\\Factories\\": "database/factories",
       "Dystore\\ProductViews\\Database\\State\\": "database/state"
     },

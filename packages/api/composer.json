@@ -48,9 +48,9 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Dystore\\Api\\LunarApiServiceProvider",
+        "Dystore\\Api\\ApiServiceProvider",
         "Dystore\\Api\\JsonApiServiceProvider",
-        "Dystore\\Api\\LunarApiHashidsServiceProvider"
+        "Dystore\\Api\\ApiHashidsServiceProvider"
       ]
     }
   },
