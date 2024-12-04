@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter;
+namespace Dystore\Stripe;
 
 use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
 use Dystcz\LunarApi\Domain\Payments\Data\PaymentIntent;
@@ -46,7 +46,7 @@ class StripePaymentAdapter extends PaymentAdapter
      */
     public function getDriver(): string
     {
-        return Config::get('lunar-api.stripe.driver', 'stripe');
+        return Config::get('dystore.stripe.driver', 'stripe');
     }
 
     /**
@@ -57,7 +57,7 @@ class StripePaymentAdapter extends PaymentAdapter
      */
     public function getType(): string
     {
-        return Config::get('lunar-api.stripe.type', 'stripe');
+        return Config::get('dystore.stripe.type', 'stripe');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Tests\Stubs\Carts\Modifiers;
+namespace Dystore\Stripe\Tests\Stubs\Carts\Modifiers;
 
 use Closure;
 use Lunar\Base\ShippingModifier;

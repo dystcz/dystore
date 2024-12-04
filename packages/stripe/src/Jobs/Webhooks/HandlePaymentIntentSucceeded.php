@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Jobs\Webhooks;
+namespace Dystore\Stripe\Jobs\Webhooks;
 
-use Dystcz\LunarApiStripeAdapter\Actions\AuthorizeStripePayment;
+use Dystore\Stripe\Actions\AuthorizeStripePayment;
 use Illuminate\Support\Facades\App;
 
 class HandlePaymentIntentSucceeded extends WebhookHandler

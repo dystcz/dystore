@@ -26,8 +26,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Dystore\\Stripe\\": "src"
-        }
+            "Dystore\\Stripe\\": "src",
+            "Dystore\\Stripe\\Database\\Factories\\": "database/factories",
+            "Dystore\\Stripe\\Database\\State\\": "database/state"
+        },
+        "files": [
+            "autoload.php"
+        ]
     },
     "config": {
         "sort-packages": true,

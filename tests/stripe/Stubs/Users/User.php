@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Tests\Stubs\Users;
+namespace Dystore\Stripe\Tests\Stubs\Users;
 
 use Dystcz\LunarApi\Domain\Users\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

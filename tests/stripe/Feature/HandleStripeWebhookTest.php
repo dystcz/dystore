@@ -5,9 +5,9 @@ use Dystcz\LunarApi\Domain\Carts\Models\Cart;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentCanceled;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentFailed;
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentSuccessful;
-use Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandlePaymentIntentSucceeded;
-use Dystcz\LunarApiStripeAdapter\StripePaymentAdapter;
-use Dystcz\LunarApiStripeAdapter\Tests\TestCase;
+use Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentSucceeded;
+use Dystore\Stripe\StripePaymentAdapter;
+use Dystore\Stripe\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -22,7 +22,7 @@ beforeEach(function () {
     /** @var TestCase $this */
     Event::fake(CartCreated::class);
 
-    Config::set('lunar-api.stripe.automatic_payment_methods', false);
+    Config::set('dystore.stripe.automatic_payment_methods', false);
 
     /** @var Cart $cart */
     $cart = Cart::factory()

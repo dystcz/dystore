@@ -1,12 +1,12 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter;
+namespace Dystore\Stripe;
 
-use Dystcz\LunarApiStripeAdapter\Managers\StripeManager;
+use Dystore\Stripe\Managers\StripeManager;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
-class LunarApiStripeAdapterServiceProvider extends ServiceProvider
+class StripeServiceProvider extends ServiceProvider
 {
     /**
      * Register the application services.
@@ -14,7 +14,7 @@ class LunarApiStripeAdapterServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/stripe.php', 'lunar-api.stripe');
+        $this->mergeConfigFrom(__DIR__.'/../config/stripe.php', 'dystore.stripe');
         $this->mergeConfigFrom(__DIR__.'/../config/stripe-webhooks.php', 'stripe-webhooks');
     }
 
@@ -34,12 +34,12 @@ class LunarApiStripeAdapterServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/stripe.php' => config_path('lunar-api/stripe.php'),
-            ], 'lunar-api.stripe');
+                __DIR__.'/../config/stripe.php' => config_path('dystore/stripe.php'),
+            ], 'dystore.stripe');
 
             $this->publishes([
                 __DIR__.'/../config/stripe-webhooks.php' => config_path('stripe-webhooks.php'),
-            ], 'lunar-api.stripe');
+            ], 'dystore.stripe');
         }
     }
 }

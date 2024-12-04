@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Jobs\Webhooks;
+namespace Dystore\Stripe\Jobs\Webhooks;
 
 use Dystcz\LunarApi\Domain\Orders\Actions\FindOrderByCartIntent;
 use Dystcz\LunarApi\Domain\Orders\Actions\FindOrderByIntent;
@@ -67,7 +67,7 @@ abstract class WebhookHandler implements ShouldQueue
     {
         $register = App::make(PaymentAdaptersRegister::class);
 
-        return $register->get(Config::get('lunar-api.stripe.driver', 'stripe'));
+        return $register->get(Config::get('dystore.stripe.driver', 'stripe'));
     }
 
     /**

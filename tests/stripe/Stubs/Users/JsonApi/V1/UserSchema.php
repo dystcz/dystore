@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Tests\Stubs\Users\JsonApi\V1;
+namespace Dystore\Stripe\Tests\Stubs\Users\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApiStripeAdapter\Tests\Stubs\Users\User;
+use Dystore\Stripe\Tests\Stubs\Users\User;
 use LaravelJsonApi\Eloquent\Fields\ID;
 
 class UserSchema extends Schema

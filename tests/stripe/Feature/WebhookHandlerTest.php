@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApiStripeAdapter\Tests\TestCase;
+use Dystore\Stripe\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);

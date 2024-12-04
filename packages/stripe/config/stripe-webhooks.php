@@ -12,7 +12,7 @@ return [
      * without a job defined in next configuration.
      * You may leave it empty to store the job in database but without processing it.
      */
-    'default_job' => \Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandleOtherEvent::class,
+    'default_job' => \Dystore\Stripe\Jobs\Webhooks\HandleOtherEvent::class,
 
     /*
      * You can define the job that should be run when a certain webhook hits your application
@@ -22,14 +22,14 @@ return [
      * https://stripe.com/docs/api#event_types.
      */
     'jobs' => [
-        'payment_intent_created' => \Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandlePaymentIntentCreated::class,
-        'payment_intent_succeeded' => \Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandlePaymentIntentSucceeded::class,
-        'payment_intent_payment_failed' => \Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandlePaymentIntentFailed::class,
-        'payment_intent_canceled' => \Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandlePaymentIntentCanceled::class,
-        // 'payment_intent_processing' => \Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandlePaymentIntentProcessing::class,
-        // 'payment_intent_requires_action' => \Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandlePaymentIntentRequiresAction::class,
-        // 'source_chargeable' => \Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandleChargeableSource::class,
-        // 'charge_failed' => \Dystcz\LunarApiStripeAdapter\Jobs\Webhooks\HandleChargeFailed::class,
+        'payment_intent_created' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCreated::class,
+        'payment_intent_succeeded' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentSucceeded::class,
+        'payment_intent_payment_failed' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentFailed::class,
+        'payment_intent_canceled' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCanceled::class,
+        // 'payment_intent_processing' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentProcessing::class,
+        // 'payment_intent_requires_action' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentRequiresAction::class,
+        // 'source_chargeable' => \Dystore\Stripe\Jobs\Webhooks\HandleChargeableSource::class,
+        // 'charge_failed' => \Dystore\Stripe\Jobs\Webhooks\HandleChargeFailed::class,
     ],
 
     /*

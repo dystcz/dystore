@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Actions;
+namespace Dystore\Stripe\Actions;
 
 use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentSuccessful;
 use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent;
