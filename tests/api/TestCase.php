@@ -100,7 +100,7 @@ abstract class TestCase extends OrchestraTestCase
             \Livewire\LivewireServiceProvider::class,
 
             // Lunar Api
-            \Dystore\Api\LunarApiServiceProvider::class,
+            \Dystore\Api\ApiServiceProvider::class,
             \Dystore\Api\JsonApiServiceProvider::class,
 
             // Hashids

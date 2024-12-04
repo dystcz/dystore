@@ -80,7 +80,7 @@ abstract class TestCase extends Orchestra
             \Livewire\LivewireServiceProvider::class,
 
             // Lunar API
-            \Dystore\Api\LunarApiServiceProvider::class,
+            \Dystore\Api\ApiServiceProvider::class,
             \Dystore\Api\JsonApiServiceProvider::class,
 
             // Stripe webhooks
