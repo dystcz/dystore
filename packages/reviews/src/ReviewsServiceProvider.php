@@ -99,7 +99,7 @@ class ReviewsServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            "{$this->root}/config/reviews.php" => config_path('dystore.reviews.php'),
+            "{$this->root}/config/reviews.php" => config_path('dystore/reviews.php'),
         ], 'dystore-reviews');
     }
 

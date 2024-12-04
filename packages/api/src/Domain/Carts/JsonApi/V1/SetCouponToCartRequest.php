@@ -31,8 +31,8 @@ class SetCouponToCartRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'coupon_code.required' => __('lunar-api::validations.carts.coupon_code.required'),
-            'coupon_code.string' => __('lunar-api::validations.carts.coupon_code.string'),
+            'coupon_code.required' => __('dystore::validations.carts.coupon_code.required'),
+            'coupon_code.string' => __('dystore::validations.carts.coupon_code.string'),
         ];
     }
 }

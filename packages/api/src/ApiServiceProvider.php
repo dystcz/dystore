@@ -37,7 +37,7 @@ class ApiServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(
             "{$this->root}/lang",
-            'lunar-api',
+            'dystore',
         );
 
         $this->booting(function () {
@@ -46,7 +46,7 @@ class ApiServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade.
         $this->app->singleton(
-            'lunar-api',
+            'dystore',
             fn () => new DystoreApi,
         );
 
@@ -107,8 +107,8 @@ class ApiServiceProvider extends ServiceProvider
     {
         foreach ($this->configFiles as $configFile) {
             $this->publishes([
-                "{$this->root}/config/{$configFile}.php" => config_path("lunar-api/{$configFile}.php"),
-            ], 'lunar-api');
+                "{$this->root}/config/{$configFile}.php" => config_path("dystore/{$configFile}.php"),
+            ], 'dystore');
         }
 
         $this->publishes([
@@ -122,8 +122,8 @@ class ApiServiceProvider extends ServiceProvider
     protected function publishTranslations(): void
     {
         $this->publishes([
-            "{$this->root}/lang" => $this->app->langPath('vendor/lunar-api'),
-        ], 'lunar-api.translations');
+            "{$this->root}/lang" => $this->app->langPath('vendor/dystore'),
+        ], 'dystore.translations');
     }
 
     /**
@@ -134,7 +134,7 @@ class ApiServiceProvider extends ServiceProvider
         foreach ($this->configFiles as $configFile) {
             $this->mergeConfigFrom(
                 "{$this->root}/config/{$configFile}.php",
-                "lunar-api.{$configFile}",
+                "dystore.{$configFile}",
             );
         }
 
@@ -286,7 +286,7 @@ class ApiServiceProvider extends ServiceProvider
     {
         $this->publishes([
             "{$this->root}/database/migrations/" => $this->app->databasePath('migrations'),
-        ], 'lunar-api.migrations');
+        ], 'dystore.migrations');
     }
 
     /**

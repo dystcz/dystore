@@ -86,11 +86,11 @@ it('validates cart address type and shipping option attribute when setting shipp
 
     $response->assertErrors(422, [
         [
-            'detail' => __('lunar-api::validations.shipping.set_shipping_option.shipping_option.required'),
+            'detail' => __('dystore::validations.shipping.set_shipping_option.shipping_option.required'),
             'status' => '422',
         ],
         [
-            'detail' => __('lunar-api::validations.cart_addresses.address_type.required'),
+            'detail' => __('dystore::validations.cart_addresses.address_type.required'),
             'status' => '422',
         ],
     ]);

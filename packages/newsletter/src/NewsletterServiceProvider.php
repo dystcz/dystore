@@ -60,7 +60,7 @@ class NewsletterServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            "{$this->root}/config/newsletter.php" => config_path('dystore.newsletter.php'),
+            "{$this->root}/config/newsletter.php" => config_path('dystore/newsletter.php'),
         ], 'dystore-newsletter');
     }
 

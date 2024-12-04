@@ -54,7 +54,7 @@ class ProductViewsServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            "{$this->root}/config/product-views.php" => config_path('dystore.product-views.php'),
+            "{$this->root}/config/product-views.php" => config_path('dystore/product-views.php'),
         ], 'dystore-product-views');
     }
 

@@ -67,7 +67,7 @@ it('validates shipping option attribute when setting shipping option to cart add
         ->patch(serverUrl("/cart_addresses/{$this->cartAddress->getRouteKey()}/-actions/set-shipping-option"));
 
     $response->assertErrorStatus([
-        'detail' => __('lunar-api::validations.shipping.set_shipping_option.shipping_option.required'),
+        'detail' => __('dystore::validations.shipping.set_shipping_option.shipping_option.required'),
         'status' => '422',
     ]);
 })->group('cart_addresses', 'shipping_options');

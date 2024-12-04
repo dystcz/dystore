@@ -15,7 +15,7 @@ abstract class SwappedBrandPolicyTestCase extends TestCase
         parent::getEnvironmentSetUp($app);
 
         Config::set(
-            'lunar-api.domains.brands.policy',
+            'dystore.domains.brands.policy',
             \Dystore\Api\Tests\Stubs\Policies\TestBrandPolicy::class,
         );
     }

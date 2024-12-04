@@ -179,7 +179,7 @@ class OrderPolicy
     protected function check(?Authenticatable $user, OrderContract $order): bool
     {
         $protectionStrategy = Config::get(
-            'lunar-api.general.checkout.checkout_protection_strategy',
+            'dystore.general.checkout.checkout_protection_strategy',
             CheckoutProtectionStrategy::SIGNATURE,
         );
 
@@ -200,7 +200,7 @@ class OrderPolicy
 
         if (
             // If cart should not be forgotten after order is created, check if cart id matches
-            ! Config::get('lunar-api.general.checkout.forget_cart_after_order_creation', true)
+            ! Config::get('dystore.general.checkout.forget_cart_after_order_creation', true)
                 && $this->cartSession->current()->getKey() === $order->cart_id) {
             return true;
         }

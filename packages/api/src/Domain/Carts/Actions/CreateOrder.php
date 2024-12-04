@@ -46,7 +46,7 @@ final class CreateOrder extends AbstractAction
                 });
 
             // If we don't want to forget cart after order created, we need to mark discounts as used after order created
-            if (! Config::get('lunar-api.domains.carts.settings.forget_cart_after_order_created', true)) {
+            if (! Config::get('dystore.domains.carts.settings.forget_cart_after_order_created', true)) {
                 $cart->discounts?->each(
                     fn ($discount) => $discount->markAsUsed($cart)->discount->save(),
                 );

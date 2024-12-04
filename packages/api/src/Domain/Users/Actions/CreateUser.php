@@ -78,13 +78,13 @@ class CreateUser implements CreatesNewUsers
     public function messages(): array
     {
         return [
-            'email.required' => __('lunar-api::validations.auth.email.required'),
-            'email.email' => __('lunar-api::validations.auth.email.email'),
-            'email.unique' => __('lunar-api::validations.auth.email.unique'),
-            'email.max' => __('lunar-api::validations.auth.email.max'),
-            'password.required' => __('lunar-api::validations.auth.password.required'),
-            'password.min' => __('lunar-api::validations.auth.password.min'),
-            'password.confirmed' => __('lunar-api::validations.auth.password.confirmed'),
+            'email.required' => __('dystore::validations.auth.email.required'),
+            'email.email' => __('dystore::validations.auth.email.email'),
+            'email.unique' => __('dystore::validations.auth.email.unique'),
+            'email.max' => __('dystore::validations.auth.email.max'),
+            'password.required' => __('dystore::validations.auth.password.required'),
+            'password.min' => __('dystore::validations.auth.password.min'),
+            'password.confirmed' => __('dystore::validations.auth.password.confirmed'),
         ];
     }
 }

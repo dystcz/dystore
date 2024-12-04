@@ -122,7 +122,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         $type = Str::snake(static::type());
 
         return Config::get(
-            "lunar-api.domains.{$type}.resource",
+            "dystore.domains.{$type}.resource",
             parent::resource(),
         );
     }
@@ -135,7 +135,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         $type = Str::snake(static::type());
 
         return Config::get(
-            "lunar-api.domains.{$type}.authorizer",
+            "dystore.domains.{$type}.authorizer",
             parent::authorizer(),
         );
     }
@@ -233,7 +233,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     {
         return PagePagination::make()
             ->withDefaultPerPage(
-                Config::get('lunar-api.general.pagination.per_page', 24)
+                Config::get('dystore.general.pagination.per_page', 24)
             );
     }
 

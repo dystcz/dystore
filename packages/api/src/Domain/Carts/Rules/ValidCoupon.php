@@ -13,6 +13,6 @@ class ValidCoupon extends LunarValidCoupon
      */
     public function message(): string|array
     {
-        return __('lunar-api::validations.carts.coupon_code.invalid');
+        return __('dystore::validations.carts.coupon_code.invalid');
     }
 }

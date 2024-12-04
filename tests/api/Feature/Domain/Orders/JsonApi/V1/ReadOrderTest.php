@@ -58,7 +58,7 @@ it('can read order details without signature when user is logged in and owns the
 
 it('can read order details when accessing order with valid signature', function () {
     /** @var TestCase $this */
-    Config::set('lunar-api.general.checkout.checkout_protection_strategy', CheckoutProtectionStrategy::SIGNATURE);
+    Config::set('dystore.general.checkout.checkout_protection_strategy', CheckoutProtectionStrategy::SIGNATURE);
 
     /** @var User $user */
     $user = User::factory()->create();

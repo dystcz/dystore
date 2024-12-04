@@ -17,7 +17,7 @@ class DomainConfigCollection extends Collection
             return new static($items);
         }
 
-        return self::fromConfig('lunar-api.domains');
+        return self::fromConfig('dystore.domains');
     }
 
     /**

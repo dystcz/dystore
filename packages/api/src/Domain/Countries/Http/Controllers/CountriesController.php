@@ -21,7 +21,7 @@ class CountriesController extends Controller implements CountriesControllerContr
     public function index(CountrySchema $schema, CountryCollectionQuery $request): DataResponse
     {
         $models = Cache::rememberForever(
-            'lunar-api.countries',
+            'dystore.countries',
             fn () => $schema->repository()
                 ->queryAll()
                 ->withRequest($request)

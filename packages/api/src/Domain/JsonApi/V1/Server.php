@@ -12,7 +12,7 @@ class Server extends BaseServer
      */
     protected function setBaseUri(string $path = 'v1'): void
     {
-        $prefix = Config::get('lunar-api.general.route_prefix');
+        $prefix = Config::get('dystore.general.route_prefix');
 
         $this->baseUri = "/{$prefix}/{$path}";
     }

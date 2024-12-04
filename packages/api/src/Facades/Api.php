@@ -24,6 +24,6 @@ class Api extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'lunar-api';
+        return 'dystore';
     }
 }

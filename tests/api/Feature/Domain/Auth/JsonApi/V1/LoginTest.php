@@ -32,7 +32,7 @@ it('cannot log in a user with wrong credentials', function () {
     $response
         ->assertStatus(422)
         ->assertErrorStatus([
-            'detail' => __('lunar-api::validations.auth.attempt.failed'),
+            'detail' => __('dystore::validations.auth.attempt.failed'),
             'status' => '422',
         ]);
 });

@@ -33,7 +33,7 @@ it('can send password reset links to users', function () {
 
     $notificationFake->assertSentTo(
         [$user],
-        Config::get('lunar-api.domains.auth.notifications.reset_password')
+        Config::get('dystore.domains.auth.notifications.reset_password')
     );
 
     $response->assertFetchedNull()

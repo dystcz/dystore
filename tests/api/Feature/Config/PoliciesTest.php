@@ -17,7 +17,7 @@ describe('policies', function () {
 
         $this->assertSame(
             \Dystore\Api\Tests\Stubs\Policies\TestBrandPolicy::class,
-            Config::get('lunar-api.domains.brands.policy'),
+            Config::get('dystore.domains.brands.policy'),
         );
 
         $response = $this

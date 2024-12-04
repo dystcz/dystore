@@ -59,28 +59,28 @@ trait InteractsWithLunarApi
      */
     public function approximateInStockQuantity(): Attribute
     {
-        $threshold = Config::get('lunar-api.general.availability.approximate_in_stock_quantity.threshold', 5);
+        $threshold = Config::get('dystore.general.availability.approximate_in_stock_quantity.threshold', 5);
 
-        if (Config::get('lunar-api.general.availability.display_real_quantity', false)) {
+        if (Config::get('dystore.general.availability.display_real_quantity', false)) {
             return Attribute::make(
                 get: fn () => $this->inStockQuantity
             );
         }
 
         $displayRealUnderThreshold = Config::get(
-            'lunar-api.general.availability.approximate_in_stock_quantity.display_real_under_threshold',
+            'dystore.general.availability.approximate_in_stock_quantity.display_real_under_threshold',
             true,
         );
 
         return Attribute::make(
             get: fn () => match (true) {
                 ($this->inStockQuantity > $threshold) => __(
-                    'lunar-api::availability.stock.quantity_string.more_than',
+                    'dystore::availability.stock.quantity_string.more_than',
                     ['quantity' => $threshold],
                 ),
                 ($this->inStockQuantity <= $threshold) && $displayRealUnderThreshold => $this->inStockQuantity,
                 ($this->inStockQuantity <= $threshold) => __(
-                    'lunar-api::availability.stock.quantity_string.less_than',
+                    'dystore::availability.stock.quantity_string.less_than',
                     ['quantity' => $threshold],
                 ),
                 default => null,

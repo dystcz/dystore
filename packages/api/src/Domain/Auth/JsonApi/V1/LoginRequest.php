@@ -45,11 +45,11 @@ class LoginRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'email.required' => __('lunar-api::validations.auth.email.required'),
-            'email.string' => __('lunar-api::validations.auth.email.string'),
-            'email.email' => __('lunar-api::validations.auth.email.email'),
-            'password.required' => __('lunar-api::validations.auth.password.required'),
-            'password.string' => __('lunar-api::validations.auth.password.string'),
+            'email.required' => __('dystore::validations.auth.email.required'),
+            'email.string' => __('dystore::validations.auth.email.string'),
+            'email.email' => __('dystore::validations.auth.email.email'),
+            'password.required' => __('dystore::validations.auth.password.required'),
+            'password.string' => __('dystore::validations.auth.password.string'),
         ];
     }
 
@@ -65,7 +65,7 @@ class LoginRequest extends ResourceRequest
             ])) {
                 $validator->errors()->add(
                     'password',
-                    __('lunar-api::validations.auth.attempt.failed'),
+                    __('dystore::validations.auth.attempt.failed'),
                 );
             }
         });

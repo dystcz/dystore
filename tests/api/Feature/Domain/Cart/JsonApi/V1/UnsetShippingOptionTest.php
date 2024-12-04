@@ -83,7 +83,7 @@ it('validates cart address type and shipping option attribute when unsetting shi
 
     $response->assertErrors(422, [
         [
-            'detail' => __('lunar-api::validations.cart_addresses.address_type.required'),
+            'detail' => __('dystore::validations.cart_addresses.address_type.required'),
             'status' => '422',
         ],
     ]);

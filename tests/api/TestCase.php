@@ -162,7 +162,7 @@ abstract class TestCase extends OrchestraTestCase
                 'driver' => 'mysql',
                 'host' => 'mysql',
                 'port' => '3306',
-                'database' => 'lunar-api-testing',
+                'database' => 'dystore-testing',
                 'username' => 'homestead',
                 'password' => 'secret',
             ]);

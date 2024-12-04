@@ -67,7 +67,7 @@ class ProductNotificationsServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            "{$this->root}/config/product-notifications.php" => config_path('dystore.product-notifications.php'),
+            "{$this->root}/config/product-notifications.php" => config_path('dystore/product-notifications.php'),
         ], 'dystore-product-notifications');
     }
 

@@ -29,8 +29,8 @@ class SetShippingOptionRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'shipping_option.required' => __('lunar-api::validations.shipping.set_shipping_option.shipping_option.required'),
-            'shipping_option.string' => __('lunar-api::validations.shipping.set_shipping_option.shipping_option.string'),
+            'shipping_option.required' => __('dystore::validations.shipping.set_shipping_option.shipping_option.required'),
+            'shipping_option.string' => __('dystore::validations.shipping.set_shipping_option.shipping_option.string'),
         ];
     }
 }

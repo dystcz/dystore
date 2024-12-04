@@ -48,14 +48,14 @@ class CheckoutCart implements CheckoutCartContract
             ->firstOrFail();
 
         if ($paymentOption = $cart->getPaymentOption()) {
-            $drivers = Config::get('lunar-api.general.checkout.auto_create_payment_intent_for_drivers', []);
+            $drivers = Config::get('dystore.general.checkout.auto_create_payment_intent_for_drivers', []);
 
             if (in_array($paymentOption->getDriver(), $drivers)) {
                 ($this->createPaymentIntent)($paymentOption->getDriver(), $model->cart);
             }
         }
 
-        if (Config::get('lunar-api.general.checkout.forget_cart_after_order_creation', true)) {
+        if (Config::get('dystore.general.checkout.forget_cart_after_order_creation', true)) {
             $this->cartSession->forget(delete: false);
         }
 

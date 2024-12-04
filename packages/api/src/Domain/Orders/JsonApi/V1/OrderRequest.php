@@ -33,8 +33,8 @@ class OrderRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'notes.string' => __('lunar-api::validations.orders.notes.string'),
-            'meta.array' => __('lunar-api::validations.orders.meta.array'),
+            'notes.string' => __('dystore::validations.orders.notes.string'),
+            'meta.array' => __('dystore::validations.orders.meta.array'),
         ];
     }
 }

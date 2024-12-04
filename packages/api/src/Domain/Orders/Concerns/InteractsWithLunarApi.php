@@ -49,7 +49,7 @@ trait InteractsWithLunarApi
             ->lines()
             ->whereNotIn(
                 'type',
-                Config::get('lunar-api.general.purchasable.non_eloquent_types', []),
+                Config::get('dystore.general.purchasable.non_eloquent_types', []),
             );
     }
 

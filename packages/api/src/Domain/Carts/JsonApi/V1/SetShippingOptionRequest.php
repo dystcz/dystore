@@ -39,11 +39,11 @@ class SetShippingOptionRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'shipping_option.required' => __('lunar-api::validations.shipping.set_shipping_option.shipping_option.required'),
-            'shipping_option.string' => __('lunar-api::validations.shipping.set_shipping_option.shipping_option.string'),
-            'address_type.required' => __('lunar-api::validations.cart_addresses.address_type.required'),
-            'address_type.string' => __('lunar-api::validations.cart_addresses.address_type.string'),
-            'address_type.in' => __('lunar-api::validations.cart_addresses.address_type.in', [
+            'shipping_option.required' => __('dystore::validations.shipping.set_shipping_option.shipping_option.required'),
+            'shipping_option.string' => __('dystore::validations.shipping.set_shipping_option.shipping_option.string'),
+            'address_type.required' => __('dystore::validations.cart_addresses.address_type.required'),
+            'address_type.string' => __('dystore::validations.cart_addresses.address_type.string'),
+            'address_type.in' => __('dystore::validations.cart_addresses.address_type.in', [
                 'types' => implode(', ', [
                     AddressType::SHIPPING->value,
                     AddressType::BILLING->value,

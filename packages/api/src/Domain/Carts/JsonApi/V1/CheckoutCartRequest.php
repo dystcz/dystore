@@ -43,9 +43,9 @@ class CheckoutCartRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'create_user.boolean' => __('lunar-api::validations.carts.create_user.boolean'),
-            'meta.array' => __('lunar-api::validations.carts.meta.array'),
-            'agree.accepted' => __('lunar-api::validations.carts.agree.accepted'),
+            'create_user.boolean' => __('dystore::validations.carts.create_user.boolean'),
+            'meta.array' => __('dystore::validations.carts.meta.array'),
+            'agree.accepted' => __('dystore::validations.carts.agree.accepted'),
         ];
     }
 
@@ -79,7 +79,7 @@ class CheckoutCartRequest extends ResourceRequest
         if (! $shippingAddress->hasShippingOption()) {
             $validator->errors()->add(
                 'cart',
-                __('lunar-api::validations.carts.shipping_option.required'),
+                __('dystore::validations.carts.shipping_option.required'),
             );
         }
     }
@@ -89,7 +89,7 @@ class CheckoutCartRequest extends ResourceRequest
      */
     protected function validateStock(Validator $validator, CartContract $cart): void
     {
-        if (! Config::get('lunar-api.general.checkout.check_stock_on_checkout')) {
+        if (! Config::get('dystore.general.checkout.check_stock_on_checkout')) {
             return;
         }
 
@@ -101,7 +101,7 @@ class CheckoutCartRequest extends ResourceRequest
             if ($line->purchasable->inStockQuantity < $line->quantity) {
                 $validator->errors()->add(
                     'cart',
-                    __('lunar-api::validations.carts.products.out_of_stock'),
+                    __('dystore::validations.carts.products.out_of_stock'),
                 );
             }
         });

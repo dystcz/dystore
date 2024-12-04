@@ -39,7 +39,7 @@ trait JsonApiTestHelpers
         int $modelCount = 5,
     ): TestResponse {
 
-        $perPage = Config::get('lunar-api.general.pagination.per_page');
+        $perPage = Config::get('dystore.general.pagination.per_page');
 
         /** @var TestCase $this */
         $models = $model::factory()
@@ -114,7 +114,7 @@ trait JsonApiTestHelpers
         Collection $includes,
     ): TestResponse {
 
-        $perPage = Config::get('lunar-api.general.pagination.per_page');
+        $perPage = Config::get('dystore.general.pagination.per_page');
 
         /** @var TestCase $this */
 

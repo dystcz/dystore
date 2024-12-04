@@ -60,7 +60,7 @@ it('validates payment option attribute when setting payment option to cart', fun
         ->post(serverUrl('/carts/-actions/set-payment-option'));
 
     $response->assertErrorStatus([
-        'detail' => __('lunar-api::validations.payments.set_payment_option.payment_option.required'),
+        'detail' => __('dystore::validations.payments.set_payment_option.payment_option.required'),
         'status' => '422',
     ]);
 })->group('carts', 'payment_options');

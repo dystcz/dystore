@@ -245,7 +245,7 @@ test('it validates existing user before being registered when checking out', fun
     $response
         ->assertStatus(422)
         ->assertErrorStatus([
-            'detail' => __('lunar-api::validations.auth.email.unique'),
+            'detail' => __('dystore::validations.auth.email.unique'),
             'status' => '422',
         ]);
 
@@ -254,7 +254,7 @@ test('it validates existing user before being registered when checking out', fun
 
 it('does not forget cart after checkout if configured', function () {
     /** @var TestCase $this */
-    Config::set('lunar-api.general.checkout.forget_cart_after_order_creation', false);
+    Config::set('dystore.general.checkout.forget_cart_after_order_creation', false);
 
     /** @var CartFactory $factory */
     $factory = Cart::factory();
@@ -289,7 +289,7 @@ it('does not forget cart after checkout if configured', function () {
 
 it('forgets cart after checkout if configured', function () {
     /** @var TestCase $this */
-    Config::set('lunar-api.general.checkout.forget_cart_after_order_creation', true);
+    Config::set('dystore.general.checkout.forget_cart_after_order_creation', true);
 
     /** @var CartFactory $factory */
     $factory = Cart::factory();
