@@ -67,7 +67,7 @@ jobs:
           STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-        run: composer test
+        run: ./vendor/bin/pest --testsuite ${{ matrix.testsuite }}
 
       # - name: Execute tests with hashids turned on
       #   run: composer test-hashids
