@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-product-notifications.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-notifications)
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-product-notifications.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-notifications)
-![GitHub Actions](https://github.com/dystcz/dystore-product-notifications/actions/workflows/tests.yaml/badge.svg)
+[![Tests](https://github.com/dystcz/dystore/actions/workflows/tests.yaml/badge.svg)](https://github.com/dystcz/dystore/actions/workflows/tests.yaml)
 
 Plug and play product stock notifications for Lunar ecommerce package
 

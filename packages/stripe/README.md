@@ -1,9 +1,8 @@
 # Dystore Stripe Adapter
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-stripe.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-stripe)
-![GitHub Actions](https://github.com/dystcz/dystore-stripe/actions/workflows/tests.yaml/badge.svg)
-
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-stripe.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-stripe)
+[![Tests](https://github.com/dystcz/dystore/actions/workflows/tests.yaml/badge.svg)](https://github.com/dystcz/dystore/actions/workflows/tests.yaml)
 
 This package provides a Stripe payment adapter for [Dystore API](https://github.com/dystcz/dystore-api).
 It can authorize your payments and handle incoming Stripe webhooks.

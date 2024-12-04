@@ -8,7 +8,7 @@ This initial version only takes an email address and subscribes to a list. There
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-newsletter.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-newsletter)
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-newsletter.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-newsletter)
-![GitHub Actions](https://github.com/dystcz/dystore-newsletter/actions/workflows/tests.yaml/badge.svg)
+[![Tests](https://github.com/dystcz/dystore/actions/workflows/tests.yaml/badge.svg)](https://github.com/dystcz/dystore/actions/workflows/tests.yaml)
 
 ## Installation
 

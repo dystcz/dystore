@@ -1,6 +1,9 @@
 # Dystore
 
-![GitHub Actions](https://github.com/dystcz/dystore/actions/workflows/tests.yaml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore)
+[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore)
+
+[![Tests](https://github.com/dystcz/dystore/actions/workflows/tests.yaml/badge.svg)](https://github.com/dystcz/dystore/actions/workflows/tests.yaml)
 
 > [!CAUTION]
 > This package is currently under heavy development. You should proceed with caution.

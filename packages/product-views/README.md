@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-product-views.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-views)
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-product-views.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-views)
-![GitHub Actions](https://github.com/dystcz/dystore-product-views/actions/workflows/main.yml/badge.svg)
+[![Tests](https://github.com/dystcz/dystore/actions/workflows/tests.yaml/badge.svg)](https://github.com/dystcz/dystore/actions/workflows/tests.yaml)
 
 Track Lunar API product views.
 
