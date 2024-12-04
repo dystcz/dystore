@@ -18,11 +18,9 @@ it('can read storefront session', function () {
             'channel',
             'customer',
             'currency',
-            // 'customer_groups'
+            'customer_groups'
         )
         ->get(serverUrl('/storefronts'));
-
-    // ray($response->json());
 
     /** @var StorefrontSessionManager $storefrontSession */
     $storefrontSession = App::make(StorefrontSessionInterface::class);
@@ -31,5 +29,19 @@ it('can read storefront session', function () {
         ->assertFetchedOne([
             'type' => 'storefronts',
             'id' => $storefrontSession->getSessionKey(),
+        ])
+        ->assertIncluded([
+            [
+                'type' => 'channels',
+                'id' => $storefrontSession->getChannel()->getKey(),
+            ],
+            [
+                'type' => 'currencies',
+                'id' => $storefrontSession->getCurrency()->getKey(),
+            ],
+            [
+                'type' => 'customer_groups',
+                'id' => $storefrontSession->getCustomerGroups()->first()->getKey(),
+            ],
         ]);
 });
