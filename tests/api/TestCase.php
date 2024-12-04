@@ -114,7 +114,7 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function defineEnvironment($app): void
     {
-        $app->useEnvironmentPath(__DIR__.'/..');
+        $app->useEnvironmentPath(__DIR__.'/../..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
         tap($app['config'], function (Repository $config) {

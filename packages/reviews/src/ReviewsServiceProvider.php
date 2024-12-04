@@ -78,7 +78,7 @@ class ReviewsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
             $this->publishTranslations();
-            $this->publishViews();
+            // $this->publishViews();
         }
     }
 

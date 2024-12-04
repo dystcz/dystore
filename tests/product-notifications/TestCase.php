@@ -77,7 +77,7 @@ abstract class TestCase extends Orchestra
             \Dystore\Api\ApiHashidsServiceProvider::class,
 
             // Lunar Product Notification
-            \Dystore\ProductNotifications\LunarApiProductNotificationServiceProvider::class,
+            \Dystore\ProductNotifications\ProductNotificationsServiceProvider::class,
         ];
     }
 
@@ -86,7 +86,7 @@ abstract class TestCase extends Orchestra
      */
     protected function defineEnvironment($app): void
     {
-        $app->useEnvironmentPath(__DIR__.'/..');
+        $app->useEnvironmentPath(__DIR__.'/../..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
         tap($app['config'], function (Repository $config) {

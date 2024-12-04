@@ -58,7 +58,7 @@ abstract class TestCase extends Orchestra
             \Spatie\Newsletter\NewsletterServiceProvider::class,
 
             // Lunar Api Newsletter
-            \Dystore\Newsletter\NewsletterServiceProviderServiceProvider::class,
+            \Dystore\Newsletter\NewsletterServiceProvider::class,
         ];
     }
 
@@ -67,7 +67,7 @@ abstract class TestCase extends Orchestra
      */
     protected function defineEnvironment($app): void
     {
-        $app->useEnvironmentPath(__DIR__.'/..');
+        $app->useEnvironmentPath(__DIR__.'/../..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
         tap($app['config'], function (Repository $config) {

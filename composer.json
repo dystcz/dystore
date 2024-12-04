@@ -56,7 +56,7 @@
     "psr-4": {
       "Dystore\\Api\\": "packages/api/src",
       "Dystore\\Newsletter\\": "packages/newsletter/src",
-      "Dystore\\ProductNotification\\": "packages/product-notifications/src",
+      "Dystore\\ProductNotifications\\": "packages/product-notifications/src",
       "Dystore\\ProductViews\\": "packages/product-views/src",
       "Dystore\\Reviews\\": "packages/reviews/src",
       "Dystore\\Stripe\\": "packages/stripe/src",

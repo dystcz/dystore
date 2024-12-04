@@ -88,7 +88,7 @@ abstract class TestCase extends Orchestra
             \Spatie\StripeWebhooks\StripeWebhooksServiceProvider::class,
 
             // Lunar API Stripe Adapter
-            \Dystore\Stripe\LunarApiStripeAdapterServiceProvider::class,
+            \Dystore\Stripe\StripeServiceProvider::class,
         ];
     }
 
@@ -97,7 +97,7 @@ abstract class TestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app): void
     {
-        $app->useEnvironmentPath(__DIR__.'/..');
+        $app->useEnvironmentPath(__DIR__.'/../..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
         tap($app['config'], function (Repository $config) {
@@ -172,7 +172,7 @@ abstract class TestCase extends Orchestra
      */
     protected function setUpDatabase(): void
     {
-        $migration = include __DIR__.'/../vendor/spatie/laravel-webhook-client/database/migrations/create_webhook_calls_table.php.stub';
+        $migration = include __DIR__.'/../../vendor/spatie/laravel-webhook-client/database/migrations/create_webhook_calls_table.php.stub';
 
         $migration->up();
     }

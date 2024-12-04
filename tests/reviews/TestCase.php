@@ -71,7 +71,7 @@ abstract class TestCase extends Orchestra
             \Dystore\Api\ApiHashidsServiceProvider::class,
 
             // Lunar Reviews
-            \Dystore\Reviews\LunarReviewsServiceProvider::class,
+            \Dystore\Reviews\ReviewsServiceProvider::class,
         ];
     }
 
@@ -80,7 +80,7 @@ abstract class TestCase extends Orchestra
      */
     protected function defineEnvironment($app): void
     {
-        $app->useEnvironmentPath(__DIR__.'/..');
+        $app->useEnvironmentPath(__DIR__.'/../..');
         $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
         tap($app['config'], function (Repository $config) {
