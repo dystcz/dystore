@@ -7,6 +7,8 @@ use Dystore\Api\Domain\Storefront\Contracts\StorefrontController as StorefrontCo
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
+use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelationship;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\UpdateRelationship;
 
 class StorefrontController extends Controller implements StorefrontControllerContract
@@ -14,5 +16,7 @@ class StorefrontController extends Controller implements StorefrontControllerCon
     use Destroy;
     use FetchMany;
     use FetchOne;
+    use FetchRelated;
+    use FetchRelationship;
     use UpdateRelationship;
 }
