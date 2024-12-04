@@ -24,7 +24,7 @@ class AuthorizeStripePayment
             ->authorize();
 
         if (! $payment->success) {
-            report("Payment failed for order: {$order->id} with reason: $payment->message");
+            report("Payment failed for order: {$order->id} with reason: {$payment->message}");
 
             return;
         }
