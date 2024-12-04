@@ -1,13 +1,15 @@
 {
-  "name": "dystcz/dystore",
-  "description": "Dystore",
+  "name": "dystcz/dystore-api",
+  "description": "Dystore API layer for Lunar e-commerce package",
+  "homepage": "https://github.com/dystcz/dystore-api",
   "license": "MIT",
   "type": "library",
   "keywords": [
     "dystcz",
-    "api",
+    "dystopia",
     "lunar",
     "dystore",
+    "dystore-api",
     "laravel",
     "php"
   ],
@@ -63,30 +65,15 @@
   },
   "autoload": {
     "psr-4": {
-      "Dystcz\\LunarApiNewsletter\\": "packages/newsletter/src",
-      "Dystcz\\LunarApiProductNotification\\": "packages/product-notifications/src",
-      "Dystcz\\LunarApiProductViews\\": "packages/product-views/src",
-      "Dystcz\\LunarApiReviews\\": "packages/reviews/src",
-      "Dystcz\\LunarApiStripeAdapter\\": "packages/stripe/src",
-      "Dystcz\\LunarApi\\": "src",
-      "Modules\\DystoreAres\\": "modules/ares/src/",
-      "Modules\\DystoreAres\\Database\\Factories\\": "modules/ares/database/factories/",
-      "Modules\\DystoreAres\\Database\\Seeders\\": "modules/ares/database/seeders/",
-      "Modules\\DystoreDiscord\\": "modules/discord/src/",
-      "Modules\\DystoreDiscord\\Database\\Factories\\": "modules/discord/database/factories/",
-      "Modules\\DystoreDiscord\\Database\\Seeders\\": "modules/discord/database/seeders/"
-    }
+      "Dystore\\Api\\": "src"
+    },
+    "files": [
+      "autoload.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
-      "Dystore\\Tests\\Api": "tests/api",
-      "Dystore\\Tests\\Newsletter": "tests/newsletter",
-      "Dystore\\Tests\\ProductNotifications": "tests/product-notifications",
-      "Dystore\\Tests\\ProductViews": "tests/product-views",
-      "Dystore\\Tests\\Reviews": "tests/reviews",
-      "Dystore\\Tests\\Stripe": "tests/stripe",
-      "Modules\\DystoreAres\\Tests\\": "modules/ares/tests/",
-      "Modules\\DystoreDiscord\\Tests\\": "modules/discord/tests/"
+      "Dystore\\Api\\Tests\\": "tests"
     }
   },
   "extra": {
@@ -136,6 +123,15 @@
     "allow-plugins": {
       "pestphp/pest-plugin": true,
       "php-http/discovery": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystore\\Api\\LunarApiServiceProvider",
+        "Dystore\\Api\\JsonApiServiceProvider",
+        "Dystore\\Api\\LunarApiHashidsServiceProvider"
+      ]
     }
   },
   "minimum-stability": "dev",
