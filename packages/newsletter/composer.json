@@ -1,60 +1,60 @@
 {
-  "name": "dystcz/dystore-newsletter",
-  "description": "Add the possibility to sign up to newsletter lists to your Dystore backend",
-  "keywords": [
-    "dystopia",
-    "dystore",
-    "lunar",
-    "newsletter"
-  ],
-  "homepage": "https://github.com/dystcz/dystore",
-  "license": "MIT",
-  "type": "library",
-  "authors": [
-    {
-      "name": "Dystopia",
-      "homepage": "https://dy.st/"
-    }
-  ],
-  "require": {
-    "php": "^8.2",
-    "dystcz/dystore-api": "self.version",
-    "illuminate/support": "^11.0",
-    "spatie/laravel-newsletter": "^5.1"
-  },
-  "suggest": {
-    "spatie/mailcoach-sdk-php": "For working with Mailcoach",
-    "drewm/mailchimp-api": "For working with MailChimp",
-    "getbrevo/brevo-php": "For working with Brevo"
-  },
-  "require-dev": {
-    "drewm/mailchimp-api": "^2.5",
-    "getbrevo/brevo-php": "^1.0",
-    "spatie/mailcoach-sdk-php": "^1.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Dystore\\Newsletter\\": "src",
-      "Dystore\\Newsletter\\Database\\Factories\\": "database/factories",
-      "Dystore\\Newsletter\\Database\\State\\": "database/state"
+    "name": "dystcz/dystore-newsletter",
+    "description": "Add the possibility to sign up to newsletter lists to your Dystore backend",
+    "keywords": [
+        "dystopia",
+        "dystore",
+        "lunar",
+        "newsletter"
+    ],
+    "homepage": "https://github.com/dystcz/dystore",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Dystopia",
+            "homepage": "https://dy.st/"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "dystcz/dystore-api": "^1.0",
+        "illuminate/support": "^11.0",
+        "spatie/laravel-newsletter": "^5.1"
     },
-    "files": [
-      "autoload.php"
-    ]
-  },
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Dystore\\Newsletter\\NewsletterServiceProvider"
-      ]
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "suggest": {
+        "spatie/mailcoach-sdk-php": "For working with Mailcoach",
+        "drewm/mailchimp-api": "For working with MailChimp",
+        "getbrevo/brevo-php": "For working with Brevo"
+    },
+    "require-dev": {
+        "drewm/mailchimp-api": "^2.5",
+        "getbrevo/brevo-php": "^1.0",
+        "spatie/mailcoach-sdk-php": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dystore\\Newsletter\\": "src",
+            "Dystore\\Newsletter\\Database\\Factories\\": "database/factories",
+            "Dystore\\Newsletter\\Database\\State\\": "database/state"
+        },
+        "files": [
+            "autoload.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dystore\\Newsletter\\NewsletterServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

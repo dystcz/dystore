@@ -1,138 +1,138 @@
 {
-  "name": "dystcz/dystore-api",
-  "description": "Collection of ecommerce packages built on top of Lunar and Laravel JSON:API.",
-  "license": "MIT",
-  "type": "library",
-  "keywords": [
-    "dystcz",
-    "dystopia",
-    "lunar",
-    "dystore",
-    "dystore-api",
-    "laravel",
-    "php"
-  ],
-  "authors": [
-    {
-      "name": "Dystopia",
-      "homepage": "https://dy.st/"
-    }
-  ],
-  "homepage": "https://github.com/dystcz/dystore-api",
-  "require": {
-    "php": "^8.2",
-    "ext-redis": "*",
-    "h4kuna/ares": "^3.0",
-    "illuminate/support": "^11.0",
-    "laravel-json-api/core": "4.1.0",
-    "laravel-json-api/hashids": "^3.0",
-    "laravel-json-api/laravel": "4.1.0",
-    "laravel-json-api/non-eloquent": "^4.0",
-    "laravel-notification-channels/discord": "^1.5",
-    "lunarphp/lunar": "^1.0.0-beta.6",
-    "lunarphp/stripe": "^1.0.0",
-    "spatie/laravel-newsletter": "^5.1",
-    "spatie/laravel-stripe-webhooks": "^3.6",
-    "staudenmeir/eloquent-has-many-deep": "^1.20"
-  },
-  "require-dev": {
-    "barryvdh/laravel-ide-helper": "^3.0",
-    "drewm/mailchimp-api": "^2.5",
-    "getbrevo/brevo-php": "^1.0",
-    "larastan/larastan": "^2.0",
-    "laravel-json-api/testing": "^3.0",
-    "laravel/pint": "^1.7",
-    "mockery/mockery": "^1.5",
-    "orchestra/testbench": "^9.0",
-    "pestphp/pest": "^2.0",
-    "pestphp/pest-plugin-arch": "^2.0",
-    "pestphp/pest-plugin-faker": "^2.0",
-    "pestphp/pest-plugin-laravel": "^2.0",
-    "spatie/laravel-ray": "^1.32",
-    "spatie/mailcoach-sdk-php": "^1.1",
-    "symplify/monorepo-builder": "^11.2"
-  },
-  "replace": {
-    "dystcz/dystore-api": "self.version",
-    "dystcz/dystore-newsletter": "self.version",
-    "dystcz/dystore-product-notifications": "self.version",
-    "dystcz/dystore-product-views": "self.version",
-    "dystcz/dystore-reviews": "self.version",
-    "dystcz/dystore-stripe": "self.version"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "autoload": {
-    "psr-4": {
-      "Dystore\\Api\\": "packages/api/src",
-      "Dystore\\Api\\Database\\Factories\\": "packages/api/database/factories",
-      "Dystore\\Api\\Database\\State\\": "packages/api/database/state",
-      "Dystore\\Newsletter\\": "packages/newsletter/src",
-      "Dystore\\Newsletter\\Database\\Factories\\": "packages/newsletter/database/factories",
-      "Dystore\\Newsletter\\Database\\State\\": "packages/newsletter/database/state",
-      "Dystore\\ProductNotifications\\": "packages/product-notifications/src",
-      "Dystore\\ProductNotifications\\Database\\Factories\\": "packages/product-notifications/database/factories",
-      "Dystore\\ProductNotifications\\Database\\State\\": "packages/product-notifications/database/state",
-      "Dystore\\ProductViews\\": "packages/product-views/src",
-      "Dystore\\ProductViews\\Database\\Factories\\": "packages/product-views/database/factories",
-      "Dystore\\ProductViews\\Database\\State\\": "packages/product-views/database/state",
-      "Dystore\\Reviews\\": "packages/reviews/src",
-      "Dystore\\Reviews\\Database\\Factories\\": "packages/reviews/database/factories",
-      "Dystore\\Reviews\\Database\\State\\": "packages/reviews/database/state",
-      "Dystore\\Stripe\\": "packages/stripe/src",
-      "Dystore\\Stripe\\Database\\Factories\\": "packages/stripe/database/factories",
-      "Dystore\\Stripe\\Database\\State\\": "packages/stripe/database/state"
+    "name": "dystcz/dystore-api",
+    "autoload": {
+        "psr-4": {
+            "Dystore\\Api\\": "packages/api/src",
+            "Dystore\\Api\\Database\\Factories\\": "packages/api/database/factories",
+            "Dystore\\Api\\Database\\State\\": "packages/api/database/state",
+            "Dystore\\Newsletter\\": "packages/newsletter/src",
+            "Dystore\\Newsletter\\Database\\Factories\\": "packages/newsletter/database/factories",
+            "Dystore\\Newsletter\\Database\\State\\": "packages/newsletter/database/state",
+            "Dystore\\ProductNotifications\\": "packages/product-notifications/src",
+            "Dystore\\ProductNotifications\\Database\\Factories\\": "packages/product-notifications/database/factories",
+            "Dystore\\ProductNotifications\\Database\\State\\": "packages/product-notifications/database/state",
+            "Dystore\\ProductViews\\": "packages/product-views/src",
+            "Dystore\\ProductViews\\Database\\Factories\\": "packages/product-views/database/factories",
+            "Dystore\\ProductViews\\Database\\State\\": "packages/product-views/database/state",
+            "Dystore\\Reviews\\": "packages/reviews/src",
+            "Dystore\\Reviews\\Database\\Factories\\": "packages/reviews/database/factories",
+            "Dystore\\Reviews\\Database\\State\\": "packages/reviews/database/state",
+            "Dystore\\Stripe\\": "packages/stripe/src",
+            "Dystore\\Stripe\\Database\\Factories\\": "packages/stripe/database/factories",
+            "Dystore\\Stripe\\Database\\State\\": "packages/stripe/database/state"
+        },
+        "files": [
+            "packages/api/autoload.php",
+            "packages/newsletter/autoload.php",
+            "packages/product-notifications/autoload.php",
+            "packages/product-views/autoload.php",
+            "packages/reviews/autoload.php",
+            "packages/stripe/autoload.php"
+        ]
     },
-    "files": [
-      "packages/api/autoload.php",
-      "packages/newsletter/autoload.php",
-      "packages/product-notifications/autoload.php",
-      "packages/product-views/autoload.php",
-      "packages/reviews/autoload.php",
-      "packages/stripe/autoload.php"
-    ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Dystore\\Tests\\Api\\": "tests/api",
-      "Dystore\\Tests\\Newsletter\\": "tests/newsletter",
-      "Dystore\\Tests\\ProductNotifications\\": "tests/product-notifications",
-      "Dystore\\Tests\\ProductViews\\": "tests/product-views",
-      "Dystore\\Tests\\Reviews\\": "tests/reviews",
-      "Dystore\\Tests\\Stripe\\": "tests/stripe"
-    }
-  },
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "pestphp/pest-plugin": true,
-      "php-http/discovery": true
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Dystore\\Api\\ApiHashidsServiceProvider",
-        "Dystore\\Api\\ApiServiceProvider",
-        "Dystore\\Api\\JsonApiServiceProvider",
-        "Dystore\\Newsletter\\NewsletterServiceProvider",
-        "Dystore\\ProductNotifications\\ProductNotificationsServiceProvider",
-        "Dystore\\ProductViews\\ProductViewsServiceProvider",
-        "Dystore\\Reviews\\ReviewsServiceProvider",
-        "Dystore\\Stripe\\StripeServiceProvider"
-      ]
-    }
-  },
-  "scripts": {
-    "post-autoload-dump": "@composer run prepare",
-    "artisan": "vendor/bin/testbench",
-    "clear": "vendor/bin/testbench package:purge --ansi",
-    "prepare": "vendor/bin/testbench package:discover --ansi",
-    "package-test": "vendor/bin/testbench package:test",
-    "test": "vendor/bin/pest",
-    "test-hashids": "vendor/bin/pest -c phpunit.hashids.xml",
-    "test-coverage": "vendor/bin/pest --coverage",
-    "analyse": "vendor/bin/phpstan analyse",
-    "format": "vendor/bin/pint"
-  }
+    "minimum-stability": "dev",
+    "replace": {
+        "dystcz/dystore-api": "1.0.0",
+        "dystcz/dystore-newsletter": "1.0.0",
+        "dystcz/dystore-product-notifications": "1.0.0",
+        "dystcz/dystore-product-views": "1.0.0",
+        "dystcz/dystore-reviews": "1.0.0",
+        "dystcz/dystore-stripe": "1.0.0"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@composer run prepare",
+        "artisan": "vendor/bin/testbench",
+        "clear": "vendor/bin/testbench package:purge --ansi",
+        "prepare": "vendor/bin/testbench package:discover --ansi",
+        "package-test": "vendor/bin/testbench package:test",
+        "test": "vendor/bin/pest",
+        "test-hashids": "vendor/bin/pest -c phpunit.hashids.xml",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "analyse": "vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dystore\\Api\\ApiHashidsServiceProvider",
+                "Dystore\\Api\\ApiServiceProvider",
+                "Dystore\\Api\\JsonApiServiceProvider",
+                "Dystore\\Newsletter\\NewsletterServiceProvider",
+                "Dystore\\ProductNotifications\\ProductNotificationsServiceProvider",
+                "Dystore\\ProductViews\\ProductViewsServiceProvider",
+                "Dystore\\Reviews\\ReviewsServiceProvider",
+                "Dystore\\Stripe\\StripeServiceProvider"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dystore\\Tests\\Api\\": "tests/api",
+            "Dystore\\Tests\\Newsletter\\": "tests/newsletter",
+            "Dystore\\Tests\\ProductNotifications\\": "tests/product-notifications",
+            "Dystore\\Tests\\ProductViews\\": "tests/product-views",
+            "Dystore\\Tests\\Reviews\\": "tests/reviews",
+            "Dystore\\Tests\\Stripe\\": "tests/stripe"
+        }
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.0",
+        "drewm/mailchimp-api": "^2.5",
+        "getbrevo/brevo-php": "^1.0",
+        "larastan/larastan": "^2.0",
+        "laravel-json-api/testing": "^3.0",
+        "laravel/pint": "^1.7",
+        "mockery/mockery": "^1.5",
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-arch": "^2.0",
+        "pestphp/pest-plugin-faker": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0",
+        "spatie/laravel-ray": "^1.32",
+        "spatie/mailcoach-sdk-php": "^1.1",
+        "symplify/monorepo-builder": "^11.2"
+    },
+    "description": "Collection of ecommerce packages built on top of Lunar and Laravel JSON:API.",
+    "require": {
+        "php": "^8.2",
+        "ext-redis": "*",
+        "h4kuna/ares": "^3.0",
+        "illuminate/support": "^11.0",
+        "laravel-json-api/core": "4.1.0",
+        "laravel-json-api/hashids": "^3.0",
+        "laravel-json-api/laravel": "4.1.0",
+        "laravel-json-api/non-eloquent": "^4.0",
+        "laravel-notification-channels/discord": "^1.5",
+        "lunarphp/lunar": "^1.0.0-beta.6",
+        "lunarphp/stripe": "^1.0.0",
+        "spatie/laravel-newsletter": "^5.1",
+        "spatie/laravel-stripe-webhooks": "^3.6",
+        "staudenmeir/eloquent-has-many-deep": "^1.20"
+    },
+    "type": "library",
+    "authors": [
+        {
+            "name": "Dystopia",
+            "homepage": "https://dy.st/"
+        }
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/dystcz/dystore-api",
+    "keywords": [
+        "dystcz",
+        "dystopia",
+        "lunar",
+        "dystore",
+        "dystore-api",
+        "laravel",
+        "php"
+    ],
+    "prefer-stable": true
 }

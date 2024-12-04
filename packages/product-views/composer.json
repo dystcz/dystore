@@ -1,51 +1,51 @@
 {
-  "name": "dystcz/dystore-product-views",
-  "description": "Track product views in yout Dystore backend",
-  "keywords": [
-    "dystopia",
-    "lunar",
-    "dystore",
-    "laravel",
-    "php"
-  ],
-  "homepage": "https://github.com/dystcz/dystore",
-  "license": "MIT",
-  "type": "library",
-  "authors": [
-    {
-      "name": "Dystopia",
-      "homepage": "https://dy.st/"
-    }
-  ],
-  "require": {
-    "php": "^8.2",
-    "dystcz/dystore-api": "self.version",
-    "illuminate/support": "^11.0",
-    "ext-redis": "*"
-  },
-  "autoload": {
-    "psr-4": {
-      "Dystore\\ProductViews\\": "src",
-      "Dystore\\ProductViews\\Database\\Factories\\": "database/factories",
-      "Dystore\\ProductViews\\Database\\State\\": "database/state"
+    "name": "dystcz/dystore-product-views",
+    "description": "Track product views in yout Dystore backend",
+    "keywords": [
+        "dystopia",
+        "lunar",
+        "dystore",
+        "laravel",
+        "php"
+    ],
+    "homepage": "https://github.com/dystcz/dystore",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Dystopia",
+            "homepage": "https://dy.st/"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "dystcz/dystore-api": "^1.0",
+        "illuminate/support": "^11.0",
+        "ext-redis": "*"
     },
-    "files": [
-      "autoload.php"
-    ]
-  },
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Dystore\\ProductViews\\ProductViewsServiceProvider"
-      ]
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "autoload": {
+        "psr-4": {
+            "Dystore\\ProductViews\\": "src",
+            "Dystore\\ProductViews\\Database\\Factories\\": "database/factories",
+            "Dystore\\ProductViews\\Database\\State\\": "database/state"
+        },
+        "files": [
+            "autoload.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dystore\\ProductViews\\ProductViewsServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

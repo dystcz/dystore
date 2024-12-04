@@ -1,54 +1,54 @@
 {
-  "name": "dystcz/dystore-stripe",
-  "description": "Dystore Stripe payment adapter",
-  "homepage": "https://github.com/dystcz/dystore",
-  "license": "MIT",
-  "type": "library",
-  "keywords": [
-    "dystopia",
-    "lunar",
-    "dystore",
-    "laravel",
-    "php",
-    "stripe"
-  ],
-  "authors": [
-    {
-      "name": "Dystopia",
-      "homepage": "https://dy.st/"
-    }
-  ],
-  "require": {
-    "php": "^8.2",
-    "illuminate/support": "^11.0",
-    "dystcz/dystore-api": "self.version",
-    "lunarphp/stripe": "^1.0.0",
-    "spatie/laravel-stripe-webhooks": "^3.6"
-  },
-  "autoload": {
-    "psr-4": {
-      "Dystore\\Stripe\\": "src",
-      "Dystore\\Stripe\\Database\\Factories\\": "database/factories",
-      "Dystore\\Stripe\\Database\\State\\": "database/state"
+    "name": "dystcz/dystore-stripe",
+    "description": "Dystore Stripe payment adapter",
+    "homepage": "https://github.com/dystcz/dystore",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "dystopia",
+        "lunar",
+        "dystore",
+        "laravel",
+        "php",
+        "stripe"
+    ],
+    "authors": [
+        {
+            "name": "Dystopia",
+            "homepage": "https://dy.st/"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0",
+        "dystcz/dystore-api": "^1.0",
+        "lunarphp/stripe": "^1.0.0",
+        "spatie/laravel-stripe-webhooks": "^3.6"
     },
-    "files": [
-      "autoload.php"
-    ]
-  },
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "pestphp/pest-plugin": true,
-      "phpstan/extension-installer": true
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Dystore\\Stripe\\StripeServiceProvider"
-      ]
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "autoload": {
+        "psr-4": {
+            "Dystore\\Stripe\\": "src",
+            "Dystore\\Stripe\\Database\\Factories\\": "database/factories",
+            "Dystore\\Stripe\\Database\\State\\": "database/state"
+        },
+        "files": [
+            "autoload.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dystore\\Stripe\\StripeServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
