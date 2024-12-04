@@ -108,7 +108,7 @@ class ApiServiceProvider extends ServiceProvider
         foreach ($this->configFiles as $configFile) {
             $this->publishes([
                 "{$this->root}/config/{$configFile}.php" => config_path("dystore/{$configFile}.php"),
-            ], 'dystore');
+            ], 'dystore-api');
         }
 
         $this->publishes([
@@ -122,8 +122,8 @@ class ApiServiceProvider extends ServiceProvider
     protected function publishTranslations(): void
     {
         $this->publishes([
-            "{$this->root}/lang" => $this->app->langPath('vendor/dystore'),
-        ], 'dystore.translations');
+            "{$this->root}/lang" => $this->app->langPath('vendor/dystore-api'),
+        ], 'dystore-api.translations');
     }
 
     /**
@@ -295,49 +295,6 @@ class ApiServiceProvider extends ServiceProvider
     protected function bindControllers(): void
     {
         $controllers = [
-<<<<<<<< HEAD:packages/api/src/LunarApiServiceProvider.php
-            \Dystcz\LunarApi\Domain\Addresses\Contracts\AddressesController::class => \Dystcz\LunarApi\Domain\Addresses\Http\Controllers\AddressesController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\AuthController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\AuthUserOrdersController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\AuthUserOrdersController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\NewPasswordController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\NewPasswordController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\PasswordResetLinkController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\PasswordResetLinkController::class,
-            \Dystcz\LunarApi\Domain\Auth\Contracts\RegisterUserWithoutPasswordController::class => \Dystcz\LunarApi\Domain\Auth\Http\Controllers\RegisterUserWithoutPasswordController::class,
-            \Dystcz\LunarApi\Domain\Brands\Contracts\BrandsController::class => \Dystcz\LunarApi\Domain\Brands\Http\Controllers\BrandsController::class,
-            \Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressShippingOptionController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\CartAddressShippingOptionController::class,
-            \Dystcz\LunarApi\Domain\CartAddresses\Contracts\CartAddressesController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\CartAddressesController::class,
-            \Dystcz\LunarApi\Domain\CartAddresses\Contracts\ContinuousUpdateCartAddressController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\ContinuousUpdateCartAddressController::class,
-            \Dystcz\LunarApi\Domain\CartAddresses\Contracts\UpdateCartAddressCountryController::class => \Dystcz\LunarApi\Domain\CartAddresses\Http\Controllers\UpdateCartAddressCountryController::class,
-            \Dystcz\LunarApi\Domain\CartLines\Contracts\CartLinesController::class => \Dystcz\LunarApi\Domain\CartLines\Http\Controllers\CartLinesController::class,
-            \Dystcz\LunarApi\Domain\Carts\Contracts\CartCouponsController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartCouponsController::class,
-            \Dystcz\LunarApi\Domain\Carts\Contracts\CartPaymentOptionController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartPaymentOptionController::class,
-            \Dystcz\LunarApi\Domain\Carts\Contracts\CartShippingOptionController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartShippingOptionController::class,
-            \Dystcz\LunarApi\Domain\Carts\Contracts\CartsController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CartsController::class,
-            \Dystcz\LunarApi\Domain\Carts\Contracts\CheckoutCartController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CheckoutCartController::class,
-            \Dystcz\LunarApi\Domain\Carts\Contracts\ClearUserCartController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\ClearUserCartController::class,
-            \Dystcz\LunarApi\Domain\Carts\Contracts\CreateEmptyCartAddressesController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\CreateEmptyCartAddressesController::class,
-            \Dystcz\LunarApi\Domain\Carts\Contracts\ReadUserCartController::class => \Dystcz\LunarApi\Domain\Carts\Http\Controllers\ReadUserCartController::class,
-            \Dystcz\LunarApi\Domain\Channels\Contracts\ChannelsController::class => \Dystcz\LunarApi\Domain\Channels\Http\Controllers\ChannelsController::class,
-            \Dystcz\LunarApi\Domain\Collections\Contracts\CollectionsController::class => \Dystcz\LunarApi\Domain\Collections\Http\Controllers\CollectionsController::class,
-            \Dystcz\LunarApi\Domain\Countries\Contracts\CountriesController::class => \Dystcz\LunarApi\Domain\Countries\Http\Controllers\CountriesController::class,
-            \Dystcz\LunarApi\Domain\Currencies\Contracts\CurrenciesController::class => \Dystcz\LunarApi\Domain\Currencies\Http\Controllers\CurrenciesController::class,
-            \Dystcz\LunarApi\Domain\Customers\Contracts\CustomersController::class => \Dystcz\LunarApi\Domain\Customers\Http\Controllers\CustomersController::class,
-            \Dystcz\LunarApi\Domain\Media\Contracts\MediaController::class => \Dystcz\LunarApi\Domain\Media\Http\Controllers\MediaController::class,
-            \Dystcz\LunarApi\Domain\Orders\Contracts\CheckOrderPaymentStatusController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\CheckOrderPaymentStatusController::class,
-            \Dystcz\LunarApi\Domain\Orders\Contracts\CreatePaymentIntentController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\CreatePaymentIntentController::class,
-            \Dystcz\LunarApi\Domain\Orders\Contracts\MarkOrderAwaitingPaymentController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\MarkOrderAwaitingPaymentController::class,
-            \Dystcz\LunarApi\Domain\Orders\Contracts\MarkOrderPendingPaymentController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\MarkOrderPendingPaymentController::class,
-            \Dystcz\LunarApi\Domain\Orders\Contracts\OrdersController::class => \Dystcz\LunarApi\Domain\Orders\Http\Controllers\OrdersController::class,
-            \Dystcz\LunarApi\Domain\PaymentOptions\Contracts\PaymentOptionsController::class => \Dystcz\LunarApi\Domain\PaymentOptions\Http\Controllers\PaymentOptionsController::class,
-            \Dystcz\LunarApi\Domain\Payments\Contracts\HandlePaymentWebhookController::class => \Dystcz\LunarApi\Domain\Payments\Http\Controllers\HandlePaymentWebhookController::class,
-            \Dystcz\LunarApi\Domain\ProductOptionValues\Contracts\ProductOptionValuesController::class => \Dystcz\LunarApi\Domain\ProductOptionValues\Http\Controllers\ProductOptionValuesController::class,
-            \Dystcz\LunarApi\Domain\ProductVariants\Contracts\ProductVariantsController::class => \Dystcz\LunarApi\Domain\ProductVariants\Http\Controllers\ProductVariantsController::class,
-            \Dystcz\LunarApi\Domain\Products\Contracts\ProductsController::class => \Dystcz\LunarApi\Domain\Products\Http\Controllers\ProductsController::class,
-            \Dystcz\LunarApi\Domain\ShippingOptions\Contracts\ShippingOptionsController::class => \Dystcz\LunarApi\Domain\ShippingOptions\Http\Controllers\ShippingOptionsController::class,
-            \Dystcz\LunarApi\Domain\Tags\Contracts\TagsController::class => \Dystcz\LunarApi\Domain\Tags\Http\Controllers\TagsController::class,
-            \Dystcz\LunarApi\Domain\Urls\Contracts\UrlsController::class => \Dystcz\LunarApi\Domain\Urls\Http\Controllers\UrlsController::class,
-            \Dystcz\LunarApi\Domain\Users\Contracts\ChangePasswordController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\ChangePasswordController::class,
-            \Dystcz\LunarApi\Domain\Users\Contracts\UsersController::class => \Dystcz\LunarApi\Domain\Users\Http\Controllers\UsersController::class,
-========
             \Dystore\Api\Domain\Addresses\Contracts\AddressesController::class => \Dystore\Api\Domain\Addresses\Http\Controllers\AddressesController::class,
             \Dystore\Api\Domain\Brands\Contracts\BrandsController::class => \Dystore\Api\Domain\Brands\Http\Controllers\BrandsController::class,
             \Dystore\Api\Domain\CartAddresses\Contracts\CartAddressShippingOptionController::class => \Dystore\Api\Domain\CartAddresses\Http\Controllers\CartAddressShippingOptionController::class,
@@ -347,6 +304,7 @@ class ApiServiceProvider extends ServiceProvider
             \Dystore\Api\Domain\CartLines\Contracts\CartLinesController::class => \Dystore\Api\Domain\CartLines\Http\Controllers\CartLinesController::class,
             \Dystore\Api\Domain\Carts\Contracts\CartCouponsController::class => \Dystore\Api\Domain\Carts\Http\Controllers\CartCouponsController::class,
             \Dystore\Api\Domain\Carts\Contracts\CartPaymentOptionController::class => \Dystore\Api\Domain\Carts\Http\Controllers\CartPaymentOptionController::class,
+            \Dystore\Api\Domain\Carts\Contracts\CartShippingOptionController::class => \Dystore\Api\Domain\Carts\Http\Controllers\CartShippingOptionController::class,
             \Dystore\Api\Domain\Carts\Contracts\CartsController::class => \Dystore\Api\Domain\Carts\Http\Controllers\CartsController::class,
             \Dystore\Api\Domain\Carts\Contracts\CheckoutCartController::class => \Dystore\Api\Domain\Carts\Http\Controllers\CheckoutCartController::class,
             \Dystore\Api\Domain\Carts\Contracts\ClearUserCartController::class => \Dystore\Api\Domain\Carts\Http\Controllers\ClearUserCartController::class,
@@ -378,7 +336,6 @@ class ApiServiceProvider extends ServiceProvider
             \Dystore\Api\Domain\Auth\Contracts\AuthController::class => \Dystore\Api\Domain\Auth\Http\Controllers\AuthController::class,
             \Dystore\Api\Domain\Auth\Contracts\PasswordResetLinkController::class => \Dystore\Api\Domain\Auth\Http\Controllers\PasswordResetLinkController::class,
             \Dystore\Api\Domain\Auth\Contracts\NewPasswordController::class => \Dystore\Api\Domain\Auth\Http\Controllers\NewPasswordController::class,
->>>>>>>> api/feature/rename-to-dystore-api:packages/api/src/ApiServiceProvider.php
         ];
 
         foreach ($controllers as $abstract => $concrete) {
