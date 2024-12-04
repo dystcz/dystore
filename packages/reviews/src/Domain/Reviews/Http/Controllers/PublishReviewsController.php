@@ -2,7 +2,7 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Http\Controllers;
 
-use Dystcz\LunarApi\Base\Controller;
+use Dystore\Api\Base\Controller;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Http\Request;

@@ -1,7 +1,7 @@
 <?php
 
 use Carbon\Carbon;
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Dystore\Reviews\Tests\Stubs\Users\User;
 use Dystore\Reviews\Tests\TestCase;

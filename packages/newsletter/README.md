@@ -1,6 +1,6 @@
 # Lunar API Newsletter
 
-This [lunar-api](https://github.com/dystcz/lunar-api) compatible package exposes an API endpoint which
+This [dystore-api](https://github.com/dystcz/dystore-api) compatible package exposes an API endpoint which
 allows you to subscribe to newsletter lists by providing an email address
 using the [spatie/laravel-newsletter](https://github.com/spatie/laravel-newsletter) package.
 
@@ -97,9 +97,9 @@ If you discover any security related issues, please email jakub@dy.st instead of
 
 ## Credits
 
-- [Jakub Theimer](https://github.com/dystcz)
-- [Spatie](https://github.com/spatie)
-- [All Contributors](../../contributors)
+-   [Jakub Theimer](https://github.com/dystcz)
+-   [Spatie](https://github.com/spatie)
+-   [All Contributors](../../contributors)
 
 ## License
 

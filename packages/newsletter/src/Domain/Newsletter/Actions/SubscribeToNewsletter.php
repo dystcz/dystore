@@ -2,7 +2,7 @@
 
 namespace Dystore\Newsletter\Domain\Newsletter\Actions;
 
-use Dystcz\LunarApi\Support\Actions\Action;
+use Dystore\Api\Support\Actions\Action;
 use Dystore\Newsletter\Domain\Newsletter\Events\NewsletterSubscribed;
 use Spatie\Newsletter\Facades\Newsletter;
 

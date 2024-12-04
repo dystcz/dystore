@@ -8,7 +8,7 @@ use Dystore\Api\Domain\Users\Contracts\User as UserContract;
 use Dystore\Api\Domain\Users\JsonApi\V1\UserQuery;
 use Dystore\Api\Domain\Users\JsonApi\V1\UserSchema;
 use Dystore\Api\Domain\Users\Models\User;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +63,7 @@ class AuthController extends Controller
      */
     public function logout(Request $request): DataResponse
     {
-        Auth::guard(LunarApi::getAuthGuard())->logout();
+        Auth::guard(Api::getAuthGuard())->logout();
 
         $request->session()->invalidate();
 

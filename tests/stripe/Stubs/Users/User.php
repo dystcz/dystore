@@ -2,7 +2,7 @@
 
 namespace Dystore\Stripe\Tests\Stubs\Users;
 
-use Dystcz\LunarApi\Domain\Users\Factories\UserFactory;
+use Dystore\Api\Domain\Users\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

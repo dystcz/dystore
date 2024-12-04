@@ -2,16 +2,16 @@
 
 namespace Dystore\Reviews;
 
-use Dystcz\LunarApi\Base\Contracts\ResourceManifest;
-use Dystcz\LunarApi\Base\Contracts\SchemaManifest;
-use Dystcz\LunarApi\Base\Extensions\ResourceExtension;
-use Dystcz\LunarApi\Base\Extensions\SchemaExtension;
-use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
-use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductResource;
-use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
-use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;
-use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
-use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
+use Dystore\Api\Base\Contracts\ResourceManifest;
+use Dystore\Api\Base\Contracts\SchemaManifest;
+use Dystore\Api\Base\Extensions\ResourceExtension;
+use Dystore\Api\Base\Extensions\SchemaExtension;
+use Dystore\Api\Base\Facades\SchemaManifestFacade;
+use Dystore\Api\Domain\Products\JsonApi\V1\ProductResource;
+use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
+use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;
+use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
+use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
 use Dystore\Reviews\Domain\Hub\Components\Slots\ReviewsSlot;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;

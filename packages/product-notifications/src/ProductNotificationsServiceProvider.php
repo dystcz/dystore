@@ -2,8 +2,8 @@
 
 namespace Dystore\ProductNotifications;
 
-use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
-use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
+use Dystore\Api\Base\Facades\SchemaManifestFacade;
+use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
 use Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1\ProductNotificationSchema;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Observers\ProductVariantObserver;

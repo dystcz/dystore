@@ -2,7 +2,7 @@
 
 namespace Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery;
+use Dystore\Api\Domain\JsonApi\Queries\CollectionQuery;
 
 class ProductNotificationCollectionQuery extends CollectionQuery
 {

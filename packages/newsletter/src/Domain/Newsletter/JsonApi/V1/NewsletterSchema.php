@@ -2,7 +2,7 @@
 
 namespace Dystore\Newsletter\Domain\Newsletter\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Newsletter\Domain\Newsletter\Entities\NewsletterSubscription;
 use LaravelJsonApi\Eloquent\Fields\Str;
 

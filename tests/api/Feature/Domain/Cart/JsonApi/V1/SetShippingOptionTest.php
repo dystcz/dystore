@@ -1,9 +1,9 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Addresses\Http\Enums\AddressType;
-use Dystcz\LunarApi\Domain\CartAddresses\Models\CartAddress;
-use Dystcz\LunarApi\Domain\Carts\Models\Cart;
-use Dystcz\LunarApi\Tests\TestCase;
+use Dystore\Api\Domain\Addresses\Http\Enums\AddressType;
+use Dystore\Api\Domain\CartAddresses\Models\CartAddress;
+use Dystore\Api\Domain\Carts\Models\Cart;
+use Dystore\Api\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;

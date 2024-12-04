@@ -2,9 +2,9 @@
 
 namespace Dystore\ProductViews;
 
-use Dystcz\LunarApi\Base\Extensions\SchemaExtension;
-use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
-use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
+use Dystore\Api\Base\Extensions\SchemaExtension;
+use Dystore\Api\Base\Facades\SchemaManifestFacade;
+use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\ProductViews\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,7 +23,7 @@ class ProductViewsServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('dystore-product-views', function () {
-            return new LunarApiProductViews;
+            return new ProductViews;
         });
     }
 

@@ -4,7 +4,7 @@ use Dystore\Api\Domain\Carts\Factories\CartFactory;
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Domain\Users\Models\User;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Dystore\Api\Tests\TestCase;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -50,7 +50,7 @@ test('a user can checkout a cart', function () {
         ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
         ->id();
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $id = decodeHashedId($cart->draftOrder, $id);
     }
 
@@ -106,7 +106,7 @@ test('it returns order with product lines included after checkout', function () 
             })->all(),
         ]);
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $id = decodeHashedId($cart->draftOrder, $id);
     }
 
@@ -189,7 +189,7 @@ test('a user can be registered when checking out', function () {
         ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
         ->id();
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $id = decodeHashedId($cart->draftOrder, $id);
     }
 

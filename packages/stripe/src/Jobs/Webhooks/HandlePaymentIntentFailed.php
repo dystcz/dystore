@@ -2,7 +2,7 @@
 
 namespace Dystore\Stripe\Jobs\Webhooks;
 
-use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentFailed;
+use Dystore\Api\Domain\Orders\Events\OrderPaymentFailed;
 
 class HandlePaymentIntentFailed extends WebhookHandler
 {

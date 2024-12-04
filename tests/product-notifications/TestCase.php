@@ -2,7 +2,7 @@
 
 namespace Dystore\ProductNotifications\Tests;
 
-use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
+use Dystore\Api\Base\Facades\SchemaManifestFacade;
 use Dystore\ProductNotifications\Tests\Stubs\Users\User;
 use Dystore\ProductNotifications\Tests\Stubs\Users\UserSchema;
 use Illuminate\Contracts\Config\Repository;
@@ -69,12 +69,12 @@ abstract class TestCase extends Orchestra
             \Livewire\LivewireServiceProvider::class,
 
             // Lunar Api
-            \Dystcz\LunarApi\LunarApiServiceProvider::class,
-            \Dystcz\LunarApi\JsonApiServiceProvider::class,
+            \Dystore\Api\LunarApiServiceProvider::class,
+            \Dystore\Api\JsonApiServiceProvider::class,
 
             // Hashids
             \Vinkla\Hashids\HashidsServiceProvider::class,
-            \Dystcz\LunarApi\LunarApiHashidsServiceProvider::class,
+            \Dystore\Api\ApiHashidsServiceProvider::class,
 
             // Lunar Product Notification
             \Dystore\ProductNotifications\LunarApiProductNotificationServiceProvider::class,

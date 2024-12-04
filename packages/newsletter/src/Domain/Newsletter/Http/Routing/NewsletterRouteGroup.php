@@ -2,7 +2,7 @@
 
 namespace Dystore\Newsletter\Domain\Newsletter\Http\Routing;
 
-use Dystcz\LunarApi\Routing\RouteGroup;
+use Dystore\Api\Routing\RouteGroup;
 use Dystore\Newsletter\Domain\Newsletter\Http\Controllers\SubscribeToNewsletterController;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;

@@ -286,7 +286,7 @@ class ApiServiceProvider extends ServiceProvider
     {
         $this->publishes([
             "{$this->root}/database/migrations/" => $this->app->databasePath('migrations'),
-        ], 'dystore.migrations');
+        ], 'dystore-api.migrations');
     }
 
     /**

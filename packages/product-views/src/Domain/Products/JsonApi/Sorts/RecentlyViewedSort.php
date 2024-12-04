@@ -2,7 +2,7 @@
 
 namespace Dystore\ProductViews\Domain\Products\JsonApi\Sorts;
 
-use Dystore\ProductViews\LunarApiProductViews;
+use Dystore\ProductViews\ProductViews;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Eloquent\Contracts\SortField;
@@ -46,7 +46,7 @@ class RecentlyViewedSort implements SortField
      */
     public function sort($query, string $direction = 'asc')
     {
-        $list = App::get(LunarApiProductViews::class)->sorted();
+        $list = App::get(ProductViews::class)->sorted();
 
         if (! empty($list)) {
             $query->orderByRaw('FIELD(id, '.implode(',', $list).')');

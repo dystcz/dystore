@@ -3,7 +3,7 @@
 use Dystore\Api\Domain\CartAddresses\Models\CartAddress;
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Countries\Models\Country;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Dystore\Api\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
@@ -64,7 +64,7 @@ test('cart address can be created', function () {
         ->assertCreatedWithServerId(serverUrl('/cart_addresses', true), $this->data)
         ->id();
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $id = decodeHashedId($this->cartAddress, $id);
     }
 

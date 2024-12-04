@@ -3,7 +3,7 @@
 namespace Dystore\Api\Tests;
 
 use Dystore\Api\Domain\PaymentOptions\Modifiers\PaymentModifiers;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Dystore\Api\Tests\Stubs\Carts\Modifiers\TestPaymentModifier;
 use Dystore\Api\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystore\Api\Tests\Stubs\Lunar\TestTaxDriver;
@@ -105,7 +105,7 @@ abstract class TestCase extends OrchestraTestCase
 
             // Hashids
             \Vinkla\Hashids\HashidsServiceProvider::class,
-            \Dystore\Api\LunarApiHashidsServiceProvider::class,
+            \Dystore\Api\ApiHashidsServiceProvider::class,
         ];
     }
 
@@ -197,6 +197,6 @@ abstract class TestCase extends OrchestraTestCase
      */
     public function actingAs(User $user, $guard = null): TestCase
     {
-        return $this->be($user, $guard ?? LunarApi::getAuthGuard());
+        return $this->be($user, $guard ?? Api::getAuthGuard());
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Products\Factories\ProductFactory;
+use Dystore\Api\Domain\Products\Factories\ProductFactory;
 use Dystore\ProductViews\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Redis;

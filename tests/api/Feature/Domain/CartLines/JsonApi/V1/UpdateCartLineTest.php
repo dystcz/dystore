@@ -4,7 +4,7 @@ use Dystore\Api\Domain\CartLines\Models\CartLine;
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Products\Factories\ProductFactory;
 use Dystore\Api\Domain\ProductVariants\Factories\ProductVariantFactory;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Dystore\Api\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Facades\CartSession;
@@ -37,7 +37,7 @@ it('can add purchasable to the cart', function () {
         ->assertCreatedWithServerId('http://localhost/api/v1/cart_lines', $data)
         ->id();
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $id = decodeHashedId($cartLine, $id);
     }
 

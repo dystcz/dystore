@@ -6,7 +6,7 @@ use Dystore\Api\Domain\Customers\Models\Customer;
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Api\Domain\Users\Models\User;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Dystore\Api\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
@@ -55,7 +55,7 @@ it('can add purchasable to a cart which does not yet exist', function () {
         ->where('id', $id)
         ->first();
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $id = decodeHashedId($cartLine, $id);
     }
 
@@ -125,7 +125,7 @@ it('can associate existing cart to users after they log in', function () {
 
     $this->assertSame($cart->user->getKey(), $user->getKey());
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $cartId = decodeHashedId($cart, $cart->id);
         $userId = decodeHashedId($cart, $cart->user->id);
     }
@@ -175,7 +175,7 @@ it('can add purchasable to an existing cart', function () {
         ->where('id', $id)
         ->first();
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $id = decodeHashedId($cartLine, $id);
     }
 
@@ -242,7 +242,7 @@ it('manually creates a cart when cart auto create turned off', function () {
         ->assertSuccessful()
         ->assertFetchedOne($cart);
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $id = decodeHashedId($cartLine, $id);
     }
 

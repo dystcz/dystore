@@ -2,9 +2,9 @@
 
 namespace Dystore\Stripe;
 
-use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
-use Dystcz\LunarApi\Domain\Payments\Data\PaymentIntent;
-use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdapter;
+use Dystore\Api\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
+use Dystore\Api\Domain\Payments\Data\PaymentIntent;
+use Dystore\Api\Domain\Payments\PaymentAdapters\PaymentAdapter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;

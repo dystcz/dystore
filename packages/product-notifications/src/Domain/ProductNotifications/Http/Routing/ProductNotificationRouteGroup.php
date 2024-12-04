@@ -2,7 +2,7 @@
 
 namespace Dystore\ProductNotifications\Domain\ProductNotifications\Http\Routing;
 
-use Dystcz\LunarApi\Routing\RouteGroup;
+use Dystore\Api\Routing\RouteGroup;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Http\Controllers\ProductNotificationsController;
 use Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1\ProductNotificationSchema;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;

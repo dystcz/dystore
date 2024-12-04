@@ -6,7 +6,7 @@ use Dystore\Api\Base\Controller;
 use Dystore\Api\Domain\CartAddresses\Contracts\UpdateCartAddressCountryController as UpdateCartAddressCountryControllerContract;
 use Dystore\Api\Domain\CartAddresses\JsonApi\V1\CartAddressSchema;
 use Dystore\Api\Domain\CartAddresses\JsonApi\V1\UpdateCartAddressCountryRequest;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use Lunar\Models\Contracts\CartAddress as CartAddressContract;
 use Lunar\Models\Country;
@@ -22,7 +22,7 @@ class UpdateCartAddressCountryController extends Controller implements UpdateCar
 
         $countryId = $request->input('data.relationships.country.data.id', 0);
 
-        if (LunarApi::usesHashids()) {
+        if (Api::usesHashids()) {
             $countryId = (new (Country::modelClas()))->decodedRouteKey($countryId);
         }
 

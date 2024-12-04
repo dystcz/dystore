@@ -67,15 +67,15 @@ abstract class TestCase extends Orchestra
             \Livewire\LivewireServiceProvider::class,
 
             // Lunar Api
-            \Dystcz\LunarApi\LunarApiServiceProvider::class,
-            \Dystcz\LunarApi\JsonApiServiceProvider::class,
+            \Dystore\Api\LunarApiServiceProvider::class,
+            \Dystore\Api\JsonApiServiceProvider::class,
 
             // Hashids
             \Vinkla\Hashids\HashidsServiceProvider::class,
-            \Dystcz\LunarApi\LunarApiHashidsServiceProvider::class,
+            \Dystore\Api\ApiHashidsServiceProvider::class,
 
             // Lunar API product views
-            \Dystore\ProductViews\LunarApiProductViewsServiceProvider::class,
+            \Dystore\ProductViews\ProductViewsServiceProvider::class,
         ];
     }
 

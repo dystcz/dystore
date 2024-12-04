@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Support\Models\Actions\SchemaType;
+use Dystore\Api\Support\Models\Actions\SchemaType;
 
 /*
  * Lunar API Reviews Configuration

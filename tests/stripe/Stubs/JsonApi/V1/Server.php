@@ -2,7 +2,7 @@
 
 namespace Dystore\Stripe\Tests\Stubs\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Servers\Server as BaseServer;
+use Dystore\Api\Domain\JsonApi\Servers\Server as BaseServer;
 use Dystore\Stripe\Tests\Stubs\Users\JsonApi\V1\UserSchema;
 
 class Server extends BaseServer

@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Payments\Http\Controllers\HandlePaymentWebhookController;
+use Dystore\Api\Domain\Payments\Http\Controllers\HandlePaymentWebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;

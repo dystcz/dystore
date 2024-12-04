@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \Dystore\Reviews\Skeleton\SkeletonClass
  */
-class LunarApiReview extends Facade
+class Review extends Facade
 {
     /**
      * Get the registered name of the component.

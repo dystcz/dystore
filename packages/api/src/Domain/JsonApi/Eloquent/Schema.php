@@ -7,7 +7,7 @@ use Dystore\Api\Base\Contracts\SchemaExtension as SchemaExtensionContract;
 use Dystore\Api\Base\Contracts\SchemaManifest as SchemaManifestContract;
 use Dystore\Api\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystore\Api\Domain\JsonApi\Core\Schema\TypeResolver;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Dystore\Api\Support\Models\Actions\ModelKey;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
@@ -272,7 +272,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     protected function idField(?string $column = null): ID|HashId
     {
-        if (LunarApi::usesHashids()) {
+        if (Api::usesHashids()) {
             return HashId::make($column)
                 ->useConnection(ModelKey::get(self::model()))
                 ->alreadyHashed();

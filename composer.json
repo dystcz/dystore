@@ -57,9 +57,9 @@
       "Dystore\\Api\\": "packages/api/src",
       "Dystore\\Newsletter\\": "packages/newsletter/src",
       "Dystore\\ProductNotification\\": "packages/product-notifications/src",
-      "Dystcz\\LunarApiProductViews\\": "packages/product-views/src",
-      "Dystcz\\LunarApiReviews\\": "packages/reviews/src",
-      "Dystcz\\LunarApiStripeAdapter\\": "packages/stripe/src",
+      "Dystore\\ProductViews\\": "packages/product-views/src",
+      "Dystore\\Reviews\\": "packages/reviews/src",
+      "Dystore\\Stripe\\": "packages/stripe/src",
       "Modules\\DystoreAres\\": "modules/ares/src/",
       "Modules\\DystoreAres\\Database\\Factories\\": "modules/ares/database/factories/",
       "Modules\\DystoreAres\\Database\\Seeders\\": "modules/ares/database/seeders/",
@@ -81,14 +81,14 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Dystore\\Api\\LunarApiServiceProvider",
+        "Dystore\\Api\\ApiServiceProvider",
         "Dystore\\Api\\JsonApiServiceProvider",
-        "Dystore\\Api\\LunarApiHashidsServiceProvider",
+        "Dystore\\Api\\ApiHashidsServiceProvider",
         "Dystore\\Newsletter\\NewsletterServiceProvider",
         "Dystore\\ProductNotifications\\ProductNotificationsServiceProvider",
-        "Dystcz\\LunarApiProductViews\\LunarApiProductViewsServiceProvider",
-        "Dystcz\\LunarApiReviews\\LunarReviewsServiceProvider",
-        "Dystcz\\LunarApiStripeAdapter\\LunarApiStripeAdapterServiceProvider"
+        "Dystore\\ProductViews\\ProductViewsServiceProvider",
+        "Dystore\\Reviews\\ReviewsServiceProvider",
+        "Dystore\\Stripe\\StripeServiceProvider"
       ]
     }
   },

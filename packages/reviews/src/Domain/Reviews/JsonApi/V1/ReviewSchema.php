@@ -2,9 +2,9 @@
 
 namespace Dystore\Reviews\Domain\Reviews\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
-use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
-use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
+use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
+use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Builder;

@@ -2,11 +2,11 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Http\Routing;
 
-use Dystcz\LunarApi\Domain\Products\Http\Controllers\ProductsController;
-use Dystcz\LunarApi\Domain\Products\JsonApi\V1\ProductSchema;
-use Dystcz\LunarApi\Domain\ProductVariants\Http\Controllers\ProductVariantsController;
-use Dystcz\LunarApi\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
-use Dystcz\LunarApi\Routing\RouteGroup;
+use Dystore\Api\Domain\Products\Http\Controllers\ProductsController;
+use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
+use Dystore\Api\Domain\ProductVariants\Http\Controllers\ProductVariantsController;
+use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
+use Dystore\Api\Routing\RouteGroup;
 use Dystore\Reviews\Domain\Reviews\Http\Controllers\PublishReviewsController;
 use Dystore\Reviews\Domain\Reviews\Http\Controllers\ReviewsController;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;

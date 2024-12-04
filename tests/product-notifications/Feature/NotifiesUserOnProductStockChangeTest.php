@@ -1,6 +1,6 @@
 <?php
 
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Factories\ProductNotificationFactory;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Notifications\ProductRestockedNotification;

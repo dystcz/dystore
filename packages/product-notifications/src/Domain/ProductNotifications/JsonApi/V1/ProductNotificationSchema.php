@@ -2,7 +2,7 @@
 
 namespace Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Number;

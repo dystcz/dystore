@@ -2,7 +2,7 @@
 
 namespace Dystore\Stripe\Tests\Stubs\Users\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Stripe\Tests\Stubs\Users\User;
 use LaravelJsonApi\Eloquent\Fields\ID;
 

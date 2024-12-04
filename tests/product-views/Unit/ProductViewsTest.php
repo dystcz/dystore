@@ -1,6 +1,6 @@
 <?php
 
-use Dystore\ProductViews\LunarApiProductViews;
+use Dystore\ProductViews\ProductViews;
 use Dystore\ProductViews\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Redis;
@@ -11,8 +11,8 @@ uses(TestCase::class, RefreshDatabase::class);
 it('can record a view', function () {
     /** @var TestCase $this */
     $productId = 1;
-    app(LunarApiProductViews::class)->record($productId);
-    app(LunarApiProductViews::class)->record($productId);
+    app(ProductViews::class)->record($productId);
+    app(ProductViews::class)->record($productId);
 
     expect(Redis::zRange("product:views:{$productId}", 0, -1))
         ->toHaveCount(2);
@@ -27,7 +27,7 @@ it('removes old entries', function () {
     expect(Redis::zRange("product:views:{$productId}", 0, -1))
         ->toHaveCount(1);
 
-    app(LunarApiProductViews::class)->record($productId);
+    app(ProductViews::class)->record($productId);
 
     expect(Redis::zRange("product:views:{$productId}", 0, -1))
         ->toHaveCount(1);
@@ -35,11 +35,11 @@ it('removes old entries', function () {
 
 it('returns a list of product\'s ids sorted by most viewed', function () {
     /** @var TestCase $this */
-    app(LunarApiProductViews::class)->record(3);
-    app(LunarApiProductViews::class)->record(4);
-    app(LunarApiProductViews::class)->record(4);
+    app(ProductViews::class)->record(3);
+    app(ProductViews::class)->record(4);
+    app(ProductViews::class)->record(4);
 
-    $sorted = app(LunarApiProductViews::class)->sorted();
+    $sorted = app(ProductViews::class)->sorted();
 
     expect($sorted)->toBe([4, 3]);
 })->group('product-views');

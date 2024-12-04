@@ -12,7 +12,7 @@ use Dystore\Api\Domain\Users\JsonApi\V1\UpdateUserRequest;
 use Dystore\Api\Domain\Users\JsonApi\V1\UserQuery;
 use Dystore\Api\Domain\Users\JsonApi\V1\UserSchema;
 use Dystore\Api\Domain\Users\Models\User;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Illuminate\Contracts\Auth\Guard;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
@@ -31,7 +31,7 @@ class UsersController extends Controller implements UsersControllerContract
         protected RegistersUser $registerUser,
         protected Guard $guard,
     ) {
-        $this->middleware('guest:'.LunarApi::getAuthGuard())->only('store');
+        $this->middleware('guest:'.Api::getAuthGuard())->only('store');
     }
 
     /**

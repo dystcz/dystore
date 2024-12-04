@@ -4,7 +4,7 @@ use Dystore\Api\Domain\Addresses\Models\Address;
 use Dystore\Api\Domain\Countries\Models\Country;
 use Dystore\Api\Domain\Customers\Models\Customer;
 use Dystore\Api\Domain\Users\Models\User;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Dystore\Api\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -69,7 +69,7 @@ it('can store addresses', function () {
         ->assertCreatedWithServerId(serverUrl('/addresses', true), $data)
         ->id();
 
-    if (LunarApi::usesHashids()) {
+    if (Api::usesHashids()) {
         $id = decodeHashedId($fakeModel, $id);
     }
 

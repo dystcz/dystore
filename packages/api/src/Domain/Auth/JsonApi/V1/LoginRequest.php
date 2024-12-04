@@ -2,7 +2,7 @@
 
 namespace Dystore\Api\Domain\Auth\JsonApi\V1;
 
-use Dystcz\LunarApi\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Validator;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
@@ -59,7 +59,7 @@ class LoginRequest extends ResourceRequest
     public function withValidator(Validator $validator): void
     {
         $validator->after(function (Validator $validator) {
-            if (! Auth::guard(LunarApi::getAuthGuard())->attempt([
+            if (! Auth::guard(Api::getAuthGuard())->attempt([
                 'email' => $this->input('data.attributes.email'),
                 'password' => $this->input('data.attributes.password'),
             ])) {

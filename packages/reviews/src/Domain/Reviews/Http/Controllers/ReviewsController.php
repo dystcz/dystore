@@ -2,7 +2,7 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Http\Controllers;
 
-use Dystcz\LunarApi\Base\Controller;
+use Dystore\Api\Base\Controller;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;

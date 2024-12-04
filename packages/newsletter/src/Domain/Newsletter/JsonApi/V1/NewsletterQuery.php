@@ -2,7 +2,7 @@
 
 namespace Dystore\Newsletter\Domain\Newsletter\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Queries\Query;
+use Dystore\Api\Domain\JsonApi\Queries\Query;
 
 class NewsletterQuery extends Query
 {

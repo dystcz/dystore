@@ -2,7 +2,7 @@
 
 namespace Dystore\Newsletter;
 
-use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
+use Dystore\Api\Base\Facades\SchemaManifestFacade;
 use Dystore\Newsletter\Domain\Newsletter\JsonApi\V1\NewsletterSchema;
 use Illuminate\Support\ServiceProvider;
 

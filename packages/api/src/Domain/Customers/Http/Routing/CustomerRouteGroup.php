@@ -3,7 +3,7 @@
 namespace Dystore\Api\Domain\Customers\Http\Routing;
 
 use Dystore\Api\Domain\Customers\Contracts\CustomersController;
-use Dystore\Api\Facades\LunarApi;
+use Dystore\Api\Facades\Api;
 use Dystore\Api\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Routing\Relationships;
@@ -18,7 +18,7 @@ class CustomerRouteGroup extends RouteGroup
     {
         JsonApiRoute::server('v1')
             ->prefix('v1')
-            ->middleware('auth:'.LunarApi::getAuthGuard())
+            ->middleware('auth:'.Api::getAuthGuard())
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), CustomersController::class)
                     ->relationships(function (Relationships $relationships) {

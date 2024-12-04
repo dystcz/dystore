@@ -1,7 +1,7 @@
 <?php
 
-use Dystcz\LunarApi\Domain\Products\Models\Product;
-use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
+use Dystore\Api\Domain\Products\Models\Product;
+use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Reviews\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
