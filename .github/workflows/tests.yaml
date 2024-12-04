@@ -20,6 +20,8 @@ jobs:
           - reviews
           - stripe
 
+    name: ${{ matrix.testsuite }} - PHP ${{ matrix.php }} - L${{ matrix.laravel }}
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
