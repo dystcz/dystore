@@ -10,6 +10,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
@@ -39,6 +40,11 @@ abstract class TestCase extends OrchestraTestCase
         ]);
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
+
+        Artisan::call('vendor:publish', [
+            '--provider' => 'Spatie\WebhookClient\WebhookClientServiceProvider',
+            '--tag' => 'webhook-client-migrations',
+        ]);
 
         activity()->disableLogging();
     }
