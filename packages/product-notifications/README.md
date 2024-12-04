@@ -1,4 +1,4 @@
-# Lunar API Product Stock Notifications
+# Dystore Product Stock Notifications
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-product-notifications.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-notifications)
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-product-notifications.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-notifications)

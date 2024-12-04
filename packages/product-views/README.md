@@ -1,4 +1,4 @@
-# Lunar API Product Views
+# Dystore Product Views
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-product-views.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-views)
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-product-views.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-views)
@@ -46,4 +46,3 @@ If you discover any security related issues, please email jakub@dy.st instead of
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-

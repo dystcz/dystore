@@ -1,4 +1,4 @@
-# Lunar API Stripe Adapter
+# Dystore Stripe Adapter
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-stripe.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-stripe)
 ![GitHub Actions](https://github.com/dystcz/dystore-stripe/actions/workflows/tests.yaml/badge.svg)

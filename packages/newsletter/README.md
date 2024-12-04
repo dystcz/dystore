@@ -1,4 +1,4 @@
-# Lunar API Newsletter
+# Dystore Newsletter
 
 This [dystore-api](https://github.com/dystcz/dystore-api) compatible package exposes an API endpoint which
 allows you to subscribe to newsletter lists by providing an email address

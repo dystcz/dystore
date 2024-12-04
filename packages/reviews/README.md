@@ -1,4 +1,4 @@
-# Lunar API Reviews ⭐
+# Dystore Reviews ⭐
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-reviews.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-reviews)
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-reviews.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-reviews)
