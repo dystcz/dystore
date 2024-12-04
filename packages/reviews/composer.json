@@ -22,17 +22,6 @@
     "dystcz/lunar-api": "self.version",
     "illuminate/support": "^11.0"
   },
-  "require-dev": {
-    "barryvdh/laravel-ide-helper": "^3.0",
-    "laravel-json-api/testing": "^3.0",
-    "laravel/pint": "^1.7",
-    "mockery/mockery": "^1.5",
-    "orchestra/testbench": "^9.0",
-    "pestphp/pest": "^2.0",
-    "pestphp/pest-plugin-faker": "^2.0",
-    "pestphp/pest-plugin-laravel": "^2.0",
-    "spatie/laravel-ray": "^1.32"
-  },
   "autoload": {
     "psr-4": {
       "Dystore\\Reviews\\": "src"

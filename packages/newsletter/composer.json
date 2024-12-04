@@ -29,16 +29,8 @@
     "getbrevo/brevo-php": "For working with Brevo"
   },
   "require-dev": {
-    "barryvdh/laravel-ide-helper": "^3.0",
-    "laravel-json-api/testing": "^3.0",
     "drewm/mailchimp-api": "^2.5",
     "getbrevo/brevo-php": "^1.0",
-    "laravel/pint": "^1.7",
-    "orchestra/testbench": "^9.0",
-    "pestphp/pest": "^2.0",
-    "pestphp/pest-plugin-faker": "^2.0",
-    "pestphp/pest-plugin-laravel": "^2.0",
-    "spatie/laravel-ray": "^1.32",
     "spatie/mailcoach-sdk-php": "^1.1"
   },
   "autoload": {
