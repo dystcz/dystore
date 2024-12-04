@@ -27,7 +27,10 @@
       "Dystore\\ProductNotifications\\": "src",
       "Dystore\\ProductNotifications\\Database\\Factories\\": "database/factories",
       "Dystore\\ProductNotifications\\Database\\State\\": "database/state"
-    }
+    },
+    "files": [
+      "autoload.php"
+    ]
   },
   "config": {
     "sort-packages": true,

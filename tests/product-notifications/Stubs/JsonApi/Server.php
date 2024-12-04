@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Tests\Stubs\JsonApi;
+namespace Dystore\ProductNotifications\Tests\Stubs\JsonApi;
 
-use Dystcz\LunarApiProductNotification\Domain\JsonApi\V1\Server as BaseServer;
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\JsonApi\V1\ProductNotificationSchema;
-use Dystcz\LunarApiProductNotification\Tests\Stubs\ProductVariants\ProductVariantSchema;
-use Dystcz\LunarApiProductNotification\Tests\Stubs\Users\UserSchema;
+use Dystore\ProductNotifications\Domain\JsonApi\V1\Server as BaseServer;
+use Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1\ProductNotificationSchema;
+use Dystore\ProductNotifications\Tests\Stubs\ProductVariants\ProductVariantSchema;
+use Dystore\ProductNotifications\Tests\Stubs\Users\UserSchema;
 
 class Server extends BaseServer
 {

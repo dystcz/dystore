@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Domain\ProductNotifications\JsonApi\V1;
+namespace Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1;
 
 use Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery;
 

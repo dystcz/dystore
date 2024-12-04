@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Tests\Stubs\Users;
+namespace Dystore\ProductNotifications\Tests\Stubs\Users;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;

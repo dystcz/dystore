@@ -1,10 +1,10 @@
 <?php
 
 use Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant;
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Factories\ProductNotificationFactory;
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Models\ProductNotification;
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Notifications\ProductRestockedNotification;
-use Dystcz\LunarApiProductNotification\Tests\TestCase;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Factories\ProductNotificationFactory;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Notifications\ProductRestockedNotification;
+use Dystore\ProductNotifications\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 

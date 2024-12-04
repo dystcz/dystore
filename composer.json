@@ -56,7 +56,7 @@
     "psr-4": {
       "Dystore\\Api\\": "packages/api/src",
       "Dystore\\Newsletter\\": "packages/newsletter/src",
-      "Dystcz\\LunarApiProductNotification\\": "packages/product-notifications/src",
+      "Dystore\\ProductNotification\\": "packages/product-notifications/src",
       "Dystcz\\LunarApiProductViews\\": "packages/product-views/src",
       "Dystcz\\LunarApiReviews\\": "packages/reviews/src",
       "Dystcz\\LunarApiStripeAdapter\\": "packages/stripe/src",
@@ -85,7 +85,7 @@
         "Dystore\\Api\\JsonApiServiceProvider",
         "Dystore\\Api\\LunarApiHashidsServiceProvider",
         "Dystore\\Newsletter\\NewsletterServiceProvider",
-        "Dystcz\\LunarApiProductNotification\\LunarApiProductNotificationServiceProvider",
+        "Dystore\\ProductNotifications\\ProductNotificationsServiceProvider",
         "Dystcz\\LunarApiProductViews\\LunarApiProductViewsServiceProvider",
         "Dystcz\\LunarApiReviews\\LunarReviewsServiceProvider",
         "Dystcz\\LunarApiStripeAdapter\\LunarApiStripeAdapterServiceProvider"

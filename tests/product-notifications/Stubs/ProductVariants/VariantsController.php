@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Tests\Stubs\ProductVariants;
+namespace Dystore\ProductNotifications\Tests\Stubs\ProductVariants;
 
 use Dystcz\LunarApi\Base\Controller;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;

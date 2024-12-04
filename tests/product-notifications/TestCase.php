@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Tests;
+namespace Dystore\ProductNotifications\Tests;
 
 use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
-use Dystcz\LunarApiProductNotification\Tests\Stubs\Users\User;
-use Dystcz\LunarApiProductNotification\Tests\Stubs\Users\UserSchema;
+use Dystore\ProductNotifications\Tests\Stubs\Users\User;
+use Dystore\ProductNotifications\Tests\Stubs\Users\UserSchema;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
@@ -77,7 +77,7 @@ abstract class TestCase extends Orchestra
             \Dystcz\LunarApi\LunarApiHashidsServiceProvider::class,
 
             // Lunar Product Notification
-            \Dystcz\LunarApiProductNotification\LunarApiProductNotificationServiceProvider::class,
+            \Dystore\ProductNotifications\LunarApiProductNotificationServiceProvider::class,
         ];
     }
 
@@ -95,7 +95,7 @@ abstract class TestCase extends Orchestra
              */
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
-                'model' => \Dystcz\LunarApiProductNotification\Tests\Stubs\Users\User::class,
+                'model' => \Dystore\ProductNotifications\Tests\Stubs\Users\User::class,
             ]);
 
             $config->set('database.default', 'sqlite');

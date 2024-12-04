@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Domain\ProductNotifications\JsonApi\V1;
+namespace Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1;
 
 use Illuminate\Validation\Rule;
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
@@ -42,9 +42,9 @@ class ProductNotificationRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'email.required' => __('lunar-api-product-notifications::validations.store_product_notification.email.required'),
-            'email.email' => __('lunar-api-product-notifications::validations.store_product_notification.email.email'),
-            'email.unique' => __('lunar-api-product-notifications::validations.store_product_notification.email.unique'),
+            'email.required' => __('dystore-product-notifications::validations.store_product_notification.email.required'),
+            'email.email' => __('dystore-product-notifications::validations.store_product_notification.email.email'),
+            'email.unique' => __('dystore-product-notifications::validations.store_product_notification.email.unique'),
         ];
     }
 }

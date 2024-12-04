@@ -7,4 +7,4 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => Config::get('lunar-api.general.route_prefix'),
     'middleware' => Config::get('lunar-api.general.route_middleware'),
-], fn () => RegisterRoutesFromConfig::run('lunar-api.newsletter.domains'));
+], fn () => RegisterRoutesFromConfig::run('dystore.newsletter.domains'));

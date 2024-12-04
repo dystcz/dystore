@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
- * @method MorphMany notifications() Get the notifications relation if `lunar-api-product-notifications` package is installed.
+ * @method MorphMany notifications() Get the notifications relation if `dystore-product-notifications` package is installed.
  * @method Media|null getThumbnail() Get either variant thumbnail or fallback to product thumbnail.
  * @method Collection getImages() Get either variant images or fallback to product images.
  */

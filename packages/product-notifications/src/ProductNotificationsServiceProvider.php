@@ -1,17 +1,17 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification;
+namespace Dystore\ProductNotifications;
 
 use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
 use Dystcz\LunarApi\Support\Config\Collections\DomainConfigCollection;
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\JsonApi\V1\ProductNotificationSchema;
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Models\ProductNotification;
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Observers\ProductVariantObserver;
+use Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1\ProductNotificationSchema;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Observers\ProductVariantObserver;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Models\ProductVariant;
 
-class LunarApiProductNotificationServiceProvider extends ServiceProvider
+class ProductNotificationsServiceProvider extends ServiceProvider
 {
     protected $root = __DIR__.'/..';
 
@@ -30,7 +30,7 @@ class LunarApiProductNotificationServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(
             "{$this->root}/lang",
-            'lunar-api-product-notifications',
+            'dystore-product-notifications',
         );
     }
 
@@ -57,7 +57,7 @@ class LunarApiProductNotificationServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             "{$this->root}/config/product-notifications.php",
-            'lunar-api.product-notifications',
+            'dystore.product-notifications',
         );
     }
 
@@ -67,8 +67,8 @@ class LunarApiProductNotificationServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            "{$this->root}/config/product-notifications.php" => config_path('lunar-api.product-notifications.php'),
-        ], 'lunar-api-product-notifications');
+            "{$this->root}/config/product-notifications.php" => config_path('dystore.product-notifications.php'),
+        ], 'dystore-product-notifications');
     }
 
     /**
@@ -77,8 +77,8 @@ class LunarApiProductNotificationServiceProvider extends ServiceProvider
     protected function publishTranslations(): void
     {
         $this->publishes([
-            "{$this->root}/lang" => $this->app->langPath('vendor/lunar-api-product-notifications'),
-        ], 'lunar-api.translations');
+            "{$this->root}/lang" => $this->app->langPath('vendor/dystore-product-notifications'),
+        ], 'dystore-product-notifications.translations');
     }
 
     /**
@@ -112,7 +112,7 @@ class LunarApiProductNotificationServiceProvider extends ServiceProvider
      */
     public function registerPolicies(): void
     {
-        DomainConfigCollection::fromConfig('lunar-api.product-notifications.domains')
+        DomainConfigCollection::fromConfig('dystore.product-notifications.domains')
             ->getPolicies()
             ->each(
                 fn (string $policy, string $model) => Gate::policy($model, $policy),

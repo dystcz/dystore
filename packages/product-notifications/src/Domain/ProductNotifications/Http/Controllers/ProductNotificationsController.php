@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Http\Controllers;
+namespace Dystore\ProductNotifications\Domain\ProductNotifications\Http\Controllers;
 
 use Dystcz\LunarApi\Base\Controller;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;

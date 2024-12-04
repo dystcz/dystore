@@ -1,9 +1,9 @@
 <?php
 
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Factories\ProductNotificationFactory;
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Models\ProductNotification;
-use Dystcz\LunarApiProductNotification\Tests\Stubs\Users\User;
-use Dystcz\LunarApiProductNotification\Tests\TestCase;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Factories\ProductNotificationFactory;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
+use Dystore\ProductNotifications\Tests\Stubs\Users\User;
+use Dystore\ProductNotifications\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Database\Factories\ProductVariantFactory;
 
@@ -76,7 +76,7 @@ it('doesnt accept duplicate emails', function () {
     $expected = [
         'source' => ['pointer' => '/data/attributes/email'],
         'status' => '422',
-        'detail' => __('lunar-api-product-notifications::validations.store_product_notification.email.unique'),
+        'detail' => __('dystore-product-notifications::validations.store_product_notification.email.unique'),
     ];
 
     $response->assertError(422, $expected);
