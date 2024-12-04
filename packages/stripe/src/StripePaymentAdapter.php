@@ -101,7 +101,7 @@ class StripePaymentAdapter extends PaymentAdapter
 
         /** @var Cart $cart */
         $cart->update('meta', [
-            ...$this->cart->meta,
+            ...$cart->meta,
             ...$meta,
         ]);
 
