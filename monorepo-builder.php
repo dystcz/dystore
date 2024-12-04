@@ -28,12 +28,7 @@ return static function (MBConfig $mbConfig): void {
 
     $mbConfig->packageDirectories([
         __DIR__.'/packages',
-        __DIR__.'/modules',
-    ]);
-
-    $mbConfig->packageDirectoriesExcludes([
-        __DIR__.'/packages/paypal',
-        __DIR__.'/packages/rewards',
+        // __DIR__.'/modules',
     ]);
 
     $mbConfig->dataToAppend([

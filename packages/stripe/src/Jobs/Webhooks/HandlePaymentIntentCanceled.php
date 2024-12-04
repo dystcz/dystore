@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Jobs\Webhooks;
+namespace Dystore\Stripe\Jobs\Webhooks;
 
-use Dystcz\LunarApi\Domain\Orders\Events\OrderPaymentCanceled;
+use Dystore\Api\Domain\Orders\Events\OrderPaymentCanceled;
 
 class HandlePaymentIntentCanceled extends WebhookHandler
 {

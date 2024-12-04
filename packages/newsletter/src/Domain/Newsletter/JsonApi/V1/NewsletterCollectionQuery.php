@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Domain\Newsletter\JsonApi\V1;
+namespace Dystore\Newsletter\Domain\Newsletter\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Queries\CollectionQuery;
+use Dystore\Api\Domain\JsonApi\Queries\CollectionQuery;
 
 class NewsletterCollectionQuery extends CollectionQuery
 {

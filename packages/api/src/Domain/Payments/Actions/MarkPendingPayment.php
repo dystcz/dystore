@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApi\Domain\Payments\Actions;
+namespace Dystore\Api\Domain\Payments\Actions;
 
-use Dystcz\LunarApi\Domain\Orders\Actions\ChangeOrderStatus;
-use Dystcz\LunarApi\Domain\Orders\Enums\OrderStatus;
+use Dystore\Api\Domain\Orders\Actions\ChangeOrderStatus;
+use Dystore\Api\Domain\Orders\Enums\OrderStatus;
 use Lunar\Models\Contracts\Order as OrderContract;
 
 class MarkPendingPayment
@@ -13,6 +13,18 @@ class MarkPendingPayment
      */
     public function __invoke(OrderContract $order): OrderContract
     {
+        $disabledStatuses = [
+            'payment-received',
+            'dispatched',
+            'delivered',
+            'cancelled',
+            'on-hold',
+        ];
+
+        if (in_array($order->status, $disabledStatuses)) {
+            return $order;
+        }
+
         $order = (new ChangeOrderStatus)($order, OrderStatus::PENDING_PAYMENT);
 
         return $order;

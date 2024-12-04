@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Builders;
+namespace Dystore\ProductNotifications\Domain\ProductNotifications\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 

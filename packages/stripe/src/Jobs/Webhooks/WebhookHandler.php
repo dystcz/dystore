@@ -1,14 +1,14 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Jobs\Webhooks;
+namespace Dystore\Stripe\Jobs\Webhooks;
 
-use Dystcz\LunarApi\Domain\Orders\Actions\FindOrderByCartIntent;
-use Dystcz\LunarApi\Domain\Orders\Actions\FindOrderByIntent;
-use Dystcz\LunarApi\Domain\Orders\Actions\FindOrderByTransaction;
-use Dystcz\LunarApi\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
-use Dystcz\LunarApi\Domain\Payments\Data\PaymentIntent;
-use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdapter;
-use Dystcz\LunarApi\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
+use Dystore\Api\Domain\Orders\Actions\FindOrderByCartIntent;
+use Dystore\Api\Domain\Orders\Actions\FindOrderByIntent;
+use Dystore\Api\Domain\Orders\Actions\FindOrderByTransaction;
+use Dystore\Api\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
+use Dystore\Api\Domain\Payments\Data\PaymentIntent;
+use Dystore\Api\Domain\Payments\PaymentAdapters\PaymentAdapter;
+use Dystore\Api\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -67,7 +67,7 @@ abstract class WebhookHandler implements ShouldQueue
     {
         $register = App::make(PaymentAdaptersRegister::class);
 
-        return $register->get(Config::get('lunar-api.stripe.driver', 'stripe'));
+        return $register->get(Config::get('dystore.stripe.driver', 'stripe'));
     }
 
     /**
@@ -75,7 +75,7 @@ abstract class WebhookHandler implements ShouldQueue
      *
      * @throws ModelNotFoundException
      */
-    protected function findOrder(PaymentIntentContract $paymentIntent): Order
+    protected function findOrder(PaymentIntentContract $paymentIntent): ?Order
     {
         try {
             $order = App::make(FindOrderByIntent::class)($paymentIntent);
@@ -102,5 +102,7 @@ abstract class WebhookHandler implements ShouldQueue
         }
 
         $this->fail(new ModelNotFoundException('Order not found.'));
+
+        return null;
     }
 }

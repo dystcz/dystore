@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Jobs\Webhooks;
+namespace Dystore\Stripe\Jobs\Webhooks;
 
 class HandlePaymentIntentRequiresAction extends WebhookHandler
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\Contacts;
+namespace Dystore\Reviews\Domain\Reviews\Contacts;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 

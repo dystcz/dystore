@@ -5,9 +5,10 @@
 ### Changes
 
 -   Removed relationship links from responses by default
--   Changed price taxation config to `lunar.pricing.stored_inclusive_of_tax` from `lunar-api.general.taxation.prices_with_default_tax`
+-   Changed price taxation config to `lunar.pricing.stored_inclusive_of_tax` from `dystore.general.taxation.prices_with_default_tax`
 -   Added endpoints to set and unset shipping options directly to / from current session cart
     ([#210](https://github.com/dystcz/dystore-api/pull/210))
+-   Cart active scope now considers carts with any order as inactive ([#213](https://github.com/dystcz/dystore-api/pull/213))
 
 ### ⚠️ Breaking changes
 

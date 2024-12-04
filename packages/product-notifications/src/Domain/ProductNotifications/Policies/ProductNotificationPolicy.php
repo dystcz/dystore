@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Policies;
+namespace Dystore\ProductNotifications\Domain\ProductNotifications\Policies;
 
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Models\ProductNotification;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

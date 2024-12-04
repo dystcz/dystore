@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Factories;
+namespace Dystore\ProductNotifications\Domain\ProductNotifications\Factories;
 
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Models\ProductNotification;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,54 +1,36 @@
 {
-  "name": "dystcz/lunar-api-reviews",
-  "description": "Lunar API Product Reviews",
+  "name": "dystcz/dystore-reviews",
+  "description": "Dystore Product Reviews",
   "keywords": [
-    "dystcz",
-    "laravel",
-    "php",
+    "dystopia",
     "lunar",
-    "lunar-api",
-    "lunar-api-reviews"
+    "dystore",
+    "laravel",
+    "php"
   ],
-  "homepage": "https://github.com/dystcz/lunar-api-reviews",
+  "homepage": "https://github.com/dystcz/dystore",
   "license": "MIT",
   "type": "library",
   "authors": [
     {
       "name": "Dystopia",
-      "email": "dev@dy.st",
-      "role": "Developer"
+      "homepage": "https://dy.st/"
     }
   ],
   "require": {
     "php": "^8.2",
-    "dystcz/lunar-api": "^1.0.0-beta.1",
+    "dystcz/dystore-api": "self.version",
     "illuminate/support": "^11.0"
-  },
-  "require-dev": {
-    "barryvdh/laravel-ide-helper": "^3.0",
-    "laravel-json-api/testing": "^3.0",
-    "laravel/pint": "^1.7",
-    "mockery/mockery": "^1.5",
-    "orchestra/testbench": "^9.0",
-    "pestphp/pest": "^2.0",
-    "pestphp/pest-plugin-faker": "^2.0",
-    "pestphp/pest-plugin-laravel": "^2.0",
-    "spatie/laravel-ray": "^1.32"
   },
   "autoload": {
     "psr-4": {
-      "Dystcz\\LunarApiReviews\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Dystcz\\LunarApiReviews\\Tests\\": "tests"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/pest",
-    "test-coverage": "vendor/bin/pest --coverage",
-    "analyse": "vendor/bin/phpstan analyse"
+      "Dystore\\Reviews\\": "src",
+      "Dystore\\Reviews\\Database\\Factories\\": "database/factories",
+      "Dystore\\Reviews\\Database\\State\\": "database/state"
+    },
+    "files": [
+      "autoload.php"
+    ]
   },
   "config": {
     "sort-packages": true,
@@ -59,11 +41,8 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Dystcz\\LunarApiReviews\\LunarReviewsServiceProvider"
-      ],
-      "aliases": {
-        "LunarReviews": "Dystcz\\LunarApiReviews\\Domain\\Reviews\\Facades\\LunarApiReview"
-      }
+        "Dystore\\Reviews\\ReviewsServiceProvider"
+      ]
     }
   },
   "minimum-stability": "dev",

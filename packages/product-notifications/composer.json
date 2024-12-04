@@ -1,53 +1,36 @@
 {
-  "name": "dystcz/lunar-api-product-notifications",
-  "description": "Lunar API product notifications",
+  "name": "dystcz/dystore-product-notifications",
+  "description": "Dystore product notifications",
   "keywords": [
-    "dystcz",
-    "laravel",
-    "php",
+    "dystopia",
     "lunar",
-    "lunar-api",
-    "lunar-api-product-notifications"
+    "dystore",
+    "laravel",
+    "php"
   ],
-  "homepage": "https://github.com/dystcz/lunar-api-product-notifications",
+  "homepage": "https://github.com/dystcz/dystore",
   "license": "MIT",
   "type": "library",
   "authors": [
     {
       "name": "Dystopia",
-      "email": "dev@dy.st",
-      "role": "Developer"
+      "homepage": "https://dy.st/"
     }
   ],
   "require": {
     "php": "^8.2",
-    "dystcz/lunar-api": "^1.0.0-alpha",
+    "dystcz/dystore-api": "self.version",
     "illuminate/support": "^11.0"
-  },
-  "require-dev": {
-    "barryvdh/laravel-ide-helper": "^3.0",
-    "laravel-json-api/testing": "^3.0",
-    "laravel/pint": "^1.7",
-    "orchestra/testbench": "^9.0",
-    "pestphp/pest": "^2.0",
-    "pestphp/pest-plugin-faker": "^2.0",
-    "pestphp/pest-plugin-laravel": "^2.0",
-    "spatie/laravel-ray": "^1.32"
   },
   "autoload": {
     "psr-4": {
-      "Dystcz\\LunarApiProductNotification\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Dystcz\\LunarApiProductNotification\\Tests\\": "tests"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/pest",
-    "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-    "analyse": "vendor/bin/phpstan analyse"
+      "Dystore\\ProductNotifications\\": "src",
+      "Dystore\\ProductNotifications\\Database\\Factories\\": "database/factories",
+      "Dystore\\ProductNotifications\\Database\\State\\": "database/state"
+    },
+    "files": [
+      "autoload.php"
+    ]
   },
   "config": {
     "sort-packages": true,
@@ -58,7 +41,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Dystcz\\LunarApiProductNotification\\LunarApiProductNotificationServiceProvider"
+        "Dystore\\ProductNotifications\\ProductNotificationsServiceProvider"
       ]
     }
   },

@@ -1,12 +1,13 @@
 <?php
 
-namespace Dystcz\LunarApiProductViews\Domain\Products\JsonApi\Sorts;
+namespace Dystore\ProductViews\Domain\Products\JsonApi\Sorts;
 
-use Dystcz\LunarApiProductViews\LunarApiProductViews;
+use Dystore\ProductViews\ProductViews;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Eloquent\Contracts\SortField;
 
+/** @phpstan-consistent-constructor */
 class RecentlyViewedSort implements SortField
 {
     private readonly string $name;
@@ -19,7 +20,7 @@ class RecentlyViewedSort implements SortField
      */
     public static function make(string $name): self
     {
-        return new static($name);
+        return new self($name);
     }
 
     /**
@@ -42,14 +43,15 @@ class RecentlyViewedSort implements SortField
      * Apply the sort order to the query.
      *
      * @param  Builder  $query
-     * @return Builder
      */
-    public function sort($query, string $direction = 'asc')
+    public function sort($query, string $direction = 'asc'): Builder
     {
-        $list = App::get(LunarApiProductViews::class)->sorted();
+        $list = App::get(ProductViews::class)->sorted();
 
         if (! empty($list)) {
             $query->orderByRaw('FIELD(id, '.implode(',', $list).')');
         }
+
+        return $query;
     }
 }

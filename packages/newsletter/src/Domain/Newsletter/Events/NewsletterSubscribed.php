@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Domain\Newsletter\Events;
+namespace Dystore\Newsletter\Domain\Newsletter\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\Models;
+namespace Dystore\Reviews\Domain\Reviews\Models;
 
-use Dystcz\LunarApiReviews\Domain\Reviews\Builders\ReviewBuilder;
-use Dystcz\LunarApiReviews\Domain\Reviews\Factories\ReviewFactory;
-use Dystcz\LunarApiReviews\Domain\Reviews\Scopes\PublishedScope;
+use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
+use Dystore\Reviews\Domain\Reviews\Factories\ReviewFactory;
+use Dystore\Reviews\Domain\Reviews\Scopes\PublishedScope;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

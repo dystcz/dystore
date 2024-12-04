@@ -1,15 +1,33 @@
 root = true
 
 [*]
+indent_style = space
+indent_size = 4
 charset = utf-8
 end_of_line = lf
-indent_size = 4
-indent_style = space
-insert_final_newline = true
 trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.sh]
+indent_style = tab
+indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false
 
-[*.{yml,yaml}]
+[*.{yml,yaml,js,ts,mts,vue,lua}]
+indent_style = space
 indent_size = 2
+
+[docker-compose{,.*}.{yaml,yml}]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = false
+
+[Dockerfile,Makefile]
+indent_style = tab
+indent_size = 4

@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\Http\Controllers;
+namespace Dystore\Reviews\Domain\Reviews\Http\Controllers;
 
-use Dystcz\LunarApi\Base\Controller;
+use Dystore\Api\Base\Controller;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
@@ -18,10 +18,10 @@ class ReviewsController extends Controller
 
     public function __construct()
     {
-        if (Config::get('lunar-api.reviews.domains.reviews.settings.auth_required', true)) {
+        if (Config::get('dystore.reviews.domains.reviews.settings.auth_required', true)) {
             $this
                 ->middleware(Config::get(
-                    'lunar-api.reviews.domains.reviews.settings.auth_middleware',
+                    'dystore.reviews.domains.reviews.settings.auth_middleware',
                     ['auth'],
                 ))
                 ->only('store');
