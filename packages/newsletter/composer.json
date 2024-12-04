@@ -1,13 +1,13 @@
 {
-  "name": "dystcz/lunar-api-newsletter",
-  "description": "Add the possibility to sign up to newsletter lists to your Lunar backend",
+  "name": "dystcz/dystore-newsletter",
+  "description": "Add the possibility to sign up to newsletter lists to your Dystore backend",
   "keywords": [
     "dystopia",
-    "lunar-api-newsletter",
+    "dystore",
     "lunar",
     "newsletter"
   ],
-  "homepage": "https://github.com/dystcz/lunar-api-newsletter",
+  "homepage": "https://github.com/dystcz/dystore",
   "license": "MIT",
   "type": "library",
   "authors": [
@@ -19,7 +19,7 @@
   ],
   "require": {
     "php": "^8.2",
-    "dystcz/lunar-api": "^1.0.0-beta",
+    "dystcz/dystore-api": "self.version",
     "illuminate/support": "^11.0",
     "spatie/laravel-newsletter": "^5.1"
   },
@@ -43,17 +43,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Dystcz\\LunarApiNewsletter\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Dystcz\\LunarApiNewsletter\\Tests\\": "tests"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/pest",
-    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+      "Dystore\\Newsletter\\": "src",
+      "Dystore\\Newsletter\\Database\\Factories\\": "database/factories",
+      "Dystore\\Newsletter\\Database\\State\\": "database/state"
+    },
+    "files": [
+      "autoload.php"
+    ]
   },
   "config": {
     "sort-packages": true,
@@ -64,11 +60,8 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Dystcz\\LunarApiNewsletter\\LunarApiNewsletterServiceProvider"
-      ],
-      "aliases": {
-        "LunarApiNewsletter": "Dystcz\\LunarApiNewsletter\\LunarApiNewsletterFacade"
-      }
+        "Dystore\\Newsletter\\NewsletterServiceProvider"
+      ]
     }
   },
   "minimum-stability": "dev",

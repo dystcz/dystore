@@ -1,27 +1,25 @@
 {
-  "name": "dystcz/lunar-api-product-notifications",
-  "description": "Lunar API product notifications",
+  "name": "dystcz/dystore-product-notifications",
+  "description": "Dystore product notifications",
   "keywords": [
-    "dystcz",
-    "laravel",
-    "php",
+    "dystopia",
     "lunar",
-    "lunar-api",
-    "lunar-api-product-notifications"
+    "dystore",
+    "laravel",
+    "php"
   ],
-  "homepage": "https://github.com/dystcz/lunar-api-product-notifications",
+  "homepage": "https://github.com/dystcz/dystore",
   "license": "MIT",
   "type": "library",
   "authors": [
     {
       "name": "Dystopia",
-      "email": "dev@dy.st",
-      "role": "Developer"
+      "homepage": "https://dy.st/"
     }
   ],
   "require": {
     "php": "^8.2",
-    "dystcz/lunar-api": "^1.0.0-beta",
+    "dystcz/lunar-api": "self.version",
     "illuminate/support": "^11.0"
   },
   "require-dev": {
@@ -36,18 +34,10 @@
   },
   "autoload": {
     "psr-4": {
-      "Dystcz\\LunarApiProductNotification\\": "src"
+      "Dystore\\ProductNotifications\\": "src",
+      "Dystore\\ProductNotifications\\Database\\Factories\\": "database/factories",
+      "Dystore\\ProductNotifications\\Database\\State\\": "database/state"
     }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Dystcz\\LunarApiProductNotification\\Tests\\": "tests"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/pest",
-    "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-    "analyse": "vendor/bin/phpstan analyse"
   },
   "config": {
     "sort-packages": true,
@@ -58,7 +48,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Dystcz\\LunarApiProductNotification\\LunarApiProductNotificationServiceProvider"
+        "Dystore\\ProductNotifications\\ProductNotificationsServiceProvider"
       ]
     }
   },

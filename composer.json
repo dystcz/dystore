@@ -15,18 +15,8 @@
   ],
   "authors": [
     {
-      "name": "Jakub Theimer",
-      "email": "jakub@dy.st",
-      "role": "Developer"
-    },
-    {
-      "name": "Marek Lőrincz",
-      "email": "marek@dy.st",
-      "role": "Developer"
-    },
-    {
-      "name": "Dystopia Developers",
-      "email": "dev@dy.st"
+      "name": "Dystopia",
+      "homepage": "https://dy.st/"
     }
   ],
   "require": {
@@ -64,12 +54,12 @@
   },
   "autoload": {
     "psr-4": {
+      "Dystore\\Api\\": "packages/api/src",
       "Dystcz\\LunarApiNewsletter\\": "packages/newsletter/src",
       "Dystcz\\LunarApiProductNotification\\": "packages/product-notifications/src",
       "Dystcz\\LunarApiProductViews\\": "packages/product-views/src",
       "Dystcz\\LunarApiReviews\\": "packages/reviews/src",
       "Dystcz\\LunarApiStripeAdapter\\": "packages/stripe/src",
-      "Dystcz\\LunarApi\\": "src",
       "Modules\\DystoreAres\\": "modules/ares/src/",
       "Modules\\DystoreAres\\Database\\Factories\\": "modules/ares/database/factories/",
       "Modules\\DystoreAres\\Database\\Seeders\\": "modules/ares/database/seeders/",
@@ -80,39 +70,29 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Dystore\\Tests\\Api": "tests/api",
-      "Dystore\\Tests\\Newsletter": "tests/newsletter",
-      "Dystore\\Tests\\ProductNotifications": "tests/product-notifications",
-      "Dystore\\Tests\\ProductViews": "tests/product-views",
-      "Dystore\\Tests\\Reviews": "tests/reviews",
-      "Dystore\\Tests\\Stripe": "tests/stripe",
-      "Modules\\DystoreAres\\Tests\\": "modules/ares/tests/",
-      "Modules\\DystoreDiscord\\Tests\\": "modules/discord/tests/"
+      "Dystore\\Tests\\Api\\": "tests/api",
+      "Dystore\\Tests\\Newsletter\\": "tests/newsletter",
+      "Dystore\\Tests\\ProductNotifications\\": "tests/product-notifications",
+      "Dystore\\Tests\\ProductViews\\": "tests/product-views",
+      "Dystore\\Tests\\Reviews\\": "tests/reviews",
+      "Dystore\\Tests\\Stripe\\": "tests/stripe"
     }
   },
   "extra": {
     "laravel": {
-      "aliases": {
-        "LunarApi": "Dystcz\\LunarApi\\Facade\\LunarApi",
-        "LunarApiNewsletter": "Dystcz\\LunarApiNewsletter\\LunarApiNewsletterFacade",
-        "LunarApiProductViews": "Dystcz\\LunarApiProductViews\\LunarApiProductViewsFacade",
-        "LunarReviews": "Dystcz\\LunarApiReviews\\Domain\\Reviews\\Facades\\LunarApiReview"
-      },
       "providers": [
+        "Dystore\\Api\\LunarApiServiceProvider",
+        "Dystore\\Api\\JsonApiServiceProvider",
+        "Dystore\\Api\\LunarApiHashidsServiceProvider",
         "Dystcz\\LunarApiNewsletter\\LunarApiNewsletterServiceProvider",
         "Dystcz\\LunarApiProductNotification\\LunarApiProductNotificationServiceProvider",
         "Dystcz\\LunarApiProductViews\\LunarApiProductViewsServiceProvider",
         "Dystcz\\LunarApiReviews\\LunarReviewsServiceProvider",
-        "Dystcz\\LunarApiStripeAdapter\\LunarApiStripeAdapterServiceProvider",
-        "Dystcz\\LunarApi\\JsonApiServiceProvider",
-        "Dystcz\\LunarApi\\LunarApiHashidsServiceProvider",
-        "Dystcz\\LunarApi\\LunarApiServiceProvider"
+        "Dystcz\\LunarApiStripeAdapter\\LunarApiStripeAdapterServiceProvider"
       ]
     }
   },
   "replace": {
-    "dystcz/dystore-ares-module": "self.version",
-    "dystcz/dystore-discord-module": "self.version",
     "dystcz/dystore-api": "self.version",
     "dystcz/dystore-newsletter": "self.version",
     "dystcz/dystore-product-notifications": "self.version",
