@@ -1,7 +1,6 @@
 {
   "name": "dystcz/dystore-api",
-  "description": "Dystore API layer for Lunar e-commerce package",
-  "homepage": "https://github.com/dystcz/dystore-api",
+  "description": "Collection of ecommerce packages built on top of Lunar and Laravel JSON:API.",
   "license": "MIT",
   "type": "library",
   "keywords": [
@@ -19,6 +18,7 @@
       "homepage": "https://dy.st/"
     }
   ],
+  "homepage": "https://github.com/dystcz/dystore-api",
   "require": {
     "php": "^8.2",
     "ext-redis": "*",
@@ -52,15 +52,45 @@
     "spatie/mailcoach-sdk-php": "^1.1",
     "symplify/monorepo-builder": "^11.2"
   },
+  "replace": {
+    "dystcz/dystore-api": "self.version",
+    "dystcz/dystore-newsletter": "self.version",
+    "dystcz/dystore-product-notifications": "self.version",
+    "dystcz/dystore-product-views": "self.version",
+    "dystcz/dystore-reviews": "self.version",
+    "dystcz/dystore-stripe": "self.version"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Dystore\\Api\\": "packages/api/src",
+      "Dystore\\Api\\Database\\Factories\\": "packages/api/database/factories",
+      "Dystore\\Api\\Database\\State\\": "packages/api/database/state",
       "Dystore\\Newsletter\\": "packages/newsletter/src",
+      "Dystore\\Newsletter\\Database\\Factories\\": "packages/newsletter/database/factories",
+      "Dystore\\Newsletter\\Database\\State\\": "packages/newsletter/database/state",
       "Dystore\\ProductNotifications\\": "packages/product-notifications/src",
+      "Dystore\\ProductNotifications\\Database\\Factories\\": "packages/product-notifications/database/factories",
+      "Dystore\\ProductNotifications\\Database\\State\\": "packages/product-notifications/database/state",
       "Dystore\\ProductViews\\": "packages/product-views/src",
+      "Dystore\\ProductViews\\Database\\Factories\\": "packages/product-views/database/factories",
+      "Dystore\\ProductViews\\Database\\State\\": "packages/product-views/database/state",
       "Dystore\\Reviews\\": "packages/reviews/src",
-      "Dystore\\Stripe\\": "packages/stripe/src"
-    }
+      "Dystore\\Reviews\\Database\\Factories\\": "packages/reviews/database/factories",
+      "Dystore\\Reviews\\Database\\State\\": "packages/reviews/database/state",
+      "Dystore\\Stripe\\": "packages/stripe/src",
+      "Dystore\\Stripe\\Database\\Factories\\": "packages/stripe/database/factories",
+      "Dystore\\Stripe\\Database\\State\\": "packages/stripe/database/state"
+    },
+    "files": [
+      "packages/api/autoload.php",
+      "packages/newsletter/autoload.php",
+      "packages/product-notifications/autoload.php",
+      "packages/product-views/autoload.php",
+      "packages/reviews/autoload.php",
+      "packages/stripe/autoload.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
@@ -72,12 +102,19 @@
       "Dystore\\Tests\\Stripe\\": "tests/stripe"
     }
   },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "php-http/discovery": true
+    }
+  },
   "extra": {
     "laravel": {
       "providers": [
+        "Dystore\\Api\\ApiHashidsServiceProvider",
         "Dystore\\Api\\ApiServiceProvider",
         "Dystore\\Api\\JsonApiServiceProvider",
-        "Dystore\\Api\\ApiHashidsServiceProvider",
         "Dystore\\Newsletter\\NewsletterServiceProvider",
         "Dystore\\ProductNotifications\\ProductNotificationsServiceProvider",
         "Dystore\\ProductViews\\ProductViewsServiceProvider",
@@ -85,14 +122,6 @@
         "Dystore\\Stripe\\StripeServiceProvider"
       ]
     }
-  },
-  "replace": {
-    "dystcz/dystore-api": "self.version",
-    "dystcz/dystore-newsletter": "self.version",
-    "dystcz/dystore-product-notifications": "self.version",
-    "dystcz/dystore-product-views": "self.version",
-    "dystcz/dystore-reviews": "self.version",
-    "dystcz/dystore-stripe": "self.version"
   },
   "scripts": {
     "post-autoload-dump": "@composer run prepare",
@@ -105,14 +134,5 @@
     "test-coverage": "vendor/bin/pest --coverage",
     "analyse": "vendor/bin/phpstan analyse",
     "format": "vendor/bin/pint"
-  },
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "pestphp/pest-plugin": true,
-      "php-http/discovery": true
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+  }
 }
