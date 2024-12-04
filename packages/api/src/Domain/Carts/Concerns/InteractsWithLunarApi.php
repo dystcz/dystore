@@ -5,6 +5,7 @@ namespace Dystore\Api\Domain\Carts\Concerns;
 use Dystore\Api\Domain\Carts\Events\CartCreated;
 use Dystore\Api\Domain\Carts\Factories\CartFactory;
 use Dystore\Api\Hashids\Traits\HashesRouteKey;
+use Illuminate\Database\Eloquent\Builder;
 use Lunar\Models\Contracts\Cart as CartContract;
 
 trait InteractsWithLunarApi
