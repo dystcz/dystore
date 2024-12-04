@@ -9,7 +9,6 @@ use Dystore\Api\Domain\Users\JsonApi\V1\UserQuery;
 use Dystore\Api\Domain\Users\JsonApi\V1\UserSchema;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Api\Facades\Api;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use LaravelJsonApi\Core\Responses\DataResponse;
