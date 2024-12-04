@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "dystcz/dystore-api": "^1.0",
+        "dystcz/dystore-api": "^1.1",
         "illuminate/support": "^11.0"
     },
     "autoload": {
