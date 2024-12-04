@@ -9,11 +9,12 @@ use Dystore\Api\Domain\Storefront\Entities\StorefrontStorage;
 use LaravelJsonApi\Contracts\Store\ModifiesToMany;
 use LaravelJsonApi\Contracts\Store\ModifiesToOne;
 use LaravelJsonApi\Contracts\Store\QueriesAll;
+use LaravelJsonApi\Contracts\Store\QueriesOne;
 use LaravelJsonApi\NonEloquent\AbstractRepository;
 use LaravelJsonApi\NonEloquent\Concerns\HasCrudCapability;
 use LaravelJsonApi\NonEloquent\Concerns\HasRelationsCapability;
 
-class StorefrontRepository extends AbstractRepository implements ModifiesToMany, ModifiesToOne, QueriesAll
+class StorefrontRepository extends AbstractRepository implements ModifiesToMany, ModifiesToOne, QueriesAll, QueriesOne
 {
     use HasCrudCapability;
     use HasRelationsCapability;
@@ -28,7 +29,7 @@ class StorefrontRepository extends AbstractRepository implements ModifiesToMany,
     /**
      * {@inheritDoc}
      */
-    public function find(string $id): ?object
+    public function find(string $key): ?object
     {
         return $this->storage->find();
     }

@@ -3,7 +3,6 @@
 namespace Dystore\Api\Domain\Storefront\Capabilities;
 
 use Dystore\Api\Domain\Storefront\Entities\StorefrontStorage;
-use Illuminate\Support\Collection;
 use LaravelJsonApi\Contracts\Store\HasSingularFilters;
 use LaravelJsonApi\NonEloquent\Capabilities\QueryAll;
 
@@ -22,9 +21,7 @@ class QueryStorefronts extends QueryAll implements HasSingularFilters
 
     public function get(): iterable
     {
-        $storefronts = Collection::make([$this->storage->find()]);
-
-        return $storefronts;
+        return $this->storage->all();
     }
 
     /**

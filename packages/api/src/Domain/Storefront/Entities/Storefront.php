@@ -19,53 +19,34 @@ class Storefront implements Arrayable
         public StorefrontSessionInterface $storefrontSession,
     ) {}
 
-    /**
-     * Get id.
-     */
-    public function getId(): string
+    public function getKey(): string
     {
         return $this->storefrontSession->getSessionKey();
     }
 
-    /**
-     * Get description.
-     */
     public function getChannel(): ?ChannelContract
     {
         return $this->storefrontSession->getChannel();
     }
 
-    /**
-     * Get customer groups.
-     */
     public function getCustomerGroups(): ?Collection
     {
         return $this->storefrontSession->getCustomerGroups();
     }
 
-    /**
-     * Get customer.
-     */
     public function getCustomer(): ?CustomerContract
     {
         return $this->storefrontSession->getCustomer();
     }
 
-    /**
-     * Get curency.
-     */
     public function getCurrency(): ?CurrencyContract
     {
         return $this->storefrontSession->getCurrency();
     }
 
-    /**
-     * Cast to array.
-     */
     public function toArray(): array
     {
         return [
-            'id' => $this->getId(),
             'channel' => $this->getChannel(),
             'customer_groups' => $this->getCustomerGroups(),
             'customer' => $this->getCustomer(),

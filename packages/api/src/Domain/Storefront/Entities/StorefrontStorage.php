@@ -38,9 +38,6 @@ class StorefrontStorage
         }
     }
 
-    /**
-     * Get all sites.
-     */
     public function all(): array
     {
         return iterator_to_array($this->cursor());

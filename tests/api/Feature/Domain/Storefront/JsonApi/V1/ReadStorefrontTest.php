@@ -20,7 +20,8 @@ it('can read storefront session', function () {
             'currency',
             'customer_groups'
         )
-        ->get(serverUrl('/storefronts'));
+        // ->get(serverUrl('/storefronts'));
+        ->get(serverUrl('/storefronts/lunar_storefront'));
 
     /** @var StorefrontSessionManager $storefrontSession */
     $storefrontSession = App::make(StorefrontSessionInterface::class);

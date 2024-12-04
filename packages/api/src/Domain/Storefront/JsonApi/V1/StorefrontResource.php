@@ -8,7 +8,17 @@ class StorefrontResource extends JsonApiResource
 {
     public function id(): string
     {
-        return $this->resource->getId();
+        return $this->resource->getKey();
+    }
+
+    /**
+     * Get the resource's attributes.
+     *
+     * @param  Request|null  $request
+     */
+    public function attributes($request): iterable
+    {
+        return parent::attributes($request);
     }
 
     /**

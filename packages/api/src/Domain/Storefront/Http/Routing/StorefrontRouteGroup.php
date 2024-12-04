@@ -19,6 +19,7 @@ class StorefrontRouteGroup extends RouteGroup
             ->prefix('v1')
             ->resources(function (ResourceRegistrar $server) {
                 $server->resource($this->getPrefix(), StorefrontController::class)
+                    ->only('index', 'show')
                     ->relationships(function (Relationships $relations) {
                         $relations->hasOne('customer');
                         $relations->hasOne('channel');
