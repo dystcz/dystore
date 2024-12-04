@@ -38,10 +38,6 @@ class QueryStorefronts extends QueryAll implements HasSingularFilters
      */
     public function firstOrPaginate(?array $page)
     {
-        if (empty($page)) {
-            return $this->firstOrMany();
-        }
-
-        return $this->paginate($page);
+        return $this->firstOrMany();
     }
 }
