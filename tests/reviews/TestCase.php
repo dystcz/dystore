@@ -2,10 +2,8 @@
 
 namespace Dystore\Tests\Reviews;
 
-use Dystore\Api\Base\Facades\SchemaManifestFacade;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Dystore\Tests\Reviews\Stubs\Lunar\TestUrlGenerator;
-use Dystore\Tests\Reviews\Stubs\Users\UserSchema;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
@@ -28,11 +26,6 @@ abstract class TestCase extends Orchestra
         parent::setUp();
 
         Config::set('lunar.urls.generator', TestUrlGenerator::class);
-
-        /**
-         * Schema configuration.
-         */
-        SchemaManifestFacade::registerSchema(UserSchema::class);
 
         activity()->disableLogging();
     }
