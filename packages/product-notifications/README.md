@@ -1,8 +1,8 @@
-# Lunar API Product Stock Notifications
+# Dystore Product Stock Notifications
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/lunar-api-product-notifications.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api-product-notifications)
-[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/lunar-api-product-notifications.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api-product-notifications)
-![GitHub Actions](https://github.com/dystcz/lunar-api-product-notifications/actions/workflows/tests.yaml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-product-notifications.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-notifications)
+[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-product-notifications.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-notifications)
+![GitHub Actions](https://github.com/dystcz/dystore-product-notifications/actions/workflows/tests.yaml/badge.svg)
 
 Plug and play product stock notifications for Lunar ecommerce package
 
@@ -11,7 +11,7 @@ Plug and play product stock notifications for Lunar ecommerce package
 You can install the package via composer:
 
 ```bash
-composer require dystcz/lunar-api-product-notifications
+composer require dystcz/dystore-product-notifications
 ```
 
 ## Usage

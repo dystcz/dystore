@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Domain\Newsletter\Actions;
+namespace Dystore\Newsletter\Domain\Newsletter\Actions;
 
-use Dystcz\LunarApi\Support\Actions\Action;
-use Dystcz\LunarApiNewsletter\Domain\Newsletter\Events\NewsletterSubscribed;
+use Dystore\Api\Support\Actions\Action;
+use Dystore\Newsletter\Domain\Newsletter\Events\NewsletterSubscribed;
 use Spatie\Newsletter\Facades\Newsletter;
 
 class SubscribeToNewsletter extends Action

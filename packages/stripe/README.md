@@ -1,11 +1,11 @@
-# Lunar API Stripe Adapter
+# Dystore Stripe Adapter
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/lunar-api-stripe-adapter.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api-stripe-adapter)
-![GitHub Actions](https://github.com/dystcz/lunar-api-stripe-adapter/actions/workflows/tests.yaml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-stripe.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-stripe)
+![GitHub Actions](https://github.com/dystcz/dystore-stripe/actions/workflows/tests.yaml/badge.svg)
 
-[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/lunar-api-stripe-adapter.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api-stripe-adapter)
+[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-stripe.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-stripe)
 
-This package provides a Stripe payment adapter for [Lunar API](https://github.com/dystcz/lunar-api).
+This package provides a Stripe payment adapter for [Dystore API](https://github.com/dystcz/dystore-api).
 It can authorize your payments and handle incoming Stripe webhooks.
 
 ## Getting started
@@ -21,18 +21,18 @@ Should be as easy as:
 You can install the package via composer:
 
 ```bash
-composer require dystcz/lunar-api-stripe-adapter
+composer require dystcz/dystore-stripe
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --provider="Dystcz\LunarApiStripeAdapter\LunarApiStripeAdapterServiceProvider" --tag="lunar-api.stripe"
+php artisan vendor:publish --provider="Dystore\Stripe\StripeServiceProvider" --tag="dystore.stripe"
 ```
 
 This will publish two configuration files:
 
-1. `config/lunar-api/stripe.php` - contains the payment adapter configuration
+1. `config/dystore/stripe.php` - contains the payment adapter configuration
 2. `config/stripe-webhook.php` - contains the webhook configuration
 
 ### Configuration
@@ -69,13 +69,13 @@ by extending the `WebhookHandler` class.
 
 #### Currently handled events
 
-| Event | Webhook handler class | Description |
-| --- | --- | --- |
-| `payment_intent.succeeded` | `HandlePaymentIntentSucceeded` | Dispatches `OrderPaymentCanceled` event. |
-| `payment_intent.payment_failed` | `HandlePaymentIntentFailed` | Dispatches `OrderPaymentFailed` event. |
-| `payment_intent.canceled` | `HandlePaymentIntentCanceled` | Authorizes the payment via `AuthorizeStripePayment` class which dispatches the `OrderPaymentSuccessful`. |
+| Event                           | Webhook handler class          | Description                                                                                              |
+| ------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| `payment_intent.succeeded`      | `HandlePaymentIntentSucceeded` | Dispatches `OrderPaymentCanceled` event.                                                                 |
+| `payment_intent.payment_failed` | `HandlePaymentIntentFailed`    | Dispatches `OrderPaymentFailed` event.                                                                   |
+| `payment_intent.canceled`       | `HandlePaymentIntentCanceled`  | Authorizes the payment via `AuthorizeStripePayment` class which dispatches the `OrderPaymentSuccessful`. |
 
-You can listen to these and [others](https://github.com/dystcz/lunar-api/tree/26c9dedeecddf89a9d2aed418cf965525e393e40/src/Domain/Orders/Events)
+You can listen to these and [others](https://github.com/dystcz/dystore-api/tree/26c9dedeecddf89a9d2aed418cf965525e393e40/src/Domain/Orders/Events)
 events in your application and handle them accordingly.
 
 > [!NOTE]
@@ -123,8 +123,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Jakub Theimer](https://github.com/dystcz)
-- [All Contributors](../../contributors)
+-   [Jakub Theimer](https://github.com/dystcz)
+-   [All Contributors](../../contributors)
 
 ## License
 

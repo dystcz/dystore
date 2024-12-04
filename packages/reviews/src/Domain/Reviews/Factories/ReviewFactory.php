@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\Factories;
+namespace Dystore\Reviews\Domain\Reviews\Factories;
 
-use Dystcz\LunarApiReviews\Domain\Reviews\Models\Review;
-use Dystcz\LunarApiReviews\Tests\Stubs\Users\User;
+use Dystore\Api\Domain\Users\Models\User;
+use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

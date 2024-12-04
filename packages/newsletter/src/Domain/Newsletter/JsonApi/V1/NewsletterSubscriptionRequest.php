@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Domain\Newsletter\JsonApi\V1;
+namespace Dystore\Newsletter\Domain\Newsletter\JsonApi\V1;
 
 use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
@@ -29,8 +29,8 @@ class NewsletterSubscriptionRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'email.required' => __('lunar-api-newsletter::validations.newsletter_subscription.email.required'),
-            'email.email' => __('lunar-api-newsletter::validations.newsletter_subscription.email.email'),
+            'email.required' => __('dystore-newsletter::validations.newsletter_subscription.email.required'),
+            'email.email' => __('dystore-newsletter::validations.newsletter_subscription.email.email'),
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\Builders;
+namespace Dystore\Reviews\Domain\Reviews\Builders;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,7 +27,7 @@ class ReviewBuilder extends Builder
                 $query
                     ->when(
                         Auth::check() && Config::get(
-                            'lunar-api.reviews.domains.reviews.settings.include_unpublished_auth_user_reviews',
+                            'dystore.reviews.domains.reviews.settings.include_unpublished_auth_user_reviews',
                             false,
                         ),
                         fn (Builder $query) => $query->where('user_id', Auth::id()),

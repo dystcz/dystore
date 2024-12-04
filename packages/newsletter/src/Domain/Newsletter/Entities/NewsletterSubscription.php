@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiNewsletter\Domain\Newsletter\Entities;
+namespace Dystore\Newsletter\Domain\Newsletter\Entities;
 
 use Illuminate\Contracts\Support\Arrayable;
 

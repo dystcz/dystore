@@ -1,16 +1,16 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Actions;
+namespace Dystore\ProductNotifications\Domain\ProductNotifications\Actions;
 
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Notifications\ProductRestockedNotification;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Notifications\ProductRestockedNotification;
 use Illuminate\Support\Facades\Notification;
-use Lunar\Models\ProductVariant;
+use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
 class NotifySubscribedUsers
 {
-    public function handle(ProductVariant $productVariant): void
+    public function handle(ProductVariantContract $productVariant): void
     {
-        /** @var \Dystcz\LunarApi\Domain\ProductVariants\Models\ProductVariant $productVariant */
+        /** @var \Dystore\Api\Domain\ProductVariants\Models\ProductVariant $productVariant */
         $notifiables = $productVariant
             ->notifications()
             ->unsent()

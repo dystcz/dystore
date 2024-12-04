@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\Http\Controllers;
+namespace Dystore\Reviews\Domain\Reviews\Http\Controllers;
 
-use Dystcz\LunarApi\Base\Controller;
-use Dystcz\LunarApiReviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
-use Dystcz\LunarApiReviews\Domain\Reviews\Models\Review;
+use Dystore\Api\Base\Controller;
+use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
+use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use LaravelJsonApi\Core\Responses\DataResponse;

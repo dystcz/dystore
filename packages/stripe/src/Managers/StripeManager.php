@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystcz\LunarApiStripeAdapter\Managers;
+namespace Dystore\Stripe\Managers;
 
 use Illuminate\Support\Facades\Config;
 use Lunar\Stripe\Managers\StripeManager as LunarStripeManager;
@@ -21,9 +21,9 @@ class StripeManager extends LunarStripeManager
         $params = [
             'amount' => $value,
             'currency' => $currencyCode,
-            Config::get('lunar-api.stripe.automatic_payment_methods', true)
+            Config::get('dystore.stripe.automatic_payment_methods', true)
             ? ['automatic_payment_methods' => ['enabled' => true]]
-            : ['payment_method_types' => Config::get('lunar-api.stripe.payment_method_types', ['card'])],
+            : ['payment_method_types' => Config::get('dystore.stripe.payment_method_types', ['card'])],
             'capture_method' => config('lunar.stripe.policy', 'automatic'),
         ];
 

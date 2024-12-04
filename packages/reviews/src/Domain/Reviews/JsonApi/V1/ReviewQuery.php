@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiReviews\Domain\Reviews\JsonApi\V1;
+namespace Dystore\Reviews\Domain\Reviews\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Queries\Query;
+use Dystore\Api\Domain\JsonApi\Queries\Query;
 
 class ReviewQuery extends Query
 {

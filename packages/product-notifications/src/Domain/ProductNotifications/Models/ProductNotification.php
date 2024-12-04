@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Models;
+namespace Dystore\ProductNotifications\Domain\ProductNotifications\Models;
 
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Builders\ProductNotificationBuilder;
-use Dystcz\LunarApiProductNotification\Domain\ProductNotifications\Factories\ProductNotificationFactory;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Builders\ProductNotificationBuilder;
+use Dystore\ProductNotifications\Domain\ProductNotifications\Factories\ProductNotificationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Notifications\Notifiable;

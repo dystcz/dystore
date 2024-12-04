@@ -28,7 +28,7 @@ return static function (MBConfig $mbConfig): void {
 
     $mbConfig->packageDirectories([
         __DIR__.'/packages',
-        __DIR__.'/modules',
+        // __DIR__.'/modules',
     ]);
 
     $mbConfig->dataToAppend([

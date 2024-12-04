@@ -1,8 +1,8 @@
-# Lunar API Product Views
+# Dystore Product Views
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/lunar-api-product-views.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api-product-views)
-[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/lunar-api-product-views.svg?style=flat-square)](https://packagist.org/packages/dystcz/lunar-api-product-views)
-![GitHub Actions](https://github.com/dystcz/lunar-api-product-views/actions/workflows/main.yml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dystcz/dystore-product-views.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-views)
+[![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-product-views.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-views)
+![GitHub Actions](https://github.com/dystcz/dystore-product-views/actions/workflows/main.yml/badge.svg)
 
 Track Lunar API product views.
 
@@ -11,7 +11,7 @@ Track Lunar API product views.
 You can install the package via composer:
 
 ```bash
-composer require dystcz/lunar-api-product-views
+composer require dystcz/dystore-product-views
 ```
 
 ## Usage
@@ -46,4 +46,3 @@ If you discover any security related issues, please email jakub@dy.st instead of
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-

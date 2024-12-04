@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystcz\LunarApiProductNotification\Domain\ProductNotifications\JsonApi\V1;
+namespace Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1;
 
-use Dystcz\LunarApi\Domain\JsonApi\Queries\Query;
+use Dystore\Api\Domain\JsonApi\Queries\Query;
 
 class ProductNotificationQuery extends Query
 {

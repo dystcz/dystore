@@ -1,53 +1,37 @@
 {
-  "name": "dystcz/lunar-api-product-views",
-  "description": "Track product views",
+  "name": "dystcz/dystore-product-views",
+  "description": "Track product views in yout Dystore backend",
   "keywords": [
-    "dystcz",
-    "laravel",
-    "php",
+    "dystopia",
     "lunar",
-    "lunar-api",
-    "lunar-api-product-views"
+    "dystore",
+    "laravel",
+    "php"
   ],
-  "homepage": "https://github.com/dystcz/lunar-api-product-views",
+  "homepage": "https://github.com/dystcz/dystore",
   "license": "MIT",
   "type": "library",
   "authors": [
     {
       "name": "Dystopia",
-      "email": "dev@dy.st",
-      "role": "Developer"
+      "homepage": "https://dy.st/"
     }
   ],
   "require": {
     "php": "^8.2",
-    "dystcz/lunar-api": "^1.0.0-beta",
+    "dystcz/dystore-api": "self.version",
     "illuminate/support": "^11.0",
     "ext-redis": "*"
   },
-  "require-dev": {
-    "barryvdh/laravel-ide-helper": "^3.0",
-    "laravel-json-api/testing": "^3.0",
-    "laravel/pint": "^1.7",
-    "orchestra/testbench": "^9.0",
-    "pestphp/pest": "^2.0",
-    "pestphp/pest-plugin-faker": "^2.0",
-    "spatie/laravel-ray": "^1.32"
-  },
   "autoload": {
     "psr-4": {
-      "Dystcz\\LunarApiProductViews\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Dystcz\\LunarApiProductViews\\Tests\\": "tests"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/pest",
-    "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-    "analyse": "vendor/bin/phpstan analyse"
+      "Dystore\\ProductViews\\": "src",
+      "Dystore\\ProductViews\\Database\\Factories\\": "database/factories",
+      "Dystore\\ProductViews\\Database\\State\\": "database/state"
+    },
+    "files": [
+      "autoload.php"
+    ]
   },
   "config": {
     "sort-packages": true,
@@ -58,12 +42,8 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Dystcz\\LunarApiProductViews\\LunarApiProductViewsServiceProvider",
-        "Dystcz\\LunarApi\\JsonApiServiceProvider"
-      ],
-      "aliases": {
-        "LunarApiProductViews": "Dystcz\\LunarApiProductViews\\LunarApiProductViewsFacade"
-      }
+        "Dystore\\ProductViews\\ProductViewsServiceProvider"
+      ]
     }
   },
   "minimum-stability": "dev",
