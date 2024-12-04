@@ -147,7 +147,7 @@ In the same fashion as shipping options, purchasable payment options are now ava
 
 ## 0.8.3
 
--   Find order redundancy by @theimerj in [https://github.com/dystcz/lunar-api/pull/91](https://github.com/dystcz/lunar-api/pull/91).
+-   Find order redundancy by @theimerj in [https://github.com/dystcz/dystore-api/pull/91](https://github.com/dystcz/dystore-api/pull/91).
     Added more actions which can find order by payment intent id.
     This increases the success rate of identifying the order
     connected with the payment intent.
