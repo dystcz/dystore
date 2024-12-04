@@ -79,15 +79,12 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Dystcz\\LunarApiNewsletter\\Tests\\": "packages/newsletter/tests",
-      "Dystcz\\LunarApiProductNotification\\Tests\\": "packages/product-notifications/tests",
-      "Dystcz\\LunarApiProductViews\\Tests\\": "packages/product-views/tests",
-      "Dystcz\\LunarApiReviews\\Tests\\": "packages/reviews/tests",
-      "Dystcz\\LunarApiStripeAdapter\\Tests\\": "packages/stripe/tests",
-      "Dystcz\\LunarApi\\Tests\\": [
-        "packages/api/tests",
-        "tests"
-      ],
+      "Dystore\\Tests\\Api": "tests/api",
+      "Dystore\\Tests\\Newsletter": "tests/newsletter",
+      "Dystore\\Tests\\ProductNotifications": "tests/product-notifications",
+      "Dystore\\Tests\\ProductViews": "tests/product-views",
+      "Dystore\\Tests\\Reviews": "tests/reviews",
+      "Dystore\\Tests\\Stripe": "tests/stripe",
       "Modules\\DystoreAres\\Tests\\": "modules/ares/tests/",
       "Modules\\DystoreDiscord\\Tests\\": "modules/discord/tests/"
     }
