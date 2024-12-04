@@ -174,6 +174,17 @@ return [
         'routes' => Dystore\Api\Domain\Customers\Http\Routing\CustomerRouteGroup::class,
     ],
 
+    SchemaType::get(Lunar\Models\Contracts\CustomerGroup::class) => [
+        'model' => Dystore\Api\Domain\CustomerGroups\Models\CustomerGroup::class,
+        'model_contract' => Lunar\Models\Contracts\CustomerGroup::class,
+        'policy' => Dystore\Api\Domain\CustomerGroups\Policies\CustomerGroupPolicy::class,
+        'schema' => Dystore\Api\Domain\CustomerGroups\JsonApi\V1\CustomerGroupSchema::class,
+        'resource' => Dystore\Api\Domain\CustomerGroups\JsonApi\V1\CustomerGroupResource::class,
+        'query' => Dystore\Api\Domain\CustomerGroups\JsonApi\V1\CustomerGroupQuery::class,
+        'collection_query' => Dystore\Api\Domain\CustomerGroups\JsonApi\V1\CustomerGroupCollectionQuery::class,
+        'routes' => Dystore\Api\Domain\CustomerGroups\Http\Routing\CustomerGroupRouteGroup::class,
+    ],
+
     // 'discounts' => [
     //     'model' => Dystore\Api\Domain\Discounts\Models\Discount::class,
     //     'model_contract' => Lunar\Models\Contracts\Discount::class,
