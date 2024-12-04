@@ -48,16 +48,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Dystore\\Api\\": "src"
+      "Dystore\\Api\\": "src",
+      "Dystore\\Api\\Database\\Factories\\": "database/factories",
+      "Dystore\\Api\\Database\\State\\": "database/state"
     },
     "files": [
       "autoload.php"
     ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Dystore\\Api\\Tests\\": "tests"
-    }
   },
   "scripts": {
     "post-update-cmd": [],
