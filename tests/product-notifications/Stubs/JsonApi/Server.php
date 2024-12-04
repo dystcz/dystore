@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystore\ProductNotifications\Tests\Stubs\JsonApi;
+namespace Dystore\Tests\ProductNotifications\Stubs\JsonApi;
 
 use Dystore\ProductNotifications\Domain\JsonApi\V1\Server as BaseServer;
 use Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1\ProductNotificationSchema;
-use Dystore\ProductNotifications\Tests\Stubs\ProductVariants\ProductVariantSchema;
-use Dystore\ProductNotifications\Tests\Stubs\Users\UserSchema;
+use Dystore\Tests\ProductNotifications\Stubs\ProductVariants\ProductVariantSchema;
+use Dystore\Tests\ProductNotifications\Stubs\Users\UserSchema;
 
 class Server extends BaseServer
 {

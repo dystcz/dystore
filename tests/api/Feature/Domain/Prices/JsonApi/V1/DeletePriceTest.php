@@ -4,7 +4,7 @@ use Dystore\Api\Domain\Customers\Models\Customer;
 use Dystore\Api\Domain\Prices\Models\Price;
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\Users\Models\User;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);

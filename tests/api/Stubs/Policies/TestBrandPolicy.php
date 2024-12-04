@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Api\Tests\Stubs\Policies;
+namespace Dystore\Tests\Api\Stubs\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;

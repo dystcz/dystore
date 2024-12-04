@@ -5,7 +5,7 @@ use Dystore\Api\Domain\Products\Actions\IsPurchasable;
 use Dystore\Api\Domain\Products\Factories\ProductFactory;
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Factories\ProductVariantFactory;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 use Lunar\Database\Factories\TagFactory;

@@ -3,8 +3,8 @@
 use Carbon\Carbon;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
-use Dystore\Reviews\Tests\Stubs\Users\User;
-use Dystore\Reviews\Tests\TestCase;
+use Dystore\Tests\Reviews\Stubs\Users\User;
+use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Models\Product;
 

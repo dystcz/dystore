@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Api\Tests\Feature\Domain\JsonApi\Extensions;
+namespace Dystore\Tests\Api\Feature\Domain\JsonApi\Extensions;
 
 use LaravelJsonApi\Core\Server\Server;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystore\ProductViews\Tests\Stubs\JsonApi\V1;
+namespace Dystore\Tests\ProductViews\Stubs\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Servers\Server as BaseServer;
-use Dystore\ProductViews\Tests\Stubs\Users\JsonApi\V1\UserSchema;
+use Dystore\Tests\ProductViews\Stubs\Users\JsonApi\V1\UserSchema;
 
 class Server extends BaseServer
 {

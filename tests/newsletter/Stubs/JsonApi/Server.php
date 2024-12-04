@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Newsletter\Tests\Stubs\JsonApi;
+namespace Dystore\Tests\Newsletter\Stubs\JsonApi;
 
 use Dystore\Api\Domain\JsonApi\V1\Server as BaseServer;
 use Dystore\Newsletter\Domain\Newsletter\JsonApi\V1\NewsletterSchema;

@@ -4,7 +4,7 @@ use Dystore\Api\Domain\CartAddresses\Models\CartAddress;
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Customers\Models\Customer;
 use Dystore\Api\Domain\Users\Models\User;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);

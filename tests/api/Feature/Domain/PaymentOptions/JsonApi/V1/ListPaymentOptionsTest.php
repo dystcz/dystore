@@ -3,7 +3,7 @@
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystore\Api\Domain\PaymentOptions\Facades\PaymentManifest;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;

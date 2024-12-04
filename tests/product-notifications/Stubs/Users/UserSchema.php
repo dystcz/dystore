@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\ProductNotifications\Tests\Stubs\Users;
+namespace Dystore\Tests\ProductNotifications\Stubs\Users;
 
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Schema;

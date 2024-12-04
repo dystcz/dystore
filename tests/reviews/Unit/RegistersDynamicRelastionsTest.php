@@ -2,7 +2,7 @@
 
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
-use Dystore\Reviews\Tests\TestCase;
+use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Testing\RefreshDatabase;

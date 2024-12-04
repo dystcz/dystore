@@ -3,7 +3,7 @@
 use Dystore\Api\Domain\Carts\Contracts\CurrentSessionCart;
 use Dystore\Api\Domain\Carts\Factories\CartFactory;
 use Dystore\Api\Domain\Carts\Models\Cart;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Base\CartSessionInterface;
 

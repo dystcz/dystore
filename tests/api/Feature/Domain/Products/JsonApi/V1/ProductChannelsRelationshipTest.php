@@ -2,7 +2,7 @@
 
 use Dystore\Api\Domain\Channels\Models\Channel;
 use Dystore\Api\Domain\Products\Models\Product;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);

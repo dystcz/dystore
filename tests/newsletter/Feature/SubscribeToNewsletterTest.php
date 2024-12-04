@@ -1,6 +1,6 @@
 <?php
 
-use Dystore\Newsletter\Tests\TestCase;
+use Dystore\Tests\Newsletter\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Newsletter\Facades\Newsletter;
 

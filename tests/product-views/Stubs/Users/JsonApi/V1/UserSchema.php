@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystore\ProductViews\Tests\Stubs\Users\JsonApi\V1;
+namespace Dystore\Tests\ProductViews\Stubs\Users\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
-use Dystore\ProductViews\Tests\Stubs\User;
+use Dystore\Tests\ProductViews\Stubs\User;
 use LaravelJsonApi\Eloquent\Fields\ID;
 
 class UserSchema extends Schema

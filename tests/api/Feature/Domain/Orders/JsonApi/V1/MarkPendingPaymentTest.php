@@ -5,7 +5,7 @@ use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Orders\Enums\OrderStatus;
 use Dystore\Api\Domain\Orders\Events\OrderStatusChanged;
 use Dystore\Api\Domain\Orders\Models\Order;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;

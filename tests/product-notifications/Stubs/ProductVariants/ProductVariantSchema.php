@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\ProductNotifications\Tests\Stubs\ProductVariants;
+namespace Dystore\Tests\ProductNotifications\Stubs\ProductVariants;
 
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsToMany;

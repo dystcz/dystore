@@ -1,14 +1,14 @@
 <?php
 
-namespace Dystore\Api\Tests;
+namespace Dystore\Tests\Api;
 
 use Dystore\Api\Domain\PaymentOptions\Modifiers\PaymentModifiers;
 use Dystore\Api\Facades\Api;
-use Dystore\Api\Tests\Stubs\Carts\Modifiers\TestPaymentModifier;
-use Dystore\Api\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
-use Dystore\Api\Tests\Stubs\Lunar\TestTaxDriver;
-use Dystore\Api\Tests\Stubs\Lunar\TestUrlGenerator;
-use Dystore\Api\Tests\Traits\JsonApiTestHelpers;
+use Dystore\Tests\Api\Stubs\Carts\Modifiers\TestPaymentModifier;
+use Dystore\Tests\Api\Stubs\Carts\Modifiers\TestShippingModifier;
+use Dystore\Tests\Api\Stubs\Lunar\TestTaxDriver;
+use Dystore\Tests\Api\Stubs\Lunar\TestUrlGenerator;
+use Dystore\Tests\Api\Traits\JsonApiTestHelpers;
 use Illuminate\Contracts\Auth\Authenticatable as User;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;

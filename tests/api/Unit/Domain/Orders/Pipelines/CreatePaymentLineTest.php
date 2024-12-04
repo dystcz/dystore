@@ -6,7 +6,7 @@ use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Domain\Orders\Pipelines\CreatePaymentLine;
 use Dystore\Api\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystore\Api\Domain\PaymentOptions\Facades\PaymentManifest;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Lunar\DataTypes\Price as DataTypesPrice;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystore\Api\Tests\Feature\Domain\ProductVariants\JsonApi\V1;
+namespace Dystore\Tests\Api\Feature\Domain\ProductVariants\JsonApi\V1;
 
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);

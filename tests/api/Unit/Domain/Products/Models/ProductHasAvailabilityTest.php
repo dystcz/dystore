@@ -6,7 +6,7 @@ use Dystore\Api\Domain\Products\Enums\Availability;
 use Dystore\Api\Domain\Products\Factories\ProductFactory;
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Factories\ProductVariantFactory;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Lunar\FieldTypes\Text;

@@ -1,7 +1,7 @@
 <?php
 
 use Dystore\Api\Domain\Products\Factories\ProductFactory;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);

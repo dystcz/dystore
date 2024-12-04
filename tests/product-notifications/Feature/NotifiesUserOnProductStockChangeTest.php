@@ -4,7 +4,7 @@ use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Factories\ProductNotificationFactory;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Notifications\ProductRestockedNotification;
-use Dystore\ProductNotifications\Tests\TestCase;
+use Dystore\Tests\ProductNotifications\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 

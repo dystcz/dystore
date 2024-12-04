@@ -7,7 +7,7 @@ use Dystore\Api\Domain\Orders\Events\OrderPaymentFailed;
 use Dystore\Api\Domain\Orders\Events\OrderPaymentSuccessful;
 use Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentSucceeded;
 use Dystore\Stripe\StripePaymentAdapter;
-use Dystore\Stripe\Tests\TestCase;
+use Dystore\Tests\Stripe\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;

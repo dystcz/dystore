@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystore\Reviews\Tests;
+namespace Dystore\Tests\Reviews;
 
 use Dystore\Api\Base\Facades\SchemaManifestFacade;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
-use Dystore\Reviews\Tests\Stubs\Lunar\TestUrlGenerator;
-use Dystore\Reviews\Tests\Stubs\Users\UserSchema;
+use Dystore\Tests\Reviews\Stubs\Lunar\TestUrlGenerator;
+use Dystore\Tests\Reviews\Stubs\Users\UserSchema;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
@@ -89,7 +89,7 @@ abstract class TestCase extends Orchestra
              */
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
-                'model' => \Dystore\Reviews\Tests\Stubs\Users\User::class,
+                'model' => \Dystore\Tests\Reviews\Stubs\Users\User::class,
             ]);
 
             $config->set('database.default', 'sqlite');

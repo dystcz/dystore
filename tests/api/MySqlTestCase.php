@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Api\Tests;
+namespace Dystore\Tests\Api;
 
 use Illuminate\Foundation\Application;
 

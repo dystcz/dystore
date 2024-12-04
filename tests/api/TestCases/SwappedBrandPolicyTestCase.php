@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystore\Api\Tests\TestCases;
+namespace Dystore\Tests\Api\TestCases;
 
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Support\Facades\Config;
 
 abstract class SwappedBrandPolicyTestCase extends TestCase
@@ -16,7 +16,7 @@ abstract class SwappedBrandPolicyTestCase extends TestCase
 
         Config::set(
             'dystore.domains.brands.policy',
-            \Dystore\Api\Tests\Stubs\Policies\TestBrandPolicy::class,
+            \Dystore\Tests\Api\Stubs\Policies\TestBrandPolicy::class,
         );
     }
 }

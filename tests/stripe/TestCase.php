@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystore\Stripe\Tests;
+namespace Dystore\Tests\Stripe;
 
-use Dystore\Stripe\Tests\Stubs\Carts\Modifiers\TestShippingModifier;
-use Dystore\Stripe\Tests\Stubs\Lunar\TestTaxDriver;
-use Dystore\Stripe\Tests\Stubs\Lunar\TestUrlGenerator;
+use Dystore\Tests\Stripe\Stubs\Carts\Modifiers\TestShippingModifier;
+use Dystore\Tests\Stripe\Stubs\Lunar\TestTaxDriver;
+use Dystore\Tests\Stripe\Stubs\Lunar\TestUrlGenerator;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
@@ -30,7 +30,7 @@ abstract class TestCase extends Orchestra
 
         Config::set('auth.providers.users', [
             'driver' => 'eloquent',
-            'model' => \Dystore\Stripe\Tests\Stubs\Users\User::class,
+            'model' => \Dystore\Tests\Stripe\Stubs\Users\User::class,
         ]);
 
         Taxes::extend(

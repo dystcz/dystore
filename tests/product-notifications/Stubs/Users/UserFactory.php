@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\ProductNotifications\Tests\Stubs\Users;
+namespace Dystore\Tests\ProductNotifications\Stubs\Users;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;

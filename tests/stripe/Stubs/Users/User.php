@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Stripe\Tests\Stubs\Users;
+namespace Dystore\Tests\Stripe\Stubs\Users;
 
 use Dystore\Api\Domain\Users\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

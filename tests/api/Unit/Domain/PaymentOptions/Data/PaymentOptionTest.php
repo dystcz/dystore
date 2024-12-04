@@ -5,7 +5,7 @@ use Dystore\Api\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystore\Api\Domain\PaymentOptions\Facades\PaymentManifest;
 use Dystore\Api\Domain\Prices\Models\Price;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Lunar\DataTypes\Price as DataTypesPrice;

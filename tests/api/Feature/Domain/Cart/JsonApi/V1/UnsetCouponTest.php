@@ -5,7 +5,7 @@ use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Discounts\Factories\DiscountFactory;
 use Dystore\Api\Domain\Prices\Models\Price;
 use Dystore\Api\Domain\ProductVariants\Factories\ProductVariantFactory;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\DiscountTypes\AmountOff;
 use Lunar\Facades\CartSession;

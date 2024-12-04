@@ -1,7 +1,7 @@
 <?php
 
 use Dystore\Api\Domain\Brands\Models\Brand;
-use Dystore\Api\Tests\TestCases\SwappedBrandPolicyTestCase;
+use Dystore\Tests\Api\TestCases\SwappedBrandPolicyTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 
@@ -16,7 +16,7 @@ describe('policies', function () {
             ->create();
 
         $this->assertSame(
-            \Dystore\Api\Tests\Stubs\Policies\TestBrandPolicy::class,
+            \Dystore\Tests\Api\Stubs\Policies\TestBrandPolicy::class,
             Config::get('dystore.domains.brands.policy'),
         );
 

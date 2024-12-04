@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Api\Tests\Stubs\Carts\Modifiers;
+namespace Dystore\Tests\Api\Stubs\Carts\Modifiers;
 
 use Closure;
 use Lunar\Base\ShippingModifier;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Dystore\ProductNotifications\Tests;
+namespace Dystore\Tests\ProductNotifications;
 
 use Dystore\Api\Base\Facades\SchemaManifestFacade;
-use Dystore\ProductNotifications\Tests\Stubs\Users\User;
-use Dystore\ProductNotifications\Tests\Stubs\Users\UserSchema;
+use Dystore\Tests\ProductNotifications\Stubs\Users\User;
+use Dystore\Tests\ProductNotifications\Stubs\Users\UserSchema;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
@@ -95,7 +95,7 @@ abstract class TestCase extends Orchestra
              */
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
-                'model' => \Dystore\ProductNotifications\Tests\Stubs\Users\User::class,
+                'model' => \Dystore\Tests\ProductNotifications\Stubs\Users\User::class,
             ]);
 
             $config->set('database.default', 'sqlite');

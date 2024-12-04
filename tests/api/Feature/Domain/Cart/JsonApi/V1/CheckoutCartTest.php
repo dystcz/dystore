@@ -5,7 +5,7 @@ use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Api\Facades\Api;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;

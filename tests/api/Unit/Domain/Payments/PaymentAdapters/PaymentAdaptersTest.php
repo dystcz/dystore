@@ -3,8 +3,8 @@
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Payments\Contracts\PaymentIntent;
 use Dystore\Api\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
-use Dystore\Api\Tests\Stubs\Payments\PaymentAdapters\TestPaymentAdapter;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\Stubs\Payments\PaymentAdapters\TestPaymentAdapter;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

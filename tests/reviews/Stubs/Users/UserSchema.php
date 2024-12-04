@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Reviews\Tests\Stubs\Users;
+namespace Dystore\Tests\Reviews\Stubs\Users;
 
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Schema;

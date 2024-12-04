@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Stripe\Tests\Stubs\Exceptions;
+namespace Dystore\Tests\Stripe\Stubs\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use LaravelJsonApi\Core\Exceptions\JsonApiException;

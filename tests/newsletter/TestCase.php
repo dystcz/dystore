@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Newsletter\Tests;
+namespace Dystore\Tests\Newsletter;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;

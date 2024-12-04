@@ -3,7 +3,7 @@
 use Dystore\Api\Domain\Addresses\Http\Enums\AddressType;
 use Dystore\Api\Domain\CartAddresses\Models\CartAddress;
 use Dystore\Api\Domain\Carts\Models\Cart;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;

@@ -3,7 +3,7 @@
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Routing\Middleware\TokenBasedCartSessionMiddleware;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Api\Tests\Stubs\Payments\PaymentAdapters;
+namespace Dystore\Tests\Api\Stubs\Payments\PaymentAdapters;
 
 use Dystore\Api\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
 use Dystore\Api\Domain\Payments\Data\PaymentIntent;

@@ -1,6 +1,6 @@
 <?php
 
-use Dystore\Reviews\Tests\TestCase;
+use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Admin\Models\Staff;
 use Lunar\Database\Factories\ProductFactory;

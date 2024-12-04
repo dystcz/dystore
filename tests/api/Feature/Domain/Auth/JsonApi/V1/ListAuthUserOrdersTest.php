@@ -2,7 +2,7 @@
 
 use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Domain\Users\Models\User;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class)

@@ -3,7 +3,7 @@
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
-use Dystore\Reviews\Tests\TestCase;
+use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class);

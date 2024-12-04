@@ -1,8 +1,8 @@
 <?php
 
-namespace Dystore\Reviews\Tests\Unit;
+namespace Dystore\Tests\Reviews\Unit;
 
-use Dystore\Reviews\Tests\TestCase;
+use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;

@@ -1,7 +1,7 @@
 <?php
 
 use Dystore\ProductViews\ProductViews;
-use Dystore\ProductViews\Tests\TestCase;
+use Dystore\Tests\ProductViews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;

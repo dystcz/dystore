@@ -2,7 +2,7 @@
 
 use Dystore\Api\Domain\Carts\Events\CartCreated;
 use Dystore\Api\Domain\Carts\Models\Cart;
-use Dystore\Stripe\Tests\TestCase;
+use Dystore\Tests\Stripe\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;

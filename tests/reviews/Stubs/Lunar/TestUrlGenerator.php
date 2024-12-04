@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Reviews\Tests\Stubs\Lunar;
+namespace Dystore\Tests\Reviews\Stubs\Lunar;
 
 use Illuminate\Database\Eloquent\Model;
 

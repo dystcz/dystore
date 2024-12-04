@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\ProductNotifications\Tests\Stubs\Exceptions;
+namespace Dystore\Tests\ProductNotifications\Stubs\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use LaravelJsonApi\Core\Exceptions\JsonApiException;

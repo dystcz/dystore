@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Reviews\Tests\Stubs\Users;
+namespace Dystore\Tests\Reviews\Stubs\Users;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

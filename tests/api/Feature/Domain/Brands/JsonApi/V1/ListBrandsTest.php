@@ -4,8 +4,8 @@ use Dystore\Api\Domain\Brands\Models\Brand;
 use Dystore\Api\Domain\Customers\Models\Customer;
 use Dystore\Api\Domain\Media\Factories\MediaFactory;
 use Dystore\Api\Domain\Users\Models\User;
-use Dystore\Api\Tests\Data\TestInclude;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\Data\TestInclude;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 

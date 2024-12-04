@@ -2,8 +2,8 @@
 
 use Dystore\ProductNotifications\Domain\ProductNotifications\Factories\ProductNotificationFactory;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
-use Dystore\ProductNotifications\Tests\Stubs\Users\User;
-use Dystore\ProductNotifications\Tests\TestCase;
+use Dystore\Tests\ProductNotifications\Stubs\Users\User;
+use Dystore\Tests\ProductNotifications\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Database\Factories\ProductVariantFactory;
 

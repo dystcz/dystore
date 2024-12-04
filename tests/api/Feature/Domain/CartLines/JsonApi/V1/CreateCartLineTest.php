@@ -7,7 +7,7 @@ use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Api\Facades\Api;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;

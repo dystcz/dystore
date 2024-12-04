@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Api\Tests\Feature\Domain\JsonApi\Extensions;
+namespace Dystore\Tests\Api\Feature\Domain\JsonApi\Extensions;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;

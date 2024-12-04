@@ -3,9 +3,9 @@
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
-use Dystore\Reviews\Tests\Stubs\Users\User;
-use Dystore\Reviews\Tests\Stubs\Users\UserFactory;
-use Dystore\Reviews\Tests\TestCase;
+use Dystore\Tests\Reviews\Stubs\Users\User;
+use Dystore\Tests\Reviews\Stubs\Users\UserFactory;
+use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 

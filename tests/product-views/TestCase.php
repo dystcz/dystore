@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\ProductViews\Tests;
+namespace Dystore\Tests\ProductViews;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -93,7 +93,7 @@ abstract class TestCase extends Orchestra
              */
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
-                'model' => \Dystore\ProductViews\Tests\Stubs\Users\User::class,
+                'model' => \Dystore\Tests\ProductViews\Stubs\Users\User::class,
             ]);
 
             $config->set('database.default', 'sqlite');

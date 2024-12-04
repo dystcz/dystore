@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Api\Tests\Stubs\Lunar;
+namespace Dystore\Tests\Api\Stubs\Lunar;
 
 use Lunar\Base\Addressable;
 use Lunar\Base\Purchasable;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Api\Tests\Data;
+namespace Dystore\Tests\Api\Data;
 
 use Closure;
 use Illuminate\Database\Eloquent\Factories\Factory;

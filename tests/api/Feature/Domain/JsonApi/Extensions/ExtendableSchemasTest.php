@@ -1,9 +1,9 @@
 <?php
 
 use Dystore\Api\Base\Manifests\SchemaManifest;
-use Dystore\Api\Tests\Feature\Domain\JsonApi\Extensions\ExtendableSchemasMock;
-use Dystore\Api\Tests\Feature\Domain\JsonApi\Extensions\ServerMock;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\Feature\Domain\JsonApi\Extensions\ExtendableSchemasMock;
+use Dystore\Tests\Api\Feature\Domain\JsonApi\Extensions\ServerMock;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Eloquent\Fields\Str;

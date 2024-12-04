@@ -1,9 +1,9 @@
 <?php
 
-namespace Dystore\Api\Tests\Traits;
+namespace Dystore\Tests\Api\Traits;
 
-use Dystore\Api\Tests\Data\TestInclude;
-use Dystore\Api\Tests\TestCase;
+use Dystore\Tests\Api\Data\TestInclude;
+use Dystore\Tests\Api\TestCase;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
