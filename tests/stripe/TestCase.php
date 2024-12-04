@@ -2,36 +2,30 @@
 
 namespace Dystore\Tests\Stripe;
 
-use Dystore\Tests\Stripe\Stubs\Carts\Modifiers\TestShippingModifier;
-use Dystore\Tests\Stripe\Stubs\Lunar\TestTaxDriver;
-use Dystore\Tests\Stripe\Stubs\Lunar\TestUrlGenerator;
+use Dystore\Tests\Api\Stubs\Carts\Modifiers\TestShippingModifier;
+use Dystore\Tests\Api\Stubs\Lunar\TestTaxDriver;
+use Dystore\Tests\Api\Stubs\Lunar\TestUrlGenerator;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\Taxes;
 use Lunar\Models\Currency;
-use Orchestra\Testbench\TestCase as Orchestra;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-abstract class TestCase extends Orchestra
+abstract class TestCase extends OrchestraTestCase
 {
     use MakesJsonApiRequests;
 
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->setUpDatabase();
-
-        Config::set('auth.providers.users', [
-            'driver' => 'eloquent',
-            'model' => \Dystore\Tests\Stripe\Stubs\Users\User::class,
-        ]);
 
         Taxes::extend(
             'test',
@@ -44,6 +38,11 @@ abstract class TestCase extends Orchestra
         ]);
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
+
+        Artisan::call('vendor:publish', [
+            '--provider' => 'Spatie\WebhookClient\WebhookClientServiceProvider',
+            '--tag' => 'webhook-client-migrations',
+        ]);
 
         activity()->disableLogging();
     }
@@ -79,7 +78,7 @@ abstract class TestCase extends Orchestra
             // Livewire
             \Livewire\LivewireServiceProvider::class,
 
-            // Lunar API
+            // Dystore API
             \Dystore\Api\ApiServiceProvider::class,
             \Dystore\Api\JsonApiServiceProvider::class,
 
@@ -87,7 +86,7 @@ abstract class TestCase extends Orchestra
             \Spatie\WebhookClient\WebhookClientServiceProvider::class,
             \Spatie\StripeWebhooks\StripeWebhooksServiceProvider::class,
 
-            // Lunar API Stripe Adapter
+            // Dystore Stripe
             \Dystore\Stripe\StripeServiceProvider::class,
         ];
     }
@@ -165,16 +164,6 @@ abstract class TestCase extends Orchestra
     protected function defineDatabaseMigrations(): void
     {
         $this->loadLaravelMigrations();
-    }
-
-    /**
-     * Set up the database.
-     */
-    protected function setUpDatabase(): void
-    {
-        $migration = include __DIR__.'/../../vendor/spatie/laravel-webhook-client/database/migrations/create_webhook_calls_table.php.stub';
-
-        $migration->up();
     }
 
     /**
