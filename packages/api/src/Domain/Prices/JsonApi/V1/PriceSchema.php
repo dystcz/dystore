@@ -30,6 +30,19 @@ class PriceSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function includePaths(): iterable
+    {
+        return [
+            'currency',
+            'customer_group',
+
+            ...parent::includePaths(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function fields(): array
     {
         return [
