@@ -35,7 +35,6 @@ class CheckoutCartController extends Controller implements CheckoutCartControlle
         /** @var Order $order */
         $order = ($checkoutCartAction)($cart);
 
-        // TODO: Refactor to default json:api links
         return DataResponse::make($order)
             ->withIncludePaths([
                 'product_lines',
