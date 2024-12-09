@@ -2,6 +2,7 @@
 
 use Dystore\Api\Domain\Carts\Factories\CartFactory;
 use Dystore\Api\Domain\Carts\Models\Cart;
+use Dystore\Api\Domain\Checkout\Enums\CheckoutProtectionStrategy;
 use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Api\Facades\Api;
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Session;
 use Lunar\Base\CartSessionInterface;
 use Lunar\Managers\CartSessionManager;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('checkout');
 
 test('a user can checkout a cart', function () {
     /** @var TestCase $this */
@@ -59,7 +61,7 @@ test('a user can checkout a cart', function () {
     ]);
 
     expect($cart->user_id)->toBeNull();
-})->group('checkout');
+});
 
 test('it returns order with product lines included after checkout', function () {
     /** @var TestCase $this */
@@ -115,7 +117,7 @@ test('it returns order with product lines included after checkout', function () 
     ]);
 
     expect($cart->user_id)->toBeNull();
-})->group('checkout');
+});
 
 test('a user cannot checkout a cart if the products are not in stock', function () {
     /** @var TestCase $this */
@@ -151,7 +153,7 @@ test('a user cannot checkout a cart if the products are not in stock', function 
         ->post(serverUrl('/carts/-actions/checkout'));
 
     $response->assertStatus(422);
-})->group('checkout');
+});
 
 test('a user can be registered when checking out', function () {
     /** @var TestCase $this */
@@ -250,7 +252,7 @@ test('it validates existing user before being registered when checking out', fun
         ]);
 
     Event::assertNotDispatched(Registered::class);
-})->group('checkout');
+});
 
 it('does not forget cart after checkout if configured', function () {
     /** @var TestCase $this */
@@ -285,7 +287,7 @@ it('does not forget cart after checkout if configured', function () {
         ->assertSuccessful();
 
     $this->assertTrue(Session::has($cartSession->getSessionKey()));
-})->group('checkout');
+});
 
 it('forgets cart after checkout if configured', function () {
     /** @var TestCase $this */
@@ -320,10 +322,11 @@ it('forgets cart after checkout if configured', function () {
         ->assertSuccessful();
 
     $this->assertFalse(Session::has($cartSession->getSessionKey()));
-})->group('checkout');
+});
 
 it('returns signed urls for order actions', function () {
     /** @var TestCase $this */
+    Config::set('dystore.general.checkout.checkout_protection_strategy', CheckoutProtectionStrategy::SIGNATURE);
 
     /** @var CartFactory $factory */
     $factory = Cart::factory();
@@ -350,13 +353,23 @@ it('returns signed urls for order actions', function () {
         ])
         ->post(serverUrl('/carts/-actions/checkout'));
 
+    $orderId = $response->json('data.id');
+
     $response
         ->assertSuccessful()
-        ->assertLinks([
-            'self.signed' => $response->json()['links']['self.signed'],
-            'create-payment-intent.signed' => $response->json()['links']['create-payment-intent.signed'],
-            'mark-order-pending-payment.signed' => $response->json()['links']['mark-order-pending-payment.signed'],
-            'mark-order-awaiting-payment.signed' => $response->json()['links']['mark-order-awaiting-payment.signed'],
-            'check-order-payment-status.signed' => $response->json()['links']['check-order-payment-status.signed'],
-        ]);
-})->group('checkout');
+        ->assertCreatedWithServerId(
+            serverUrl('/orders', true),
+            [
+                'type' => 'orders',
+                'id' => (string) $response->json('data.id'),
+                'links' => [
+                    'self' => $response->json('data.links.self'),
+                    'self.signed' => $response->json('data.links')['self.signed'],
+                    'create-payment-intent.signed' => $response->json('data.links')['create-payment-intent.signed'],
+                    'mark-order-pending-payment.signed' => $response->json('data.links')['mark-order-pending-payment.signed'],
+                    'mark-order-awaiting-payment.signed' => $response->json('data.links')['mark-order-awaiting-payment.signed'],
+                    'check-order-payment-status.signed' => $response->json('data.links')['check-order-payment-status.signed'],
+                ],
+            ]
+        );
+});
