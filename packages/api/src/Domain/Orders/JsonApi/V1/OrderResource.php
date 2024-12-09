@@ -55,6 +55,16 @@ class OrderResource extends JsonApiResource
      */
     public function links($request): Links
     {
+        $links = new Links;
+
+        if ($self = $this->selfLink()) {
+            $links->push($self);
+        }
+
+        if (! $this->hasSignedUrls()) {
+            return $links;
+        }
+
         $signedUrls = [
             new Link(
                 'self.signed',
@@ -93,10 +103,8 @@ class OrderResource extends JsonApiResource
             ),
         ];
 
-        return new Links(
-            $this->selfLink(),
+        $links->push(...$signedUrls);
 
-            ...$this->hasSignedUrls() ? $signedUrls : [],
-        );
+        return $links;
     }
 }
