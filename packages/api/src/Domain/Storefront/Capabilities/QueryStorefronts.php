@@ -10,9 +10,6 @@ class QueryStorefronts extends QueryAll implements HasSingularFilters
 {
     private StorefrontStorage $storage;
 
-    /**
-     * QuerySites constructor.
-     */
     public function __construct(StorefrontStorage $storage)
     {
         parent::__construct();

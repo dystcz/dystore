@@ -3,6 +3,8 @@
 ## 1.0.1
 
 -   Added CustomerGroups domain
+-   Added `currency` relation to `prices`
+-   Added `customer_group` relation to `prices`
 
 ## 1.0.0
 
