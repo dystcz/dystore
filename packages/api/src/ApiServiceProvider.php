@@ -71,6 +71,11 @@ class ApiServiceProvider extends ServiceProvider
             fn (Application $app) => $app->make(\Dystore\Api\Domain\PaymentOptions\Manifests\PaymentManifest::class),
         );
 
+        // Register storefront session manager.
+        $this->app->singleton(
+            \Lunar\Base\StorefrontSessionInterface::class,
+            fn (Application $app) => $app->make(\Dystore\Api\Domain\Storefront\Managers\StorefrontSessionManager::class),
+        );
     }
 
     /**
