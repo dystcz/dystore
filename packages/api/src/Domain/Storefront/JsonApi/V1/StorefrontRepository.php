@@ -6,6 +6,7 @@ use Dystore\Api\Domain\Storefront\Capabilities\CrudStorefront;
 use Dystore\Api\Domain\Storefront\Capabilities\CrudStorefrontRelations;
 use Dystore\Api\Domain\Storefront\Capabilities\QueryStorefronts;
 use Dystore\Api\Domain\Storefront\Entities\StorefrontStorage;
+use LaravelJsonApi\Contracts\Store\DeletesResources;
 use LaravelJsonApi\Contracts\Store\ModifiesToMany;
 use LaravelJsonApi\Contracts\Store\ModifiesToOne;
 use LaravelJsonApi\Contracts\Store\QueriesAll;
@@ -14,7 +15,7 @@ use LaravelJsonApi\NonEloquent\AbstractRepository;
 use LaravelJsonApi\NonEloquent\Concerns\HasCrudCapability;
 use LaravelJsonApi\NonEloquent\Concerns\HasRelationsCapability;
 
-class StorefrontRepository extends AbstractRepository implements ModifiesToMany, ModifiesToOne, QueriesAll, QueriesOne
+class StorefrontRepository extends AbstractRepository implements DeletesResources, ModifiesToMany, ModifiesToOne, QueriesAll, QueriesOne
 {
     use HasCrudCapability;
     use HasRelationsCapability;
