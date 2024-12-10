@@ -4,6 +4,7 @@ namespace Dystore\Api\Domain\Storefront\Capabilities;
 
 use Dystore\Api\Domain\Storefront\Entities\Storefront;
 use Dystore\Api\Domain\Storefront\Entities\StorefrontStorage;
+use Illuminate\Support\Collection;
 use LaravelJsonApi\NonEloquent\Capabilities\CrudRelations;
 use Lunar\Models\Contracts\Channel as ChannelContract;
 use Lunar\Models\Contracts\Currency as CurrencyContract;
@@ -56,6 +57,6 @@ class CrudStorefrontRelations extends CrudRelations
 
     public function setCustomerGroups(Storefront $storefront, array $customerGroups): void
     {
-        $storefront->storefrontSession->setCustomerGroups($customerGroups);
+        $storefront->storefrontSession->setCustomerGroups(Collection::make($customerGroups));
     }
 }

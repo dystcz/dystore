@@ -8,12 +8,9 @@ use LaravelJsonApi\NonEloquent\Capabilities\CrudResource;
 
 class CrudStorefront extends CrudResource
 {
-    private StorefrontStorage $storage;
-
-    public function __construct(StorefrontStorage $storage)
+    public function __construct(private StorefrontStorage $storage)
     {
         parent::__construct();
-        $this->storage = $storage;
     }
 
     public function read(Storefront $storefront): ?Storefront

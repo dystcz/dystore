@@ -27,7 +27,8 @@ class StorefrontSchema extends Schema
     public function fields(): iterable
     {
         return [
-            ID::make()->matchAs('(.*?)'),
+            ID::make()
+                ->matchAs('[a-zA-Z0-9_]+'),
 
             ToOne::make('channel')
                 ->type(SchemaType::get(Channel::class)),
@@ -39,6 +40,7 @@ class StorefrontSchema extends Schema
                 ->type(SchemaType::get(Currency::class)),
 
             ToMany::make('customer_groups', 'customerGroups')
+                ->retainFieldName()
                 ->type(SchemaType::get(CustomerGroup::class)),
         ];
     }

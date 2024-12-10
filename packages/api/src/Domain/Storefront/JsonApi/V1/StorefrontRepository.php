@@ -29,9 +29,9 @@ class StorefrontRepository extends AbstractRepository implements ModifiesToMany,
     /**
      * {@inheritDoc}
      */
-    public function find(string $key): ?object
+    public function find(string $resourceId): ?object
     {
-        return $this->storage->find();
+        return $this->storage->find($resourceId);
     }
 
     /**

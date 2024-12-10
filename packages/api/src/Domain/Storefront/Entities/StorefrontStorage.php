@@ -22,13 +22,16 @@ class StorefrontStorage
         $this->storefrontSession = App::make(StorefrontSessionInterface::class);
 
         $this->storefronts = Collection::make([
-            $this->storefrontSession->getSessionKey() => new Storefront($this->storefrontSession),
+            $this->storefrontSession->getSessionKey() => new Storefront(
+                $this->storefrontSession->getSessionKey(),
+                $this->storefrontSession,
+            ),
         ]);
     }
 
-    public function find(): ?Storefront
+    public function find(string $slug): ?Storefront
     {
-        return $this->storefronts->first();
+        return $this->storefronts->get($slug);
     }
 
     public function cursor(): Generator

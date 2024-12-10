@@ -8,7 +8,10 @@ class StorefrontResource extends JsonApiResource
 {
     public function id(): string
     {
-        return $this->resource->getKey();
+        /** @var \Dystore\Api\Domain\Storefront\Entities\Storefront $resource */
+        $resource = $this->resource;
+
+        return $resource->getSlug();
     }
 
     /**
@@ -18,7 +21,9 @@ class StorefrontResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
-        return parent::attributes($request);
+        return [
+            'slug' => $this->resource->getSlug(),
+        ];
     }
 
     /**

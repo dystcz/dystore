@@ -16,12 +16,13 @@ use Lunar\Models\Contracts\Customer as CustomerContract;
 class Storefront implements Arrayable
 {
     public function __construct(
+        private string $slug,
         public StorefrontSessionInterface $storefrontSession,
     ) {}
 
-    public function getKey(): string
+    public function getSlug(): string
     {
-        return $this->storefrontSession->getSessionKey();
+        return $this->slug;
     }
 
     public function getChannel(): ?ChannelContract

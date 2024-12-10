@@ -26,8 +26,9 @@ class QueryStorefronts extends QueryAll implements HasSingularFilters
      */
     public function firstOrMany()
     {
-        // NOTE: Always return single storefront session
-        return $this->storage->find();
+        $key = 'lunar_storefront';
+
+        return $this->storage->find($key);
     }
 
     /**
