@@ -42,7 +42,7 @@ it('returns error response when product doesnt exists', function () {
         ]);
 })->group('products', 'policies');
 
-test('can show a product with included images', function () {
+it('can show a product with included images', function () {
     /** @var TestCase $this */
     $product = Product::factory()
         ->has(MediaFactory::new(), 'images')
@@ -81,7 +81,7 @@ test('can show a product with included prices', function () {
     }
 })->group('products');
 
-test('can show a product with included lowest price', function () {
+it('can show a product with included lowest price', function () {
     /** @var TestCase $this */
     $product = Product::factory()
         ->has(
@@ -103,7 +103,7 @@ test('can show a product with included lowest price', function () {
 
 })->group('products');
 
-test('can show a product with included highest price', function () {
+it('can show a product with included highest price', function () {
     /** @var TestCase $this */
     $product = Product::factory()
         ->has(
