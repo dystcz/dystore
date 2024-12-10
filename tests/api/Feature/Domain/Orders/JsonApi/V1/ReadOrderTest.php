@@ -87,7 +87,7 @@ it('can read order details when accessing order with valid signature', function 
         ])
         ->post(serverUrl('/carts/-actions/checkout'));
 
-    $signedUrl = $response->json()['links']['self.signed'];
+    $signedUrl = $response->json('data.links')['self.signed'];
 
     $order = Order::query()
         ->where('cart_id', $cart->getKey())
@@ -99,14 +99,18 @@ it('can read order details when accessing order with valid signature', function 
         ->get($signedUrl);
 
     $response
-        ->assertFetchedOne($order)
         ->assertSuccessful()
-        ->assertLinks([
-            'self.signed' => $response->json()['links']['self.signed'],
-            'create-payment-intent.signed' => $response->json()['links']['create-payment-intent.signed'],
-            'mark-order-pending-payment.signed' => $response->json()['links']['mark-order-pending-payment.signed'],
-            'mark-order-awaiting-payment.signed' => $response->json()['links']['mark-order-awaiting-payment.signed'],
-            'check-order-payment-status.signed' => $response->json()['links']['check-order-payment-status.signed'],
+        ->assertFetchedOne([
+            'type' => 'orders',
+            'id' => (string) $order->getRouteKey(),
+            'links' => [
+                'self' => $response->json('data.links.self'),
+                'self.signed' => $response->json('data.links')['self.signed'],
+                'create-payment-intent.signed' => $response->json('data.links')['create-payment-intent.signed'],
+                'mark-order-pending-payment.signed' => $response->json('data.links')['mark-order-pending-payment.signed'],
+                'mark-order-awaiting-payment.signed' => $response->json('data.links')['mark-order-awaiting-payment.signed'],
+                'check-order-payment-status.signed' => $response->json('data.links')['check-order-payment-status.signed'],
+            ],
         ]);
 
 })->group('orders');
