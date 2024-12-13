@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 
 uses(TestCase::class, RefreshDatabase::class)
-    ->group('auth');
+    ->group('auth', 'login');
 
 it('cannot log in a user with wrong credentials', function () {
     /** @var TestCase $this */
