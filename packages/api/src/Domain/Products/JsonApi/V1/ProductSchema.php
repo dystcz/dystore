@@ -10,6 +10,7 @@ use Dystore\Api\Domain\Products\JsonApi\Filters\InStockFilter;
 use Dystore\Api\Domain\Products\JsonApi\Filters\ProductFilterCollection;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
@@ -22,7 +23,7 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
-use LaravelJsonApi\Eloquent\Resources\Relation;
+use LaravelJsonApi\Eloquent\Resources\Relation as ResourceRelation;
 use Lunar\Models\Contracts\Attribute;
 use Lunar\Models\Contracts\Brand;
 use Lunar\Models\Contracts\Price;
@@ -47,9 +48,17 @@ class ProductSchema extends Schema
     protected $defaultSort = 'ordered';
 
     /**
-     * Build an index query for this resource.
+     * {@inheritDoc}
      */
     public function indexQuery(?Request $request, Builder $query): Builder
+    {
+        return $query->where('status', '!=', 'draft');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function relatableQuery(?Request $request, ResourceRelation $query): Builder
     {
         return $query->where('status', '!=', 'draft');
     }
