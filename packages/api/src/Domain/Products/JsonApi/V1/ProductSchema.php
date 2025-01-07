@@ -10,7 +10,7 @@ use Dystore\Api\Domain\Products\JsonApi\Filters\InStockFilter;
 use Dystore\Api\Domain\Products\JsonApi\Filters\ProductFilterCollection;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Map;
@@ -23,7 +23,7 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
-use LaravelJsonApi\Eloquent\Resources\Relation as ResourceRelation;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Attribute;
 use Lunar\Models\Contracts\Brand;
 use Lunar\Models\Contracts\Price;
@@ -58,7 +58,7 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function relatableQuery(?Request $request, ResourceRelation $query): Builder
+    public function relatableQuery(?Request $request, EloquentRelation $query): EloquentRelation
     {
         return $query->where('status', '!=', 'draft');
     }

@@ -41,12 +41,12 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                         $relationships->hasMany('product_options')->readOnly();
                         $relationships->hasMany('product_option_values')->readOnly();
                     })
-                    ->only('index', 'show')
                     ->actions('-actions', function (ActionRegistrar $actions) {
                         $actions
                             ->get('signed/{product}', 'showSigned')
                             ->middleware('signed:relative,include,fields,sort,page,filter');
                     })
+                    ->only('index', 'show')
                     ->readOnly();
             });
     }

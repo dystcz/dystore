@@ -7,6 +7,8 @@ use Dystore\Api\Domain\Products\Contracts\ProductsController as ProductsControll
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductQuery;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\Products\Models\Product;
+use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
