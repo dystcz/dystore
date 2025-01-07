@@ -5,8 +5,10 @@ namespace Dystore\Api\Domain\Products\Http\Controllers;
 use Dystore\Api\Base\Controller;
 use Dystore\Api\Domain\Products\Contracts\ProductsController as ProductsControllerContract;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductQuery;
+use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\Products\Models\Product;
 use Illuminate\Support\Facades\App;
+use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchRelated;
@@ -28,5 +30,20 @@ class ProductsController extends Controller implements ProductsControllerContrac
         if ($productId && App::has('dystore-product-views')) {
             dispatch(fn () => App::get('dystore-product-views')->record($productId));
         }
+    }
+
+    /**
+     * Show product when signed url is valid.
+     */
+    public function showSigned(ProductSchema $schema, ProductQuery $request, ?ProductContract $product): Responsable|Response
+    {
+        $model = $schema
+            ->repository()
+            ->queryOne($product)
+            ->withRequest($request)
+            ->first();
+
+        return DataResponse::make($model)
+            ->withQueryParameters($request);
     }
 }
