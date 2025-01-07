@@ -6,6 +6,7 @@ use Dystore\Api\Domain\Products\Contracts\ProductsController;
 use Dystore\Api\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystore\Api\Routing\RouteGroup;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
+use LaravelJsonApi\Laravel\Routing\ActionRegistrar;
 use LaravelJsonApi\Laravel\Routing\Relationships;
 use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
 
@@ -41,6 +42,11 @@ class ProductRouteGroup extends RouteGroup implements RouteGroupContract
                         $relationships->hasMany('product_option_values')->readOnly();
                     })
                     ->only('index', 'show')
+                    ->actions('-actions', function (ActionRegistrar $actions) {
+                        $actions
+                            ->get('signed/{product}', 'showSigned')
+                            ->middleware('signed:relative,include,fields,sort,page,filter');
+                    })
                     ->readOnly();
             });
     }
