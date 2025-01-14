@@ -15,7 +15,11 @@ it('can update order by its owner', function () {
     $this->actingAs($user);
 
     /** @var Order $order */
-    $order = Order::factory()->for($user)->create();
+    $order = Order::factory()
+        ->for($user)
+        ->create([
+            'meta' => [],
+        ]);
 
     $data = [
         'type' => 'orders',
@@ -41,7 +45,11 @@ it('can update order meta', function () {
     $this->actingAs($user);
 
     /** @var Order $order */
-    $order = Order::factory()->for($user)->create();
+    $order = Order::factory()
+        ->for($user)
+        ->create([
+            'meta' => [],
+        ]);
 
     $data = [
         'type' => 'orders',
