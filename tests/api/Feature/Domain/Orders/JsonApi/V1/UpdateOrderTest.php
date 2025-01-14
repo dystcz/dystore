@@ -66,6 +66,73 @@ it('can update order meta', function () {
     ]);
 });
 
+it('always merges order meta on update', function () {
+    /** @var TestCase $this */
+    $user = User::factory()->create();
+
+    $this->actingAs($user);
+
+    /** @var Order $order */
+    $order = Order::factory()
+        ->for($user)
+        ->create([
+            'meta' => [],
+        ]);
+
+    $data = [
+        'type' => 'orders',
+        'id' => (string) $order->getRouteKey(),
+        'attributes' => [
+            'meta' => [
+                'packeta_id' => 123456789,
+                'swag' => 'yolo',
+            ],
+        ],
+    ];
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData($data)
+        ->patch(serverUrl('/orders/').$order->getRouteKey());
+
+    $response->assertFetchedOne($order);
+
+    $this->assertDatabaseHas((new Order)->getTable(), [
+        'meta' => json_encode([
+            'packeta_id' => 123456789,
+            'swag' => 'yolo',
+        ]),
+    ]);
+
+    $data = [
+        'type' => 'orders',
+        'id' => (string) $order->getRouteKey(),
+        'attributes' => [
+            'meta' => [
+                'packeta_id' => 987654321,
+                'foo' => 'bar',
+            ],
+        ],
+    ];
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData($data)
+        ->patch(serverUrl('/orders/').$order->getRouteKey());
+
+    $response->assertFetchedOne($order);
+
+    $this->assertDatabaseHas((new Order)->getTable(), [
+        'meta' => json_encode([
+            'packeta_id' => 987654321,
+            'swag' => 'yolo',
+            'foo' => 'bar',
+        ]),
+    ]);
+});
+
 it('cannot update order by other user', function () {
     /** @var TestCase $this */
     $user = User::factory()->create();
