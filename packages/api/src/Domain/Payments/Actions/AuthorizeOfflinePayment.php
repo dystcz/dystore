@@ -31,13 +31,12 @@ class AuthorizeOfflinePayment
             $driver->order($order);
         }
 
-        $driver
-            ->withData([
-                'meta' => array_merge(
-                    ['payment_type' => $paymentType],
-                    $meta ?? [],
-                ),
-            ]);
+        $driver->withData([
+            'meta' => array_merge(
+                ['payment_type' => $paymentType],
+                $meta ?? [],
+            ),
+        ]);
 
         /** @var PaymentAuthorize $authorization */
         $authorization = $driver->authorize($paymentType);
