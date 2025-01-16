@@ -103,7 +103,6 @@ abstract class TestCase extends OrchestraTestCase
             \Dystore\Api\ApiServiceProvider::class,
             \Dystore\Api\JsonApiServiceProvider::class,
 
-            // WARNING: Hashids (laravel-json-api/laravel) currently incompatible with laravel-json-api/laravel
             // Hashids
             // \Vinkla\Hashids\HashidsServiceProvider::class,
             // \Dystore\Api\ApiHashidsServiceProvider::class,
