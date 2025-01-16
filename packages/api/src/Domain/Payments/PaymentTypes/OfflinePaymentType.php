@@ -10,6 +10,9 @@ use Dystore\Api\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Lunar\Base\DataTransferObjects\PaymentAuthorize;
 use Lunar\Base\DataTransferObjects\PaymentCapture;
 use Lunar\Base\DataTransferObjects\PaymentRefund;
+use Lunar\Events\PaymentAttemptEvent;
+use Lunar\Exceptions\Carts\CartException;
+use Lunar\Exceptions\DisallowMultipleCartOrdersException;
 use Lunar\Models\Contracts\Transaction as TransactionContract;
 use Lunar\PaymentTypes\AbstractPayment;
 
@@ -24,6 +27,16 @@ class OfflinePaymentType extends AbstractPayment
      */
     public function authorize(string $paymentType = 'offline'): PaymentAuthorize
     {
+        $this->order = $this->order ?: ($this->cart->draftOrder ?: $this->cart->completedOrder);
+
+        if (! $this->order) {
+            try {
+                $this->order = $this->cart->createOrder();
+            } catch (DisallowMultipleCartOrdersException|CartException $e) {
+                return $this->failedAuthorization($e->getMessage(), $paymentType);
+            }
+        }
+
         $meta = array_merge(
             (array) $this->order->meta,
             $this->data['meta'] ?? []
@@ -39,11 +52,31 @@ class OfflinePaymentType extends AbstractPayment
 
         $this->createCaptureTransaction($paymentType);
 
-        return new PaymentAuthorize(
+        $authorization = new PaymentAuthorize(
             success: true,
             orderId: $this->order->id,
             paymentType: $paymentType,
         );
+
+        PaymentAttemptEvent::dispatch($authorization);
+
+        return $authorization;
+    }
+
+    public function failedAuthorization(
+        string $message = 'Failed to authorize payment',
+        string $paymentType = 'offline',
+    ): PaymentAuthorize {
+        $failure = new PaymentAuthorize(
+            success: false,
+            message: $message,
+            orderId: $this->order?->id,
+            paymentType: 'bank-transfer'
+        );
+
+        PaymentAttemptEvent::dispatch($failure);
+
+        return $failure;
     }
 
     /**
