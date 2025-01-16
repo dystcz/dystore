@@ -33,7 +33,10 @@ class OfflinePaymentType extends AbstractPayment
             try {
                 $this->order = $this->cart->createOrder();
             } catch (DisallowMultipleCartOrdersException|CartException $e) {
-                return $this->failedAuthorization($e->getMessage(), $paymentType);
+                return $this->fail(
+                    message: $e->getMessage(),
+                    paymentType: $paymentType,
+                );
             }
         }
 
@@ -63,7 +66,7 @@ class OfflinePaymentType extends AbstractPayment
         return $authorization;
     }
 
-    public function failedAuthorization(
+    public function fail(
         string $message = 'Failed to authorize payment',
         string $paymentType = 'offline',
     ): PaymentAuthorize {
