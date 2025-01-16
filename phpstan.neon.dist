@@ -17,3 +17,5 @@ parameters:
         - modules/*/vendor/*
 
     checkOctaneCompatibility: true
+    noEnvCallsOutsideOfConfig: false
+
