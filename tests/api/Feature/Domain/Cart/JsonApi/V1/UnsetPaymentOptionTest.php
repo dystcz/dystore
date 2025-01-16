@@ -6,20 +6,21 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Lunar\Base\CartSessionInterface;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('carts', 'payment_options');
 
 beforeEach(function () {
     /** @var TestCase $this */
     $this->cartSession = App::make(CartSessionInterface::class);
-
-    $this->cart = Cart::factory()->create([
-        'payment_option' => 'paypal',
-    ]);
 });
 
 test('users can unset a payment option from cart', function () {
     /** @var TestCase $this */
-    $this->cartSession->use($this->cart);
+    $cart = Cart::factory()->create([
+        'payment_option' => 'paypal',
+    ]);
+
+    $this->cartSession->use($cart);
 
     $response = $this
         ->jsonApi()
@@ -31,11 +32,38 @@ test('users can unset a payment option from cart', function () {
 
     $response
         ->assertSuccessful()
-        ->assertFetchedOne($this->cart);
+        ->assertFetchedOne($cart);
 
-    $this->assertDatabaseHas($this->cart->getTable(), [
+    $this->assertDatabaseHas($cart->getTable(), [
         'payment_option' => null,
     ]);
 
-    expect($this->cart->fresh()->payment_option)->toBeNull();
-})->group('carts', 'payment_options');
+    expect($cart->fresh()->payment_option)->toBeNull();
+});
+
+it('can unset a hidden payment option to a cart', function () {
+    /** @var TestCase $this */
+    $cart = Cart::factory()->create([
+        'payment_option' => 'bank-transfer',
+    ]);
+
+    $this->cartSession->use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('carts')
+        ->withData([
+            'type' => 'carts',
+        ])
+        ->post(serverUrl('/carts/-actions/unset-payment-option'));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($cart);
+
+    $this->assertDatabaseHas($cart->getTable(), [
+        'payment_option' => null,
+    ]);
+
+    expect($cart->fresh()->payment_option)->toBeNull();
+});

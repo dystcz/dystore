@@ -27,6 +27,19 @@ class TestPaymentModifier extends PaymentModifier
                 meta: [],
             )
         );
+
+        PaymentManifest::addOption(
+            new PaymentOption(
+                name: 'Hidden Bank Transfer',
+                driver: 'bank-transfer',
+                description: 'Hidden bank transfer payment option',
+                identifier: 'HBT',
+                price: new Price(0, $this->getCurrency($cart), 1),
+                taxClass: $this->getTaxClass(),
+                meta: [],
+                hidden: true,
+            )
+        );
     }
 
     /**
