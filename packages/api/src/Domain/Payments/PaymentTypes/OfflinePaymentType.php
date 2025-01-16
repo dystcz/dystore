@@ -44,13 +44,13 @@ class OfflinePaymentType extends AbstractPayment
 
         $status = $this->data['authorized'] ?? null;
 
+        $this->createCaptureTransaction($paymentType);
+
         $this->order->update([
             'status' => $status ?? $this->config['authorized'] ?? 'payment-received',
             'meta' => $meta,
             'placed_at' => Carbon::now(),
         ]);
-
-        $this->createCaptureTransaction($paymentType);
 
         $authorization = new PaymentAuthorize(
             success: true,
