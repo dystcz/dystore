@@ -41,7 +41,7 @@ it('can forget storefront session', function () {
     $storefrontSession->setCustomer($customer);
     $storefrontSession->setCustomerGroups($customerGroups);
 
-    ray($storefrontSession);
+    // ray($storefrontSession);
 
     $response = $this
         ->jsonApi()
