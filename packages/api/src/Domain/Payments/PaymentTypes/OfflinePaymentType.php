@@ -39,7 +39,11 @@ class OfflinePaymentType extends AbstractPayment
 
         $this->createCaptureTransaction($paymentType);
 
-        return new PaymentAuthorize(true);
+        return new PaymentAuthorize(
+            success: true,
+            orderId: $this->order->id,
+            paymentType: $paymentType,
+        );
     }
 
     /**
