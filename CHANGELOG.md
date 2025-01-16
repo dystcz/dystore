@@ -2,56 +2,57 @@
 
 ## 1.0.1
 
--   Added CustomerGroups domain
--   Added `currency` relation to `prices`
--   Added `customer_group` relation to `prices`
+- Added CustomerGroups domain
+- Added `currency` relation to `prices`
+- Added `customer_group` relation to `prices`
+- `PaymentOptions` can now be set as hidden (can be used for authorization, but won't be listed via API)
 
 ## 1.0.0
 
--   Monorepo 🎉
+- Monorepo 🎉
 
 ## 1.0.0-beta.4
 
 ### Changes
 
--   Removed relationship links from responses by default
+- Removed relationship links from responses by default
 
 ## 1.0.0-beta.3
 
 ### Changes
 
--   Added complete `User` model
--   Added create (register) user endpoint (`POST` `/users`)
--   Added update user endpoint (`PATCH` `/users`)
--   Added change user password endpoint (`PATCH` `/users/-actions/change-password`)
--   Added `AuthUser` json-api proxy
--   Added custom `ProxySchema`
--   Added login endpoint for logged in user (`POST` `/auth/-actions/login`)
--   Added logout endpoint for logged in user (`POST` `/auth/-actions/logout`)
--   Added "me" endpoint for logged in user (`GET` `/auth/-actions/me`)
--   Added "my orders" endpoint for logged in user (`/auth/-actions/me/orders`)
--   Added "register without password" endpoint (`POST` `/auth/-actions/register-without-password`)
--   Added forgotten password endpoint (`POST` `/auth/-actions/forgot-password`)
--   Added reset password endpoint (`POST` `/auth/-actions/reset-password`)
--   Added create new password endpoint (`GET` `/auth/-actions/reset-password/{token}`)
--   Added `variantValues` relationship to `Product` model
--   Added `product_option_values` relationship to `ProductSchema` (scoped to variant values using `variantValues` relationship)
--   Added `product_option_handle` to `ProductOptionValueSchema`
+- Added complete `User` model
+- Added create (register) user endpoint (`POST` `/users`)
+- Added update user endpoint (`PATCH` `/users`)
+- Added change user password endpoint (`PATCH` `/users/-actions/change-password`)
+- Added `AuthUser` json-api proxy
+- Added custom `ProxySchema`
+- Added login endpoint for logged in user (`POST` `/auth/-actions/login`)
+- Added logout endpoint for logged in user (`POST` `/auth/-actions/logout`)
+- Added "me" endpoint for logged in user (`GET` `/auth/-actions/me`)
+- Added "my orders" endpoint for logged in user (`/auth/-actions/me/orders`)
+- Added "register without password" endpoint (`POST` `/auth/-actions/register-without-password`)
+- Added forgotten password endpoint (`POST` `/auth/-actions/forgot-password`)
+- Added reset password endpoint (`POST` `/auth/-actions/reset-password`)
+- Added create new password endpoint (`GET` `/auth/-actions/reset-password/{token}`)
+- Added `variantValues` relationship to `Product` model
+- Added `product_option_values` relationship to `ProductSchema` (scoped to variant values using `variantValues` relationship)
+- Added `product_option_handle` to `ProductOptionValueSchema`
 
 ### ⚠️ Breaking changes
 
--   Renamed `lunar_model` to `model_contract` in `domains.php` config file
+- Renamed `lunar_model` to `model_contract` in `domains.php` config file
 
 ## 1.0.0-beta.2
 
 ### Changes
 
--   Fixed attribute mapping for `collections`
--   Added tests for `collections` `default_url` relationship and includes
--   Fixed dynamic relationships
--   Added configurable auth guard `/Dystcz/LunarApi/Facades/LunarApi::authGuard($guard)`
--   Updated policies to grant more privileges to Filament admins
--   Added `product_options` relationship for `products`
+- Fixed attribute mapping for `collections`
+- Added tests for `collections` `default_url` relationship and includes
+- Fixed dynamic relationships
+- Added configurable auth guard `/Dystcz/LunarApi/Facades/LunarApi::authGuard($guard)`
+- Updated policies to grant more privileges to Filament admins
+- Added `product_options` relationship for `products`
 
 ### ⚠️ Breaking changes
 
@@ -66,10 +67,10 @@
 
 ### Changes
 
--   Model logic extracted to traits
--   Added contracts for all models
--   Added `images` relationship route for `collections`
--   Added countable relationship tests
+- Model logic extracted to traits
+- Added contracts for all models
+- Added `images` relationship route for `collections`
+- Added countable relationship tests
 
 ### ⚠️ Breaking changes
 
@@ -100,13 +101,13 @@
 
 ### Changes
 
--   Carts do not get automatically created when fetching them unless configured with `lunar.cart.auto_create = true`. However, they are created on demand by adding a first `CartLine` to a `Cart`.
--   Added custom `CartSessionAuthListener` which merges current cart in the session with previously associated user cart and returns the updated user cart.
--   Added `CreateEmptyCartAddresses` action from a listener with the same name.
+- Carts do not get automatically created when fetching them unless configured with `lunar.cart.auto_create = true`. However, they are created on demand by adding a first `CartLine` to a `Cart`.
+- Added custom `CartSessionAuthListener` which merges current cart in the session with previously associated user cart and returns the updated user cart.
+- Added `CreateEmptyCartAddresses` action from a listener with the same name.
 
 ### ⚠️ Breaking changes
 
--   Empty `CartAddress`es are not created automatically with `Cart` anymore. You will have to create them manually by calling the endpoint below or using your own listener for the `CartCreated` event.
+- Empty `CartAddress`es are not created automatically with `Cart` anymore. You will have to create them manually by calling the endpoint below or using your own listener for the `CartCreated` event.
 
 #### New endpoints
 
@@ -148,8 +149,8 @@ In the same fashion as shipping options, purchasable payment options are now ava
 
 ## 0.8.3
 
--   Find order redundancy by @theimerj in [https://github.com/dystcz/dystore-api/pull/91](https://github.com/dystcz/dystore-api/pull/91).
-    Added more actions which can find order by payment intent id.
-    This increases the success rate of identifying the order
-    connected with the payment intent.
-    Especially useful when data integrity is not ideal.
+- Find order redundancy by @theimerj in [https://github.com/dystcz/dystore-api/pull/91](https://github.com/dystcz/dystore-api/pull/91).
+  Added more actions which can find order by payment intent id.
+  This increases the success rate of identifying the order
+  connected with the payment intent.
+  Especially useful when data integrity is not ideal.
