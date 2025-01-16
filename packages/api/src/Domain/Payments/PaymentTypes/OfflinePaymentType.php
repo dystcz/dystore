@@ -84,7 +84,7 @@ class OfflinePaymentType extends AbstractPayment
      */
     protected function createCaptureTransaction(string $paymentType = 'offline'): TransactionContract
     {
-        $paymentAdapter = $this->register->get('offline');
+        $paymentAdapter = $this->register->get($paymentType);
 
         $lastTransaction = (new GetLastOrderTransaction)(order: $this->order, driver: $paymentAdapter->getDriver())
             ?? $this->createIntentTransaction($paymentType);
@@ -104,7 +104,7 @@ class OfflinePaymentType extends AbstractPayment
 
     protected function createIntentTransaction(string $paymentType = 'offline'): TransactionContract
     {
-        $paymentAdapter = $this->register->get('offline');
+        $paymentAdapter = $this->register->get($paymentType);
 
         $transaction = $paymentAdapter->createTransaction(
             model: $this->order,
