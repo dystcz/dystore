@@ -1,13 +1,15 @@
 <?php
 
 use Dystore\Api\Domain\Carts\Models\Cart;
+use Dystore\Api\Domain\PaymentOptions\Entities\PaymentOption;
 use Dystore\Api\Domain\PaymentOptions\Facades\PaymentManifest;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Lunar\Base\CartSessionInterface;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('carts', 'payment_options');
 
 beforeEach(function () {
     /** @var TestCase $this */
@@ -44,9 +46,9 @@ test('users can set a payment option to cart', function () {
     ]);
 
     expect($this->cart->fresh()->payment_option)->toBe($data['attributes']['payment_option']);
-})->group('carts', 'payment_options');
+});
 
-it('validates payment option attribute when setting payment option to cart', function () {
+it('validates payment option attribute when setting payment option to a cart', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
@@ -63,4 +65,35 @@ it('validates payment option attribute when setting payment option to cart', fun
         'detail' => __('dystore::validations.payments.set_payment_option.payment_option.required'),
         'status' => '422',
     ]);
-})->group('carts', 'payment_options');
+});
+
+it('can set a hidden payment option to a cart', function () {
+    /** @var TestCase $this */
+    $hiddenOption = PaymentManifest::getOptions($this->cart, true)
+        ->firstWhere(fn (PaymentOption $option) => $option->isHidden());
+
+    $this->cartSession->use($this->cart);
+
+    $data = [
+        'type' => 'carts',
+        'attributes' => [
+            'payment_option' => $hiddenOption->identifier,
+        ],
+    ];
+
+    $response = $this
+        ->jsonApi()
+        ->expects('carts')
+        ->withData($data)
+        ->post(serverUrl('/carts/-actions/set-payment-option'));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($this->cart);
+
+    $this->assertDatabaseHas($this->cart->getTable(), [
+        'payment_option' => $hiddenOption->identifier,
+    ]);
+
+    expect($this->cart->fresh()->payment_option)->toBe($data['attributes']['payment_option']);
+});

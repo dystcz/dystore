@@ -87,7 +87,10 @@ abstract class PaymentAdapter
                 status: $status,
                 meta: $meta,
             )
-            ->setParentId($parentId)
+            ->when(
+                $parentId,
+                fn (TransactionData $data, int $parentId) => $data->setParentId($parentId),
+            )
             ->setSuccess($success);
 
         return (new CreateTransaction)($data);

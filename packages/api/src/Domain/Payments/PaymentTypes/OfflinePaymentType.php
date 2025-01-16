@@ -71,7 +71,7 @@ class OfflinePaymentType extends AbstractPayment
             success: false,
             message: $message,
             orderId: $this->order?->id,
-            paymentType: 'bank-transfer'
+            paymentType: $paymentType,
         );
 
         PaymentAttemptEvent::dispatch($failure);
@@ -82,14 +82,12 @@ class OfflinePaymentType extends AbstractPayment
     /**
      * Create transaction for the payment.
      */
-    protected function createCaptureTransaction(string $paymentType): TransactionContract
+    protected function createCaptureTransaction(string $paymentType = 'offline'): TransactionContract
     {
-        $paymentAdapter = $this->register->get($paymentType);
+        $paymentAdapter = $this->register->get('offline');
 
-        $lastTransaction = (new GetLastOrderTransaction)(
-            order: $this->order,
-            driver: $paymentAdapter->getDriver(),
-        );
+        $lastTransaction = (new GetLastOrderTransaction)(order: $this->order, driver: $paymentAdapter->getDriver())
+            ?? $this->createIntentTransaction($paymentType);
 
         $transaction = $paymentAdapter->createTransaction(
             model: $this->order,
@@ -98,7 +96,23 @@ class OfflinePaymentType extends AbstractPayment
             status: PaymentIntentStatus::SUCCEEDED->value,
             success: true,
             amount: $this->order->total->value,
-            parentId: $lastTransaction->id,
+            meta: $this->data['meta'] ?? [],
+        );
+
+        return $transaction;
+    }
+
+    protected function createIntentTransaction(string $paymentType = 'offline'): TransactionContract
+    {
+        $paymentAdapter = $this->register->get('offline');
+
+        $transaction = $paymentAdapter->createTransaction(
+            model: $this->order,
+            type: TransactionType::INTENT,
+            reference: "{$paymentType}-{$this->order->reference}",
+            status: PaymentIntentStatus::INTENT->value,
+            success: true,
+            amount: $this->order->total->value,
             meta: $this->data['meta'] ?? [],
         );
 
