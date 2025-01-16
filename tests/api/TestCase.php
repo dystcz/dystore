@@ -104,8 +104,8 @@ abstract class TestCase extends OrchestraTestCase
             \Dystore\Api\JsonApiServiceProvider::class,
 
             // Hashids
-            \Vinkla\Hashids\HashidsServiceProvider::class,
-            \Dystore\Api\ApiHashidsServiceProvider::class,
+            // \Vinkla\Hashids\HashidsServiceProvider::class,
+            // \Dystore\Api\ApiHashidsServiceProvider::class,
         ];
     }
 

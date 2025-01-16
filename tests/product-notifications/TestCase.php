@@ -73,8 +73,8 @@ abstract class TestCase extends Orchestra
             \Dystore\Api\JsonApiServiceProvider::class,
 
             // Hashids
-            \Vinkla\Hashids\HashidsServiceProvider::class,
-            \Dystore\Api\ApiHashidsServiceProvider::class,
+            // \Vinkla\Hashids\HashidsServiceProvider::class,
+            // \Dystore\Api\ApiHashidsServiceProvider::class,
 
             // Lunar Product Notification
             \Dystore\ProductNotifications\ProductNotificationsServiceProvider::class,
