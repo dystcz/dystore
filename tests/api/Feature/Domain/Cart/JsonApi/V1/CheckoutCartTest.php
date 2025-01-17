@@ -100,10 +100,19 @@ test('it returns order with product lines included after checkout', function () 
 
     $response
         ->assertIncluded([
+            // Product lines
             ...$order->productLines->map(function ($line) {
                 return [
                     'type' => 'order_lines',
                     'id' => (string) $line->id,
+                ];
+            })->all(),
+
+            // Product line purchasables (product variants)
+            ...$order->productLines->map(function ($line) {
+                return [
+                    'type' => 'product_variants',
+                    'id' => (string) $line->purchasable->id,
                 ];
             })->all(),
         ]);
