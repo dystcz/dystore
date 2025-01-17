@@ -93,6 +93,7 @@ class ProductVariantSchema extends Schema
             Str::make('mpn'),
             Str::make('ean'),
             Str::make('tax_ref'),
+            Str::make('product_id'),
 
             Map::make('availability', [
                 ArrayHash::make('stock')
