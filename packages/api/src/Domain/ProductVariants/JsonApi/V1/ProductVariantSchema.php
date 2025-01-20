@@ -51,6 +51,7 @@ class ProductVariantSchema extends Schema
         return [
             'attributes',
             'attributes.attributeGroup',
+
             ...parent::with(),
         ];
     }
