@@ -30,6 +30,19 @@ class PriceSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function with(): array
+    {
+        return [
+            'currency',
+            'priceable',
+
+            ...parent::with(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function includePaths(): iterable
     {
         return [
