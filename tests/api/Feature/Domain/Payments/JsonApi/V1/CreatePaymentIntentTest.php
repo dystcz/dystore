@@ -30,8 +30,9 @@ beforeEach(function () {
 test('a payment intent can be created', function (string $paymentMethod) {
     /** @var TestCase $this */
     $url = URL::signedRoute(
-        'v1.orders.createPaymentIntent',
-        ['order' => $this->order->getRouteKey()],
+        name: 'v1.orders.createPaymentIntent',
+        parameters: ['order' => $this->order->getRouteKey()],
+        absolute: false,
     );
 
     $response = $this
@@ -54,8 +55,9 @@ test('a payment intent can be created', function (string $paymentMethod) {
 test('a payment intent can be created with custom amount', function (string $paymentMethod) {
     /** @var TestCase $this */
     $url = URL::signedRoute(
-        'v1.orders.createPaymentIntent',
-        ['order' => $this->order->getRouteKey()],
+        name: 'v1.orders.createPaymentIntent',
+        parameters: ['order' => $this->order->getRouteKey()],
+        absolute: false,
     );
 
     $response = $this
