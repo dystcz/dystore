@@ -26,12 +26,14 @@ beforeEach(function () {
     $this->order = Order::query()->where($order->getKeyName(), $order->getKey())->firstOrFail();
 });
 
-it('can change order status to pending payment', function () {
+it('can change order status to awaiting payment', function () {
     /** @var TestCase $this */
     Event::fake(OrderStatusChanged::class);
 
     $url = URL::signedRoute(
-        'v1.orders.markAwaitingPayment', ['order' => $this->order->getRouteKey()]
+        name: 'v1.orders.markAwaitingPayment',
+        parameters: ['order' => $this->order->getRouteKey()],
+        absolute: false,
     );
 
     $this->order->update(['status' => OrderStatus::PENDING_PAYMENT->value]);

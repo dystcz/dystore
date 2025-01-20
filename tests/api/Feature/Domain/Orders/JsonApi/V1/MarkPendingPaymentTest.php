@@ -31,7 +31,9 @@ it('can change order status to pending payment', function () {
     Event::fake(OrderStatusChanged::class);
 
     $url = URL::signedRoute(
-        'v1.orders.markPendingPayment', ['order' => $this->order->getRouteKey()]
+        name: 'v1.orders.markPendingPayment',
+        parameters: ['order' => $this->order->getRouteKey()],
+        absolute: false,
     );
 
     $response = $this
