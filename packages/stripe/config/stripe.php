@@ -29,4 +29,15 @@ return [
      * Enable automatic payment methods.
      */
     'automatic_payment_methods' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Stripe eshop identifier
+    |--------------------------------------------------------------------------
+    |
+    | This key serves as an eship identification and is passed to
+    | payment intent metadata during its creation.
+    |
+    */
+    'eshop_id' => env('STRIPE_ESHOP_ID', env('APP_NAME')),
 ];

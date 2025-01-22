@@ -69,7 +69,7 @@ class StripePaymentAdapter extends PaymentAdapter
 
         $opts = [
             'metadata' => [
-                'eshop' => env('APP_NAME'),
+                'eshop_id' => Config::get('dystore.stripe.eshop_id'),
                 ...$meta,
             ],
         ];
