@@ -2,17 +2,17 @@
 
 use Dystore\Api\Domain\Carts\Events\CartCreated;
 use Dystore\Api\Domain\Carts\Models\Cart;
-use Dystore\Api\Domain\Orders\Events\OrderPaymentCanceled;
-use Dystore\Api\Domain\Orders\Events\OrderPaymentFailed;
-use Dystore\Api\Domain\Orders\Events\OrderPaymentSuccessful;
+use Dystore\Stripe\Jobs\Webhooks\HandleOtherEvent;
+use Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCanceled;
+use Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentFailed;
 use Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentSucceeded;
 use Dystore\Stripe\StripePaymentAdapter;
 use Dystore\Tests\Stripe\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Queue;
 use Lunar\Stripe\Concerns\ConstructsWebhookEvent;
 use Stripe\PaymentIntent;
 
@@ -52,8 +52,7 @@ beforeEach(function () {
 
 it('can handle payment_intent.succeeded event', function () {
     /** @var TestCase $this */
-    Event::fake();
-    Queue::fake();
+    Bus::fake([HandlePaymentIntentSucceeded::class]);
 
     $data = json_decode(file_get_contents(__DIR__.'/../Stubs/Stripe/payment_intent.succeeded.json'), true);
 
@@ -77,14 +76,12 @@ it('can handle payment_intent.succeeded event', function () {
 
     $response->assertSuccessful();
 
-    // Queue::assertPushed(HandlePaymentIntentSucceeded::class);
-    // Event::assertDispatched(OrderPaymentSuccessful::class);
+    Bus::assertDispatched(HandlePaymentIntentSucceeded::class);
 })->group('webhooks');
 
 it('can handle payment_intent.canceled event', function () {
     /** @var TestCase $this */
-    Event::fake();
-    Queue::fake();
+    Bus::fake([HandlePaymentIntentCanceled::class]);
 
     $data = json_decode(file_get_contents(__DIR__.'/../Stubs/Stripe/payment_intent.canceled.json'), true);
 
@@ -100,13 +97,12 @@ it('can handle payment_intent.canceled event', function () {
 
     $response->assertSuccessful();
 
-    // Event::assertDispatched(OrderPaymentCanceled::class);
+    Bus::assertDispatched(HandlePaymentIntentCanceled::class);
 })->group('webhooks');
 
 it('can handle payment_intent.failed event', function () {
     /** @var TestCase $this */
-    Event::fake();
-    Queue::fake();
+    Bus::fake([HandlePaymentIntentFailed::class]);
 
     $data = json_decode(file_get_contents(__DIR__.'/../Stubs/Stripe/payment_intent.payment_failed.json'), true);
 
@@ -122,13 +118,12 @@ it('can handle payment_intent.failed event', function () {
 
     $response->assertSuccessful();
 
-    // Event::assertDispatched(OrderPaymentFailed::class);
+    Bus::assertDispatched(HandlePaymentIntentFailed::class);
 })->group('webhooks');
 
 it('can handle any other event', function () {
     /** @var TestCase $this */
-    Event::fake();
-    Queue::fake();
+    Bus::fake([HandleOtherEvent::class]);
 
     $data = json_decode(file_get_contents(__DIR__.'/../Stubs/Stripe/charge.succeeded.json'), true);
 
@@ -143,4 +138,26 @@ it('can handle any other event', function () {
         );
 
     $response->assertSuccessful();
+
+    Bus::assertDispatched(HandleOtherEvent::class);
+})->group('webhooks');
+
+it('does not handle events with incorrect eshop_id if configured', function () {
+    /** @var TestCase $this */
+    Bus::fake([HandlePaymentIntentSucceeded::class]);
+
+    Config::set('dystore.stripe.handle_eshop_ids', ['Fake Store']);
+
+    $data = json_decode(file_get_contents(__DIR__.'/../Stubs/Stripe/payment_intent.succeeded.json'), true);
+
+    $response = $this
+        ->post(
+            '/stripe/webhook',
+            $data,
+            ['Stripe-Signature' => $this->determineStripeSignature($data)],
+        );
+
+    $response->assertSuccessful();
+
+    Bus::assertNotDispatched(HandlePaymentIntentSucceeded::class);
 })->group('webhooks');

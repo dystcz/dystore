@@ -56,7 +56,7 @@ test('can create a payment intent', function (string $paymentMethod) {
 
 })->with(['stripe']);
 
-it('creates a transaction when creating a payement intent', function (string $paymentMethod) {
+it('creates a transaction when creating a payment intent', function (string $paymentMethod) {
     /** @var TestCase $this */
     $url = URL::signedRoute(
         name: 'v1.orders.createPaymentIntent',
