@@ -23,10 +23,36 @@ return [
     */
     'type' => 'stripe',
 
-    /**
-     * Automatic payment methods
-     *
-     * Enable automatic payment methods.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Automatic payment methods
+    |--------------------------------------------------------------------------
+    |
+    | Enable or disable automatic payment methods for payment intents.
+    |
+    */
     'automatic_payment_methods' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Stripe eshop identifier
+    |--------------------------------------------------------------------------
+    |
+    | This key serves as an eship identification and is passed to
+    | payment intent metadata during its creation.
+    |
+    */
+    'eshop_id' => env('STRIPE_ESHOP_ID', env('APP_NAME')),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Eshop ids to handle
+    |--------------------------------------------------------------------------
+    |
+    | If set to ['*'] : All webhooks will be handled
+    | If set to ['Eshop'] : Just webhooks with eshop_id = 'Eshop' will be handled
+    | If set to [] : No webhooks will be handled
+    |
+    */
+    'handle_eshop_ids' => ['*'],
 ];

@@ -41,7 +41,7 @@ return [
     /**
      * This class determines if the webhook call should be stored and processed.
      */
-    'profile' => \Spatie\StripeWebhooks\StripeWebhookProfile::class,
+    'profile' => \Dystore\Stripe\Jobs\Webhooks\WebhookProfile::class,
 
     /*
      * Specify a connection and or a queue to process the webhooks

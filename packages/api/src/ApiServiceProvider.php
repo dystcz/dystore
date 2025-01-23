@@ -5,6 +5,8 @@ namespace Dystore\Api;
 use Dystore\Api\Api as DystoreApi;
 use Dystore\Api\Domain\Carts\Actions\CheckoutCart;
 use Dystore\Api\Domain\Carts\Actions\CreateUserFromCart;
+use Dystore\Api\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
+use Dystore\Api\Domain\Payments\Data\PaymentIntent;
 use Dystore\Api\Domain\Users\Actions\CreateUser;
 use Dystore\Api\Domain\Users\Actions\RegisterUser;
 use Dystore\Api\Facades\Api;
@@ -75,6 +77,11 @@ class ApiServiceProvider extends ServiceProvider
         $this->app->singleton(
             \Lunar\Base\StorefrontSessionInterface::class,
             fn (Application $app) => $app->make(\Dystore\Api\Domain\Storefront\Managers\StorefrontSessionManager::class),
+        );
+
+        $this->app->bind(
+            PaymentIntentContract::class,
+            PaymentIntent::class,
         );
     }
 

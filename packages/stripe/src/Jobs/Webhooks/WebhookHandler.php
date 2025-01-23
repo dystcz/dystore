@@ -6,7 +6,6 @@ use Dystore\Api\Domain\Orders\Actions\FindOrderByCartIntent;
 use Dystore\Api\Domain\Orders\Actions\FindOrderByIntent;
 use Dystore\Api\Domain\Orders\Actions\FindOrderByTransaction;
 use Dystore\Api\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
-use Dystore\Api\Domain\Payments\Data\PaymentIntent;
 use Dystore\Api\Domain\Payments\PaymentAdapters\PaymentAdapter;
 use Dystore\Api\Domain\Payments\PaymentAdapters\PaymentAdaptersRegister;
 use Illuminate\Bus\Queueable;
@@ -23,7 +22,9 @@ use Throwable;
 
 abstract class WebhookHandler implements ShouldQueue
 {
-    use InteractsWithQueue, Queueable, SerializesModels;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public WebhookCall $webhookCall;
 
@@ -57,7 +58,9 @@ abstract class WebhookHandler implements ShouldQueue
      */
     protected function getPaymentIntentFromEvent(Event $event): PaymentIntentContract
     {
-        return new PaymentIntent(intent: $event->data->object);
+        return App::make(PaymentIntentContract::class, [
+            'intent' => $event->data->object,
+        ]);
     }
 
     /**

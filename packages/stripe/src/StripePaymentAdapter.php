@@ -67,8 +67,18 @@ class StripePaymentAdapter extends PaymentAdapter
     {
         $cart = $this->updateCartMeta($cart, $meta);
 
+        $opts = [
+            'metadata' => [
+                'eshop_id' => Config::get('dystore.stripe.eshop_id'),
+                ...$meta,
+            ],
+        ];
+
         /** @var \Stripe\PaymentIntent $paymentIntent */
-        $stripePaymentIntent = $this->stripeManager->createIntent($cart->calculate());
+        $stripePaymentIntent = $this->stripeManager->createIntent(
+            cart: $cart->calculate(),
+            opts: $opts,
+        );
 
         $paymentIntent = new PaymentIntent(
             intent: $stripePaymentIntent,
