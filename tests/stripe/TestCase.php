@@ -127,6 +127,8 @@ abstract class TestCase extends OrchestraTestCase
                 ],
             ]);
             $config->set('dystore.stripe.automatic_payment_methods', false);
+            $config->set('dystore.stripe.eshop_id', 'Dystore');
+            $config->set('dystore.stripe.handle_eshop_ids', ['*']);
 
             // Default payment driver
             $config->set('lunar.payments.default', 'stripe');
@@ -139,7 +141,16 @@ abstract class TestCase extends OrchestraTestCase
 
             // Stripe webhooks
             $config->set('stripe-webhooks.verify_signature', false);
-            $config->set('stripe-webhooks.connection', false);
+            $config->set('stripe-webhooks.connection', 'sync');
+            $config->set('stripe-webhooks.default_job', \Dystore\Stripe\Jobs\Webhooks\HandleOtherEvent::class);
+            $config->set('stripe-webhooks.profile', \Dystore\Stripe\Jobs\Webhooks\WebhookProfile::class);
+            $config->set('stripe-webhooks.jobs', [
+                'payment_intent_created' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCreated::class,
+                'payment_intent_succeeded' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentSucceeded::class,
+                'payment_intent_payment_failed' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentFailed::class,
+                'payment_intent_canceled' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCanceled::class,
+                'payment_intent_payment_failed' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentFailed::class,
+            ]);
         });
 
     }
