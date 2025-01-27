@@ -3,8 +3,10 @@
 namespace Dystore\Api\Domain\Carts\Actions;
 
 use Dystore\Api\Domain\Carts\Contracts\CheckoutCart as CheckoutCartContract;
+use Dystore\Api\Domain\Carts\Events\CartCheckedOut;
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Payments\Actions\CreatePaymentIntent;
+use Dystore\Api\Support\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\CartSessionInterface;
@@ -12,7 +14,7 @@ use Lunar\Models\Contracts\Cart as CartContract;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Order;
 
-class CheckoutCart implements CheckoutCartContract
+class CheckoutCart extends Action implements CheckoutCartContract
 {
     /**
      * @var CartSessionManager
@@ -28,10 +30,7 @@ class CheckoutCart implements CheckoutCartContract
         $this->createPaymentIntent = App::make(CreatePaymentIntent::class);
     }
 
-    /**
-     * Checkout cart.
-     */
-    public function __invoke(CartContract $cart): OrderContract
+    public function handle(CartContract $cart): OrderContract
     {
         /** @var Cart $cart */
         /** @var Order $order */
@@ -57,6 +56,8 @@ class CheckoutCart implements CheckoutCartContract
         if (Config::get('dystore.general.checkout.forget_cart_after_order_creation', true)) {
             $this->cartSession->forget(delete: false);
         }
+
+        CartCheckedOut::dispatch($cart, $model);
 
         return $model;
     }
