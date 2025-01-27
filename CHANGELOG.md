@@ -7,6 +7,8 @@
 - Added `customer_group` relation to `prices`
 - `PaymentOptions` can now be set as hidden (can be used for authorization, but won't be listed via API)
 - The `OrderCreated` event is dispatched from `OrderObserver` right after the order is created
+- Processing Stripe webhooks is now controlled by custom `WebhookProfile` which checks `eshop_id`
+  (if configured) in payment intent metadata and either dispatches webhook handlers or discards the webhook calls
 - Added `CartCheckedOut` event which is dispatched from `CheckoutCart` action
 
 ### ⚠️ Breaking changes
