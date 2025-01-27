@@ -4,7 +4,6 @@ namespace Dystore\Api\Domain\Carts\Actions;
 
 use Dystore\Api\Domain\Carts\Contracts\CheckoutCart as CheckoutCartContract;
 use Dystore\Api\Domain\Carts\Models\Cart;
-use Dystore\Api\Domain\Orders\Events\OrderCreated;
 use Dystore\Api\Domain\Payments\Actions\CreatePaymentIntent;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -58,8 +57,6 @@ class CheckoutCart implements CheckoutCartContract
         if (Config::get('dystore.general.checkout.forget_cart_after_order_creation', true)) {
             $this->cartSession->forget(delete: false);
         }
-
-        OrderCreated::dispatch($model);
 
         return $model;
     }
