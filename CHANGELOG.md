@@ -6,6 +6,12 @@
 - Added `currency` relation to `prices`
 - Added `customer_group` relation to `prices`
 - `PaymentOptions` can now be set as hidden (can be used for authorization, but won't be listed via API)
+- The `OrderCreated` event is dispatched from `OrderObserver` right after the order is created
+- Added `CartCheckedOut` event which is dispatched from `CheckoutCart` action
+
+### ⚠️ Breaking changes
+
+- `CartCheckedOut` event is dispatched after checkout instead of `OrderCreated` event
 
 ## 1.0.0
 
