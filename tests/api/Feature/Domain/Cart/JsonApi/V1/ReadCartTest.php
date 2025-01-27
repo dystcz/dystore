@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Lunar\Base\CartSessionInterface;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('carts', 'carts.read');
 
 beforeEach(function () {
     /** @var TestCase $this */
@@ -42,7 +43,7 @@ it('can read the cart from session', function () {
         ->assertSuccessful()
         ->assertFetchedOne($cart);
 
-})->group('carts', 'carts.read');
+});
 
 it('can read cart with cart lines included', function () {
     /** @var TestCase $this */
@@ -70,7 +71,7 @@ it('can read cart with cart lines included', function () {
     $response
         ->assertSuccessful();
 
-})->group('carts');
+});
 
 it('can merge carts when user logs in', function () {
     /** @var TestCase $this */
@@ -168,4 +169,4 @@ it('can merge carts when user logs in', function () {
             'purchasable_id' => $line['attributes']['purchasable_id'],
         ]);
     }
-})->group('carts', 'carts.read')->skip('Merging carts is temporarily disabled.');
+})->skip('Merging carts is temporarily disabled.');
