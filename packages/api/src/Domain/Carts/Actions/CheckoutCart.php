@@ -9,7 +9,9 @@ use Dystore\Api\Domain\Payments\Actions\CreatePaymentIntent;
 use Dystore\Api\Support\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Validation\ValidationException;
 use Lunar\Base\CartSessionInterface;
+use Lunar\Exceptions\Carts\CartException;
 use Lunar\Models\Contracts\Cart as CartContract;
 use Lunar\Models\Contracts\Order as OrderContract;
 use Lunar\Models\Order;
@@ -34,9 +36,13 @@ class CheckoutCart extends Action implements CheckoutCartContract
     {
         /** @var Cart $cart */
         /** @var Order $order */
-        $order = $cart->createOrder(
-            allowMultipleOrders: Config::get('lunar.cart_session.allow_multiple_orders_per_cart', false),
-        );
+        try {
+            $order = $cart->createOrder(
+                allowMultipleOrders: Config::get('lunar.cart_session.allow_multiple_orders_per_cart', false),
+            );
+        } catch (CartException $e) {
+            throw ValidationException::withMessages($e->errors()->getMessages());
+        }
 
         $model = Order::modelClass()::query()
             ->with([
