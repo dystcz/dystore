@@ -34,8 +34,6 @@ class CartLinesController extends Controller implements CartLinesControllerContr
         try {
             [, $cartLine] = App::make(AddToCart::class)($data);
         } catch (CartException $e) {
-            $messages = $e->errors();
-
             throw ValidationException::withMessages($e->errors()->getMessages());
         }
 
@@ -54,8 +52,6 @@ class CartLinesController extends Controller implements CartLinesControllerContr
         try {
             [, $cartLine] = App::make(UpdateCartLine::class)($data, $cartLine);
         } catch (CartException $e) {
-            $messages = $e->errors();
-
             throw ValidationException::withMessages($e->errors()->getMessages());
         }
 
