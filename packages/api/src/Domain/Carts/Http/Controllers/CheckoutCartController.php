@@ -10,8 +10,10 @@ use Dystore\Api\Domain\Carts\Contracts\CurrentSessionCart;
 use Dystore\Api\Domain\Carts\JsonApi\V1\CheckoutCartRequest;
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Orders\Models\Order;
+use Illuminate\Validation\ValidationException;
 use LaravelJsonApi\Contracts\Store\Store as StoreContract;
 use LaravelJsonApi\Core\Responses\DataResponse;
+use Lunar\Exceptions\Carts\CartException;
 
 class CheckoutCartController extends Controller implements CheckoutCartControllerContract
 {
@@ -32,8 +34,12 @@ class CheckoutCartController extends Controller implements CheckoutCartControlle
             $createUserFromCartAction($cart);
         }
 
-        /** @var Order $order */
-        $order = ($checkoutCartAction)($cart);
+        try {
+            /** @var Order $order */
+            $order = ($checkoutCartAction)($cart);
+        } catch (CartException $e) {
+            throw ValidationException::withMessages($e->errors()->getMessages());
+        }
 
         return DataResponse::make($order)
             ->withIncludePaths([
