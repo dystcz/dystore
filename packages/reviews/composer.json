@@ -1,50 +1,50 @@
 {
-    "name": "dystcz/dystore-reviews",
-    "description": "Dystore Product Reviews",
-    "keywords": [
-        "dystopia",
-        "lunar",
-        "dystore",
-        "laravel",
-        "php"
-    ],
-    "homepage": "https://github.com/dystcz/dystore",
-    "license": "MIT",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Dystopia",
-            "homepage": "https://dy.st/"
-        }
-    ],
-    "require": {
-        "php": "^8.2",
-        "dystcz/dystore-api": "^1.1",
-        "illuminate/support": "^11.0"
+  "name": "dystcz/dystore-reviews",
+  "description": "Dystore Product Reviews",
+  "keywords": [
+    "dystopia",
+    "lunar",
+    "dystore",
+    "laravel",
+    "php"
+  ],
+  "homepage": "https://github.com/dystcz/dystore",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Dystopia",
+      "homepage": "https://dy.st/"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "dystcz/dystore-api": "^1.1",
+    "illuminate/support": "^11.0|^12.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dystore\\Reviews\\": "src",
+      "Dystore\\Reviews\\Database\\Factories\\": "database/factories",
+      "Dystore\\Reviews\\Database\\State\\": "database/state"
     },
-    "autoload": {
-        "psr-4": {
-            "Dystore\\Reviews\\": "src",
-            "Dystore\\Reviews\\Database\\Factories\\": "database/factories",
-            "Dystore\\Reviews\\Database\\State\\": "database/state"
-        },
-        "files": [
-            "autoload.php"
-        ]
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Dystore\\Reviews\\ReviewsServiceProvider"
-            ]
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "files": [
+      "autoload.php"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dystore\\Reviews\\ReviewsServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
