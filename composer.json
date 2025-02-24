@@ -21,7 +21,6 @@
   "homepage": "https://github.com/dystcz/dystore-api",
   "require": {
     "php": "^8.2",
-    "ext-redis": "*",
     "h4kuna/ares": "^3.0",
     "illuminate/support": "^11.0|^12.0",
     "laravel-json-api/laravel": "^5.0",
