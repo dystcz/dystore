@@ -5,6 +5,7 @@ use Dystore\Api\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Lunar\Base\StorefrontSessionInterface;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
