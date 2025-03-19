@@ -11,11 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use Lunar\Base\StorefrontSessionInterface;
 use Lunar\Models\Attribute;
-use Lunar\Models\Contracts\CustomerGroup as CustomerGroupContract;
 use Lunar\Models\ProductOptionValue;
 use Lunar\Models\ProductVariant;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
@@ -66,7 +63,6 @@ trait HasRelationships
                 'product_id',
                 'priceable_id'
             )
-            ->baseOrAll()
             ->where(
                 'priceable_type',
                 (new (ProductVariant::modelClass()))->getMorphClass()
@@ -100,7 +96,6 @@ trait HasRelationships
                 'product_id',
                 'priceable_id'
             )
-            ->baseOrAll()
             ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query->select($pricesTable.'.id')
                     ->from($pricesTable)
@@ -132,7 +127,6 @@ trait HasRelationships
                 'product_id',
                 'priceable_id'
             )
-            ->baseOrAll()
             ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query->select($pricesTable.'.id')
                     ->from($pricesTable)
@@ -168,14 +162,6 @@ trait HasRelationships
                             ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass());
                     })
                     ->whereRaw("variants.product_id = {$variantsTable}.product_id")
-                    ->when(
-                        value: fn () => App::make(StorefrontSessionInterface::class)
-                            ->getCustomerGroups()
-                            ->filter(fn (CustomerGroupContract $group) => ! $group->default)
-                            ->isEmpty(),
-                        callback: fn (QueryBuilder $query) => $query->where("{$pricesTable}.min_quantity", 1)->where("{$pricesTable}.customer_group_id", null),
-                        default: fn (QueryBuilder $query) => $query,
-                    )
                     ->where('variants.deleted_at', null)
                     ->orderBy("{$pricesTable}.price", 'asc')
                     ->limit(1);
@@ -202,14 +188,6 @@ trait HasRelationships
                             ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass());
                     })
                     ->whereRaw("variants.product_id = {$variantsTable}.product_id")
-                    ->when(
-                        value: fn () => App::make(StorefrontSessionInterface::class)
-                            ->getCustomerGroups()
-                            ->filter(fn (CustomerGroupContract $group) => ! $group->default)
-                            ->isEmpty(),
-                        callback: fn (QueryBuilder $query) => $query->where("{$pricesTable}.min_quantity", 1)->where("{$pricesTable}.customer_group_id", null),
-                        default: fn (QueryBuilder $query) => $query,
-                    )
                     ->where('variants.deleted_at', null)
                     ->orderBy("{$pricesTable}.price", 'desc')
                     ->limit(1);
