@@ -44,9 +44,7 @@ it('can read correct most expensive variant through relationship when customer g
     /** @var Currency $currency */
     $currency = Currency::getDefault();
 
-    $mostExpensiveVariant = $product->variants->sortBy(
-        fn ($variant) => $variant->prices->sortByDesc('price')->first()->price,
-    )->first();
+    $mostExpensiveVariant = $product->variants->sortByDesc(fn ($variant) => $variant->prices->max('price'))->first();
 
     $highestPrice = $mostExpensiveVariant->prices->first()->price;
 
