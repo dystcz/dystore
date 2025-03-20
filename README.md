@@ -13,7 +13,7 @@ Collection of packages built on top of [Lunar](https://github.com/lunarphp/lunar
 ## Requirements
 
 - PHP ^8.2
-- Laravel 11
+- Laravel ^11|^12
 - [Lunar requirements](https://docs.lunarphp.io/core/installation.html#server-requirements)
 
 ## Documentation
