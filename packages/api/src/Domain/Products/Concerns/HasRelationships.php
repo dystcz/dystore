@@ -77,7 +77,7 @@ trait HasRelationships
         /** @var Product $this */
         return $this
             ->prices()
-            ->base();
+            ->basePrices();
     }
 
     /**
@@ -99,8 +99,10 @@ trait HasRelationships
             ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query->select($pricesTable.'.id')
                     ->from($pricesTable)
-                    ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass())
-                    ->whereIn('priceable_id', function ($query) use ($variantsTable) {
+                    ->where("{$pricesTable}.priceable_type", (new (ProductVariant::modelClass()))->getMorphClass())
+                    ->inCurrency('currency_id', $pricesTable)
+                    ->inCustomerGroups('customer_group_id', $pricesTable)
+                    ->whereIn("{$pricesTable}.priceable_id", function ($query) use ($variantsTable) {
                         $query->select('variants.id')
                             ->from("{$variantsTable} as variants")
                             ->where('variants.deleted_at', null)
@@ -130,8 +132,10 @@ trait HasRelationships
             ->where($pricesTable.'.id', function ($query) use ($variantsTable, $pricesTable) {
                 $query->select($pricesTable.'.id')
                     ->from($pricesTable)
-                    ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass())
-                    ->whereIn('priceable_id', function ($query) use ($variantsTable) {
+                    ->where("{$pricesTable}.priceable_type", (new (ProductVariant::modelClass()))->getMorphClass())
+                    ->inCurrency('currency_id', $pricesTable)
+                    ->inCustomerGroups('customer_group_id', $pricesTable)
+                    ->whereIn("{$pricesTable}.priceable_id", function ($query) use ($variantsTable) {
                         $query->select('variants.id')
                             ->from("{$variantsTable} as variants")
                             ->where('variants.deleted_at', null)
@@ -157,9 +161,12 @@ trait HasRelationships
                 $query
                     ->select('variants.id')
                     ->from("{$variantsTable} as variants")
-                    ->join($pricesTable, function (JoinClause $join) {
-                        $join->on('priceable_id', '=', 'variants.id')
-                            ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass());
+                    ->join($pricesTable, function (JoinClause $join) use ($pricesTable) {
+                        $join
+                            ->on("{$pricesTable}.priceable_id", '=', 'variants.id')
+                            ->where("{$pricesTable}.priceable_type", (new (ProductVariant::modelClass()))->getMorphClass())
+                            ->inCurrency('currency_id', $pricesTable)
+                            ->inCustomerGroups('customer_group_id', $pricesTable);
                     })
                     ->whereRaw("variants.product_id = {$variantsTable}.product_id")
                     ->where('variants.deleted_at', null)
@@ -183,9 +190,12 @@ trait HasRelationships
                 $query
                     ->select('variants.id')
                     ->from("{$variantsTable} as variants")
-                    ->join($pricesTable, function (JoinClause $join) {
-                        $join->on('priceable_id', '=', 'variants.id')
-                            ->where('priceable_type', (new (ProductVariant::modelClass()))->getMorphClass());
+                    ->join($pricesTable, function (JoinClause $join) use ($pricesTable) {
+                        $join
+                            ->on("{$pricesTable}.priceable_id", '=', 'variants.id')
+                            ->where("{$pricesTable}.priceable_type", (new (ProductVariant::modelClass()))->getMorphClass())
+                            ->inCurrency('currency_id', $pricesTable)
+                            ->inCustomerGroups('customer_group_id', $pricesTable);
                     })
                     ->whereRaw("variants.product_id = {$variantsTable}.product_id")
                     ->where('variants.deleted_at', null)
