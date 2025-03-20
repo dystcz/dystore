@@ -42,7 +42,7 @@ jobs:
         run: npm ci
 
       - name: Build with VitePress
-        run: npm run docs:build --base=/docs/
+        run: npm run docs:build --base=/dystore/docs/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
