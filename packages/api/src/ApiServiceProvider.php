@@ -12,19 +12,14 @@ use Dystore\Api\Domain\Users\Actions\CreateUser;
 use Dystore\Api\Domain\Users\Actions\RegisterUser;
 use Dystore\Api\Facades\Api;
 use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Foundation\Application;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Base\CartSessionInterface;
-use Lunar\Base\StorefrontSessionInterface;
 use Lunar\Facades\ModelManifest;
-use Lunar\Models\Contracts\CustomerGroup as CustomerGroupContract;
-use Lunar\Models\Price;
 
 class ApiServiceProvider extends ServiceProvider
 {
@@ -103,7 +98,6 @@ class ApiServiceProvider extends ServiceProvider
         $this->registerModels();
         $this->registerDynamicRelations();
         $this->registerMiddleware();
-        $this->registerQueryBuilderMacros();
         $this->registerObservers();
         $this->registerEvents();
         $this->registerPayments();
@@ -442,51 +436,6 @@ class ApiServiceProvider extends ServiceProvider
         $router = $this->app['router'];
 
         $router->aliasMiddleware('api-pricing', ApiPricing::class);
-    }
-
-    protected function registerQueryBuilderMacros(): void
-    {
-        QueryBuilder::macro('basePrices', function (?string $table = null) {
-            /** @var QueryBuilder $this */
-            $table = $table ?? (new Price)->getTable();
-
-            return $this
-                ->where("{$table}.min_quantity", 1)
-                ->where("{$table}.customer_group_id", null);
-        });
-
-        QueryBuilder::macro('inCurrency', function (string $column = 'currency_id', ?string $table = null) {
-            /** @var QueryBuilder $this */
-            $table = $table ?? (new Price)->getTable();
-
-            return $this->where(
-                "{$table}.currency_id",
-                App::make(StorefrontSessionInterface::class)->getCurrency()->getKey()
-            );
-        });
-
-        QueryBuilder::macro('inCustomerGroups', function (string $column = 'customer_group_id', ?string $table = null) {
-            /** @var QueryBuilder $this */
-            $customerGroups = App::make(StorefrontSessionInterface::class)->getCustomerGroups();
-
-            $table = $table ?? (new Price)->getTable();
-
-            return $this->when(
-                value: fn () => $customerGroups
-                    ->filter(fn (?CustomerGroupContract $group = null) => $group)
-                    ->isNotEmpty(),
-                callback: fn (self $query) => $query
-                    ->whereIn(
-                        "{$table}.customer_group_id",
-                        $customerGroups->pluck('id')->toArray()
-                    )
-                    ->orWhere(
-                        "{$table}.customer_group_id",
-                        null
-                    ),
-                default: fn (self $query) => $query->basePrices(),
-            );
-        });
     }
 
     /**
