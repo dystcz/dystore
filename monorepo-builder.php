@@ -35,7 +35,7 @@ return static function (MBConfig $mbConfig): void {
         ComposerJsonSection::REQUIRE_DEV => [
             'barryvdh/laravel-ide-helper' => '^3.0',
             'larastan/larastan' => '^3.0',
-            'laravel-json-api/testing' => '^3.0',
+            'laravel-json-api/testing' => '^3.1',
             'laravel/pint' => '^1.7',
             'orchestra/testbench' => '^9.0',
             'pestphp/pest' => '^2.0',
