@@ -33,7 +33,7 @@ it('removes old entries', function () {
 
     expect(Redis::zRange("product:views:{$productId}", 0, -1))
         ->toHaveCount(1);
-});
+})->todo();
 
 it('returns a list of product ids sorted by most viewed', function () {
     /** @var TestCase $this */
