@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2 - 2025-03-20
+
+- Feat: Remove lunar pipeline overrides #37
+- Feat: Update laravel json api versions #36
+- Fix: Payment prices activity log errors workaround #35
+
 ## 1.0.1
 
 - Added CustomerGroups domain
