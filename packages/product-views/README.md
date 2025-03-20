@@ -4,6 +4,9 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-product-views.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-product-views)
 [![Tests](https://github.com/dystcz/dystore/actions/workflows/tests.yaml/badge.svg)](https://github.com/dystcz/dystore/actions/workflows/tests.yaml)
 
+> [!IMPORTANT]
+> To open issues or contribute, please navigate to the [main repository](https://github.com/dystcz/dystore). This is a subtree split of [dystore](https://github.com/dystcz/dystore) monorepo.
+
 Track Lunar API product views.
 
 ## Installation
@@ -40,8 +43,8 @@ If you discover any security related issues, please email jakub@dy.st instead of
 
 ## Credits
 
--   [Jakub Theimer](https://github.com/dystcz)
--   [All Contributors](../../contributors)
+- [Jakub Theimer](https://github.com/dystcz)
+- [All Contributors](../../contributors)
 
 ## License
 
