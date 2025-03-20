@@ -41,6 +41,6 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: docs/.vitepress/dist
-          umbrella-dir: docs/pr-preview
+          umbrella-dir: docs/preview
           action: auto
           token: ${{ secrets.PREVIEW_TOKEN }}
