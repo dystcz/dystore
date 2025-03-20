@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: "/dystore/",
+  base: "/",
   lang: "en-US",
   title: "Lunar API Documentation",
   description: "API layer for Lunar ecommerce package",
