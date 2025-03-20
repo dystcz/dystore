@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-    name: "Lunar API"
+    name: "Dystore"
     text: "Documentation"
-    tagline: API layer for your Lunar application
+    tagline: Collection of packages for your Lunar application
     actions:
         - theme: brand
           text: Getting started
@@ -21,7 +21,7 @@ features:
       link: /extending/overview
     - icon: 📦
       title: Package ecosystem
-      details: Wannabe ecosystem of complementary packages with emphasis on the plug and play spirit
+      details: Ecosystem of complementary packages with emphasis on the plug and play spirit
       link: /more/compatible-packages
     - icon: 🧑‍💻
       title: Continuously developed
