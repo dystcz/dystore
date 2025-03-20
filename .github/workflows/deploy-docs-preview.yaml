@@ -36,7 +36,7 @@ jobs:
         run: npm ci
       - name: Build with VitePress
         if: github.event.action != 'closed'
-        run: npm run docs:build --base=/docs/preview/${{ github.event.number }}
+        run: npm run docs:build --base=/docs/preview/pr-${{ github.event.number }}/
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
