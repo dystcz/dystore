@@ -4,6 +4,7 @@ use Dystore\Api\Domain\Products\Factories\ProductFactory;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Lunar\Base\StorefrontSessionInterface;
 use Lunar\Models\Contracts\Price as PriceContract;
 use Lunar\Models\CustomerGroup;
