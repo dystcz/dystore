@@ -35,7 +35,7 @@ composer test
 - [dystore-product-views](https://github.com/dystcz/dystore-product-views)
   Keep track of unique product views
 - [dystore-product-notifications](https://github.com/dystcz/dystore-product-notifications)
-  Notify users when products are back in stock
+  Notify customers when your products are back in stock
 - [dystore-newsletter](https://github.com/dystcz/dystore-newsletter)
   Newsletter sign up with support for Mailchimp / Mailcoach / Brevo
 - [dystore-stripe](https://github.com/dystcz/dystore-stripe)
