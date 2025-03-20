@@ -10,6 +10,8 @@
 - Processing Stripe webhooks is now controlled by custom `WebhookProfile` which checks `eshop_id`
   (if configured) in payment intent metadata and either dispatches webhook handlers or discards the webhook calls
 - Added `CartCheckedOut` event which is dispatched from `CheckoutCart` action
+- Fixed pricing and prices relations in #33
+- Added default `api-pricing` middleware to `config/general.php` which scopes prices to currency and customer groups set in storefront session
 
 ### ⚠️ Breaking changes
 

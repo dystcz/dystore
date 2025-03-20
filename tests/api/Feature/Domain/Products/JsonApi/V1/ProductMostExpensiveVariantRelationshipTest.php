@@ -5,6 +5,7 @@ use Dystore\Api\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Lunar\Base\StorefrontSessionInterface;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
@@ -27,9 +28,7 @@ it('can read most expensive variant through relationship', function () {
     $response
         ->assertSuccessful()
         ->assertFetchedOne(
-            $product->variants->sortBy(
-                fn ($variant) => $variant->prices->sortByDesc('price')->first()->price,
-            )->first(),
+            $product->variants->sortByDesc(fn ($variant) => $variant->prices->max('price'))->first(),
         )
         ->assertDoesntHaveIncluded();
 });
