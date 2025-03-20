@@ -1,5 +1,0 @@
-# Policies
-
-## Overview
-
-## Extending policies

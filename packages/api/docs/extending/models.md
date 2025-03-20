@@ -1,5 +1,0 @@
-# Models
-
-## Overview
-
-## Extending models

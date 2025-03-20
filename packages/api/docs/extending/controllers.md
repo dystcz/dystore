@@ -1,5 +1,0 @@
-# Controllers
-
-## Overview
-
-## Extending controllers
