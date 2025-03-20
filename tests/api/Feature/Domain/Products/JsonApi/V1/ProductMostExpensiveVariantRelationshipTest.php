@@ -28,9 +28,7 @@ it('can read most expensive variant through relationship', function () {
     $response
         ->assertSuccessful()
         ->assertFetchedOne(
-            $product->variants->sortBy(
-                fn ($variant) => $variant->prices->sortByDesc('price')->first()->price,
-            )->first(),
+            $product->variants->sortByDesc(fn ($variant) => $variant->prices->max('price'))->first(),
         )
         ->assertDoesntHaveIncluded();
 });
