@@ -1,5 +1,6 @@
 <?php
 
+use Dystore\Api\Domain\Prices\Models\Price;
 use Dystore\Api\Domain\Products\Factories\ProductFactory;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Tests\Api\TestCase;
@@ -8,6 +9,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Lunar\Base\StorefrontSessionInterface;
 use Lunar\Models\CustomerGroup;
+use Lunar\Models\Product;
+use Lunar\Models\ProductVariant;
 
 uses(TestCase::class, RefreshDatabase::class)
     ->group('products', 'prices');
@@ -60,21 +63,45 @@ it('lists only base product prices through relationship when user is not logged 
 
 it('lists correct product prices through relationship when customer group is set in storefront session', function () {
     /** @var TestCase $this */
+
+    /** @var Product $product */
     $product = ProductFactory::new()
-        ->withPrices(3)
+        ->has(
+            ProductVariant::modelClass()::factory(),
+            'variants',
+        )
         ->create();
 
     $user = User::factory()->create();
 
-    $customerGroup = CustomerGroup::factory()->create();
+    $firstGroup = CustomerGroup::factory()
+        ->create();
 
-    $lowestPrice = $product->prices->sortBy('price')->first();
+    $secondGroup = CustomerGroup::factory()
+        ->create();
 
-    $lowestPrice->update([
-        'customer_group_id' => $customerGroup->getKey(),
+    $basePrice = Price::factory()->create([
+        'priceable_id' => $product->variants->first()->getKey(),
+        'priceable_type' => $product->variants->first()->getMorphClass(),
+        'price' => 200_00,
     ]);
 
-    App::make(StorefrontSessionInterface::class)->setCustomerGroups(Collection::make([$customerGroup]));
+    $firstGroupPrice = Price::factory()->create([
+        'priceable_id' => $product->variants->first()->getKey(),
+        'priceable_type' => $product->variants->first()->getMorphClass(),
+        'customer_group_id' => $firstGroup->getKey(),
+        'price' => 100_00,
+    ]);
+
+    $secondGroupPrice = Price::factory()->create([
+        'priceable_id' => $product->variants->first()->getKey(),
+        'priceable_type' => $product->variants->first()->getMorphClass(),
+        'customer_group_id' => $secondGroup->getKey(),
+        'price' => 80_00,
+    ]);
+
+    App::make(StorefrontSessionInterface::class)
+        ->setCustomerGroups(Collection::make([$firstGroup]));
 
     $response = $this
         ->actingAs($user)
@@ -84,7 +111,10 @@ it('lists correct product prices through relationship when customer group is set
 
     $response
         ->assertSuccessful()
-        ->assertFetchedMany($product->prices)
+        ->assertFetchedMany([
+            $basePrice,
+            $firstGroupPrice,
+        ])
         ->assertDoesntHaveIncluded();
 });
 
