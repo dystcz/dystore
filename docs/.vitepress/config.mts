@@ -3,8 +3,9 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   lang: "en-US",
-  title: "Lunar API Documentation",
-  description: "API layer for Lunar ecommerce package",
+  title: "Dystore Documentation",
+  description:
+    "Collection of packages for ecommerce applications based on Lunar",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [{ text: "Home", link: "/" }],
@@ -74,7 +75,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/dystcz/lunar-api" },
+      { icon: "github", link: "https://github.com/dystcz/dystore" },
       { icon: "twitter", link: "https://twitter.com/dystcz" },
     ],
   },
