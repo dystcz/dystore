@@ -5,6 +5,7 @@ use Dystore\Api\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Lunar\Base\StorefrontSessionInterface;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
@@ -45,9 +46,7 @@ it('can read correct cheapest variant through relationship when customer group i
     /** @var Currency $currency */
     $currency = Currency::getDefault();
 
-    $cheapestVariant = $product->variants->sortBy(
-        fn ($variant) => $variant->prices->sortBy('price')->first()->price,
-    )->first();
+    $cheapestVariant = $product->variants->sortBy(fn ($variant) => $variant->prices->min('price'))->first();
 
     $lowestPrice = $cheapestVariant->prices->first()->price;
 

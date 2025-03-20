@@ -59,18 +59,18 @@ it('can read correct lowest price when customer group is set', function () {
         ->assertFetchedOne($lowestBasePrice)
         ->assertDoesntHaveIncluded();
 
-    // App::make(StorefrontSessionInterface::class)
-    //     ->setCustomerGroups(Collection::make([$customerGroup]));
-    //
-    // $response = $this
-    //     ->jsonApi()
-    //     ->expects('prices')
-    //     ->get(serverUrl("/products/{$product->getRouteKey()}/lowest_price"));
-    //
-    // $response
-    //     ->assertSuccessful()
-    //     ->assertFetchedOne($lowestPrice)
-    //     ->assertDoesntHaveIncluded();
+    App::make(StorefrontSessionInterface::class)
+        ->setCustomerGroups(Collection::make([$customerGroup]));
+
+    $response = $this
+        ->jsonApi()
+        ->expects('prices')
+        ->get(serverUrl("/products/{$product->getRouteKey()}/lowest_price"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($lowestPrice)
+        ->assertDoesntHaveIncluded();
 });
 
 it('can read lowest price through relationship with includes', function (string $includePath, string $type, callable $getModel) {
