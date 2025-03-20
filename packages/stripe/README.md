@@ -4,6 +4,9 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-stripe.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-stripe)
 [![Tests](https://github.com/dystcz/dystore/actions/workflows/tests.yaml/badge.svg)](https://github.com/dystcz/dystore/actions/workflows/tests.yaml)
 
+> [!IMPORTANT]
+> To open issues or contribute, please navigate to the [main repository](https://github.com/dystcz/dystore). This is a subtree split of [dystore](https://github.com/dystcz/dystore) monorepo.
+
 This package provides a Stripe payment adapter for [Dystore API](https://github.com/dystcz/dystore-api).
 It can authorize your payments and handle incoming Stripe webhooks.
 
@@ -122,8 +125,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
--   [Jakub Theimer](https://github.com/dystcz)
--   [All Contributors](../../contributors)
+- [Jakub Theimer](https://github.com/dystcz)
+- [All Contributors](../../contributors)
 
 ## License
 
