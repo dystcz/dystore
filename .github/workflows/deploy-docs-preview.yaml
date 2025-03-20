@@ -23,24 +23,52 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
           cache-dependency-path: "./docs/package-lock.json"
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Install dependencies
         if: github.event.action != 'closed'
         run: npm ci
+
       - name: Build with VitePress
         if: github.event.action != 'closed'
-        run: npm run docs:build --base=/docs/preview/${{ github.event.number }}
+        run: npm run docs:build --base=/docs/previews/pr-${{ github.event.number }}
+
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
+          preview-branch: pages-pr-previews
+          pages-base-path: docs
           source-dir: docs/.vitepress/dist
-          umbrella-dir: docs/preview
+          umbrella-dir: docs/previews
           action: auto
           token: ${{ secrets.PREVIEW_TOKEN }}
+
+      - name: Comment on deploy
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: steps.preview-step.outputs.deployment-action == 'deploy' && env.deployment_status == 'success'
+        with:
+          header: pr-preview
+          message: |
+            Documentation preview
+            :---:
+            | <p></p> ✅ View preview at: ${{ steps.preview-step.outputs.preview-url }} <br><br>
+            | <h6>Built to branch [`${{ env.PREVIEW_BRANCH }}`](${{ github.server_url }}/${{ github.repository }}/tree/${{ env.PREVIEW_BRANCH }}) at ${{ steps.preview-step.outputs.action-start-time }}. <br> Preview will be ready when the [GitHub Pages deployment](${{ github.server_url }}/${{ github.repository }}/deployments) is complete. <br><br> </h6>
+
+      - name: Comment on removal
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: steps.preview-step.outputs.deployment-action == 'remove' && env.deployment_status == 'success'
+        with:
+          header: pr-preview
+          message: |
+            Documentation preview
+            :---:
+            Preview removed because the pull request was closed.
+            ${{ steps.preview-step.outputs.action-start-time }}
