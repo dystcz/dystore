@@ -34,19 +34,6 @@ easily build features to meet your project's needs.
 composer test
 ```
 
-### Compatible packages
-
-- [dystore-reviews](https://github.com/dystcz/dystore-reviews) (Adds user reviews functionality)
-- [dystore-product-views](https://github.com/dystcz/dystore-product-views)
-  (Store unique product views in Redis)
-- [dystore-product-notifications](https://github.com/dystcz/dystore-product-notifications)
-  (Notify users when product is in stock again)
-- [dystore-newsletter](https://github.com/dystcz/dystore-newsletter)
-  (Newsletter sign up with support for Mailchimp / Mailcoach / Brevo)
-- [dystore-stripe](https://github.com/dystcz/dystore-stripe) (Stripe payment adapter)
-  <!-- - [Mollie Payment Adapter](https://github.com/pixelpillow/lunar-api-mollie-adapter) -->
-  <!-- -   [PayPal Adapter](https://github.com/dystcz/lunar-paypal) [🚧] -->
-
 ### Changelog
 
 Please see [CHANGELOG](https://github.com/dystcz/dystore/blob/1.0/CHANGELOG.md) for more information what has changed recently.
