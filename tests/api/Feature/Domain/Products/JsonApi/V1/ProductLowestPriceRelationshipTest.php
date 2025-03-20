@@ -29,6 +29,50 @@ it('can read lowest price through relationship', function () {
         ->assertDoesntHaveIncluded();
 });
 
+it('can read correct lowest price when customer group is set', function () {
+    /** @var TestCase $this */
+    $product = ProductFactory::new()
+        ->withPrices(3)
+        ->create();
+
+    $lowestPrice = $product->prices->sortBy(fn ($price) => $price->price->value)->first();
+
+    $customerGroup = CustomerGroup::factory()
+        ->create();
+
+    $lowestPrice->update([
+        'customer_group_id' => $customerGroup->getKey(),
+    ]);
+
+    $lowestBasePrice = $product->prices
+        ->filter(fn ($price) => $price->getKey() !== $lowestPrice->getKey())
+        ->sortBy(fn ($price) => $price->price->value)
+        ->first();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('prices')
+        ->get(serverUrl("/products/{$product->getRouteKey()}/lowest_price"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($lowestBasePrice)
+        ->assertDoesntHaveIncluded();
+
+    // App::make(StorefrontSessionInterface::class)
+    //     ->setCustomerGroups(Collection::make([$customerGroup]));
+    //
+    // $response = $this
+    //     ->jsonApi()
+    //     ->expects('prices')
+    //     ->get(serverUrl("/products/{$product->getRouteKey()}/lowest_price"));
+    //
+    // $response
+    //     ->assertSuccessful()
+    //     ->assertFetchedOne($lowestPrice)
+    //     ->assertDoesntHaveIncluded();
+});
+
 it('can read lowest price through relationship with includes', function (string $includePath, string $type, callable $getModel) {
     /** @var TestCase $this */
     $product = ProductFactory::new()
