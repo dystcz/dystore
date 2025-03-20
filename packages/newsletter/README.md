@@ -10,6 +10,9 @@ This initial version only takes an email address and subscribes to a list. There
 [![Total Downloads](https://img.shields.io/packagist/dt/dystcz/dystore-newsletter.svg?style=flat-square)](https://packagist.org/packages/dystcz/dystore-newsletter)
 [![Tests](https://github.com/dystcz/dystore/actions/workflows/tests.yaml/badge.svg)](https://github.com/dystcz/dystore/actions/workflows/tests.yaml)
 
+> [!IMPORTANT]
+> To open issues or contribute, please navigate to the [main repository](https://github.com/dystcz/dystore). This is a subtree split of [dystore](https://github.com/dystcz/dystore) monorepo.
+
 ## Installation
 
 You can install the package via composer:
@@ -97,9 +100,9 @@ If you discover any security related issues, please email jakub@dy.st instead of
 
 ## Credits
 
--   [Jakub Theimer](https://github.com/dystcz)
--   [Spatie](https://github.com/spatie)
--   [All Contributors](../../contributors)
+- [Jakub Theimer](https://github.com/dystcz)
+- [Spatie](https://github.com/spatie)
+- [All Contributors](../../contributors)
 
 ## License
 
