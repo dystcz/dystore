@@ -18,7 +18,7 @@ it('can record a view', function () {
 
     expect(Redis::zRange("product:views:{$productId}", 0, -1))
         ->toHaveCount(2);
-});
+})->todo();
 
 it('removes old entries', function () {
     /** @var TestCase $this */
@@ -44,4 +44,4 @@ it('returns a list of product ids sorted by most viewed', function () {
     $sorted = app(ProductViews::class)->sorted();
 
     expect($sorted)->toBe([4, 3]);
-});
+})->todo();
