@@ -10,7 +10,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Lunar\Facades\CartSession;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('orders');
 
 it('can read order details without signature when user is logged in and owns the order', function () {
     /** @var TestCase $this */
@@ -54,7 +55,7 @@ it('can read order details without signature when user is logged in and owns the
         ->assertFetchedOne($order)
         ->assertIsIncluded('order_lines', $order->lines->first());
 
-})->group('orders');
+});
 
 it('can read order details when accessing order with valid signature', function () {
     /** @var TestCase $this */
@@ -98,6 +99,14 @@ it('can read order details when accessing order with valid signature', function 
         ->expects('orders')
         ->get($signedUrl);
 
+    $signedUrls = [
+        'self.signed' => $response->json('data.links')['self.signed'],
+        'create-payment-intent.signed' => $response->json('data.links')['create-payment-intent.signed'],
+        'mark-order-pending-payment.signed' => $response->json('data.links')['mark-order-pending-payment.signed'],
+        'mark-order-awaiting-payment.signed' => $response->json('data.links')['mark-order-awaiting-payment.signed'],
+        'check-order-payment-status.signed' => $response->json('data.links')['check-order-payment-status.signed'],
+    ];
+
     $response
         ->assertSuccessful()
         ->assertFetchedOne([
@@ -105,15 +114,10 @@ it('can read order details when accessing order with valid signature', function 
             'id' => (string) $order->getRouteKey(),
             'links' => [
                 'self' => $response->json('data.links.self'),
-                'self.signed' => $response->json('data.links')['self.signed'],
-                'create-payment-intent.signed' => $response->json('data.links')['create-payment-intent.signed'],
-                'mark-order-pending-payment.signed' => $response->json('data.links')['mark-order-pending-payment.signed'],
-                'mark-order-awaiting-payment.signed' => $response->json('data.links')['mark-order-awaiting-payment.signed'],
-                'check-order-payment-status.signed' => $response->json('data.links')['check-order-payment-status.signed'],
+                ...$signedUrls,
             ],
         ]);
-
-})->group('orders');
+});
 
 it('returns unauthorized if the user does not own the order', function () {
     /** @var TestCase $this */
