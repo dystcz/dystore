@@ -6,9 +6,10 @@ use Spatie\Newsletter\Facades\Newsletter;
 
 use function Pest\Faker\fake;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('newsletter');
 
-it('can subscribe user to newsletter', function () {
+it('can subscribe user to newsletter', function (string $driver) {
     /** @var TestCase $this */
     $email = fake()->email();
 
@@ -30,7 +31,11 @@ it('can subscribe user to newsletter', function () {
         ->post('/api/v1/newsletters/-actions/subscribe');
 
     $response->assertSuccessful();
-});
+})->with([
+    'mailchimp driver' => \Spatie\Newsletter\Drivers\MailChimpDriver::class,
+    'brevo driver' => \Dystore\Newsletter\Drivers\BrevoDriver::class,
+    'ecomail driver' => \Dystore\Newsletter\Drivers\EcomailDriver::class,
+]);
 
 it('requires emails in order to sign up', function () {
     /** @var TestCase $this */
