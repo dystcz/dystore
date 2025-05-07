@@ -18,18 +18,20 @@
     ],
     "require": {
         "php": "^8.2",
-        "dystcz/dystore-api": "^1.1",
+        "dystcz/dystore-api": "^1.0.5",
         "illuminate/support": "^11.0|^12.0",
         "spatie/laravel-newsletter": "^5.1"
     },
     "suggest": {
         "spatie/mailcoach-sdk-php": "For working with Mailcoach",
         "drewm/mailchimp-api": "For working with MailChimp",
-        "getbrevo/brevo-php": "For working with Brevo"
+        "getbrevo/brevo-php": "For working with Brevo",
+        "ecomailcz/ecomail": "For working with Ecomail"
     },
     "require-dev": {
         "drewm/mailchimp-api": "^2.5",
         "getbrevo/brevo-php": "^1.0",
+        "ecomailcz/ecomail": "^1.2",
         "spatie/mailcoach-sdk-php": "^1.1"
     },
     "autoload": {

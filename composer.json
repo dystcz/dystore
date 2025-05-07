@@ -32,12 +32,12 @@
     },
     "minimum-stability": "dev",
     "replace": {
-        "dystcz/dystore-api": "1.0.4",
-        "dystcz/dystore-newsletter": "1.0.4",
-        "dystcz/dystore-product-notifications": "1.0.4",
-        "dystcz/dystore-product-views": "1.0.4",
-        "dystcz/dystore-reviews": "1.0.4",
-        "dystcz/dystore-stripe": "1.0.4"
+        "dystcz/dystore-api": "1.0.5",
+        "dystcz/dystore-newsletter": "1.0.5",
+        "dystcz/dystore-product-notifications": "1.0.5",
+        "dystcz/dystore-product-views": "1.0.5",
+        "dystcz/dystore-reviews": "1.0.5",
+        "dystcz/dystore-stripe": "1.0.5"
     },
     "config": {
         "sort-packages": true,
@@ -85,16 +85,17 @@
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",
         "drewm/mailchimp-api": "^2.5",
+        "ecomailcz/ecomail": "^1.2",
         "getbrevo/brevo-php": "^1.0",
         "larastan/larastan": "^3.0",
         "laravel-json-api/testing": "^3.1",
         "laravel/pint": "^1.7",
         "mockery/mockery": "^1.5",
         "orchestra/testbench": "^9.0",
-        "pestphp/pest": "^2.0",
-        "pestphp/pest-plugin-arch": "^2.0",
-        "pestphp/pest-plugin-faker": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-arch": "^3.0",
+        "pestphp/pest-plugin-faker": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
         "spatie/laravel-ray": "^1.32",
         "spatie/mailcoach-sdk-php": "^1.1",
         "symplify/monorepo-builder": "^11.2"
