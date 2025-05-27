@@ -287,6 +287,8 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'collections'),
 
+            WhereHas::make($this, 'tags'),
+
             ...(new ProductFilterCollection)->toArray(),
 
             ...parent::filters(),
