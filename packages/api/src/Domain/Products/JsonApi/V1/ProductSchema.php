@@ -274,8 +274,7 @@ class ProductSchema extends Schema
 
             WhereHas::make($this, 'brand'),
 
-            WhereHas::make($this, 'urls', 'url')
-                ->singular(),
+            WhereHas::make($this, 'urls', 'url')->singular(),
 
             WhereHas::make($this, 'urls', 'urls'),
 
