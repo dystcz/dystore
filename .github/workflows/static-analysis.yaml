@@ -33,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Install dependencies from composer.json"
-        run: "composer update --with='illuminate/support:${{ matrix.laravel }}' --no-interaction --no-progress"
+        run: "composer update --with='illuminate/support:^${{ matrix.laravel }}' --no-interaction --no-progress"
 
       - name: "Run PHPStan"
         run: ./vendor/bin/phpstan
