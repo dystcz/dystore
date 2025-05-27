@@ -129,6 +129,10 @@ class ProductSchema extends Schema
 
             Str::make('status'),
 
+            Str::make('created_at')
+                ->hidden()
+                ->sortable(),
+
             HasMany::make('attributes', 'attributes')
                 ->type(SchemaType::get(Attribute::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
