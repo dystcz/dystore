@@ -50,50 +50,6 @@ abstract class TestCase extends OrchestraTestCase
     }
 
     /**
-     * Get package providers.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return array<int, class-string<\Illuminate\Support\ServiceProvider>>
-     */
-    protected function getPackageProviders($app): array
-    {
-        return [
-            // Ray
-            \Spatie\LaravelRay\RayServiceProvider::class,
-
-            // Laravel JsonApi
-            \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
-            \LaravelJsonApi\Laravel\ServiceProvider::class,
-            \LaravelJsonApi\Spec\ServiceProvider::class,
-
-            // Lunar core
-            \Lunar\LunarServiceProvider::class,
-            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
-            \Spatie\Activitylog\ActivitylogServiceProvider::class,
-            \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
-            \Kalnoy\Nestedset\NestedSetServiceProvider::class,
-            \Spatie\LaravelBlink\BlinkServiceProvider::class,
-
-            // Lunar Stripe
-            \Lunar\Stripe\StripePaymentsServiceProvider::class,
-
-            // Livewire
-            \Livewire\LivewireServiceProvider::class,
-
-            // Dystore API
-            \Dystore\Api\ApiServiceProvider::class,
-            \Dystore\Api\JsonApiServiceProvider::class,
-
-            // Stripe webhooks
-            \Spatie\WebhookClient\WebhookClientServiceProvider::class,
-            \Spatie\StripeWebhooks\StripeWebhooksServiceProvider::class,
-
-            // Dystore Stripe
-            \Dystore\Stripe\StripeServiceProvider::class,
-        ];
-    }
-
-    /**
      * @param  Application  $app
      */
     public function getEnvironmentSetUp($app): void
@@ -153,6 +109,50 @@ abstract class TestCase extends OrchestraTestCase
             ]);
         });
 
+    }
+
+    /**
+     * Get package providers.
+     *
+     * @param  Application  $app
+     * @return array<int, class-string<\Illuminate\Support\ServiceProvider>>
+     */
+    protected function getPackageProviders($app): array
+    {
+        return [
+            // Ray
+            \Spatie\LaravelRay\RayServiceProvider::class,
+
+            // Laravel JsonApi
+            \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
+            \LaravelJsonApi\Laravel\ServiceProvider::class,
+            \LaravelJsonApi\Spec\ServiceProvider::class,
+
+            // Lunar core
+            \Lunar\LunarServiceProvider::class,
+            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
+            \Spatie\Activitylog\ActivitylogServiceProvider::class,
+            \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
+            \Kalnoy\Nestedset\NestedSetServiceProvider::class,
+            \Spatie\LaravelBlink\BlinkServiceProvider::class,
+
+            // Lunar Stripe
+            \Lunar\Stripe\StripePaymentsServiceProvider::class,
+
+            // Livewire
+            \Livewire\LivewireServiceProvider::class,
+
+            // Dystore API
+            \Dystore\Api\ApiServiceProvider::class,
+            \Dystore\Api\JsonApiServiceProvider::class,
+
+            // Stripe webhooks
+            \Spatie\WebhookClient\WebhookClientServiceProvider::class,
+            \Spatie\StripeWebhooks\StripeWebhooksServiceProvider::class,
+
+            // Dystore Stripe
+            \Dystore\Stripe\StripeServiceProvider::class,
+        ];
     }
 
     /**

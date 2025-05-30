@@ -32,9 +32,9 @@ it('can subscribe user to newsletter', function (string $driver) {
 
     $response->assertSuccessful();
 })->with([
-    'mailchimp driver' => \Spatie\Newsletter\Drivers\MailChimpDriver::class,
-    'brevo driver' => \Dystore\Newsletter\Drivers\BrevoDriver::class,
-    'ecomail driver' => \Dystore\Newsletter\Drivers\EcomailDriver::class,
+    'mailchimp driver' => Spatie\Newsletter\Drivers\MailChimpDriver::class,
+    'brevo driver' => Dystore\Newsletter\Drivers\BrevoDriver::class,
+    'ecomail driver' => Dystore\Newsletter\Drivers\EcomailDriver::class,
 ]);
 
 it('requires emails in order to sign up', function () {

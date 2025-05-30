@@ -95,7 +95,7 @@ abstract class TestCase extends Orchestra
              */
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
-                'model' => \Dystore\Tests\ProductNotifications\Stubs\Users\User::class,
+                'model' => User::class,
             ]);
 
             $config->set('database.default', 'sqlite');

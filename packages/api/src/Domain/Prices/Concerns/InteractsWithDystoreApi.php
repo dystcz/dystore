@@ -11,14 +11,6 @@ trait InteractsWithDystoreApi
     use HashesRouteKey;
 
     /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory(): PriceFactory
-    {
-        return PriceFactory::new();
-    }
-
-    /**
      * Create a new Eloquent query builder for the model.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
@@ -26,5 +18,13 @@ trait InteractsWithDystoreApi
     public function newEloquentBuilder($query): PriceBuilder
     {
         return new PriceBuilder($query);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): PriceFactory
+    {
+        return PriceFactory::new();
     }
 }

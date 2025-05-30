@@ -16,7 +16,7 @@ describe('policies', function () {
             ->create();
 
         $this->assertSame(
-            \Dystore\Tests\Api\Stubs\Policies\TestBrandPolicy::class,
+            Dystore\Tests\Api\Stubs\Policies\TestBrandPolicy::class,
             Config::get('dystore.domains.brands.policy'),
         );
 

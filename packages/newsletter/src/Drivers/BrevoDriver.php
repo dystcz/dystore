@@ -21,11 +21,6 @@ class BrevoDriver implements Driver
 
     protected Brevo $brevo;
 
-    public static function make(array $arguments, Lists $lists): self
-    {
-        return new self($arguments, $lists);
-    }
-
     /**
      * @param  array<string,string>  $arguments
      */
@@ -43,6 +38,11 @@ class BrevoDriver implements Driver
         );
 
         $this->lists = $lists;
+    }
+
+    public static function make(array $arguments, Lists $lists): self
+    {
+        return new self($arguments, $lists);
     }
 
     /**
@@ -68,41 +68,6 @@ class BrevoDriver implements Driver
         return $this->createContact($email, $properties, $listIds, $options);
     }
 
-    /**
-     * Create a contact in Brevo.
-     *
-     * @param  array<string,string>  $properties
-     * @param  int[]  $listIds
-     * @param  array<string,mixed>  $options
-     */
-    protected function createContact(
-        string $email,
-        array $properties = [],
-        array $listIds = [],
-        array $options = []
-    ): CreateUpdateContactModel|false {
-        $createContact = new CreateContact;
-        $createContact->setEmail($email);
-
-        if (! empty($listIds)) {
-            $createContact->setListIds($listIds);
-        }
-
-        if (! empty($properties) && ! array_is_list($properties)) {
-            $createContact->setAttributes($properties);
-        }
-
-        try {
-            $result = $this->brevo->createContact($createContact);
-        } catch (Exception $e) {
-            Log::error('Exception when creating a contact: '.$e->getMessage().PHP_EOL, $e->getTrace());
-
-            return false;
-        }
-
-        return $result;
-    }
-
     public function subscribeOrUpdate(
         string $email,
         array $properties = [],
@@ -123,40 +88,6 @@ class BrevoDriver implements Driver
 
         // If the contact exists, update it
         return $this->updateContact($email, $properties, $listIds, $options);
-    }
-
-    /**
-     * Update a contact in Brevo.
-     *
-     * @param  array<string,string>  $properties
-     * @param  int[]  $listIds
-     * @param  array<string,mixed>  $options
-     */
-    protected function updateContact(
-        string $email,
-        array $properties = [],
-        array $listIds = [],
-        array $options = [],
-    ): bool {
-        $updateContact = new \Brevo\Client\Model\UpdateContact;
-
-        if (! empty($listIds)) {
-            $updateContact->setListIds($listIds);
-        }
-
-        if (! empty($properties) && ! array_is_list($properties)) {
-            $updateContact->setAttributes($properties);
-        }
-
-        try {
-            $this->brevo->updateContact($email, $updateContact);
-        } catch (Exception $e) {
-            Log::error('Exception when updating a contact: '.$e->getMessage().PHP_EOL, $e->getTrace());
-
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -235,5 +166,74 @@ class BrevoDriver implements Driver
     public function isSubscribed(string $email, string $listName = ''): bool
     {
         return $this->getMember(email: $email, listName: $listName, checkList: true) ? true : false;
+    }
+
+    /**
+     * Create a contact in Brevo.
+     *
+     * @param  array<string,string>  $properties
+     * @param  int[]  $listIds
+     * @param  array<string,mixed>  $options
+     */
+    protected function createContact(
+        string $email,
+        array $properties = [],
+        array $listIds = [],
+        array $options = []
+    ): CreateUpdateContactModel|false {
+        $createContact = new CreateContact;
+        $createContact->setEmail($email);
+
+        if (! empty($listIds)) {
+            $createContact->setListIds($listIds);
+        }
+
+        if (! empty($properties) && ! array_is_list($properties)) {
+            $createContact->setAttributes($properties);
+        }
+
+        try {
+            $result = $this->brevo->createContact($createContact);
+        } catch (Exception $e) {
+            Log::error('Exception when creating a contact: '.$e->getMessage().PHP_EOL, $e->getTrace());
+
+            return false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Update a contact in Brevo.
+     *
+     * @param  array<string,string>  $properties
+     * @param  int[]  $listIds
+     * @param  array<string,mixed>  $options
+     */
+    protected function updateContact(
+        string $email,
+        array $properties = [],
+        array $listIds = [],
+        array $options = [],
+    ): bool {
+        $updateContact = new \Brevo\Client\Model\UpdateContact;
+
+        if (! empty($listIds)) {
+            $updateContact->setListIds($listIds);
+        }
+
+        if (! empty($properties) && ! array_is_list($properties)) {
+            $updateContact->setAttributes($properties);
+        }
+
+        try {
+            $this->brevo->updateContact($email, $updateContact);
+        } catch (Exception $e) {
+            Log::error('Exception when updating a contact: '.$e->getMessage().PHP_EOL, $e->getTrace());
+
+            return false;
+        }
+
+        return true;
     }
 }

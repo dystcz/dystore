@@ -15,6 +15,14 @@ class ProductVariantSchema extends Schema
     public static string $model = ProductVariant::class;
 
     /**
+     * Get the JSON:API resource type.
+     */
+    public static function type(): string
+    {
+        return 'variants';
+    }
+
+    /**
      * Get the resource fields.
      */
     public function fields(): array
@@ -31,13 +39,5 @@ class ProductVariantSchema extends Schema
     public function authorizable(): bool
     {
         return false;
-    }
-
-    /**
-     * Get the JSON:API resource type.
-     */
-    public static function type(): string
-    {
-        return 'variants';
     }
 }

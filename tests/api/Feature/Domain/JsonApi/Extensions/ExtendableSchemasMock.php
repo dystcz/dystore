@@ -15,11 +15,6 @@ class ExtendableSchemasMock extends Schema
      */
     public static string $model = Product::class;
 
-    public static function resource(): string
-    {
-        return ProductResourceMock::class;
-    }
-
     protected array $with = [
         'something',
     ];
@@ -31,6 +26,11 @@ class ExtendableSchemasMock extends Schema
     protected array $showRelationship = [
         'apple',
     ];
+
+    public static function resource(): string
+    {
+        return ProductResourceMock::class;
+    }
 
     public function includePaths(): array
     {

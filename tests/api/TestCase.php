@@ -75,6 +75,17 @@ abstract class TestCase extends OrchestraTestCase
     }
 
     /**
+     * Set the currently logged in user for the application.
+     *
+     * @param  string|null  $guard
+     * @return $this
+     */
+    public function actingAs(User $user, $guard = null): self
+    {
+        return $this->be($user, $guard ?? Api::getAuthGuard());
+    }
+
+    /**
      * @param  Application  $app
      */
     protected function getPackageProviders($app): array
@@ -187,16 +198,5 @@ abstract class TestCase extends OrchestraTestCase
             ExceptionHandler::class,
             TestExceptionHandler::class
         );
-    }
-
-    /**
-     * Set the currently logged in user for the application.
-     *
-     * @param  string|null  $guard
-     * @return $this
-     */
-    public function actingAs(User $user, $guard = null): TestCase
-    {
-        return $this->be($user, $guard ?? Api::getAuthGuard());
     }
 }

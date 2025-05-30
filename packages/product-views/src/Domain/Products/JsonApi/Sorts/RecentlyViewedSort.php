@@ -13,6 +13,14 @@ class RecentlyViewedSort implements SortField
     private readonly string $name;
 
     /**
+     * CustomSort constructor.
+     */
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * Create a new sort field.
      *
      * @param  string|null  $column
@@ -21,14 +29,6 @@ class RecentlyViewedSort implements SortField
     public static function make(string $name): self
     {
         return new self($name);
-    }
-
-    /**
-     * CustomSort constructor.
-     */
-    public function __construct(string $name)
-    {
-        $this->name = $name;
     }
 
     /**

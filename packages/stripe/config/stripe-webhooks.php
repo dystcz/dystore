@@ -12,7 +12,7 @@ return [
      * without a job defined in next configuration.
      * You may leave it empty to store the job in database but without processing it.
      */
-    'default_job' => \Dystore\Stripe\Jobs\Webhooks\HandleOtherEvent::class,
+    'default_job' => Dystore\Stripe\Jobs\Webhooks\HandleOtherEvent::class,
 
     /*
      * You can define the job that should be run when a certain webhook hits your application
@@ -22,10 +22,10 @@ return [
      * https://stripe.com/docs/api#event_types.
      */
     'jobs' => [
-        'payment_intent_created' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCreated::class,
-        'payment_intent_succeeded' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentSucceeded::class,
-        'payment_intent_payment_failed' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentFailed::class,
-        'payment_intent_canceled' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCanceled::class,
+        'payment_intent_created' => Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCreated::class,
+        'payment_intent_succeeded' => Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentSucceeded::class,
+        'payment_intent_payment_failed' => Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentFailed::class,
+        'payment_intent_canceled' => Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCanceled::class,
         // 'payment_intent_processing' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentProcessing::class,
         // 'payment_intent_requires_action' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentRequiresAction::class,
         // 'source_chargeable' => \Dystore\Stripe\Jobs\Webhooks\HandleChargeableSource::class,
@@ -36,12 +36,12 @@ return [
      * The classname of the model to be used. The class should equal or extend
      * Spatie\WebhookClient\Models\WebhookCall.
      */
-    'model' => \Spatie\WebhookClient\Models\WebhookCall::class,
+    'model' => Spatie\WebhookClient\Models\WebhookCall::class,
 
     /**
      * This class determines if the webhook call should be stored and processed.
      */
-    'profile' => \Dystore\Stripe\Jobs\Webhooks\WebhookProfile::class,
+    'profile' => Dystore\Stripe\Jobs\Webhooks\WebhookProfile::class,
 
     /*
      * Specify a connection and or a queue to process the webhooks
