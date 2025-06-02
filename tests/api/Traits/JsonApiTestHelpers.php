@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
+use LaravelJsonApi\Core\Facades\JsonApi;
 use LaravelJsonApi\Testing\TestResponse;
 
 trait JsonApiTestHelpers
@@ -104,34 +105,26 @@ trait JsonApiTestHelpers
     }
 
     /**
-     * @param  class-string  $model
-     * @param  array<string,array<string,string>>  $includes
+     * @param  Collection<TestInclude>  $includes
+     * @param  Factory<Model>  $factory
      */
     public function indexWithIncludesTest(
-        string $schemaType,
-        string $model,
-        int $modelCount,
+        Factory $factory,
         Collection $includes,
     ): TestResponse {
+
+        $model = $factory->modelName();
+        $schema = JsonApi::server('v1')->schemas()->schemaForModel($model);
+        $schemaType = $schema->type();
 
         $perPage = Config::get('dystore.general.pagination.per_page');
 
         /** @var TestCase $this */
+        $factory->create();
 
-        /** @var Factory $factory */
-        $factory = $model::factory()
-            ->count($modelCount);
-
-        foreach ($includes as $include) {
-            /** @var TestInclude $include */
-            if (! $include->factory || ! $include->factory_relation) {
-                continue;
-            }
-
-            $factory = $factory->{$include->factory_relation_method}($include->factory, $include->factory_relation);
-        }
-
-        $models = $factory->create();
+        $models = $model::query()
+            ->with($includes->pluck('relation')->all())
+            ->get();
 
         $response = $this
             ->jsonApi()
@@ -151,7 +144,7 @@ trait JsonApiTestHelpers
             ->assertSuccessful()
             ->assertFetchedMany(
                 $models->when(
-                    $modelCount > $perPage,
+                    $models->count() > $perPage,
                     fn ($collection) => $collection->take($perPage),
                     fn ($collection) => $collection,
                 ),

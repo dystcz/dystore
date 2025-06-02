@@ -12,6 +12,7 @@ use Dystore\Tests\Api\Traits\JsonApiTestHelpers;
 use Illuminate\Contracts\Auth\Authenticatable as User;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
@@ -36,6 +37,8 @@ abstract class TestCase extends OrchestraTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Model::preventLazyLoading(! app()->isProduction());
 
         Taxes::extend(
             'test',
@@ -72,6 +75,17 @@ abstract class TestCase extends OrchestraTestCase
         App::get(PaymentModifiers::class)->add(TestPaymentModifier::class);
 
         activity()->disableLogging();
+    }
+
+    /**
+     * Set the currently logged in user for the application.
+     *
+     * @param  string|null  $guard
+     * @return $this
+     */
+    public function actingAs(User $user, $guard = null): self
+    {
+        return $this->be($user, $guard ?? Api::getAuthGuard());
     }
 
     /**
@@ -187,16 +201,5 @@ abstract class TestCase extends OrchestraTestCase
             ExceptionHandler::class,
             TestExceptionHandler::class
         );
-    }
-
-    /**
-     * Set the currently logged in user for the application.
-     *
-     * @param  string|null  $guard
-     * @return $this
-     */
-    public function actingAs(User $user, $guard = null): TestCase
-    {
-        return $this->be($user, $guard ?? Api::getAuthGuard());
     }
 }

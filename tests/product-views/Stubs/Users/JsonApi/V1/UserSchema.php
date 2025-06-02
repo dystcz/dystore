@@ -16,6 +16,14 @@ class UserSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public static function type(): string
+    {
+        return 'users';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function fields(): array
     {
         return [
@@ -29,13 +37,5 @@ class UserSchema extends Schema
     public function authorizable(): bool
     {
         return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        return 'users';
     }
 }

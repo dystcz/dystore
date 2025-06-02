@@ -51,6 +51,35 @@ class ProductNotificationsServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register schemas.
+     */
+    public function registerObservers(): void
+    {
+        ProductVariant::observe(ProductVariantObserver::class);
+    }
+
+    /**
+     * Register schemas.
+     */
+    public function registerSchemas(): void
+    {
+        SchemaManifestFacade::registerSchema(ProductNotificationSchema::class);
+    }
+
+    /**
+     * Register the application's policies.
+     */
+    public function registerPolicies(): void
+    {
+        DomainConfigCollection::fromConfig('dystore.product-notifications.domains')
+            ->getPolicies()
+            ->each(
+                fn (string $policy, string $model) => Gate::policy($model, $policy),
+            );
+
+    }
+
+    /**
      * Register config files.
      */
     protected function registerConfig(): void
@@ -82,22 +111,6 @@ class ProductNotificationsServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register schemas.
-     */
-    public function registerObservers(): void
-    {
-        ProductVariant::observe(ProductVariantObserver::class);
-    }
-
-    /**
-     * Register schemas.
-     */
-    public function registerSchemas(): void
-    {
-        SchemaManifestFacade::registerSchema(ProductNotificationSchema::class);
-    }
-
-    /**
      * Register dynamic relations.
      */
     protected function registerDynamicRelations(): void
@@ -105,18 +118,5 @@ class ProductNotificationsServiceProvider extends ServiceProvider
         ProductVariant::resolveRelationUsing('notifications', function ($model) {
             return $model->morphMany(ProductNotification::class, 'purchasable');
         });
-    }
-
-    /**
-     * Register the application's policies.
-     */
-    public function registerPolicies(): void
-    {
-        DomainConfigCollection::fromConfig('dystore.product-notifications.domains')
-            ->getPolicies()
-            ->each(
-                fn (string $policy, string $model) => Gate::policy($model, $policy),
-            );
-
     }
 }

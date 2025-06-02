@@ -2,6 +2,7 @@
 
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Factories\ProductVariantFactory;
+use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
@@ -14,12 +15,22 @@ uses(TestCase::class, RefreshDatabase::class)
 
 it('can read lowest price through relationship', function () {
     /** @var TestCase $this */
+    /** @var \Dystore\Api\Domain\ProductVariants\Models\ProductVariant $variant */
     $variant = ProductVariantFactory::new()
         ->for(Product::factory(), 'product')
         ->withPrice()
         ->withPrice()
         ->withPrice()
         ->create();
+
+    $variant = ProductVariant::query()
+        ->with([
+            'product',
+            'prices.priceable',
+            'prices.currency',
+            'prices.customerGroup',
+        ])
+        ->findOrFail($variant->getKey());
 
     $response = $this
         ->jsonApi()
@@ -34,12 +45,22 @@ it('can read lowest price through relationship', function () {
 
 it('can read correct lowest price when customer group is set', function () {
     /** @var TestCase $this */
+    /** @var \Dystore\Api\Domain\ProductVariants\Models\ProductVariant $variant */
     $variant = ProductVariantFactory::new()
         ->for(Product::factory(), 'product')
         ->withPrice()
         ->withPrice()
         ->withPrice()
         ->create();
+
+    $variant = ProductVariant::query()
+        ->with([
+            'product',
+            'prices.priceable',
+            'prices.currency',
+            'prices.customerGroup',
+        ])
+        ->findOrFail($variant->getKey());
 
     $lowestPrice = $variant->prices->sortBy(fn ($price) => $price->price->value)->first();
 

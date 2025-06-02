@@ -19,7 +19,7 @@ it('can get current cart from session when resolving contract', function () {
 
     $sessionCart = array_rand($carts);
 
-    /** @var \Lunar\Managers\CartSessionManager $cartSession */
+    /** @var Lunar\Managers\CartSessionManager $cartSession */
     $cartSession = App::make(CartSessionInterface::class);
 
     $cartSession->use($sessionCart);

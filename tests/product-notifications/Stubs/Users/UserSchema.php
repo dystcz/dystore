@@ -13,6 +13,14 @@ class UserSchema extends Schema
     public static string $model = User::class;
 
     /**
+     * Get the JSON:API resource type.
+     */
+    public static function type(): string
+    {
+        return 'users';
+    }
+
+    /**
      * Get the resource fields.
      */
     public function fields(): array
@@ -20,13 +28,5 @@ class UserSchema extends Schema
         return [
             ID::make(),
         ];
-    }
-
-    /**
-     * Get the JSON:API resource type.
-     */
-    public static function type(): string
-    {
-        return 'users';
     }
 }

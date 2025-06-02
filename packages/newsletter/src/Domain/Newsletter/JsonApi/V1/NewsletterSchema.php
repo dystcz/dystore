@@ -14,6 +14,14 @@ class NewsletterSchema extends Schema
     public static string $model = NewsletterSubscription::class;
 
     /**
+     * Get the JSON:API resource type.
+     */
+    public static function type(): string
+    {
+        return 'newsletters';
+    }
+
+    /**
      * Get the resource fields.
      */
     public function fields(): array
@@ -21,14 +29,6 @@ class NewsletterSchema extends Schema
         return [
             Str::make('email'),
         ];
-    }
-
-    /**
-     * Get the JSON:API resource type.
-     */
-    public static function type(): string
-    {
-        return 'newsletters';
     }
 
     /**

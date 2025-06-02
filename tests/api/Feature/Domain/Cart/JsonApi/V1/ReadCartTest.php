@@ -70,7 +70,6 @@ it('can read cart with cart lines included', function () {
 
     $response
         ->assertSuccessful();
-
 });
 
 it('can merge carts when user logs in', function () {

@@ -17,7 +17,7 @@ it('can automatically create cart when configured', function () {
         ->expects('carts')
         ->get(serverUrl('/carts/-actions/my-cart'));
 
-    /** @var \Lunar\Managers\CartSessionManager $cartSession */
+    /** @var Lunar\Managers\CartSessionManager $cartSession */
     $cartSession = App::make(CartSessionInterface::class);
 
     $cart = $cartSession->current();

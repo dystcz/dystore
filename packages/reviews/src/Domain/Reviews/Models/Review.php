@@ -33,14 +33,6 @@ class Review extends BaseModel
     ];
 
     /**
-     * The "booted" method of the model.
-     */
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new PublishedScope);
-    }
-
-    /**
      * Create a new Eloquent query builder for the model.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
@@ -49,14 +41,6 @@ class Review extends BaseModel
     public function newEloquentBuilder($query): ReviewBuilder
     {
         return new ReviewBuilder($query);
-    }
-
-    /**
-     * Return a new factory instance for the model.
-     */
-    protected static function newFactory(): ReviewFactory
-    {
-        return ReviewFactory::new();
     }
 
     /**
@@ -85,5 +69,21 @@ class Review extends BaseModel
         return $this->belongsTo(
             Config::get('auth.providers.users.model')
         );
+    }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new PublishedScope);
+    }
+
+    /**
+     * Return a new factory instance for the model.
+     */
+    protected static function newFactory(): ReviewFactory
+    {
+        return ReviewFactory::new();
     }
 }

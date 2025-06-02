@@ -39,7 +39,7 @@ beforeEach(function () {
         {
             public function constructEvent(string $jsonPayload, string $signature, string $secret): Stripe\Event
             {
-                return \Stripe\Event::constructFrom([]);
+                return Stripe\Event::constructFrom([]);
             }
         };
     });

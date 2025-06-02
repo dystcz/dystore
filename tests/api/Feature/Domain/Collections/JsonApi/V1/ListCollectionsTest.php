@@ -101,6 +101,16 @@ it('can list collections with included default url', function () {
 
 it('can list collections with included products', function () {
 
+    $factory = Collection::factory()
+        ->has(
+            Product::factory()
+                ->has(MediaFactory::new()->thumbnail(), 'thumbnail')
+                ->has(MediaFactory::new()->count(2), 'images')
+                ->has(ProductVariant::factory()->has(Price::factory(), 'prices')->count(2), 'variants')
+                ->count(3),
+            'products'
+        );
+
     /** @var TestCase $this */
     $includes = collect([
         'products' => new TestInclude(
@@ -109,32 +119,26 @@ it('can list collections with included products', function () {
         ),
         'products.prices' => new TestInclude(
             type: 'prices',
-            relation: 'prices',
+            relation: 'products.prices',
             relationCallback: fn (IlluminateCollection $models) => $models->pluck('products')->flatten()->pluck('prices')->flatten(),
         ),
         'products.lowest_price' => new TestInclude(
             type: 'prices',
-            relation: 'lowestPrice',
+            relation: 'products.lowestPrice',
             relationCallback: fn (IlluminateCollection $models) => $models->pluck('products')->flatten()->pluck('lowestPrice'),
         ),
         'products.thumbnail' => new TestInclude(
             type: 'media',
-            relation: 'thumbnail',
+            relation: 'products.thumbnail',
             relationCallback: fn (IlluminateCollection $models) => $models->pluck('products')->flatten()->pluck('thumbnail'),
         ),
         'products.images' => new TestInclude(
             type: 'media',
-            factory: Product::factory()
-                ->has(MediaFactory::new()->thumbnail(), 'thumbnail')
-                ->has(MediaFactory::new()->count(2), 'images')
-                ->has(ProductVariant::factory()->has(Price::factory(), 'prices')->count(2), 'variants')
-                ->count(3),
-            factory_relation: 'products',
-            relation: 'images',
+            relation: 'products.images',
             relationCallback: fn (IlluminateCollection $models) => $models->pluck('products')->flatten()->pluck('images')->flatten(),
         ),
     ]);
 
-    $response = $this->indexWithIncludesTest('collections', Collection::class, 5, $includes);
+    $response = $this->indexWithIncludesTest($factory, $includes);
 
 })->group('collections');

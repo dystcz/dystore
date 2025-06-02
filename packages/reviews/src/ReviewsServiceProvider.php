@@ -83,6 +83,26 @@ class ReviewsServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register schemas.
+     */
+    public function registerSchemas(): void
+    {
+        SchemaManifestFacade::registerSchema(ReviewSchema::class);
+    }
+
+    /**
+     * Register the application's policies.
+     */
+    public function registerPolicies(): void
+    {
+        DomainConfigCollection::fromConfig('dystore.reviews.domains')
+            ->getPolicies()
+            ->each(
+                fn (string $policy, string $model) => Gate::policy($model, $policy),
+            );
+    }
+
+    /**
      * Register config files.
      */
     protected function registerConfig(): void
@@ -111,14 +131,6 @@ class ReviewsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../lang' => $this->app->langPath('vendor/dystore-reviews'),
         ], 'dystore-reviews.translations');
-    }
-
-    /**
-     * Register schemas.
-     */
-    public function registerSchemas(): void
-    {
-        SchemaManifestFacade::registerSchema(ReviewSchema::class);
     }
 
     /**
@@ -222,17 +234,5 @@ class ReviewsServiceProvider extends ServiceProvider
             ->setRelationships(fn ($resource) => [
                 'reviews' => $resource->relation('reviews'),
             ]);
-    }
-
-    /**
-     * Register the application's policies.
-     */
-    public function registerPolicies(): void
-    {
-        DomainConfigCollection::fromConfig('dystore.reviews.domains')
-            ->getPolicies()
-            ->each(
-                fn (string $policy, string $model) => Gate::policy($model, $policy),
-            );
     }
 }

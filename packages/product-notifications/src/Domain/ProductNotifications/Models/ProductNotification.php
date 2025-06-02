@@ -31,14 +31,6 @@ class ProductNotification extends BaseModel
     ];
 
     /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory(): ProductNotificationFactory
-    {
-        return ProductNotificationFactory::new();
-    }
-
-    /**
      * Create a new Eloquent query builder for the model.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
@@ -55,5 +47,13 @@ class ProductNotification extends BaseModel
     public function purchasable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): ProductNotificationFactory
+    {
+        return ProductNotificationFactory::new();
     }
 }

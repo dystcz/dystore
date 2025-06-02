@@ -4,6 +4,7 @@ namespace Dystore\Stripe\Actions;
 
 use Dystore\Api\Domain\Orders\Events\OrderPaymentSuccessful;
 use Dystore\Api\Domain\Payments\Contracts\PaymentIntent;
+use InvalidArgumentException;
 use Lunar\Base\DataTransferObjects\PaymentAuthorize;
 use Lunar\Facades\Payments;
 use Lunar\Models\Contracts\Cart as CartContract;
@@ -15,7 +16,7 @@ class AuthorizeStripePayment
     public function __invoke(?OrderContract $order, ?CartContract $cart, PaymentIntent $intent): void
     {
         if (! $order && ! $cart) {
-            throw new \InvalidArgumentException('Either order or cart must be provided');
+            throw new InvalidArgumentException('Either order or cart must be provided');
         }
 
         /** @var StripePaymentType $driver */

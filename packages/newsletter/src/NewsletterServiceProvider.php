@@ -44,6 +44,14 @@ class NewsletterServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register schemas.
+     */
+    public function registerSchemas(): void
+    {
+        SchemaManifestFacade::registerSchema(NewsletterSchema::class);
+    }
+
+    /**
      * Register config files.
      */
     protected function registerConfig(): void
@@ -72,13 +80,5 @@ class NewsletterServiceProvider extends ServiceProvider
         $this->publishes([
             "{$this->root}/lang" => $this->app->langPath('vendor/dystore-newsletter'),
         ], 'dystore-newsletter.translations');
-    }
-
-    /**
-     * Register schemas.
-     */
-    public function registerSchemas(): void
-    {
-        SchemaManifestFacade::registerSchema(NewsletterSchema::class);
     }
 }

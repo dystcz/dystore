@@ -6,12 +6,12 @@ use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('product_variants');
 
 it('can list bare product variants', function () {
     /** @var TestCase $this */
     $variants = ProductVariant::factory()
-        ->has(Price::factory())
         ->count(2)
         ->create();
 
@@ -24,7 +24,7 @@ it('can list bare product variants', function () {
         ->assertSuccessful()
         ->assertFetchedMany($variants)
         ->assertDoesntHaveIncluded();
-})->group('product_variants');
+});
 
 it('cannot list variants of unpublished products', function () {
     /** @var TestCase $this */
@@ -43,4 +43,4 @@ it('cannot list variants of unpublished products', function () {
         ->assertSuccessful()
         ->assertFetchedNone()
         ->assertDoesntHaveIncluded();
-})->group('variants', 'policies');
+});

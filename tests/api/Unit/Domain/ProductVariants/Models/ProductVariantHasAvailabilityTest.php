@@ -15,7 +15,8 @@ use Lunar\FieldTypes\Text;
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertTrue;
 
-uses(TestCase::class, RefreshDatabase::class, WithFaker::class);
+uses(TestCase::class, RefreshDatabase::class, WithFaker::class)
+    ->group('product_variants', 'availability');
 
 it('can determine variant is always purchasable', function () {
     /** @var TestCase $this */
@@ -36,7 +37,7 @@ it('can determine variant is always purchasable', function () {
     $variant = $product->variants->first();
 
     assertTrue($variant->availability === Availability::ALWAYS);
-})->group('product_variants', 'availability');
+});
 
 it('can determine variant is in stock', function () {
     /** @var TestCase $this */
@@ -66,7 +67,7 @@ it('can determine variant is in stock', function () {
 
     assertTrue($variant->availability === Availability::IN_STOCK);
 
-})->group('product_variants', 'availability');
+});
 
 it('can determine variant is backorder', function () {
     /** @var TestCase $this */
@@ -96,7 +97,7 @@ it('can determine variant is backorder', function () {
 
     assertTrue($variant->availability === Availability::BACKORDER);
 
-})->group('product_variants', 'availability');
+});
 
 it('can determine variant is preorder', function () {
     /** @var TestCase $this */
@@ -122,6 +123,9 @@ it('can determine variant is preorder', function () {
     /** @var ProductVariant $variant */
     $variant = $product->variants->first();
 
+    // WARNING: Important to set the product relation to the variant
+    $variant->setRelation('product', $product);
+
     assertFalse($variant->availability === Availability::PREORDER);
 
     $variant->update([
@@ -142,7 +146,7 @@ it('can determine variant is preorder', function () {
 
     assertTrue($variant->availability === Availability::PREORDER);
 
-})->group('product_variants', 'availability');
+});
 
 it('can determine variant is out of stock', function () {
     /** @var TestCase $this */
@@ -181,4 +185,4 @@ it('can determine variant is out of stock', function () {
 
     assertTrue($variant->availability === Availability::OUT_OF_STOCK);
 
-})->group('product_variants', 'availability');
+});
