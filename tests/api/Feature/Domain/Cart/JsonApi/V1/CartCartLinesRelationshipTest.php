@@ -9,7 +9,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Lunar\Base\CartSessionInterface;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('carts', 'cart_lines');
 
 beforeEach(function () {
     /** @var TestCase $this */
@@ -48,8 +49,7 @@ it('can list related cart lines', function () {
     $response
         ->assertSuccessful()
         ->assertFetchedMany($expected);
-
-})->group('carts', 'cart_lines');
+});
 
 it('can list related cart lines with purchasable product option values included', function () {
     /** @var TestCase $this */
@@ -73,7 +73,7 @@ it('can list related cart lines with purchasable product option values included'
         ->assertSuccessful()
         ->assertFetchedMany($expected);
 
-})->group('carts', 'cart_lines');
+});
 
 it('cannot list related cart lines without session and when not logged in', function () {
     /** @var TestCase $this */
@@ -90,7 +90,7 @@ it('cannot list related cart lines without session and when not logged in', func
         'title' => 'Unauthorized',
     ]);
 
-})->group('carts', 'policies');
+});
 
 it('can list cart lines relationships when logged in', function () {
     /** @var TestCase $this */
@@ -104,7 +104,7 @@ it('can list cart lines relationships when logged in', function () {
         ->assertSuccessful()
         ->assertFetchedMany($this->cart->lines);
 
-})->group('cart', 'cart_lines');
+});
 
 it('cannot list cart lines relationships without session and when not logged in', function () {
     /** @var TestCase $this */

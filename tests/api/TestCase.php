@@ -12,6 +12,7 @@ use Dystore\Tests\Api\Traits\JsonApiTestHelpers;
 use Illuminate\Contracts\Auth\Authenticatable as User;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
@@ -36,6 +37,8 @@ abstract class TestCase extends OrchestraTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Model::preventLazyLoading(! app()->isProduction());
 
         Taxes::extend(
             'test',

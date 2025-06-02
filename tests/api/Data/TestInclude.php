@@ -16,9 +16,6 @@ class TestInclude
         public string $type,
         public string $relation,
         public ?Closure $relationCallback = null,
-        public ?Factory $factory = null,
-        public ?string $factory_relation = null,
-        public string $factory_relation_method = 'has',
     ) {}
 
     /**

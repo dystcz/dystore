@@ -31,18 +31,19 @@ it('can list brands with custom pagination', function () {
 
 test('brands can be listed with thumbnail included', function () {
 
+    $factory = Brand::factory()
+        ->has(MediaFactory::new()->thumbnail()->count(1), 'media')
+        ->count(5);
+
     /** @var TestCase $this */
     $includes = Collection::make([
         'thumbnail' => new TestInclude(
-            factory: MediaFactory::new()->thumbnail()->count(1),
-            factory_relation: 'media',
             type: 'media',
             relation: 'media',
-            factory_relation_method: 'has',
         ),
     ]);
 
-    $response = $this->indexWithIncludesTest('brands', Brand::class, 5, $includes);
+    $response = $this->indexWithIncludesTest($factory, $includes);
 
 })->group('brands');
 
