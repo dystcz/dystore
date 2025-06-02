@@ -2,9 +2,9 @@
 
 ## 1.0.2 - 2025-03-20
 
-- Feat: Remove lunar pipeline overrides #37
-- Feat: Update laravel json api versions #36
-- Fix: Payment prices activity log errors workaround #35
+- Removed lunar pipeline overrides #37
+- Updated laravel json api versions #36
+- Payment prices activity log errors workaround #35
 
 ## 1.0.1
 
