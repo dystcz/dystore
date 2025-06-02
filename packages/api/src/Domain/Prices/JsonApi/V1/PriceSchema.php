@@ -54,7 +54,7 @@ class PriceSchema extends Schema
     {
         return [
             'currency',
-            // TODO: Find a way to include priceable when included to product / product variant
+            // TODO: Find a way of not needing to eager load priceable when included to product / product variant
             'priceable',
 
             ...parent::with(),
@@ -83,30 +83,21 @@ class PriceSchema extends Schema
             $this->idField(),
 
             Map::make('base_price', [
-                Str::make('formatted')
-                    ->extractUsing(static fn (Price $model) => (new GetPrice)($model)->formatted()),
-                Number::make('decimal')
-                    ->extractUsing(static fn (Price $model) => (new GetPrice)($model)->decimal()),
-                Number::make('value')
-                    ->extractUsing(static fn (Price $model) => (new GetPrice)($model)->value),
+                Str::make('formatted')->extractUsing(static fn (Price $model) => (new GetPrice)($model)->formatted()),
+                Number::make('decimal')->extractUsing(static fn (Price $model) => (new GetPrice)($model)->decimal()),
+                Number::make('value')->extractUsing(static fn (Price $model) => (new GetPrice)($model)->value),
             ]),
 
             Map::make('sub_price', [
-                Str::make('formatted')
-                    ->extractUsing(static fn (Price $model) => $model->priceExTax()->formatted()),
-                Number::make('decimal')
-                    ->extractUsing(static fn (Price $model) => $model->priceExTax()->decimal()),
-                Number::make('value')
-                    ->extractUsing(static fn (Price $model) => $model->priceExTax()->value),
+                Str::make('formatted')->extractUsing(static fn (Price $model) => $model->priceExTax()->formatted()),
+                Number::make('decimal')->extractUsing(static fn (Price $model) => $model->priceExTax()->decimal()),
+                Number::make('value')->extractUsing(static fn (Price $model) => $model->priceExTax()->value),
             ]),
 
             Map::make('compare_price', [
-                Str::make('formatted')
-                    ->extractUsing(static fn (Price $model) => (new GetPrice)($model, 'compare_price')->formatted()),
-                Number::make('decimal')
-                    ->extractUsing(static fn (Price $model) => (new GetPrice)($model, 'compare_price')->decimal()),
-                Number::make('value')
-                    ->extractUsing(static fn (Price $model) => (new GetPrice)($model, 'compare_price')->value),
+                Str::make('formatted')->extractUsing(static fn (Price $model) => (new GetPrice)($model, 'compare_price')->formatted()),
+                Number::make('decimal')->extractUsing(static fn (Price $model) => (new GetPrice)($model, 'compare_price')->decimal()),
+                Number::make('value')->extractUsing(static fn (Price $model) => (new GetPrice)($model, 'compare_price')->value),
             ]),
 
             Map::make('discount', [
