@@ -12,6 +12,6 @@ class GetPrice
      */
     public function __invoke(Price $price, string $priceField = 'price'): \Lunar\DataTypes\Price
     {
-        return prices_inc_tax() ? $price->priceIncTax() : $price->priceExTax();
+        return prices_inc_tax() ? $price->priceIncTax($priceField) : $price->priceExTax($priceField);
     }
 }
