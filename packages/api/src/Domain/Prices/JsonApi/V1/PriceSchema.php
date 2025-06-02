@@ -54,8 +54,6 @@ class PriceSchema extends Schema
     {
         return [
             'currency',
-            // TODO: Find a way of not needing to eager load priceable when included to product / product variant
-            'priceable',
 
             ...parent::with(),
         ];
