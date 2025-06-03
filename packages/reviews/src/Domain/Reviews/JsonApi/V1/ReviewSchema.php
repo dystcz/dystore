@@ -40,13 +40,12 @@ class ReviewSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'user',
             'user.customers',
 
-            ...parent::includePaths(),
         ];
     }
 
@@ -61,13 +60,11 @@ class ReviewSchema extends Schema
 
     /**
      * Get the resource fields.
-     *
-     * @return array
      */
-    public function fields(): iterable
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('name')
                 ->extractUsing(
@@ -91,28 +88,25 @@ class ReviewSchema extends Schema
                 )
                 ->sortable(),
 
-            BelongsTo::make('user')
+            fn () => BelongsTo::make('user')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            MorphTo::make('purchasable', 'reviews')
+            fn () => MorphTo::make('purchasable', 'reviews')
                 ->types(
                     ProductSchema::type(),
                     ProductVariantSchema::type(),
                 ),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function sortables(): iterable
+    public static function defaultSortables(): array
     {
         return [
-            ...parent::sortables(),
 
             SortColumn::make('id', 'id'),
 

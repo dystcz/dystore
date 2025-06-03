@@ -17,26 +17,24 @@ class CustomerGroupSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
-            ...parent::includePaths(),
+
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('name'),
             Str::make('handle'),
             Boolean::make('default'),
-
-            ...parent::fields(),
         ];
     }
 }

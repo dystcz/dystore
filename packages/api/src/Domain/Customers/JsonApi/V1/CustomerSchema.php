@@ -25,7 +25,7 @@ class CustomerSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'orders',
@@ -33,18 +33,16 @@ class CustomerSchema extends Schema
             'orders.lines.purchasable',
             'addresses',
             'addresses.country',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
@@ -56,28 +54,27 @@ class CustomerSchema extends Schema
             Str::make('account_ref'),
             Str::make('vat_no'),
 
-            HasMany::make('orders')
+            fn () => HasMany::make('orders')
                 ->type(SchemaType::get(Order::class))
                 ->canCount()
                 ->countAs('orders_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('addresses')
+            fn () => HasMany::make('addresses')
                 ->type(SchemaType::get(Address::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            BelongsToMany::make('users')
+            fn () => BelongsToMany::make('users')
                 ->type(SchemaType::get(User::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            BelongsToMany::make('customer_groups', 'customerGroups')
+            fn () => BelongsToMany::make('customer_groups', 'customerGroups')
                 ->type(SchemaType::get(CustomerGroup::class))
                 ->retainFieldName()
                 ->canCount()
                 ->countAs('customer_groups_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            ...parent::fields(),
         ];
     }
 }

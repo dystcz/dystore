@@ -34,6 +34,8 @@ abstract class Server extends BaseServer
      */
     protected function allSchemas(): array
     {
-        return JsonApiManifest::getServerSchemas();
+        // ray(JsonApiManifest::schemas());
+
+        return array_keys(JsonApiManifest::schemas());
     }
 }

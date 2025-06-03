@@ -16,7 +16,6 @@ use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Currency;
 use Lunar\Models\Contracts\CustomerGroup;
@@ -50,35 +49,33 @@ class PriceSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function with(): array
+    public static function defaultWith(): array
     {
         return [
             'currency',
 
-            ...parent::with(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'currency',
             'customer_group',
 
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Map::make('base_price', [
                 Str::make('formatted')->extractUsing(static fn (Price $model) => (new GetPrice)($model)->formatted()),
@@ -129,31 +126,24 @@ class PriceSchema extends Schema
                     }),
             ]),
 
-            BelongsTo::make('currency')
+            fn () => BelongsTo::make('currency')
                 ->type(SchemaType::get(Currency::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            BelongsTo::make('customer_group', 'customerGroup')
+            fn () => BelongsTo::make('customer_group', 'customerGroup')
                 ->type(SchemaType::get(CustomerGroup::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
-            WhereIdIn::make($this),
-
             MinPriceFilter::make('min_price', 'price'),
-
             MaxPriceFilter::make('max_price', 'price'),
-
-            ...parent::filters(),
         ];
     }
 }

@@ -24,11 +24,9 @@ class UserSchema extends Schema
     /**
      * The relationships that should always be eager loaded.
      */
-    public function with(): array
+    public static function defaultWith(): array
     {
-        return [
-            ...parent::with(),
-        ];
+        return [];
     }
 
     /**
@@ -36,20 +34,18 @@ class UserSchema extends Schema
      *
      * @return string[]|iterable
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
-        return [
-            ...parent::includePaths(),
-        ];
+        return [];
     }
 
     /**
      * Get the resource fields.
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('name'),
             Str::make('first_name'),
@@ -65,22 +61,20 @@ class UserSchema extends Schema
 
             Boolean::make('accept_terms')->hidden(),
 
-            HasOne::make('avatar', 'avatar')
+            fn () => HasOne::make('avatar', 'avatar')
                 ->readOnly()
                 ->type('media')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('orders')
+            fn () => HasMany::make('orders')
                 ->type(SchemaType::get(Order::class))
                 ->readOnly()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            BelongsToMany::make('customers')
+            fn () => BelongsToMany::make('customers')
                 ->type(SchemaType::get(Customer::class))
                 ->readOnly()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 }

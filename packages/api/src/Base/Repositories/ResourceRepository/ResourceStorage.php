@@ -16,9 +16,9 @@ class ResourceStorage extends Storage
     /**
      * @param  class-string<\Dystore\Api\Domain\JsonApi\Resources\JsonApiResource>  $resource
      */
-    public static function fromResource(string $resource): self
+    public static function fromResource(string $resource): static
     {
-        return new self(
+        return new static(
             attributes: new AttributeRepository($resource::defaultAttributes()),
             relationships: new RelationshipRepository($resource::defaultRelationships()),
         );

@@ -7,7 +7,6 @@ use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InDefaultOrder;
 use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystore\Api\Domain\Products\JsonApi\Filters\InStockFilter;
-use Dystore\Api\Domain\Products\JsonApi\Filters\ProductFilterCollection;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
@@ -21,7 +20,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Attribute;
@@ -125,10 +123,10 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public static function defaultFields(): iterable
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
@@ -146,106 +144,106 @@ class ProductSchema extends Schema
                 ->hidden()
                 ->sortable(),
 
-            HasMany::make('attributes', 'attributes')
+            fn () => HasMany::make('attributes', 'attributes')
                 ->type(SchemaType::get(Attribute::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('product_associations', 'associations')
+            fn () => HasMany::make('product_associations', 'associations')
                 ->type(SchemaType::get(ProductAssociation::class))
                 ->retainFieldName()
                 ->canCount()
                 ->countAs('product_associations_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            BelongsTo::make('brand')
+            fn () => BelongsTo::make('brand')
                 ->type(SchemaType::get(Brand::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('channels')
+            fn () => HasMany::make('channels')
                 ->canCount()
                 ->countAs('channels_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('cheapest_product_variant', 'cheapestVariant')
+            fn () => HasOne::make('cheapest_product_variant', 'cheapestVariant')
                 ->type(SchemaType::get(ProductVariant::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('most_expensive_product_variant', 'mostExpensiveVariant')
+            fn () => HasOne::make('most_expensive_product_variant', 'mostExpensiveVariant')
                 ->type(SchemaType::get(ProductVariant::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('collections')
+            fn () => HasMany::make('collections')
                 ->canCount()
                 ->countAs('collections_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('default_url', 'defaultUrl')
+            fn () => HasOne::make('default_url', 'defaultUrl')
                 ->type(SchemaType::get(Url::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('images', 'images')
+            fn () => HasMany::make('images', 'images')
                 ->type(SchemaType::get(Media::class))
                 ->canCount()
                 ->countAs('images_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('inverse_product_associations', 'inverseAssociations')
+            fn () => HasMany::make('inverse_product_associations', 'inverseAssociations')
                 ->type(SchemaType::get(ProductAssociation::class))
                 ->retainFieldName()
                 ->canCount()
                 ->countAs('inverse_associations_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOneThrough::make('lowest_price', 'lowestPrice')
+            fn () => HasOneThrough::make('lowest_price', 'lowestPrice')
                 ->type(SchemaType::get(Price::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOneThrough::make('highest_price', 'highestPrice')
+            fn () => HasOneThrough::make('highest_price', 'highestPrice')
                 ->type(SchemaType::get(Price::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasManyThrough::make('prices')
+            fn () => HasManyThrough::make('prices')
                 ->canCount()
                 ->countAs('prices_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            BelongsTo::make('product_type', 'productType')
+            fn () => BelongsTo::make('product_type', 'productType')
                 ->retainFieldName()
                 ->type(SchemaType::get(ProductType::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('tags')
+            fn () => HasMany::make('tags')
                 ->canCount()
                 ->countAs('tags_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('thumbnail', 'thumbnail')
+            fn () => HasOne::make('thumbnail', 'thumbnail')
                 ->type(SchemaType::get(Media::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('urls')
+            fn () => HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('product_variants', 'variants')
+            fn () => HasMany::make('product_variants', 'variants')
                 ->type(SchemaType::get(ProductVariant::class))
                 ->retainFieldName()
                 ->canCount()
                 ->countAs('product_variants_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('product_options', 'productOptions')
+            fn () => HasMany::make('product_options', 'productOptions')
                 ->retainFieldName()
                 ->type('product_options')
                 ->canCount()
                 ->countAs('product_options_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('product_option_values', 'variantValues')
+            fn () => HasMany::make('product_option_values', 'variantValues')
                 ->retainFieldName()
                 ->type(SchemaType::get(ProductOptionValue::class))
                 ->readOnly()
@@ -262,7 +260,6 @@ class ProductSchema extends Schema
     {
         return [
             InDefaultOrder::make('ordered'),
-
             InRandomOrder::make('random'),
         ];
     }
@@ -273,31 +270,17 @@ class ProductSchema extends Schema
     public static function defaultFilters(): array
     {
         return [
-            WhereIdIn::make($this),
-
-            WhereIdNotIn::make($this, 'except'),
-
+            fn (Schema $schema) => WhereIdNotIn::make($schema, 'except'),
             InStockFilter::make('in_stock'),
-
-            WhereHas::make($this, 'prices'),
-
-            WhereHas::make($this, 'brand'),
-
-            WhereHas::make($this, 'urls', 'url')->singular(),
-
-            WhereHas::make($this, 'urls', 'urls'),
-
-            WhereHas::make($this, 'product_type'),
-
-            WhereHas::make($this, 'channels'),
-
-            WhereHas::make($this, 'status'),
-
-            WhereHas::make($this, 'collections'),
-
-            WhereHas::make($this, 'tags'),
-
-            ...(new ProductFilterCollection)->toArray(),
+            fn (Schema $schema) => WhereHas::make($schema, 'prices'),
+            fn (Schema $schema) => WhereHas::make($schema, 'brand'),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'url')->singular(),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'urls'),
+            fn (Schema $schema) => WhereHas::make($schema, 'product_type'),
+            fn (Schema $schema) => WhereHas::make($schema, 'channels'),
+            fn (Schema $schema) => WhereHas::make($schema, 'status'),
+            fn (Schema $schema) => WhereHas::make($schema, 'collections'),
+            fn (Schema $schema) => WhereHas::make($schema, 'tags'),
         ];
     }
 }

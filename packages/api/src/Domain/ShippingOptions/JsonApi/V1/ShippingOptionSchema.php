@@ -2,9 +2,9 @@
 
 namespace Dystore\Api\Domain\ShippingOptions\JsonApi\V1;
 
+use Dystore\Api\Domain\JsonApi\Core\Schema\Schema;
 use Dystore\Api\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystore\Api\Domain\ShippingOptions\Entities\ShippingOption;
-use LaravelJsonApi\Core\Schema\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\NonEloquent\Fields\Attribute;
@@ -30,6 +30,14 @@ class ShippingOptionSchema extends Schema
      * {@inheritDoc}
      */
     public function fields(): iterable
+    {
+        return self::defaultFields();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultFields(): array
     {
         return [
             ID::make(),

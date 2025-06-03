@@ -34,7 +34,7 @@ class CartSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'cart_lines',
@@ -71,18 +71,16 @@ class CartSchema extends Schema
 
             'billing_address',
             'billing_address.country',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Map::make('prices', [
                 Number::make('sub_total', 'subTotal')
@@ -141,31 +139,29 @@ class CartSchema extends Schema
 
             ArrayHash::make('meta'),
 
-            HasOne::make('order', 'draftOrder')
+            fn () => HasOne::make('order', 'draftOrder')
                 ->type(SchemaType::get(Order::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('cart_lines', 'lines')
+            fn () => HasMany::make('cart_lines', 'lines')
                 ->type(SchemaType::get(CartLine::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('cart_addresses', 'addresses')
+            fn () => HasMany::make('cart_addresses', 'addresses')
                 ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('shipping_address', 'shippingAddress')
+            fn () => HasOne::make('shipping_address', 'shippingAddress')
                 ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('billing_address', 'billingAddress')
+            fn () => HasOne::make('billing_address', 'billingAddress')
                 ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 }

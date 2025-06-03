@@ -32,42 +32,39 @@ class ExtendableSchemasMock extends Schema
         return ProductResourceMock::class;
     }
 
-    public function includePaths(): array
+    public static function defaultIncludePaths(): array
     {
         return [
             'include-one',
             'include-two',
 
-            ...parent::includePaths(),
         ];
     }
 
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
             ID::make(),
 
             Str::make('ahoj'),
 
-            ...parent::fields(),
         ];
     }
 
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
             Where::make('ahoj'),
 
-            ...parent::filters(),
         ];
     }
 
-    public function sortables(): array
+    public static function defaultSortables(): array
     {
         return [
             'ahoj',
 
-            ...parent::sortables(),
+             
         ];
     }
 }

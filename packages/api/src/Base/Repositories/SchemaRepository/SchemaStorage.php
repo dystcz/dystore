@@ -24,9 +24,9 @@ class SchemaStorage extends Storage
      *
      * @param  class-string<\Dystore\Api\Domain\JsonApi\Contracts\Schema>  $schema
      */
-    public static function fromSchema(string $schema): self
+    public static function fromSchema(string $schema): static
     {
-        return new self(
+        return new static(
             with: new EagerLoadRepository($schema::defaultWith()),
             includePaths: new IncludePathRepository($schema::defaultIncludePaths()),
             fields: new FieldRepository($schema::defaultFields()),

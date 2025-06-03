@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Config;
 
 final class DomainConfigCollection extends Collection
 {
-    /**
-     * Create domain config collection.
-     */
     public static function make($items = []): self
     {
         if (! empty($items)) {
@@ -32,23 +29,22 @@ final class DomainConfigCollection extends Collection
         return new self($items);
     }
 
-    /**
-     * Get schemas from domain config.
-     */
     public function getSchemas(): self
     {
-        return $this->mapWithKeys(function (DomainConfig $domain) {
-            if (! $domain->hasSchema()) {
-                return [];
-            }
-
-            return [$domain->schema::type() => $domain->schema];
-        });
+        return $this
+            ->map(fn (DomainConfig $domain) => $domain->schema)
+            ->filter()
+            ->values();
     }
 
-    /**
-     * Get schemas from domain config.
-     */
+    public function getResources(): self
+    {
+        return $this
+            ->map(fn (DomainConfig $domain) => $domain->resource)
+            ->filter()
+            ->values();
+    }
+
     public function getSchemaByType(string $type): string
     {
         return $this->firstWhere(
@@ -56,9 +52,6 @@ final class DomainConfigCollection extends Collection
         );
     }
 
-    /**
-     * Get routes from domain config.
-     */
     public function getRoutes(): self
     {
         return $this->mapWithKeys(function (DomainConfig $domain) {
@@ -70,9 +63,6 @@ final class DomainConfigCollection extends Collection
         });
     }
 
-    /**
-     * Get models for Lunar model manifest.
-     */
     public function getModelsForModelManifest(): self
     {
         return $this->mapWithKeys(function (DomainConfig $domain) {
@@ -84,9 +74,6 @@ final class DomainConfigCollection extends Collection
         });
     }
 
-    /**
-     * Get policies from domain config.
-     */
     public function getPolicies(): self
     {
         return $this->mapWithKeys(function (DomainConfig $domain) {

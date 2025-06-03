@@ -2,8 +2,8 @@
 
 namespace Dystore\Tests\Reviews\Stubs\Users;
 
+use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Schema;
 
 class UserSchema extends Schema
 {
@@ -23,7 +23,7 @@ class UserSchema extends Schema
     /**
      * Get the resource fields.
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
             ID::make(),

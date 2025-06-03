@@ -49,7 +49,7 @@ class AddressSchema extends Schema
     public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('title'),
             Str::make('first_name'),
@@ -78,10 +78,10 @@ class AddressSchema extends Schema
             Boolean::make('shipping_default'),
             Boolean::make('billing_default'),
 
-            BelongsTo::make('customer')
+            fn () => BelongsTo::make('customer')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            BelongsTo::make('country')
+            fn () => BelongsTo::make('country')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
         ];
     }

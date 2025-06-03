@@ -2,10 +2,10 @@
 
 namespace Dystore\Api\Domain\Storefront\JsonApi\V1;
 
+use Dystore\Api\Domain\JsonApi\Core\Schema\Schema;
 use Dystore\Api\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystore\Api\Domain\Storefront\Entities\Storefront;
 use Dystore\Api\Support\Models\Actions\SchemaType;
-use LaravelJsonApi\Core\Schema\Schema;
 use LaravelJsonApi\NonEloquent\Fields\ID;
 use LaravelJsonApi\NonEloquent\Fields\ToMany;
 use LaravelJsonApi\NonEloquent\Fields\ToOne;
@@ -34,30 +34,22 @@ class StorefrontSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function fields(): iterable
-    {
-        return self::defaultFields();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public static function defaultFields(): array
     {
         return [
             ID::make()
                 ->matchAs('[a-zA-Z0-9_]+'),
 
-            ToOne::make('channel')
+            fn () => ToOne::make('channel')
                 ->type(SchemaType::get(Channel::class)),
 
-            ToOne::make('customer')
+            fn () => ToOne::make('customer')
                 ->type(SchemaType::get(Customer::class)),
 
-            ToOne::make('currency')
+            fn () => ToOne::make('currency')
                 ->type(SchemaType::get(Currency::class)),
 
-            ToMany::make('customer_groups', 'customerGroups')
+            fn () => ToMany::make('customer_groups', 'customerGroups')
                 ->retainFieldName()
                 ->type(SchemaType::get(CustomerGroup::class)),
         ];

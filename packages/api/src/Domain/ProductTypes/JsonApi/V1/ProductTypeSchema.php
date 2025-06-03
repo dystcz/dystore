@@ -19,23 +19,22 @@ class ProductTypeSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             // 'mapped_attributes',
             // 'mapped_attributes.attribute_group',
 
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): iterable
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('name'),
 
@@ -45,17 +44,14 @@ class ProductTypeSchema extends Schema
             //         static fn ($relation) => $relation->withoutLinks()
             //     ),
 
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
-        return [
-            ...parent::filters(),
-        ];
+        return [];
     }
 }

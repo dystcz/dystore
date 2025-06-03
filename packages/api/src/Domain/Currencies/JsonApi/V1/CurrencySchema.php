@@ -19,10 +19,10 @@ class CurrencySchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('code'),
             Str::make('name'),
@@ -33,7 +33,7 @@ class CurrencySchema extends Schema
             Boolean::make('enabled'),
             Boolean::make('default'),
 
-            HasMany::make('prices'),
+            fn () => HasMany::make('prices'),
         ];
     }
 }

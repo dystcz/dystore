@@ -2,7 +2,6 @@
 
 namespace Dystore\Api\Domain\JsonApi\Resources;
 
-use Closure;
 use Dystore\Api\Base\Contracts\Extendable as ExtendableContract;
 use Dystore\Api\Base\Facades\JsonApiManifest;
 use Dystore\Api\Domain\JsonApi\Contracts\JsonApiResource as ResourceContract;
@@ -14,8 +13,6 @@ use LaravelJsonApi\Contracts\Resources\Serializer\Relation as SerializableRelati
 use LaravelJsonApi\Contracts\Schema\Schema;
 use LaravelJsonApi\Core\Resources\JsonApiResource as BaseApiResource;
 use LaravelJsonApi\Core\Resources\Relation;
-use RecursiveArrayIterator;
-use RecursiveIteratorIterator;
 
 class JsonApiResource extends BaseApiResource implements ExtendableContract, ResourceContract
 {
@@ -90,7 +87,7 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract, Res
     {
         return [
             ...$this->schema->attributes(),
-            ...JsonApiManifest::resource(static::class)->attributes()->all(),
+            ...JsonApiManifest::resource(static::class)->attributes()->resolve($this),
         ];
     }
 
@@ -112,7 +109,7 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract, Res
     {
         return [
             ...$this->schema->relationships(),
-            ...JsonApiManifest::resource(static::class)->relationships()->all(),
+            ...JsonApiManifest::resource(static::class)->relationships()->resolve($this),
         ];
     }
 
@@ -122,30 +119,5 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract, Res
     public static function defaultRelationships(): array
     {
         return [];
-    }
-
-    /**
-     * Get extended resource's relationships.
-     *
-     * @param  array<int,mixed>  $fields
-     */
-    protected function extendedFields(array $fields): array
-    {
-        $fields = array_map(function ($field) {
-            $field = $field->value();
-
-            if ($field instanceof Closure) {
-                $field = Closure::bind($field, $this, parent::class);
-
-                return $field($this);
-            }
-
-            return $field;
-        }, $fields);
-
-        $recursiveArrayIterator = new RecursiveArrayIterator($fields, RecursiveArrayIterator::CHILD_ARRAYS_ONLY);
-        $iterator = new RecursiveIteratorIterator($recursiveArrayIterator);
-
-        return iterator_to_array($iterator);
     }
 }

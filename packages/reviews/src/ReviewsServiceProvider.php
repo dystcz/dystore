@@ -8,7 +8,7 @@ use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
-use Dystore\Reviews\Domain\Hub\Components\Slots\ReviewsSlot;
+use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewResource;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Dystore\Reviews\Domain\Reviews\Observers\ReviewObserver;
@@ -17,8 +17,7 @@ use Illuminate\Support\ServiceProvider;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
-use Livewire\Livewire;
-use Lunar\Hub\Facades\Slot;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
 
@@ -38,14 +37,14 @@ class ReviewsServiceProvider extends ServiceProvider
             'dystore-reviews',
         );
 
-        $this->registerSchemas();
-
         $this->booting(function () {
             $this->registerPolicies();
         });
 
-        $this->registerDynamicRelations();
+        JsonApiManifest::addSchema(ReviewSchema::class);
+        JsonApiManifest::addResource(ReviewResource::class);
 
+        $this->registerDynamicRelations();
         $this->extendSchemas();
     }
 
@@ -58,17 +57,6 @@ class ReviewsServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/Domain/Hub/resources/views', 'dystore-reviews');
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
 
-        // TODO: Add slots to Filament
-        // Livewire::component(
-        //     'dystore-reviews::reviews-slot',
-        //     ReviewsSlot::class,
-        // );
-        //
-        // Slot::register(
-        //     'product.show',
-        //     ReviewsSlot::class,
-        // );
-
         Review::observe(ReviewObserver::class);
 
         if ($this->app->runningInConsole()) {
@@ -78,29 +66,13 @@ class ReviewsServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register schemas.
-     */
-    public function registerSchemas(): void
-    {
-        JsonApiManifest::addSchema(ReviewSchema::class);
-    }
-
-    /**
-     * Register the application's policies.
-     */
     public function registerPolicies(): void
     {
         DomainConfigCollection::fromConfig('dystore.reviews.domains')
             ->getPolicies()
-            ->each(
-                fn (string $policy, string $model) => Gate::policy($model, $policy),
-            );
+            ->each(fn (string $policy, string $model) => Gate::policy($model, $policy));
     }
 
-    /**
-     * Register config files.
-     */
     protected function registerConfig(): void
     {
         $this->mergeConfigFrom(
@@ -109,9 +81,6 @@ class ReviewsServiceProvider extends ServiceProvider
         );
     }
 
-    /**
-     * Publish config files.
-     */
     protected function publishConfig(): void
     {
         $this->publishes([
@@ -119,9 +88,6 @@ class ReviewsServiceProvider extends ServiceProvider
         ], 'dystore-reviews');
     }
 
-    /**
-     * Publish translations.
-     */
     protected function publishTranslations(): void
     {
         $this->publishes([
@@ -129,9 +95,6 @@ class ReviewsServiceProvider extends ServiceProvider
         ], 'dystore-reviews.translations');
     }
 
-    /**
-     * Register dynamic relations.
-     */
     protected function registerDynamicRelations(): void
     {
         Product::resolveRelationUsing('variantReviews', function ($model) {
@@ -149,15 +112,12 @@ class ReviewsServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Extend schemas.
-     */
     protected function extendSchemas(): void
     {
         $productSchema = JsonApiManifest::schema(ProductSchema::class);
 
         $productSchema->with()->add('reviews');
-        $productSchema->includePaths()->merge([
+        $productSchema->includePaths()->push(...[
             'reviews',
             'reviews.user',
             'reviews.user.customers',
@@ -165,37 +125,37 @@ class ReviewsServiceProvider extends ServiceProvider
             'variants.reviews.user',
             'variants.reviews.user.customers',
         ]);
-        $productSchema->fields()->merge([
+        $productSchema->fields()->push(...[
             fn () => HasManyThrough::make('reviews')
                 ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
+                    static fn (Relation $relation) => $relation->withoutLinks(),
                 ),
             fn () => Number::make('review_count')
                 ->extractUsing(
-                    static fn ($model) => $model->relationLoaded('reviews')
+                    static fn (Product $model) => $model->relationLoaded('reviews')
                         ? $model->reviews->count()
                         : $model->reviews()->count(),
                 ),
             fn () => HasManyThrough::make('reviews')->serializeUsing(
-                static fn ($relation) => $relation->withoutLinks(),
+                static fn (Relation $relation) => $relation->withoutLinks(),
             ),
         ]);
         $productSchema->showRelated()->add('reviews');
         $productSchema->showRelationships()->add('reviews');
 
-        $productSchema = JsonApiManifest::resource(ProductResource::class)
+        JsonApiManifest::resource(ProductResource::class)
             ->relationships()
             ->add(fn (ProductResource $resource) => $resource->relation('reviews'));
 
         $variantSchema = JsonApiManifest::schema(ProductVariantSchema::class);
 
-        $variantSchema->includePaths()->merge([
+        $variantSchema->includePaths()->push(...[
             'reviews',
             'reviews.user',
             'reviews.user.customers',
         ]);
 
-        $variantSchema->fields()->merge([
+        $variantSchema->fields()->push(...[
             fn () => HasMany::make('reviews')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),

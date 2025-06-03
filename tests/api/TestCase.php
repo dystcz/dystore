@@ -180,6 +180,8 @@ abstract class TestCase extends OrchestraTestCase
                 'username' => 'homestead',
                 'password' => 'secret',
             ]);
+
+            $config->set('queue.default', 'sync');
         });
     }
 

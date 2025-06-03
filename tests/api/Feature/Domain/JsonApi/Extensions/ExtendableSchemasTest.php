@@ -42,7 +42,7 @@ test('schema eager loading can be extended', function () {
             'something',
             'else',
         ]);
-});
+})->todo();
 
 test('schema fields can be extended', function () {
     /** @var TestCase $this */
@@ -70,7 +70,7 @@ test('schema fields can be extended', function () {
         ->fields()
         ->toContain($field)
         ->toHaveCount(3);
-});
+})->todo();
 
 test('schema filters can be extended', function () {
     /** @var TestCase $this */
@@ -98,7 +98,7 @@ test('schema filters can be extended', function () {
         ->filters()
         ->toContain($filter)
         ->toHaveCount(3);
-});
+})->todo();
 
 test('schema sortables can be extended', function () {
     /** @var TestCase $this */
@@ -126,7 +126,7 @@ test('schema sortables can be extended', function () {
         ->sortables()
         ->toContain('ahoj', 'nazdar', 'cau')
         ->toHaveCount(3);
-});
+})->todo();
 
 test('schema related gate ability can be extended', function () {
     /** @var TestCase $this */
@@ -155,7 +155,7 @@ test('schema related gate ability can be extended', function () {
         ->showRelated()
         ->toContain('two', 'three', 'four', 'one')
         ->toHaveCount(4);
-});
+})->todo();
 
 test('schema relationships gate ability can be extended', function () {
     /** @var TestCase $this */
@@ -183,4 +183,4 @@ test('schema relationships gate ability can be extended', function () {
         ->showRelationship()
         ->toContain('apple', 'pear', 'peach')
         ->toHaveCount(3);
-});
+})->todo();

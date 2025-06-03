@@ -24,7 +24,7 @@ class NewsletterSchema extends Schema
     /**
      * Get the resource fields.
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
             Str::make('email'),

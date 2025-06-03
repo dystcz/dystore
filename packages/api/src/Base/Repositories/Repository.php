@@ -2,6 +2,8 @@
 
 namespace Dystore\Api\Base\Repositories;
 
+use Closure;
+use Dystore\Api\Base\Contracts\Extendable;
 use Illuminate\Support\Collection;
 
 /**
@@ -10,4 +12,33 @@ use Illuminate\Support\Collection;
  *
  * @extends \Illuminate\Support\Collection<TKey, TValue>
  */
-abstract class Repository extends Collection {}
+abstract class Repository extends Collection
+{
+    public function resolve(?Extendable $extendable = null): iterable
+    {
+        return $this
+            ->map(function (mixed $value) use ($extendable) {
+                if ($value instanceof Closure) {
+                    $value = Closure::bind($value, $extendable, get_parent_class($extendable));
+
+                    $value = $value($extendable);
+                }
+
+                return $value;
+            })
+            ->toArray();
+    }
+
+    // public function resolve(?Extendable $extendable = null): iterable
+    // {
+    //     foreach ($this->items as $key => $value) {
+    //         if ($value instanceof Closure) {
+    //             $value = Closure::bind($value, $extendable, get_parent_class($extendable));
+    //
+    //             yield $value($extendable);
+    //         }
+    //
+    //         yield $value;
+    //     }
+    // }
+}

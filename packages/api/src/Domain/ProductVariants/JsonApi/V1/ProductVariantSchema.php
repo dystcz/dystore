@@ -16,8 +16,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Attribute;
 use Lunar\Models\Contracts\Price;
@@ -54,20 +52,18 @@ class ProductVariantSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function with(): array
+    public static function defaultWith(): array
     {
         return [
             'attributes',
             'attributes.attributeGroup',
-
-            ...parent::with(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'default_url',
@@ -81,18 +77,16 @@ class ProductVariantSchema extends Schema
             'product_option_values',
             'product_option_values.images',
             'product_option_values.product_option',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
@@ -117,40 +111,40 @@ class ProductVariantSchema extends Schema
                     ),
             ]),
 
-            BelongsTo::make('product')
+            fn () => BelongsTo::make('product')
                 ->readOnly(),
 
-            HasMany::make('attributes', 'attributes')
+            fn () => HasMany::make('attributes', 'attributes')
                 ->type(SchemaType::get(Attribute::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('other_product_variants', 'otherVariants')
+            fn () => HasMany::make('other_product_variants', 'otherVariants')
                 ->type(SchemaType::get(ProductVariant::class))
                 ->retainFieldName()
                 ->canCount()
                 ->countAs('other_product_variants_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('prices')
+            fn () => HasMany::make('prices')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('lowest_price', 'lowestPrice')
+            fn () => HasOne::make('lowest_price', 'lowestPrice')
                 ->type(SchemaType::get(Price::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('highest_price', 'highestPrice')
+            fn () => HasOne::make('highest_price', 'highestPrice')
                 ->type(SchemaType::get(Price::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('images', 'images')
+            fn () => HasMany::make('images', 'images')
                 ->type(SchemaType::get(Media::class))
                 ->canCount()
                 ->countAs('images_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('product_option_values', 'values')
+            fn () => HasMany::make('product_option_values', 'values')
                 ->retainFieldName()
                 ->type(SchemaType::get(ProductOptionValue::class))
                 ->readOnly()
@@ -158,38 +152,28 @@ class ProductVariantSchema extends Schema
                 ->countAs('product_option_values_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOne::make('default_url', 'defaultUrl')
+            fn () => HasOne::make('default_url', 'defaultUrl')
                 ->type(SchemaType::get(Url::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('urls')
+            fn () => HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasOneThrough::make('thumbnail')
+            fn () => HasOneThrough::make('thumbnail')
                 ->type(SchemaType::get(Media::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
-            WhereIdIn::make($this),
-
-            WhereIdNotIn::make($this, 'except'),
-
-            WhereHas::make($this, 'urls', 'url')
-                ->singular(),
-
-            WhereHas::make($this, 'urls', 'urls'),
-
-            ...parent::filters(),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'url')->singular(),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'urls'),
         ];
     }
 }

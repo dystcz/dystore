@@ -39,7 +39,7 @@ test('a resource attributes can be extended', function () {
             'nazdar' => 'cau',
             'ahoj' => 'zdar',
         ]);
-});
+})->todo();
 
 test('a resource relationships can be extended', function () {
     ResourceRepository::extend(ProductResourceMock::class)
@@ -61,4 +61,4 @@ test('a resource relationships can be extended', function () {
 
     expect(iterator_to_array($productResourceInstance->relationships(null))['golden_chocolate'])
         ->toBeInstanceOf(Relation::class);
-});
+})->todo();

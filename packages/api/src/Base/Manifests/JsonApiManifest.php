@@ -3,52 +3,71 @@
 namespace Dystore\Api\Base\Manifests;
 
 use Dystore\Api\Base\Contracts\JsonApiManifest as JsonApiManifestContract;
-use Dystore\Api\Base\Repositories\ResourceRepository;
 use Dystore\Api\Base\Repositories\ResourceRepository\ResourceStorage;
-use Dystore\Api\Base\Repositories\SchemaRepository;
 use Dystore\Api\Base\Repositories\SchemaRepository\SchemaStorage;
+use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
+use Illuminate\Support\Arr;
 
 class JsonApiManifest implements JsonApiManifestContract
 {
-    public function __construct(
-        public SchemaRepository $schemas = new SchemaRepository,
-        public ResourceRepository $resources = new ResourceRepository,
-    ) {}
+    protected array $schemas = [];
 
-    public function schemas(): SchemaRepository
+    protected array $resources = [];
+
+    public function __construct()
+    {
+        $this->registerBaseSchemas();
+        $this->registerBaseResources();
+    }
+
+    private function registerBaseSchemas(): void
+    {
+        $config = DomainConfigCollection::fromConfig('dystore.domains');
+
+        $config->getSchemas()->each(fn (string $schema) => $this->addSchema($schema));
+    }
+
+    private function registerBaseResources(): void
+    {
+        $config = DomainConfigCollection::fromConfig('dystore.domains')
+            ->getResources()
+            ->each(fn (string $resource) => $this->addResource($resource));
+    }
+
+    public function schemas(): array
     {
         return $this->schemas;
     }
 
     public function schema(string $schema): ?SchemaStorage
     {
-        return $this->schemas->get($schema);
+        return Arr::get($this->schemas(), $schema);
     }
 
     public function addSchema(string $schema, ?SchemaStorage $storage = null): self
     {
-        $storage = $storage ?: SchemaStorage::fromSchema($schema);
+        $storage = $storage ?? SchemaStorage::fromSchema($schema);
 
-        $this->schemas->put($schema, $storage);
+        $this->schemas[$schema] = $storage;
 
         return $this;
     }
 
-    public function resources(): ResourceRepository
+    public function resources(): array
     {
         return $this->resources;
     }
 
-    public function resource(string $resource): ?array
+    public function resource(string $resource): ?ResourceStorage
     {
-        return $this->resources->get($resource);
+        return Arr::get($this->resources(), $resource);
     }
 
     public function addResource(string $resource, ?ResourceStorage $storage = null): self
     {
-        $storage = $storage ?: ResourceStorage::fromResource($resource);
+        $storage = $storage ?? ResourceStorage::fromResource($resource);
 
-        $this->resources->put($resource, $storage);
+        $this->resources[$resource] = $storage;
 
         return $this;
     }

@@ -22,35 +22,33 @@ class ProductOptionValueSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function with(): array
+    public static function defaultWith(): array
     {
         return [
             'option',
 
-            ...parent::with(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'images',
             'product_option',
 
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): iterable
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('name')
                 ->readOnly()
@@ -62,28 +60,24 @@ class ProductOptionValueSchema extends Schema
                 ->readOnly()
                 ->on('option'),
 
-            BelongsTo::make('product_option', 'option')
+            fn () => BelongsTo::make('product_option', 'option')
                 ->readOnly()
                 ->type(SchemaType::get(ProductOption::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            HasMany::make('images', 'images')
+            fn () => HasMany::make('images', 'images')
                 ->type(SchemaType::get(Media::class))
                 ->canCount()
                 ->countAs('images_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
-        return [
-            ...parent::filters(),
-        ];
+        return [];
     }
 }

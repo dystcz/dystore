@@ -12,21 +12,11 @@ class JsonApiServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultResource(
-            Domain\JsonApi\Resources\JsonApiResource::class,
-        );
-        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultAuthorizer(
-            Domain\JsonApi\Authorizers\Authorizer::class,
-        );
-        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultQuery(
-            Domain\JsonApi\Queries\Query::class,
-        );
-        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultCollectionQuery(
-            Domain\JsonApi\Queries\CollectionQuery::class,
-        );
-        \LaravelJsonApi\Laravel\LaravelJsonApi::withCountQueryParameter(
-            'with_count',
-        );
+        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultResource(Domain\JsonApi\Resources\JsonApiResource::class);
+        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultAuthorizer(Domain\JsonApi\Authorizers\Authorizer::class);
+        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultQuery(Domain\JsonApi\Queries\Query::class);
+        \LaravelJsonApi\Laravel\LaravelJsonApi::defaultCollectionQuery(Domain\JsonApi\Queries\CollectionQuery::class);
+        \LaravelJsonApi\Laravel\LaravelJsonApi::withCountQueryParameter('with_count');
     }
 
     /**

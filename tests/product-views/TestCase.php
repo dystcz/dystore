@@ -103,6 +103,8 @@ abstract class TestCase extends Orchestra
                 'database' => ':memory:',
                 'prefix' => '',
             ]);
+
+            $config->set('queue.default', 'sync');
         });
     }
 

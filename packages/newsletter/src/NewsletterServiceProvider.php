@@ -3,6 +3,7 @@
 namespace Dystore\Newsletter;
 
 use Dystore\Api\Base\Facades\JsonApiManifest;
+use Dystore\Newsletter\Domain\Newsletter\JsonApi\V1\NewsletterResource;
 use Dystore\Newsletter\Domain\Newsletter\JsonApi\V1\NewsletterSchema;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,8 +18,6 @@ class NewsletterServiceProvider extends ServiceProvider
     {
         $this->registerConfig();
 
-        $this->registerSchemas();
-
         $this->loadTranslationsFrom(
             "{$this->root}/lang",
             'dystore-newsletter',
@@ -28,6 +27,9 @@ class NewsletterServiceProvider extends ServiceProvider
         $this->app->singleton('dystore-newsletter', function () {
             return new Newsletter;
         });
+
+        JsonApiManifest::addSchema(NewsletterSchema::class);
+        JsonApiManifest::addResource(NewsletterResource::class);
     }
 
     /**
@@ -41,19 +43,9 @@ class NewsletterServiceProvider extends ServiceProvider
             $this->publishConfig();
             $this->publishTranslations();
         }
+
     }
 
-    /**
-     * Register schemas.
-     */
-    public function registerSchemas(): void
-    {
-        JsonApiManifest::addSchema(NewsletterSchema::class);
-    }
-
-    /**
-     * Register config files.
-     */
     protected function registerConfig(): void
     {
         $this->mergeConfigFrom(
@@ -62,9 +54,6 @@ class NewsletterServiceProvider extends ServiceProvider
         );
     }
 
-    /**
-     * Publish config files.
-     */
     protected function publishConfig(): void
     {
         $this->publishes([
@@ -72,9 +61,6 @@ class NewsletterServiceProvider extends ServiceProvider
         ], 'dystore-newsletter');
     }
 
-    /**
-     * Publish translations.
-     */
     protected function publishTranslations(): void
     {
         $this->publishes([

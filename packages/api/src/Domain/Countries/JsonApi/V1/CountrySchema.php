@@ -18,10 +18,10 @@ class CountrySchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('name'),
             Str::make('iso2'),
@@ -32,8 +32,6 @@ class CountrySchema extends Schema
             Str::make('native'),
             Str::make('emoji'),
             Str::make('emoji_u'),
-
-            ...parent::fields(),
         ];
     }
 

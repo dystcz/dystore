@@ -9,7 +9,8 @@ use Lunar\Database\Factories\ProductVariantFactory;
 
 use function Pest\Faker\fake;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('product_notifications');
 
 test('user can subscribe to product stock notification', function () {
     /** @var TestCase $this */

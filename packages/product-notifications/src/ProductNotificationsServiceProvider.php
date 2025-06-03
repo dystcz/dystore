@@ -4,6 +4,7 @@ namespace Dystore\ProductNotifications;
 
 use Dystore\Api\Base\Facades\JsonApiManifest;
 use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
+use Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1\ProductNotificationResource;
 use Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1\ProductNotificationSchema;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Observers\ProductVariantObserver;
@@ -22,8 +23,6 @@ class ProductNotificationsServiceProvider extends ServiceProvider
     {
         $this->registerConfig();
 
-        $this->registerSchemas();
-
         $this->booting(function () {
             $this->registerPolicies();
         });
@@ -32,6 +31,9 @@ class ProductNotificationsServiceProvider extends ServiceProvider
             "{$this->root}/lang",
             'dystore-product-notifications',
         );
+
+        JsonApiManifest::addSchema(ProductNotificationSchema::class);
+        JsonApiManifest::addResource(ProductNotificationResource::class);
     }
 
     /**
@@ -56,14 +58,6 @@ class ProductNotificationsServiceProvider extends ServiceProvider
     public function registerObservers(): void
     {
         ProductVariant::observe(ProductVariantObserver::class);
-    }
-
-    /**
-     * Register schemas.
-     */
-    public function registerSchemas(): void
-    {
-        JsonApiManifest::addSchema(ProductNotificationSchema::class);
     }
 
     /**

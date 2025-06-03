@@ -20,23 +20,22 @@ class ProductOptionSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'product_option_values',
             'product_option_values.images',
 
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): iterable
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('name')
                 ->readOnly()
@@ -53,23 +52,19 @@ class ProductOptionSchema extends Schema
             Str::make('handle')
                 ->readOnly(),
 
-            HasMany::make('product_option_values', 'values')
+            fn () => HasMany::make('product_option_values', 'values')
                 ->type(SchemaType::get(ProductOptionValue::class))
                 ->canCount()
                 ->countAs('product_option_values_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
-        return [
-            ...parent::filters(),
-        ];
+        return [];
     }
 }

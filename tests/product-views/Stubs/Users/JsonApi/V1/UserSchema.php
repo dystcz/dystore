@@ -3,7 +3,7 @@
 namespace Dystore\Tests\ProductViews\Stubs\Users\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
-use Dystore\Tests\ProductViews\Stubs\User;
+use Dystore\Tests\ProductViews\Stubs\Users\User;
 use LaravelJsonApi\Eloquent\Fields\ID;
 
 class UserSchema extends Schema
@@ -24,7 +24,7 @@ class UserSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
             ID::make(),

@@ -25,7 +25,7 @@ class CartLineSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'purchasable',
@@ -38,18 +38,16 @@ class CartLineSchema extends Schema
             'purchasable.product_option_values',
             'purchasable.product_option_values.images',
             'purchasable.product_option_values.product_option',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Number::make('purchasable_id'),
             Str::make('purchasable_type'),
@@ -86,17 +84,15 @@ class CartLineSchema extends Schema
 
             ArrayHash::make('meta'),
 
-            BelongsTo::make('cart')
+            fn () => BelongsTo::make('cart')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            MorphTo::make('purchasable', 'purchasable')
+            fn () => MorphTo::make('purchasable', 'purchasable')
                 ->types(
                     SchemaType::get(Product::class),
                     SchemaType::get(ProductVariant::class),
                 )
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 }
