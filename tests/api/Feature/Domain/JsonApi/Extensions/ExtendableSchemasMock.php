@@ -64,7 +64,6 @@ class ExtendableSchemasMock extends Schema
         return [
             'ahoj',
 
-             
         ];
     }
 }
