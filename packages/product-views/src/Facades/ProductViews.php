@@ -5,6 +5,12 @@ namespace Dystore\ProductViews\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @method static bool enabled()
+ * @method static array getLists()
+ * @method static array sorted()
+ * @method static void record(int $productId)
+ * @method static void removeOldEntries()
+ *
  * @see \Dystore\ProductViews\ProductViews
  */
 class ProductViews extends Facade

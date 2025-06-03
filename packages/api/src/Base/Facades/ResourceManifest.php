@@ -9,13 +9,14 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static void register(Collection $schemas)
+ * @method static \Dystore\Api\Base\Contracts\SchemaExtension extend(string $class)
+ * @method static void register(\Illuminate\Support\Collection $schemas)
  * @method static void registerSchema(string $schemaClass)
- * @method static Collection getRegisteredSchemas()
- * @method static Collection getSchemaTypes()
- * @method static SchemaContract getRegisteredSchema(string $schemaType)
+ * @method static \Illuminate\Support\Collection getRegisteredSchemas()
+ * @method static array getServerSchemas()
+ * @method static \Illuminate\Support\Collection getSchemaTypes()
+ * @method static \Dystore\Api\Domain\JsonApi\Contracts\Schema getRegisteredSchema(string $schemaType)
  * @method static void removeSchema(string $schemaType)
- * @method static Extension extend(string $class)
  *
  * @see \Dystore\Api\Base\Manifests\SchemaManifest
  */
