@@ -6,7 +6,7 @@ use Dystore\Api\Base\Contracts\ResourceManifest;
 use Dystore\Api\Base\Contracts\SchemaManifest;
 use Dystore\Api\Base\Extensions\ResourceExtension;
 use Dystore\Api\Base\Extensions\SchemaExtension;
-use Dystore\Api\Base\Facades\SchemaManifestFacade;
+use Dystore\Api\Base\Facades\SchemaManifest as SchemaManifestFacade;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductResource;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;

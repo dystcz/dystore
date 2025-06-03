@@ -2,7 +2,7 @@
 
 namespace Dystore\ProductNotifications;
 
-use Dystore\Api\Base\Facades\SchemaManifestFacade;
+use Dystore\Api\Base\Facades\SchemaManifest;
 use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
 use Dystore\ProductNotifications\Domain\ProductNotifications\JsonApi\V1\ProductNotificationSchema;
 use Dystore\ProductNotifications\Domain\ProductNotifications\Models\ProductNotification;
@@ -63,7 +63,7 @@ class ProductNotificationsServiceProvider extends ServiceProvider
      */
     public function registerSchemas(): void
     {
-        SchemaManifestFacade::registerSchema(ProductNotificationSchema::class);
+        SchemaManifest::registerSchema(ProductNotificationSchema::class);
     }
 
     /**

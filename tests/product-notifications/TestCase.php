@@ -2,7 +2,7 @@
 
 namespace Dystore\Tests\ProductNotifications;
 
-use Dystore\Api\Base\Facades\SchemaManifestFacade;
+use Dystore\Api\Base\Facades\SchemaManifest;
 use Dystore\Tests\ProductNotifications\Stubs\Users\User;
 use Dystore\Tests\ProductNotifications\Stubs\Users\UserSchema;
 use Illuminate\Contracts\Config\Repository;
@@ -38,7 +38,7 @@ abstract class TestCase extends Orchestra
         /**
          * Schema configuration.
          */
-        SchemaManifestFacade::registerSchema(UserSchema::class);
+        SchemaManifest::registerSchema(UserSchema::class);
 
         activity()->disableLogging();
     }
