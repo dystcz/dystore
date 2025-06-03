@@ -1,6 +1,15 @@
 # Changelog
 
-## 1.0.2 - 2025-03-20
+## 1.0.7
+
+- Added auto documentation for facades
+
+### ⚠️ Breaking changes
+
+- `ResourceManifestFacade` has been renamed to `ResourceManifest`
+- `SchemaManifestFacade` has been renamed to `SchemaManifest`
+
+## 1.0.2
 
 - Removed lunar pipeline overrides #37
 - Updated laravel json api versions #36
