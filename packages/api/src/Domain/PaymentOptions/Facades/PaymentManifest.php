@@ -2,12 +2,8 @@
 
 namespace Dystore\Api\Domain\PaymentOptions\Facades;
 
-use Closure;
 use Dystore\Api\Domain\PaymentOptions\Contracts\PaymentManifest as PaymentManifestContract;
-use Dystore\Api\Domain\PaymentOptions\Entities\PaymentOption;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
-use Lunar\Models\Contracts\Cart as CartContract;
 
 /**
  * @method static \Dystore\Api\Domain\PaymentOptions\Manifests\PaymentManifest addOption(\Dystore\Api\Domain\PaymentOptions\Entities\PaymentOption $option)
