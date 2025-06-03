@@ -37,7 +37,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(Authenticatable $user, Review $review): bool
+    public function update(?Authenticatable $user, Review $review): bool
     {
         return true;
     }
@@ -45,7 +45,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(Authenticatable $user, Review $review): bool
+    public function delete(?Authenticatable $user, Review $review): bool
     {
         return true;
     }
@@ -53,7 +53,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can publish the review.
      */
-    public function publish(Authenticatable $user, Review $review): bool
+    public function publish(?Authenticatable $user, Review $review): bool
     {
         return true;
     }
@@ -61,7 +61,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can unpublish the review.
      */
-    public function unpublish(Authenticatable $user, Review $review): bool
+    public function unpublish(?Authenticatable $user, Review $review): bool
     {
         return true;
     }
