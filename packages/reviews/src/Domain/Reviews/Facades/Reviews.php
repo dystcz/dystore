@@ -5,9 +5,9 @@ namespace Dystore\Reviews\Domain\Reviews\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Dystore\Reviews\Skeleton\SkeletonClass
+ * @see \Dystore\Reviews\Reviews
  */
-class Review extends Facade
+class Reviews extends Facade
 {
     /**
      * Get the registered name of the component.
