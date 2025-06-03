@@ -36,6 +36,14 @@ class StorefrontSchema extends Schema
      */
     public function fields(): iterable
     {
+        return self::defaultFields();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultFields(): array
+    {
         return [
             ID::make()
                 ->matchAs('[a-zA-Z0-9_]+'),

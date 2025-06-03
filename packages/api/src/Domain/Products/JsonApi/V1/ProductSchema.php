@@ -68,21 +68,19 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function with(): array
+    public static function defaultWith(): array
     {
         return [
             'productType',
             'productType.mappedAttributes',
             'productType.mappedAttributes.attributeGroup',
-
-            ...parent::with(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'default_url',
@@ -121,15 +119,13 @@ class ProductSchema extends Schema
 
             'product_type',
             'tags',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): iterable
+    public static function defaultFields(): iterable
     {
         return [
             $this->idField(),
@@ -256,19 +252,15 @@ class ProductSchema extends Schema
                 ->canCount()
                 ->countAs('product_option_values_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function sortables(): iterable
+    public static function defaultSortables(): array
     {
         return [
-            ...parent::sortables(),
-
             InDefaultOrder::make('ordered'),
 
             InRandomOrder::make('random'),
@@ -278,7 +270,7 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
             WhereIdIn::make($this),
@@ -306,8 +298,6 @@ class ProductSchema extends Schema
             WhereHas::make($this, 'tags'),
 
             ...(new ProductFilterCollection)->toArray(),
-
-            ...parent::filters(),
         ];
     }
 }

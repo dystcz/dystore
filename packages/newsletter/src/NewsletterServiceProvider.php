@@ -2,7 +2,7 @@
 
 namespace Dystore\Newsletter;
 
-use Dystore\Api\Base\Facades\SchemaManifest;
+use Dystore\Api\Base\Facades\JsonApiManifest;
 use Dystore\Newsletter\Domain\Newsletter\JsonApi\V1\NewsletterSchema;
 use Illuminate\Support\ServiceProvider;
 
@@ -48,7 +48,7 @@ class NewsletterServiceProvider extends ServiceProvider
      */
     public function registerSchemas(): void
     {
-        SchemaManifest::registerSchema(NewsletterSchema::class);
+        JsonApiManifest::addSchema(NewsletterSchema::class);
     }
 
     /**

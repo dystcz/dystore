@@ -50,10 +50,7 @@ class ApiServiceProvider extends ServiceProvider
         });
 
         // Register the main class to use with the facade.
-        $this->app->singleton(
-            'dystore',
-            fn () => new DystoreApi,
-        );
+        $this->app->singleton('dystore', fn () => new DystoreApi);
 
         $this->bindControllers();
         $this->bindModels();

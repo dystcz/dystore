@@ -1,6 +1,6 @@
 <?php
 
-use Dystore\Api\Base\Manifests\ResourceManifest;
+use Dystore\Api\Base\Repositories\ResourceRepository;
 use Dystore\Api\Domain\JsonApi\Resources\JsonApiResource;
 use Dystore\Api\Domain\JsonApi\V1\Server;
 use Dystore\Api\Domain\Products\Factories\ProductFactory;
@@ -13,14 +13,14 @@ use LaravelJsonApi\Core\Resources\Relation;
 uses(TestCase::class, RefreshDatabase::class);
 
 test('a resource attributes can be extended', function () {
-    ResourceManifest::extend(ProductResourceMock::class)
+    ResourceRepository::extend(ProductResourceMock::class)
         ->setAttributes(fn (JsonApiResource $resource) => [
             'secret_id' => $resource->resource->id,
             'nazdar' => 'cau',
             'ahoj' => 'zdar',
         ]);
 
-    expect(ResourceManifest::extend(ProductResourceMock::class)->attributes()->all()[0])
+    expect(ResourceRepository::extend(ProductResourceMock::class)->attributes()->all()[0])
         ->value()
         ->toBeInstanceOf(Closure::class);
 
@@ -42,12 +42,12 @@ test('a resource attributes can be extended', function () {
 });
 
 test('a resource relationships can be extended', function () {
-    ResourceManifest::extend(ProductResourceMock::class)
+    ResourceRepository::extend(ProductResourceMock::class)
         ->setRelationships(fn (JsonApiResource $resource) => [
             $resource->relation('golden_chocolate'),
         ]);
 
-    expect(ResourceManifest::extend(ProductResourceMock::class)->relationships()->all()[0])
+    expect(ResourceRepository::extend(ProductResourceMock::class)->relationships()->all()[0])
         ->value()
         ->toBeInstanceOf(Closure::class);
 

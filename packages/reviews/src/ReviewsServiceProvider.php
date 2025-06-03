@@ -2,11 +2,7 @@
 
 namespace Dystore\Reviews;
 
-use Dystore\Api\Base\Contracts\ResourceManifest;
-use Dystore\Api\Base\Contracts\SchemaManifest;
-use Dystore\Api\Base\Extensions\ResourceExtension;
-use Dystore\Api\Base\Extensions\SchemaExtension;
-use Dystore\Api\Base\Facades\SchemaManifest as SchemaManifestFacade;
+use Dystore\Api\Base\Facades\JsonApiManifest;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductResource;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;
@@ -87,7 +83,7 @@ class ReviewsServiceProvider extends ServiceProvider
      */
     public function registerSchemas(): void
     {
-        SchemaManifestFacade::registerSchema(ReviewSchema::class);
+        JsonApiManifest::addSchema(ReviewSchema::class);
     }
 
     /**
@@ -158,81 +154,61 @@ class ReviewsServiceProvider extends ServiceProvider
      */
     protected function extendSchemas(): void
     {
-        /** @var SchemaManifest $schemaManifest */
-        $schemaManifest = $this->app->make(SchemaManifest::class);
+        $productSchema = JsonApiManifest::schema(ProductSchema::class);
 
-        /** @var ResourceManifest $resourceManifest */
-        $resourceManifest = $this->app->make(ResourceManifest::class);
-
-        /** @var SchemaExtension $productSchemaExtenstion */
-        $productSchemaExtenstion = $schemaManifest::extend(ProductSchema::class);
-
-        $productSchemaExtenstion
-            ->setWith([
-                'reviews',
-            ])
-            ->setIncludePaths([
-                'reviews',
-                'reviews.user',
-                'reviews.user.customers',
-                'variants.reviews',
-                'variants.reviews.user',
-                'variants.reviews.user.customers',
-            ])
-            ->setFields([
-                fn () => Number::make('rating', 'review_rating'),
-                fn () => Number::make('review_count')
-                    ->extractUsing(
-                        static fn ($model) => $model->relationLoaded('reviews')
-                            ? $model->reviews->count()
-                            : $model->reviews()->count(),
-                    ),
-                fn () => HasManyThrough::make('reviews')->serializeUsing(
+        $productSchema->with()->add('reviews');
+        $productSchema->includePaths()->merge([
+            'reviews',
+            'reviews.user',
+            'reviews.user.customers',
+            'variants.reviews',
+            'variants.reviews.user',
+            'variants.reviews.user.customers',
+        ]);
+        $productSchema->fields()->merge([
+            fn () => HasManyThrough::make('reviews')
+                ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
-            ])
-            ->setShowRelated([
-                'reviews',
-            ])
-            ->setShowRelationship([
-                'reviews',
-            ]);
+            fn () => Number::make('review_count')
+                ->extractUsing(
+                    static fn ($model) => $model->relationLoaded('reviews')
+                        ? $model->reviews->count()
+                        : $model->reviews()->count(),
+                ),
+            fn () => HasManyThrough::make('reviews')->serializeUsing(
+                static fn ($relation) => $relation->withoutLinks(),
+            ),
+        ]);
+        $productSchema->showRelated()->add('reviews');
+        $productSchema->showRelationships()->add('reviews');
 
-        /** @var ResourceExtension $productResourceExtension */
-        $productResourceExtension = $resourceManifest::extend(ProductResource::class);
+        $productSchema = JsonApiManifest::resource(ProductResource::class)
+            ->relationships()
+            ->add(fn (ProductResource $resource) => $resource->relation('reviews'));
 
-        $productResourceExtension
-            ->setRelationships(fn ($resource) => [
-                $resource->relation('reviews'),
-            ]);
+        $variantSchema = JsonApiManifest::schema(ProductVariantSchema::class);
 
-        /** @var SchemaExtension $productVariantSchemaExtenstion */
-        $productVariantSchemaExtenstion = $schemaManifest::extend(ProductVariantSchema::class);
+        $variantSchema->includePaths()->merge([
+            'reviews',
+            'reviews.user',
+            'reviews.user.customers',
+        ]);
 
-        $productVariantSchemaExtenstion
-            ->setIncludePaths([
-                'reviews',
-                'reviews.user',
-                'reviews.user.customers',
-            ])
-            ->setFields([
-                fn () => HasMany::make('reviews')->serializeUsing(
+        $variantSchema->fields()->merge([
+            fn () => HasMany::make('reviews')
+                ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
-            ])
-            ->setShowRelated([
-                'reviews',
-            ])
-            ->setShowRelationship([
-                'reviews',
-            ]);
+        ]);
 
-        /** @var ResourceExtension $productVariantResourceExtension */
-        $productVariantResourceExtension = $resourceManifest::extend(ProductVariantResource::class);
+        $variantSchema->showRelated()->add('reviews');
+        $variantSchema->showRelationships()->add('reviews');
 
-        $productVariantResourceExtension
-            ->setRelationships(fn ($resource) => [
-                'reviews' => $resource->relation('reviews'),
-            ]);
+        $variantResource = JsonApiManifest::resource(ProductVariantResource::class);
+
+        $variantResource
+            ->relationships()
+            ->add(fn (ProductVariantResource $resource) => $resource->relation('reviews'));
     }
 }

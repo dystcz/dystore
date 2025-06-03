@@ -2,7 +2,7 @@
 
 namespace Dystore\Api\Domain\JsonApi\Servers;
 
-use Dystore\Api\Base\Facades\SchemaManifest;
+use Dystore\Api\Base\Facades\JsonApiManifest;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Core\Server\Server as BaseServer;
 use LaravelJsonApi\Core\Support\AppResolver;
@@ -34,6 +34,6 @@ abstract class Server extends BaseServer
      */
     protected function allSchemas(): array
     {
-        return SchemaManifest::getServerSchemas();
+        return JsonApiManifest::getServerSchemas();
     }
 }

@@ -2,18 +2,18 @@
 
 namespace Dystore\Tests\ProductNotifications\Stubs\Users;
 
+use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
-use LaravelJsonApi\Eloquent\Schema;
 
 class UserSchema extends Schema
 {
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = User::class;
 
     /**
-     * Get the JSON:API resource type.
+     * {@inheritDoc}
      */
     public static function type(): string
     {
@@ -21,9 +21,9 @@ class UserSchema extends Schema
     }
 
     /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
             ID::make(),

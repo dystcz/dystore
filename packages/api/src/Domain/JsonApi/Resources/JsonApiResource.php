@@ -4,12 +4,11 @@ namespace Dystore\Api\Domain\JsonApi\Resources;
 
 use Closure;
 use Dystore\Api\Base\Contracts\Extendable as ExtendableContract;
-use Dystore\Api\Base\Contracts\ResourceExtension as ResourceExtensionContract;
-use Dystore\Api\Base\Contracts\ResourceManifest as ResourceManifestContract;
+use Dystore\Api\Base\Facades\JsonApiManifest;
+use Dystore\Api\Domain\JsonApi\Contracts\JsonApiResource as ResourceContract;
 use Dystore\Api\Domain\JsonApi\Eloquent\Fields\AttributeData;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use LaravelJsonApi\Contracts\Resources\Serializer\Attribute as SerializableAttribute;
 use LaravelJsonApi\Contracts\Resources\Serializer\Relation as SerializableRelation;
 use LaravelJsonApi\Contracts\Schema\Schema;
@@ -18,13 +17,8 @@ use LaravelJsonApi\Core\Resources\Relation;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
-class JsonApiResource extends BaseApiResource implements ExtendableContract
+class JsonApiResource extends BaseApiResource implements ExtendableContract, ResourceContract
 {
-    /**
-     * Resource extension.
-     */
-    protected ResourceExtensionContract $extension;
-
     /**
      * JsonApiResource constructor.
      */
@@ -32,8 +26,6 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
         protected Schema $schema,
         public object $resource,
     ) {
-        $this->extension = App::make(ResourceManifestContract::class)::for(static::class);
-
         parent::__construct($schema, $resource);
     }
 
@@ -98,8 +90,16 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
     {
         return [
             ...$this->schema->attributes(),
-            ...$this->extendedFields($this->extension->attributes()->all()),
+            ...JsonApiManifest::resource(static::class)->attributes()->all(),
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultAttributes(): array
+    {
+        return [];
     }
 
     /**
@@ -112,8 +112,16 @@ class JsonApiResource extends BaseApiResource implements ExtendableContract
     {
         return [
             ...$this->schema->relationships(),
-            ...$this->extendedFields($this->extension->relationships()->all()),
+            ...JsonApiManifest::resource(static::class)->relationships()->all(),
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultRelationships(): array
+    {
+        return [];
     }
 
     /**

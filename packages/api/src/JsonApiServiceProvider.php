@@ -40,28 +40,10 @@ class JsonApiServiceProvider extends ServiceProvider
             fn () => Domain\JsonApi\Eloquent\Repository::class,
         );
 
-        // Register schema extension implementation
-        $this->app->bind(
-            Base\Contracts\SchemaExtension::class,
-            fn (Application $app, mixed $params) => new Base\Extensions\SchemaExtension(...$params),
-        );
-
-        // Register schema manifest implementation
+        // Register the JSON:API manifest.
         $this->app->singleton(
-            Base\Contracts\SchemaManifest::class,
-            fn (Application $app) => new Base\Manifests\SchemaManifest,
-        );
-
-        // Register resource extension implementation
-        $this->app->bind(
-            Base\Contracts\ResourceExtension::class,
-            fn (Application $app, mixed $params) => new Base\Extensions\ResourceExtension(...$params),
-        );
-
-        // Register resource manifest implementation
-        $this->app->singleton(
-            Base\Contracts\ResourceManifest::class,
-            fn (Application $app) => new Base\Manifests\ResourceManifest,
+            \Dystore\Api\Base\Contracts\JsonApiManifest::class,
+            fn (Application $app) => $app->make(\Dystore\Api\Base\Manifests\JsonApiManifest::class),
         );
     }
 }

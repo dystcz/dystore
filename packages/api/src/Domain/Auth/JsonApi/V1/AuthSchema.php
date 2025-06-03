@@ -23,9 +23,9 @@ class AuthSchema extends ProxySchema
     }
 
     /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         $userSchema = App::make(UserSchema::class);
 

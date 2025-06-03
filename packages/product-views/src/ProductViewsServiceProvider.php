@@ -2,8 +2,7 @@
 
 namespace Dystore\ProductViews;
 
-use Dystore\Api\Base\Extensions\SchemaExtension;
-use Dystore\Api\Base\Facades\SchemaManifest;
+use Dystore\Api\Base\Facades\JsonApiManifest;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\ProductViews\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
 use Illuminate\Support\ServiceProvider;
@@ -63,11 +62,8 @@ class ProductViewsServiceProvider extends ServiceProvider
      */
     protected function extendSchemas(): void
     {
-        /** @var SchemaExtension $productSchemaExtenstion */
-        $productSchemaExtenstion = SchemaManifest::extend(ProductSchema::class);
-
-        $productSchemaExtenstion->setSortables([
-            RecentlyViewedSort::make('recently_viewed'),
-        ]);
+        JsonApiManifest::schema(ProductSchema::class)
+            ->sortables()
+            ->add(fn () => RecentlyViewedSort::make('recently_viewed'));
     }
 }
