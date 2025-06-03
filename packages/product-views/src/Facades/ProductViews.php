@@ -5,7 +5,7 @@ namespace Dystore\ProductViews\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Dystore\ProductViews\Skeleton\SkeletonClass
+ * @see \Dystore\ProductViews\ProductViews
  */
 class ProductViews extends Facade
 {

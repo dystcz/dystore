@@ -37,7 +37,7 @@ class ProductNotificationPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(Authenticatable $user, ProductNotification $productNotification): bool
+    public function update(?Authenticatable $user, ProductNotification $productNotification): bool
     {
         return true;
     }
@@ -45,7 +45,7 @@ class ProductNotificationPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(Authenticatable $user, ProductNotification $productNotification): bool
+    public function delete(?Authenticatable $user, ProductNotification $productNotification): bool
     {
         return true;
     }
