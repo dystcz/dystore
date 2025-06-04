@@ -7,7 +7,7 @@ use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(TestCase::class, RefreshDatabase::class)
-    ->group('manifests', 'extending');
+    ->group('reviews', 'manifests', 'extending');
 
 it('reviews extend "ProductSchema" with reviews relationship', function () {
     /** @var TestCase $this */
@@ -25,10 +25,10 @@ it('reviews extend "ProductSchema" with reviews relationship', function () {
     $response = $this
         ->jsonApi()
         ->expects('reviews')
-        ->get("/api/v1/products/{$product->getRouteKey()}/reviews");
+        ->get(serverUrl("/products/{$product->getRouteKey()}/reviews"));
 
     $response->assertFetchedMany($product->reviews);
-})->todo();
+});
 
 it('reviews extend "ProductVariantSchema" with reviews relationship', function () {
     /** @var TestCase $this */
@@ -42,7 +42,7 @@ it('reviews extend "ProductVariantSchema" with reviews relationship', function (
     $response = $this
         ->jsonApi()
         ->expects('reviews')
-        ->get("/api/v1/variants/{$productVariant->getRouteKey()}/reviews");
+        ->get(serverUrl("/product_variants/{$productVariant->getRouteKey()}/reviews"));
 
     $response->assertFetchedMany($productVariant->reviews);
-})->todo();
+});
