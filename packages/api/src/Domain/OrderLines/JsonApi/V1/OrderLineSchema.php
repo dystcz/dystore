@@ -31,7 +31,7 @@ class OrderLineSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'currency',
@@ -44,17 +44,16 @@ class OrderLineSchema extends Schema
             'purchasable.product',
             'purchasable.product.thumbnail',
 
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Number::make('purchasable_id'),
             Str::make('purchasable_type'),
@@ -109,8 +108,6 @@ class OrderLineSchema extends Schema
                     SchemaType::get(ShippingOption::class),
                 )
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 }

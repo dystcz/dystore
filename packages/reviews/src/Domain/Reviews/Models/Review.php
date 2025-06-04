@@ -8,6 +8,7 @@ use Dystore\Reviews\Domain\Reviews\Scopes\PublishedScope;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Config;
@@ -55,6 +56,8 @@ class Review extends BaseModel
 
     /**
      * Purchasable relation.
+     *
+     * @return MorphTo<Model,Review>
      */
     public function purchasable(): MorphTo
     {
@@ -63,6 +66,8 @@ class Review extends BaseModel
 
     /**
      * User relation.
+     *
+     * @return BelongsTo<Model,Review>
      */
     public function user(): BelongsTo
     {

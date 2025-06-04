@@ -2,8 +2,7 @@
 
 namespace Dystore\ProductViews;
 
-use Dystore\Api\Base\Extensions\SchemaExtension;
-use Dystore\Api\Base\Facades\SchemaManifest;
+use Dystore\Api\Base\Facades\JsonApiManifest;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\ProductViews\Domain\Products\JsonApi\Sorts\RecentlyViewedSort;
 use Illuminate\Support\ServiceProvider;
@@ -17,14 +16,11 @@ class ProductViewsServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->registerConfig();
-
-        $this->extendSchemas();
-
         // Register the main class to use with the facade
-        $this->app->singleton('dystore-product-views', function () {
-            return new ProductViews;
-        });
+        $this->app->singleton('dystore-product-views', fn () => new ProductViews);
+
+        $this->registerConfig();
+        $this->extendSchemas();
     }
 
     /**
@@ -48,9 +44,6 @@ class ProductViewsServiceProvider extends ServiceProvider
         );
     }
 
-    /**
-     * Publish config files.
-     */
     protected function publishConfig(): void
     {
         $this->publishes([
@@ -58,16 +51,10 @@ class ProductViewsServiceProvider extends ServiceProvider
         ], 'dystore-product-views');
     }
 
-    /**
-     * Extend schemas.
-     */
     protected function extendSchemas(): void
     {
-        /** @var SchemaExtension $productSchemaExtenstion */
-        $productSchemaExtenstion = SchemaManifest::extend(ProductSchema::class);
-
-        $productSchemaExtenstion->setSortables([
-            RecentlyViewedSort::make('recently_viewed'),
-        ]);
+        JsonApiManifest::schema(ProductSchema::class)
+            ->sortables()
+            ->add(RecentlyViewedSort::make('recently_viewed'));
     }
 }

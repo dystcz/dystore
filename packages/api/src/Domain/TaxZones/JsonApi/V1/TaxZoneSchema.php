@@ -3,7 +3,6 @@
 namespace Dystore\Api\Domain\TaxZones\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use Lunar\Models\Contracts\TaxZone;
 
 class TaxZoneSchema extends Schema
@@ -16,34 +15,26 @@ class TaxZoneSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultFields(): array
     {
         return [
-            ...parent::includePaths(),
+            static::idField(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFilters(): array
     {
-        return [
-            $this->idField(),
-
-            ...parent::fields(),
-        ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function filters(): array
-    {
-        return [
-            WhereIdIn::make($this)->delimiter(','),
-
-            ...parent::filters(),
-        ];
+        return [];
     }
 }

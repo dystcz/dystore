@@ -19,29 +19,25 @@ class AttributeSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'attribute_group',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): iterable
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             BelongsTo::make('attribute_group', 'attributeGroup')
                 ->retainFieldName()
                 ->type(SchemaType::get(AttributeGroup::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 }

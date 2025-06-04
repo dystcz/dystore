@@ -50,6 +50,14 @@ class DomainConfig
     }
 
     /**
+     * Check if domain has resource.
+     */
+    public function hasResource(): bool
+    {
+        return ! is_null($this->resource);
+    }
+
+    /**
      * Check if domain has model.
      */
     public function hasModel(): bool

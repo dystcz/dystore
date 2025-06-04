@@ -12,7 +12,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Filters\Has;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereNull;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Collection;
@@ -35,20 +34,18 @@ class CollectionSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function with(): array
+    public static function defaultWith(): array
     {
         return [
             'attributes',
             'attributes.attributeGroup',
-
-            ...parent::with(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'default_url',
@@ -65,18 +62,16 @@ class CollectionSchema extends Schema
             'products.prices',
             'products.thumbnail',
             'products.urls',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
@@ -110,19 +105,15 @@ class CollectionSchema extends Schema
 
             HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function sortables(): iterable
+    public static function defaultSortables(): array
     {
         return [
-            ...parent::sortables(),
-
             InDefaultOrder::make('ordered'),
         ];
     }
@@ -130,23 +121,14 @@ class CollectionSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
-            WhereIdIn::make($this),
-
-            WhereHas::make($this, 'urls', 'url')
-                ->singular(),
-
-            WhereHas::make($this, 'urls', 'urls'),
-
-            WhereHas::make($this, 'group', 'group'),
-
-            WhereNull::make('root', 'parent_id'),
-
-            Has::make($this, 'products', 'has_products'),
-
-            ...parent::filters(),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'url')->singular(),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'urls'),
+            fn (Schema $schema) => WhereHas::make($schema, 'group', 'group'),
+            fn (Schema $schema) => WhereNull::make('root', 'parent_id'),
+            fn (Schema $schema) => Has::make($schema, 'products', 'has_products'),
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Dystore\Tests\ProductNotifications;
 
-use Dystore\Api\Base\Facades\SchemaManifest;
+use Dystore\Api\Base\Facades\JsonApiManifest;
 use Dystore\Tests\ProductNotifications\Stubs\Users\User;
 use Dystore\Tests\ProductNotifications\Stubs\Users\UserSchema;
 use Illuminate\Contracts\Config\Repository;
@@ -35,10 +35,7 @@ abstract class TestCase extends Orchestra
             'model' => User::class,
         ]);
 
-        /**
-         * Schema configuration.
-         */
-        SchemaManifest::registerSchema(UserSchema::class);
+        JsonApiManifest::addSchema(UserSchema::class);
 
         activity()->disableLogging();
     }
@@ -114,6 +111,8 @@ abstract class TestCase extends Orchestra
                 'username' => 'homestead',
                 'password' => 'secret',
             ]);
+
+            $config->set('queue.default', 'sync');
         });
     }
 

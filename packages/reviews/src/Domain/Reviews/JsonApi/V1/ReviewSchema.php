@@ -5,7 +5,6 @@ namespace Dystore\Reviews\Domain\Reviews\JsonApi\V1;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
-use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -25,14 +24,6 @@ class ReviewSchema extends Schema
     public static string $model = Review::class;
 
     /**
-     * {@inheritDoc}
-     */
-    protected array $with = [
-        'user',
-        'user.customers',
-    ];
-
-    /**
      * Default sort.
      */
     protected $defaultSort = '-id';
@@ -40,13 +31,22 @@ class ReviewSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultWith(): array
     {
         return [
             'user',
             'user.customers',
+        ];
+    }
 
-            ...parent::includePaths(),
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultIncludePaths(): array
+    {
+        return [
+            'user',
+            'user.customers',
         ];
     }
 
@@ -55,19 +55,17 @@ class ReviewSchema extends Schema
      */
     public function indexQuery(?Request $request, Builder $query): Builder
     {
-        /** @var ReviewBuilder $query */
+        /** @var \Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder $query */
         return $query->published();
     }
 
     /**
      * Get the resource fields.
-     *
-     * @return array
      */
-    public function fields(): iterable
+    public static function defaultFields(): iterable
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('name')
                 ->extractUsing(
@@ -101,19 +99,15 @@ class ReviewSchema extends Schema
                     ProductSchema::type(),
                     ProductVariantSchema::type(),
                 ),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function sortables(): iterable
+    public static function defaultSortables(): array
     {
         return [
-            ...parent::sortables(),
-
             SortColumn::make('id', 'id'),
 
             SortColumn::make('published_at', 'published_at'),

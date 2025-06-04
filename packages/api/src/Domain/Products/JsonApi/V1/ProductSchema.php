@@ -7,7 +7,6 @@ use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InDefaultOrder;
 use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystore\Api\Domain\Products\JsonApi\Filters\InStockFilter;
-use Dystore\Api\Domain\Products\JsonApi\Filters\ProductFilterCollection;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
@@ -21,7 +20,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Attribute;
@@ -68,21 +66,19 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function with(): array
+    public static function defaultWith(): array
     {
         return [
             'productType',
             'productType.mappedAttributes',
             'productType.mappedAttributes.attributeGroup',
-
-            ...parent::with(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'default_url',
@@ -121,18 +117,16 @@ class ProductSchema extends Schema
 
             'product_type',
             'tags',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): iterable
+    public static function defaultFields(): iterable
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
@@ -256,21 +250,16 @@ class ProductSchema extends Schema
                 ->canCount()
                 ->countAs('product_option_values_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function sortables(): iterable
+    public static function defaultSortables(): array
     {
         return [
-            ...parent::sortables(),
-
             InDefaultOrder::make('ordered'),
-
             InRandomOrder::make('random'),
         ];
     }
@@ -278,36 +267,20 @@ class ProductSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
-            WhereIdIn::make($this),
-
-            WhereIdNotIn::make($this, 'except'),
-
+            fn (Schema $schema) => WhereIdNotIn::make($schema, 'except'),
             InStockFilter::make('in_stock'),
-
-            WhereHas::make($this, 'prices'),
-
-            WhereHas::make($this, 'brand'),
-
-            WhereHas::make($this, 'urls', 'url')->singular(),
-
-            WhereHas::make($this, 'urls', 'urls'),
-
-            WhereHas::make($this, 'product_type'),
-
-            WhereHas::make($this, 'channels'),
-
-            WhereHas::make($this, 'status'),
-
-            WhereHas::make($this, 'collections'),
-
-            WhereHas::make($this, 'tags'),
-
-            ...(new ProductFilterCollection)->toArray(),
-
-            ...parent::filters(),
+            fn (Schema $schema) => WhereHas::make($schema, 'prices'),
+            fn (Schema $schema) => WhereHas::make($schema, 'brand'),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'url')->singular(),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'urls'),
+            fn (Schema $schema) => WhereHas::make($schema, 'product_type'),
+            fn (Schema $schema) => WhereHas::make($schema, 'channels'),
+            fn (Schema $schema) => WhereHas::make($schema, 'status'),
+            fn (Schema $schema) => WhereHas::make($schema, 'collections'),
+            fn (Schema $schema) => WhereHas::make($schema, 'tags'),
         ];
     }
 }

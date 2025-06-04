@@ -5,7 +5,6 @@ namespace Dystore\Api\Domain\Auth\JsonApi\V1;
 use Dystore\Api\Domain\Auth\JsonApi\Proxies\AuthUser;
 use Dystore\Api\Domain\JsonApi\Eloquent\ProxySchema;
 use Dystore\Api\Domain\Users\JsonApi\V1\UserSchema;
-use Illuminate\Support\Facades\App;
 
 class AuthSchema extends ProxySchema
 {
@@ -23,16 +22,12 @@ class AuthSchema extends ProxySchema
     }
 
     /**
-     * Get the resource fields.
+     * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
-        $userSchema = App::make(UserSchema::class);
-
         return [
-            ...$userSchema->fields(),
-
-            ...parent::fields(),
+            ...UserSchema::defaultFields(),
         ];
     }
 

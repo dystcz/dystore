@@ -34,7 +34,7 @@ class CartSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'cart_lines',
@@ -71,18 +71,16 @@ class CartSchema extends Schema
 
             'billing_address',
             'billing_address.country',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Map::make('prices', [
                 Number::make('sub_total', 'subTotal')
@@ -164,8 +162,6 @@ class CartSchema extends Schema
                 ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 }

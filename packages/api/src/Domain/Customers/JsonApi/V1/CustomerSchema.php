@@ -25,7 +25,7 @@ class CustomerSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'orders',
@@ -33,18 +33,16 @@ class CustomerSchema extends Schema
             'orders.lines.purchasable',
             'addresses',
             'addresses.country',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
@@ -77,7 +75,6 @@ class CustomerSchema extends Schema
                 ->countAs('customer_groups_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            ...parent::fields(),
         ];
     }
 }

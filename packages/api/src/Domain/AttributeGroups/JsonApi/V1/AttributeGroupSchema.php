@@ -15,12 +15,10 @@ class AttributeGroupSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function fields(): iterable
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
-
-            ...parent::fields(),
+            static::idField(),
         ];
     }
 }

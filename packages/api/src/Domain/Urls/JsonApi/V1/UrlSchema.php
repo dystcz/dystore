@@ -6,7 +6,6 @@ use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use Lunar\Models\Contracts\Url;
 
 class UrlSchema extends Schema
@@ -19,30 +18,23 @@ class UrlSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('slug'),
-
             Boolean::make('default'),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
-            WhereIdIn::make($this),
-
             Where::make('slug'),
-
-            ...parent::filters(),
         ];
     }
 }

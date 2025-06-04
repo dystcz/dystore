@@ -1,14 +1,14 @@
 <?php
 
-namespace Dystore\Tests\Api\Feature\Domain\JsonApi\Extensions;
+namespace Dystore\Tests\Api\Feature\Domain\JsonApi\Stubs;
 
-use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\JsonApi\Core\Schema\Schema;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
 use Lunar\Models\Contracts\Product;
 
-class ExtendableSchemasMock extends Schema
+class BaseSchemaMock extends Schema
 {
     /**
      * {@inheritDoc}
@@ -27,47 +27,34 @@ class ExtendableSchemasMock extends Schema
         'apple',
     ];
 
-    public static function resource(): string
-    {
-        return ProductResourceMock::class;
-    }
-
-    public function includePaths(): array
+    public static function defaultIncludePaths(): array
     {
         return [
             'include-one',
             'include-two',
-
-            ...parent::includePaths(),
         ];
     }
 
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
             ID::make(),
 
-            Str::make('ahoj'),
-
-            ...parent::fields(),
+            Str::make('nazdar'),
         ];
     }
 
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
-            Where::make('ahoj'),
-
-            ...parent::filters(),
+            Where::make('bazar'),
         ];
     }
 
-    public function sortables(): array
+    public static function defaultSortables(): array
     {
         return [
-            'ahoj',
-
-            ...parent::sortables(),
+            'cus',
         ];
     }
 }

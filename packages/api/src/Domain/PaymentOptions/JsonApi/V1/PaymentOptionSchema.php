@@ -2,9 +2,9 @@
 
 namespace Dystore\Api\Domain\PaymentOptions\JsonApi\V1;
 
+use Dystore\Api\Domain\JsonApi\Core\Schema\Schema;
 use Dystore\Api\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystore\Api\Domain\PaymentOptions\Entities\PaymentOption;
-use LaravelJsonApi\Core\Schema\Schema;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\NonEloquent\Fields\Attribute;
 use LaravelJsonApi\NonEloquent\Fields\ID;
@@ -35,6 +35,14 @@ class PaymentOptionSchema extends Schema
      * {@inheritDoc}
      */
     public function fields(): iterable
+    {
+        return self::defaultFields();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultFields(): array
     {
         return [
             ID::make(),

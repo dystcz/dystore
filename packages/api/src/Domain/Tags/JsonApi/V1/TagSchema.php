@@ -7,7 +7,6 @@ use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Filters\WhereIn;
 use Lunar\Models\Contracts\Tag;
 use Lunar\Models\Contracts\Url;
@@ -22,45 +21,37 @@ class TagSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             // 'taggables',
 
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('value'),
 
             // MorphTo::make('taggables', 'taggables')
             //     ->type(SchemaType::get(Url::class)),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
-            WhereIdIn::make($this)->delimiter(','),
-
             Where::make('value'),
-
             WhereIn::make('values', 'value')->delimiter(','),
-
-            ...parent::filters(),
         ];
     }
 }

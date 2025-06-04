@@ -3,8 +3,7 @@
 namespace Dystore\Api\Domain\JsonApi\Eloquent;
 
 use Dystore\Api\Base\Contracts\Extendable as ExtendableContract;
-use Dystore\Api\Base\Contracts\SchemaExtension as SchemaExtensionContract;
-use Dystore\Api\Base\Contracts\SchemaManifest as SchemaManifestContract;
+use Dystore\Api\Base\Facades\JsonApiManifest;
 use Dystore\Api\Domain\JsonApi\Contracts\Schema as SchemaContract;
 use Dystore\Api\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystore\Api\Facades\Api;
@@ -13,11 +12,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use LaravelJsonApi\Contracts\Server\Server;
 use LaravelJsonApi\Core\Schema\IncludePathIterator;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema as BaseSchema;
 use LaravelJsonApi\HashIds\HashId;
@@ -51,32 +50,21 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     /**
      * Allow viewing of relationships.
      *
-     * @property string[] $showRelationship
+     * @property string[] $showRelationships
      */
-    protected array $showRelationship = [];
+    protected array $showRelationships = [];
 
     /**
-     * Schema extension.
+     * @var callable|null
      */
-    protected SchemaExtensionContract $extension;
-
-    /**
-     * Schema constructor.
-     */
-    public function __construct(
-        Server $server,
-    ) {
-        $this->extension = App::make(SchemaManifestContract::class)::for(static::class);
-
-        $this->server = $server;
-    }
+    private static $resourceTypeResolver;
 
     /**
      * {@inheritDoc}
      */
     public static function type(): string
     {
-        $resolver = new TypeResolver;
+        $resolver = static::$resourceTypeResolver ?: new TypeResolver;
 
         return $resolver(static::class);
     }
@@ -99,7 +87,6 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         }
 
         return static::$model;
-
     }
 
     /**
@@ -146,9 +133,9 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     public function repository(): Repository
     {
         return new Repository(
-            $this,
-            $this->driver(),
-            $this->parser(),
+            schema: $this,
+            driver: $this->driver(),
+            parser: $this->parser(),
         );
     }
 
@@ -160,7 +147,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
         $paths = array_merge(
             parent::with(),
             Arr::wrap($this->with),
-            Arr::wrap($this->extension->with()->resolve($this)),
+            Arr::wrap(JsonApiManifest::schema(static::class)->with()->resolve($this)),
         );
 
         return array_values(array_unique($paths));
@@ -169,21 +156,27 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     /**
      * {@inheritDoc}
      */
+    public static function defaultWith(): array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function includePaths(): iterable
     {
+        $includePaths = JsonApiManifest::schema(static::class)->includePaths()->resolve($this);
+
         if ($this->maxDepth > 0) {
-            return new IncludePathIterator(
-                $this->server->schemas(),
-                $this,
-                $this->maxDepth
-            );
+            return [
+                ...$includePaths,
+                ...new IncludePathIterator($this->server->schemas(), $this, $this->maxDepth),
+            ];
         }
 
-        $extendedIncludePaths = $this->extension->includePaths()->resolve($this);
-
         return [
-            ...$extendedIncludePaths,
-
+            ...$includePaths,
             ...parent::includePaths(),
         ];
     }
@@ -191,9 +184,41 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     /**
      * {@inheritDoc}
      */
+    public static function defaultIncludePaths(): array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function fields(): iterable
     {
-        return $this->extension->fields()->resolve($this);
+        yield from JsonApiManifest::schema(static::class)->fields()->resolve($this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultFields(): iterable
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function sparseFields(): iterable
+    {
+        return JsonApiManifest::schema(static::class)->sparseFields()->resolve($this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultSparseFields(): iterable
+    {
+        return [];
     }
 
     /**
@@ -202,10 +227,19 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     public function filters(): iterable
     {
         return [
-            WhereIdIn::make($this),
+            WhereIdIn::make($this)->delimiter(','),
+            WhereIdNotIn::make($this, 'except')->delimiter(','),
 
-            ...$this->extension->filters()->resolve($this),
+            ...JsonApiManifest::schema(static::class)->filters()->resolve($this),
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultFilters(): iterable
+    {
+        return [];
     }
 
     /**
@@ -213,7 +247,15 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     public function sortables(): iterable
     {
-        return $this->extension->sortables()->resolve($this);
+        yield from JsonApiManifest::schema(static::class)->sortables()->resolve($this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultSortables(): iterable
+    {
+        return [];
     }
 
     /**
@@ -234,37 +276,49 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     {
         $relations = array_merge(
             Arr::wrap($this->showRelated),
-            Arr::wrap($this->extension->showRelated()->resolve($this)),
+            JsonApiManifest::schema(static::class)->showRelated()->resolve($this)
         );
 
         return array_values(array_unique($relations));
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public static function defaultShowRelated(): array
+    {
+        return [];
+    }
+
+    /**
      * Allow specific relationships to be accessed.
      */
-    public function showRelationship(): array
+    public function showRelationships(): array
     {
-        if (empty($this->showRelationship)) {
-            return $this->showRelated();
-        }
-
         $paths = array_merge(
-            Arr::wrap($this->showRelationship),
-            Arr::wrap($this->extension->showRelationship()->resolve($this)),
+            Arr::wrap($this->showRelationships),
+            JsonApiManifest::schema(static::class)->showRelationships()->resolve($this),
         );
 
         return array_values(array_unique($paths));
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public static function defaultShowRelationships(): array
+    {
+        return [];
+    }
+
+    /**
      * Get id or hashid field based on configuration.
      */
-    protected function idField(?string $column = null): ID // ID|HashId
+    public static function idField(?string $column = null): ID // ID|HashId
     {
         if (Api::usesHashids()) {
             return HashId::make($column)
-                ->useConnection(ModelKey::get(self::model()))
+                ->useConnection(ModelKey::get(static::model()))
                 ->alreadyHashed();
         }
 

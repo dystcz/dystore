@@ -24,11 +24,9 @@ class UserSchema extends Schema
     /**
      * The relationships that should always be eager loaded.
      */
-    public function with(): array
+    public static function defaultWith(): array
     {
-        return [
-            ...parent::with(),
-        ];
+        return [];
     }
 
     /**
@@ -36,20 +34,18 @@ class UserSchema extends Schema
      *
      * @return string[]|iterable
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
-        return [
-            ...parent::includePaths(),
-        ];
+        return [];
     }
 
     /**
      * Get the resource fields.
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('name'),
             Str::make('first_name'),
@@ -79,8 +75,6 @@ class UserSchema extends Schema
                 ->type(SchemaType::get(Customer::class))
                 ->readOnly()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 }

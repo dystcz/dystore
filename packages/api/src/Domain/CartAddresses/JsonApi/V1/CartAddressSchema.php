@@ -20,23 +20,22 @@ class CartAddressSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'cart',
             'country',
 
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('title'),
             Str::make('first_name'),
@@ -73,7 +72,6 @@ class CartAddressSchema extends Schema
             BelongsTo::make('cart')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            ...parent::fields(),
         ];
     }
 }

@@ -5,8 +5,6 @@ namespace Dystore\Api;
 use Dystore\Api\Api as DystoreApi;
 use Dystore\Api\Domain\Carts\Actions\CheckoutCart;
 use Dystore\Api\Domain\Carts\Actions\CreateUserFromCart;
-use Dystore\Api\Domain\Payments\Contracts\PaymentIntent as PaymentIntentContract;
-use Dystore\Api\Domain\Payments\Data\PaymentIntent;
 use Dystore\Api\Domain\Prices\Http\Middleware\SetApiPricing;
 use Dystore\Api\Domain\Users\Actions\CreateUser;
 use Dystore\Api\Domain\Users\Actions\RegisterUser;
@@ -50,10 +48,7 @@ class ApiServiceProvider extends ServiceProvider
         });
 
         // Register the main class to use with the facade.
-        $this->app->singleton(
-            'dystore',
-            fn () => new DystoreApi,
-        );
+        $this->app->singleton('dystore', fn () => new DystoreApi);
 
         $this->bindControllers();
         $this->bindModels();
@@ -83,8 +78,8 @@ class ApiServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            PaymentIntentContract::class,
-            PaymentIntent::class,
+            \Dystore\Api\Domain\Payments\Contracts\PaymentIntent::class,
+            \Dystore\Api\Domain\Payments\Data\PaymentIntent::class
         );
     }
 

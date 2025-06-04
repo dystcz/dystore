@@ -14,7 +14,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\Where;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Order;
 use Lunar\Models\Contracts\OrderAddress;
@@ -35,7 +34,7 @@ class OrderSchema extends Schema
      *
      * @return string[]|iterable
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             // Addresses
@@ -108,17 +107,16 @@ class OrderSchema extends Schema
             // User
             'user',
 
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Boolean::make('new_customer'),
             Str::make('status'),
@@ -247,23 +245,17 @@ class OrderSchema extends Schema
             HasMany::make('transactions')
                 ->type(SchemaType::get(Transaction::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
-            WhereIdIn::make($this),
-
             Where::make('user_id'),
             Where::make('reference')->singular(),
-
-            ...parent::filters(),
         ];
     }
 }

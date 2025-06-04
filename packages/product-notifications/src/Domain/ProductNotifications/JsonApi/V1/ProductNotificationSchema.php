@@ -11,14 +11,14 @@ use LaravelJsonApi\Eloquent\Fields\Str;
 class ProductNotificationSchema extends Schema
 {
     /**
-     * The model the schema corresponds to.
+     * {@inheritDoc}
      */
     public static string $model = ProductNotification::class;
 
     /**
-     * Get the resource fields.
+     * {$@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
             ID::make(),

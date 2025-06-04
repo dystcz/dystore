@@ -24,7 +24,7 @@ class MediaSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
             ID::make(),
@@ -51,19 +51,15 @@ class MediaSchema extends Schema
             ),
 
             ArrayHash::make('custom_properties'),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function sortables(): iterable
+    public static function defaultSortables(): array
     {
         return [
-            ...parent::sortables(),
-
             InDefaultOrder::make('ordered'),
         ];
     }

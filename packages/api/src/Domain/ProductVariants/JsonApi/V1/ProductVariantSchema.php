@@ -16,8 +16,6 @@ use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOneThrough;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Filters\WhereHas;
-use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
-use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Attribute;
 use Lunar\Models\Contracts\Price;
@@ -54,20 +52,18 @@ class ProductVariantSchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function with(): array
+    public static function defaultWith(): array
     {
         return [
             'attributes',
             'attributes.attributeGroup',
-
-            ...parent::with(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function includePaths(): iterable
+    public static function defaultIncludePaths(): array
     {
         return [
             'default_url',
@@ -81,18 +77,16 @@ class ProductVariantSchema extends Schema
             'product_option_values',
             'product_option_values.images',
             'product_option_values.product_option',
-
-            ...parent::includePaths(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             AttributeData::make('attribute_data')
                 ->groupAttributes(),
@@ -169,27 +163,17 @@ class ProductVariantSchema extends Schema
             HasOneThrough::make('thumbnail')
                 ->type(SchemaType::get(Media::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
-
-            ...parent::fields(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function filters(): array
+    public static function defaultFilters(): array
     {
         return [
-            WhereIdIn::make($this),
-
-            WhereIdNotIn::make($this, 'except'),
-
-            WhereHas::make($this, 'urls', 'url')
-                ->singular(),
-
-            WhereHas::make($this, 'urls', 'urls'),
-
-            ...parent::filters(),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'url')->singular(),
+            fn (Schema $schema) => WhereHas::make($schema, 'urls', 'urls'),
         ];
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
 uses(TestCase::class, RefreshDatabase::class)
-    ->group('product-views');
+    ->group('product_views');
 
 it('can record a view', function () {
     /** @var TestCase $this */
@@ -16,24 +16,24 @@ it('can record a view', function () {
     app(ProductViews::class)->record($productId);
     app(ProductViews::class)->record($productId);
 
-    expect(Redis::zRange("product:views:{$productId}", 0, -1))
+    expect(Redis::command('zrange', ["product:views:{$productId}", 0, -1]))
         ->toHaveCount(2);
-})->todo();
+});
 
 it('removes old entries', function () {
     /** @var TestCase $this */
     $productId = 2;
 
-    Redis::zAdd("product:views:{$productId}", time() - 60 * 60, Str::uuid()->toString());
+    Redis::command('zadd', ["product:views:{$productId}", time() - 60 * 60, Str::uuid()->toString()]);
 
-    expect(Redis::zRange("product:views:{$productId}", 0, -1))
+    expect(Redis::command('zrange', ["product:views:{$productId}", 0, -1]))
         ->toHaveCount(1);
 
     app(ProductViews::class)->record($productId);
 
-    expect(Redis::zRange("product:views:{$productId}", 0, -1))
+    expect(Redis::command('zrange', ["product:views:{$productId}", 0, -1]))
         ->toHaveCount(1);
-})->todo();
+});
 
 it('returns a list of product ids sorted by most viewed', function () {
     /** @var TestCase $this */
@@ -44,4 +44,4 @@ it('returns a list of product ids sorted by most viewed', function () {
     $sorted = app(ProductViews::class)->sorted();
 
     expect($sorted)->toBe([4, 3]);
-})->todo();
+});

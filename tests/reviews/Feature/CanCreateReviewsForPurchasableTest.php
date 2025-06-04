@@ -9,7 +9,8 @@ use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('reviews');
 
 it('requires logged in user to create a review', function () {
     /** @var TestCase $this */
@@ -33,14 +34,14 @@ it('requires logged in user to create a review', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',
         'status' => '401',
         'title' => 'Unauthorized',
     ]);
-})->group('reviews');
+});
 
 it('can save a review with name and meta', function () {
     /** @var TestCase $this */
@@ -70,7 +71,7 @@ it('can save a review with name and meta', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/reviews', $data)
@@ -86,7 +87,7 @@ it('can save a review with name and meta', function () {
         'name' => $review->name,
         'meta' => json_encode($review->meta),
     ]);
-})->group('reviews');
+});
 
 it('requires a rating and comment, but also a name in order to be saved', function () {
 
@@ -111,7 +112,7 @@ it('requires a rating and comment, but also a name in order to be saved', functi
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $response
         ->assertErrors(422, [
@@ -119,7 +120,7 @@ it('requires a rating and comment, but also a name in order to be saved', functi
             ['detail' => __('dystore-reviews::validations.name.required'), 'status' => '422'],
         ]);
 
-})->group('reviews');
+});
 
 it('can store anonymous review when configured', function () {
     /** @var TestCase $this */
@@ -144,7 +145,7 @@ it('can store anonymous review when configured', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/reviews', $data)
@@ -158,7 +159,7 @@ it('can store anonymous review when configured', function () {
         'comment' => $review->comment,
         'rating' => $review->rating,
     ]);
-})->todo()->group('reviews');
+})->todo();
 
 it('can create a review for a product', function () {
     /** @var TestCase $this */
@@ -186,7 +187,7 @@ it('can create a review for a product', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/reviews', $data)
@@ -200,7 +201,7 @@ it('can create a review for a product', function () {
         'comment' => $review->comment,
         'rating' => $review->rating,
     ]);
-})->group('reviews');
+});
 
 it('can create a review for a product variant', function () {
     /** @var TestCase $this */
@@ -228,7 +229,7 @@ it('can create a review for a product variant', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/reviews', $data)
@@ -242,4 +243,4 @@ it('can create a review for a product variant', function () {
         'comment' => $review->comment,
         'rating' => $review->rating,
     ]);
-})->group('reviews');
+});

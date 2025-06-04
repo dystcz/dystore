@@ -75,6 +75,8 @@ abstract class TestCase extends OrchestraTestCase
                 'prefix' => '',
             ]);
 
+            $config->set('queue.default', 'sync');
+
             $config->set('services.stripe', [
                 'public_key' => env('STRIPE_PUBLIC_KEY'),
                 'key' => env('STRIPE_SECRET_KEY'),

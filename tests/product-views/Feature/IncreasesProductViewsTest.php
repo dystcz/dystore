@@ -1,15 +1,16 @@
 <?php
 
-use Dystore\Api\Domain\Products\Factories\ProductFactory;
 use Dystore\Tests\ProductViews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Redis;
+use Lunar\Models\Product;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('product_views');
 
 it('records a view each time the product is shown', function () {
     /** @var TestCase $this */
-    $product = ProductFactory::new()->create(['id' => 5]);
+    $product = Product::factory()->create(['id' => 5]);
 
     $self = 'http://localhost/api/v1/products/'.$product->getRouteKey();
 
@@ -18,7 +19,7 @@ it('records a view each time the product is shown', function () {
         ->expects('products')
         ->get($self);
 
-    $hits = Redis::zCount("product:views:{$product->id}", -INF, +INF);
+    $hits = Redis::command('zcount', ["product:views:{$product->id}", -INF, +INF]);
 
     expect($hits)->toBe(1);
 
@@ -27,7 +28,7 @@ it('records a view each time the product is shown', function () {
         ->expects('products')
         ->get($self);
 
-    $hits = Redis::zCount("product:views:{$product->id}", -INF, +INF);
+    $hits = Redis::command('zcount', ["product:views:{$product->id}", -INF, +INF]);
 
     expect($hits)->toBe(2);
-})->group('product-views');
+});

@@ -19,10 +19,10 @@ class CurrencySchema extends Schema
     /**
      * {@inheritDoc}
      */
-    public function fields(): array
+    public static function defaultFields(): array
     {
         return [
-            $this->idField(),
+            static::idField(),
 
             Str::make('code'),
             Str::make('name'),
