@@ -50,16 +50,21 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     /**
      * Allow viewing of relationships.
      *
-     * @property string[] $showRelationship
+     * @property string[] $showRelationships
      */
-    protected array $showRelationship = [];
+    protected array $showRelationships = [];
+
+    /**
+     * @var callable|null
+     */
+    private static $resourceTypeResolver;
 
     /**
      * {@inheritDoc}
      */
     public static function type(): string
     {
-        $resolver = new TypeResolver;
+        $resolver = static::$resourceTypeResolver ?: new TypeResolver;
 
         return $resolver(static::class);
     }
@@ -271,7 +276,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     {
         $relations = array_merge(
             Arr::wrap($this->showRelated),
-            JsonApiManifest::schema(static::class)->showRelated()->resolve($this)->toArray()
+            JsonApiManifest::schema(static::class)->showRelated()->resolve($this)
         );
 
         return array_values(array_unique($relations));
@@ -290,13 +295,9 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     public function showRelationships(): array
     {
-        if (empty($this->showRelationship)) {
-            return $this->showRelated();
-        }
-
         $paths = array_merge(
-            Arr::wrap($this->showRelationship),
-            JsonApiManifest::schema(static::class)->showRelationships()->resolve($this)->toArray(),
+            Arr::wrap($this->showRelationships),
+            JsonApiManifest::schema(static::class)->showRelationships()->resolve($this),
         );
 
         return array_values(array_unique($paths));

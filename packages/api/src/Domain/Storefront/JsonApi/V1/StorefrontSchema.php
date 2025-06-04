@@ -3,7 +3,6 @@
 namespace Dystore\Api\Domain\Storefront\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Core\Schema\Schema;
-use Dystore\Api\Domain\JsonApi\Core\Schema\TypeResolver;
 use Dystore\Api\Domain\Storefront\Entities\Storefront;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\NonEloquent\Fields\ID;
@@ -20,16 +19,6 @@ class StorefrontSchema extends Schema
      * {@inheritDoc}
      */
     public static string $model = Storefront::class;
-
-    /**
-     * {@inheritDoc}
-     */
-    public static function type(): string
-    {
-        $resolver = new TypeResolver;
-
-        return $resolver(static::class);
-    }
 
     /**
      * {@inheritDoc}

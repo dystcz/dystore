@@ -10,6 +10,21 @@ use LaravelJsonApi\Core\Schema\Schema as CoreSchema;
 class Schema extends CoreSchema implements Extendable, SchemaContract
 {
     /**
+     * @var callable|null
+     */
+    private static $resourceTypeResolver;
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function type(): string
+    {
+        $resolver = static::$resourceTypeResolver ?: new TypeResolver;
+
+        return $resolver(static::class);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public static function defaultWith(): array

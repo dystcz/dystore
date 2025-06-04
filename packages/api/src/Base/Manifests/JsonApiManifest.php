@@ -39,16 +39,30 @@ class JsonApiManifest implements JsonApiManifestContract
         return $this->schemas;
     }
 
+    public function getSchemas(): array
+    {
+        return array_map(
+            fn (SchemaStorage $storage) => $storage->schema(),
+            $this->schemas()
+        );
+    }
+
+    /**
+     * @param  class-string<\Dystore\Api\Domain\JsonApi\Eloquent\Schema|\Dystore\Api\Domain\JsonApi\Core\Schema\Schema>  $schema
+     */
     public function schema(string $schema): ?SchemaStorage
     {
-        return Arr::get($this->schemas(), $schema);
+        return Arr::get($this->schemas(), $schema::type());
+    }
+
+    public function schemaByType(string $type): ?SchemaStorage
+    {
+        return Arr::get($this->schemas(), $type);
     }
 
     public function addSchema(string $schema, ?SchemaStorage $storage = null): self
     {
-        $storage = $storage ?? SchemaStorage::fromSchema($schema);
-
-        $this->schemas[$schema] = $storage;
+        $this->schemas[$schema::type()] = $storage ?? SchemaStorage::fromSchema($schema);
 
         return $this;
     }
@@ -65,9 +79,7 @@ class JsonApiManifest implements JsonApiManifestContract
 
     public function addResource(string $resource, ?ResourceStorage $storage = null): self
     {
-        $storage = $storage ?? ResourceStorage::fromResource($resource);
-
-        $this->resources[$resource] = $storage;
+        $this->resources[$resource] = $storage ?? ResourceStorage::fromResource($resource);
 
         return $this;
     }

@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static array schemas()
+ * @method static array getSchemas()
  * @method static \Dystore\Api\Base\Repositories\SchemaRepository\SchemaStorage|null schema(string $schema)
+ * @method static \Dystore\Api\Base\Repositories\SchemaRepository\SchemaStorage|null schemaByType(string $type)
  * @method static \Dystore\Api\Base\Manifests\JsonApiManifest addSchema(string $schema, \Dystore\Api\Base\Repositories\SchemaRepository\SchemaStorage|null $storage = null)
  * @method static array resources()
  * @method static \Dystore\Api\Base\Repositories\ResourceRepository\ResourceStorage|null resource(string $resource)

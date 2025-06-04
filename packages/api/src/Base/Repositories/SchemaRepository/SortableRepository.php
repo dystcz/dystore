@@ -10,7 +10,11 @@ class SortableRepository extends Repository
     public function resolve(?Extendable $extendable = null): iterable
     {
         foreach ($this->items as $key => $value) {
-            yield clone $value;
+            if (is_object($value)) {
+                yield clone $value;
+            }
+
+            yield $value;
         }
     }
 }

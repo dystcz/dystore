@@ -4,11 +4,15 @@ namespace Dystore\Api\Base\Repositories\ResourceRepository;
 
 use Dystore\Api\Base\Repositories\Storage;
 
+/**
+ * @property class-string<\Dystore\Api\Domain\JsonApi\Resources\JsonApiResource> $resource
+ */
 class ResourceStorage extends Storage
 {
     final public function __construct(
-        public readonly AttributeRepository $attributes = new AttributeRepository,
-        public readonly RelationshipRepository $relationships = new RelationshipRepository,
+        protected string $resource,
+        protected AttributeRepository $attributes = new AttributeRepository,
+        protected RelationshipRepository $relationships = new RelationshipRepository,
     ) {
         //
     }
@@ -19,6 +23,7 @@ class ResourceStorage extends Storage
     public static function fromResource(string $resource): static
     {
         return new static(
+            resource: $resource,
             attributes: new AttributeRepository($resource::defaultAttributes()),
             relationships: new RelationshipRepository($resource::defaultRelationships()),
         );
