@@ -54,21 +54,21 @@ class CustomerSchema extends Schema
             Str::make('account_ref'),
             Str::make('vat_no'),
 
-            fn () => HasMany::make('orders')
+            HasMany::make('orders')
                 ->type(SchemaType::get(Order::class))
                 ->canCount()
                 ->countAs('orders_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('addresses')
+            HasMany::make('addresses')
                 ->type(SchemaType::get(Address::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => BelongsToMany::make('users')
+            BelongsToMany::make('users')
                 ->type(SchemaType::get(User::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => BelongsToMany::make('customer_groups', 'customerGroups')
+            BelongsToMany::make('customer_groups', 'customerGroups')
                 ->type(SchemaType::get(CustomerGroup::class))
                 ->retainFieldName()
                 ->canCount()

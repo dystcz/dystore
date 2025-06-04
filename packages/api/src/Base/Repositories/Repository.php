@@ -28,17 +28,4 @@ abstract class Repository extends Collection
             })
             ->toArray();
     }
-
-    // public function resolve(?Extendable $extendable = null): iterable
-    // {
-    //     foreach ($this->items as $key => $value) {
-    //         if ($value instanceof Closure) {
-    //             $value = Closure::bind($value, $extendable, get_parent_class($extendable));
-    //
-    //             yield $value($extendable);
-    //         }
-    //
-    //         yield $value;
-    //     }
-    // }
 }

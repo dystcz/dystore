@@ -78,10 +78,10 @@ class AddressSchema extends Schema
             Boolean::make('shipping_default'),
             Boolean::make('billing_default'),
 
-            fn () => BelongsTo::make('customer')
+            BelongsTo::make('customer')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => BelongsTo::make('country')
+            BelongsTo::make('country')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
         ];
     }

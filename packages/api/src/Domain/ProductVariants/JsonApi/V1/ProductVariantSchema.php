@@ -111,40 +111,40 @@ class ProductVariantSchema extends Schema
                     ),
             ]),
 
-            fn () => BelongsTo::make('product')
+            BelongsTo::make('product')
                 ->readOnly(),
 
-            fn () => HasMany::make('attributes', 'attributes')
+            HasMany::make('attributes', 'attributes')
                 ->type(SchemaType::get(Attribute::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('other_product_variants', 'otherVariants')
+            HasMany::make('other_product_variants', 'otherVariants')
                 ->type(SchemaType::get(ProductVariant::class))
                 ->retainFieldName()
                 ->canCount()
                 ->countAs('other_product_variants_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('prices')
+            HasMany::make('prices')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasOne::make('lowest_price', 'lowestPrice')
+            HasOne::make('lowest_price', 'lowestPrice')
                 ->type(SchemaType::get(Price::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasOne::make('highest_price', 'highestPrice')
+            HasOne::make('highest_price', 'highestPrice')
                 ->type(SchemaType::get(Price::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('images', 'images')
+            HasMany::make('images', 'images')
                 ->type(SchemaType::get(Media::class))
                 ->canCount()
                 ->countAs('images_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('product_option_values', 'values')
+            HasMany::make('product_option_values', 'values')
                 ->retainFieldName()
                 ->type(SchemaType::get(ProductOptionValue::class))
                 ->readOnly()
@@ -152,15 +152,15 @@ class ProductVariantSchema extends Schema
                 ->countAs('product_option_values_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasOne::make('default_url', 'defaultUrl')
+            HasOne::make('default_url', 'defaultUrl')
                 ->type(SchemaType::get(Url::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('urls')
+            HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasOneThrough::make('thumbnail')
+            HasOneThrough::make('thumbnail')
                 ->type(SchemaType::get(Media::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
         ];

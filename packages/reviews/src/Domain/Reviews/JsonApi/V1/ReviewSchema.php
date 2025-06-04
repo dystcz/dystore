@@ -5,7 +5,6 @@ namespace Dystore\Reviews\Domain\Reviews\JsonApi\V1;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
-use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -25,17 +24,20 @@ class ReviewSchema extends Schema
     public static string $model = Review::class;
 
     /**
-     * {@inheritDoc}
-     */
-    protected array $with = [
-        'user',
-        'user.customers',
-    ];
-
-    /**
      * Default sort.
      */
     protected $defaultSort = '-id';
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function defaultWith(): array
+    {
+        return [
+            'user',
+            'user.customers',
+        ];
+    }
 
     /**
      * {@inheritDoc}
@@ -45,7 +47,6 @@ class ReviewSchema extends Schema
         return [
             'user',
             'user.customers',
-
         ];
     }
 
@@ -54,14 +55,14 @@ class ReviewSchema extends Schema
      */
     public function indexQuery(?Request $request, Builder $query): Builder
     {
-        /** @var ReviewBuilder $query */
+        /** @var \Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder $query */
         return $query->published();
     }
 
     /**
      * Get the resource fields.
      */
-    public static function defaultFields(): array
+    public static function defaultFields(): iterable
     {
         return [
             static::idField(),
@@ -88,12 +89,12 @@ class ReviewSchema extends Schema
                 )
                 ->sortable(),
 
-            fn () => BelongsTo::make('user')
+            BelongsTo::make('user')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            fn () => MorphTo::make('purchasable', 'reviews')
+            MorphTo::make('purchasable', 'reviews')
                 ->types(
                     ProductSchema::type(),
                     ProductVariantSchema::type(),
@@ -107,7 +108,6 @@ class ReviewSchema extends Schema
     public static function defaultSortables(): array
     {
         return [
-
             SortColumn::make('id', 'id'),
 
             SortColumn::make('published_at', 'published_at'),

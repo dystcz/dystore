@@ -189,25 +189,13 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     public function fields(): iterable
     {
-        return JsonApiManifest::schema(static::class)->fields()->resolve($this);
+        yield from JsonApiManifest::schema(static::class)->fields()->resolve($this);
     }
-
-    // /**
-    //  * {@inheritDoc}
-    //  */
-    // public function fields(): iterable
-    // {
-    //     $fields = iterator_to_array(JsonApiManifest::schema(static::class)->fields()->resolve($this));
-    //
-    //     foreach ($fields as $key => $field) {
-    //         yield $field instanceof Closure ? $field($this) : $field;
-    //     }
-    // }
 
     /**
      * {@inheritDoc}
      */
-    public static function defaultFields(): array
+    public static function defaultFields(): iterable
     {
         return [];
     }
@@ -223,7 +211,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     /**
      * {@inheritDoc}
      */
-    public static function defaultSparseFields(): array
+    public static function defaultSparseFields(): iterable
     {
         return [];
     }
@@ -244,7 +232,7 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
     /**
      * {@inheritDoc}
      */
-    public static function defaultFilters(): array
+    public static function defaultFilters(): iterable
     {
         return [];
     }
@@ -254,13 +242,13 @@ abstract class Schema extends BaseSchema implements ExtendableContract, SchemaCo
      */
     public function sortables(): iterable
     {
-        return JsonApiManifest::schema(static::class)->sortables()->resolve($this);
+        yield from JsonApiManifest::schema(static::class)->sortables()->resolve($this);
     }
 
     /**
      * {@inheritDoc}
      */
-    public static function defaultSortables(): array
+    public static function defaultSortables(): iterable
     {
         return [];
     }

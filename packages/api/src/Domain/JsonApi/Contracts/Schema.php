@@ -25,28 +25,28 @@ interface Schema extends BaseSchemaContract
      *
      * @return array<int,mixed>
      */
-    public static function defaultFields(): array;
+    public static function defaultFields(): iterable;
 
     /**
      * Get the default sparse fields for the schema.
      *
      * @return array<int,mixed>
      */
-    public static function defaultSparseFields(): array;
+    public static function defaultSparseFields(): iterable;
 
     /**
      * Get the default filters for the schema.
      *
      * @return array<int,mixed>
      */
-    public static function defaultFilters(): array;
+    public static function defaultFilters(): iterable;
 
     /**
      * Get the default sortables for the schema.
      *
      * @return array<int,mixed>
      */
-    public static function defaultSortables(): array;
+    public static function defaultSortables(): iterable;
 
     /**
      * Allow specific related resources to be accessed.

@@ -139,26 +139,26 @@ class CartSchema extends Schema
 
             ArrayHash::make('meta'),
 
-            fn () => HasOne::make('order', 'draftOrder')
+            HasOne::make('order', 'draftOrder')
                 ->type(SchemaType::get(Order::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('cart_lines', 'lines')
+            HasMany::make('cart_lines', 'lines')
                 ->type(SchemaType::get(CartLine::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('cart_addresses', 'addresses')
+            HasMany::make('cart_addresses', 'addresses')
                 ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasOne::make('shipping_address', 'shippingAddress')
+            HasOne::make('shipping_address', 'shippingAddress')
                 ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasOne::make('billing_address', 'billingAddress')
+            HasOne::make('billing_address', 'billingAddress')
                 ->type(SchemaType::get(CartAddress::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),

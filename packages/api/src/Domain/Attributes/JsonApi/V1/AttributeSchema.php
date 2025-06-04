@@ -34,7 +34,7 @@ class AttributeSchema extends Schema
         return [
             static::idField(),
 
-            fn () => BelongsTo::make('attribute_group', 'attributeGroup')
+            BelongsTo::make('attribute_group', 'attributeGroup')
                 ->retainFieldName()
                 ->type(SchemaType::get(AttributeGroup::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),

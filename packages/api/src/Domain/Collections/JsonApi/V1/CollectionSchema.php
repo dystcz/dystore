@@ -79,31 +79,31 @@ class CollectionSchema extends Schema
             Number::make('parent_id', 'parent_id')
                 ->hidden(),
 
-            fn () => HasOne::make('default_url', 'defaultUrl')
+            HasOne::make('default_url', 'defaultUrl')
                 ->type(SchemaType::get(Url::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('images', 'images')
+            HasMany::make('images', 'images')
                 ->type(SchemaType::get(Media::class))
                 ->canCount()
                 ->countAs('images_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => BelongsTo::make('group', 'group')
+            BelongsTo::make('group', 'group')
                 ->type(SchemaType::get(CollectionGroup::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('products')
+            HasMany::make('products')
                 ->canCount()
                 ->countAs('products_count')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasOne::make('thumbnail', 'thumbnail')
+            HasOne::make('thumbnail', 'thumbnail')
                 ->type(SchemaType::get(Media::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('urls')
+            HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
         ];
     }

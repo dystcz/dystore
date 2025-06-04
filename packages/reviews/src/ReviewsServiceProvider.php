@@ -126,19 +126,13 @@ class ReviewsServiceProvider extends ServiceProvider
             'variants.reviews.user.customers',
         ]);
         $productSchema->fields()->push(...[
-            fn () => HasManyThrough::make('reviews')
-                ->serializeUsing(
-                    static fn (Relation $relation) => $relation->withoutLinks(),
-                ),
-            fn () => Number::make('review_count')
+            Number::make('review_count')
                 ->extractUsing(
                     static fn (Product $model) => $model->relationLoaded('reviews')
                         ? $model->reviews->count()
                         : $model->reviews()->count(),
                 ),
-            fn () => HasManyThrough::make('reviews')->serializeUsing(
-                static fn (Relation $relation) => $relation->withoutLinks(),
-            ),
+            HasManyThrough::make('reviews')->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
         ]);
         $productSchema->showRelated()->add('reviews');
         $productSchema->showRelationships()->add('reviews');
@@ -156,7 +150,7 @@ class ReviewsServiceProvider extends ServiceProvider
         ]);
 
         $variantSchema->fields()->push(...[
-            fn () => HasMany::make('reviews')
+            HasMany::make('reviews')
                 ->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),

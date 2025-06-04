@@ -33,7 +33,7 @@ class CurrencySchema extends Schema
             Boolean::make('enabled'),
             Boolean::make('default'),
 
-            fn () => HasMany::make('prices'),
+            HasMany::make('prices'),
         ];
     }
 }

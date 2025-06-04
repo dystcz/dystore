@@ -53,7 +53,7 @@ class TransactionSchema extends Schema
             ArrayHash::make('meta')
                 ->hidden(),
 
-            fn () => BelongsTo::make('currency')
+            BelongsTo::make('currency')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
         ];

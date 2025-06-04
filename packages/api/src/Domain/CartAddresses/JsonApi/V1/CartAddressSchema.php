@@ -66,10 +66,10 @@ class CartAddressSchema extends Schema
 
             ArrayHash::make('meta'),
 
-            fn () => BelongsTo::make('country')
+            BelongsTo::make('country')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => BelongsTo::make('cart')
+            BelongsTo::make('cart')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
         ];

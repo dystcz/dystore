@@ -126,11 +126,11 @@ class PriceSchema extends Schema
                     }),
             ]),
 
-            fn () => BelongsTo::make('currency')
+            BelongsTo::make('currency')
                 ->type(SchemaType::get(Currency::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => BelongsTo::make('customer_group', 'customerGroup')
+            BelongsTo::make('customer_group', 'customerGroup')
                 ->type(SchemaType::get(CustomerGroup::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
         ];

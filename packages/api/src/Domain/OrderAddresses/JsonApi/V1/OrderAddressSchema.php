@@ -66,10 +66,10 @@ class OrderAddressSchema extends Schema
             ArrayHash::make('meta')
                 ->hidden(),
 
-            fn () => BelongsTo::make('order')
+            BelongsTo::make('order')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => BelongsTo::make('country')
+            BelongsTo::make('country')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
         ];
     }

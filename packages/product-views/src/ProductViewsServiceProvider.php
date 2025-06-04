@@ -55,6 +55,6 @@ class ProductViewsServiceProvider extends ServiceProvider
     {
         JsonApiManifest::schema(ProductSchema::class)
             ->sortables()
-            ->add(fn () => RecentlyViewedSort::make('recently_viewed'));
+            ->add(RecentlyViewedSort::make('recently_viewed'));
     }
 }

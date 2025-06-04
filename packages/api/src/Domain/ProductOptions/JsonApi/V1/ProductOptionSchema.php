@@ -52,7 +52,7 @@ class ProductOptionSchema extends Schema
             Str::make('handle')
                 ->readOnly(),
 
-            fn () => HasMany::make('product_option_values', 'values')
+            HasMany::make('product_option_values', 'values')
                 ->type(SchemaType::get(ProductOptionValue::class))
                 ->canCount()
                 ->countAs('product_option_values_count')

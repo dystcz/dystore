@@ -61,17 +61,17 @@ class UserSchema extends Schema
 
             Boolean::make('accept_terms')->hidden(),
 
-            fn () => HasOne::make('avatar', 'avatar')
+            HasOne::make('avatar', 'avatar')
                 ->readOnly()
                 ->type('media')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('orders')
+            HasMany::make('orders')
                 ->type(SchemaType::get(Order::class))
                 ->readOnly()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => BelongsToMany::make('customers')
+            BelongsToMany::make('customers')
                 ->type(SchemaType::get(Customer::class))
                 ->readOnly()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),

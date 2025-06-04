@@ -36,11 +36,11 @@ class ProductAssociationSchema extends Schema
 
             Str::make('type'),
 
-            fn () => HasOne::make('target')
+            HasOne::make('target')
                 ->type(SchemaType::get(Product::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasOne::make('parent')
+            HasOne::make('parent')
                 ->type(SchemaType::get(Product::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
         ];

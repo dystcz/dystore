@@ -40,16 +40,16 @@ class StorefrontSchema extends Schema
             ID::make()
                 ->matchAs('[a-zA-Z0-9_]+'),
 
-            fn () => ToOne::make('channel')
+            ToOne::make('channel')
                 ->type(SchemaType::get(Channel::class)),
 
-            fn () => ToOne::make('customer')
+            ToOne::make('customer')
                 ->type(SchemaType::get(Customer::class)),
 
-            fn () => ToOne::make('currency')
+            ToOne::make('currency')
                 ->type(SchemaType::get(Currency::class)),
 
-            fn () => ToMany::make('customer_groups', 'customerGroups')
+            ToMany::make('customer_groups', 'customerGroups')
                 ->retainFieldName()
                 ->type(SchemaType::get(CustomerGroup::class)),
         ];

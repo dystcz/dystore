@@ -84,10 +84,10 @@ class CartLineSchema extends Schema
 
             ArrayHash::make('meta'),
 
-            fn () => BelongsTo::make('cart')
+            BelongsTo::make('cart')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => MorphTo::make('purchasable', 'purchasable')
+            MorphTo::make('purchasable', 'purchasable')
                 ->types(
                     SchemaType::get(Product::class),
                     SchemaType::get(ProductVariant::class),

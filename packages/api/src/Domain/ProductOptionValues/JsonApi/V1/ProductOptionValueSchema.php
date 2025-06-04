@@ -60,12 +60,12 @@ class ProductOptionValueSchema extends Schema
                 ->readOnly()
                 ->on('option'),
 
-            fn () => BelongsTo::make('product_option', 'option')
+            BelongsTo::make('product_option', 'option')
                 ->readOnly()
                 ->type(SchemaType::get(ProductOption::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('images', 'images')
+            HasMany::make('images', 'images')
                 ->type(SchemaType::get(Media::class))
                 ->canCount()
                 ->countAs('images_count')

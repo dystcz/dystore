@@ -95,13 +95,13 @@ class OrderLineSchema extends Schema
 
             ArrayHash::make('meta'),
 
-            fn () => BelongsTo::make('order')
+            BelongsTo::make('order')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => BelongsTo::make('currency')
+            BelongsTo::make('currency')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => MorphTo::make('purchasable', 'purchasable')
+            MorphTo::make('purchasable', 'purchasable')
                 ->types(
                     SchemaType::get(Product::class),
                     SchemaType::get(ProductVariant::class),

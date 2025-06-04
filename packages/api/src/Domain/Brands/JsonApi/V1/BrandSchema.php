@@ -44,16 +44,16 @@ class BrandSchema extends Schema
 
             Str::make('name'),
 
-            fn () => HasOne::make('default_url', 'defaultUrl')
+            HasOne::make('default_url', 'defaultUrl')
                 ->type(SchemaType::get(Url::class))
                 ->retainFieldName()
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasOne::make('thumbnail')
+            HasOne::make('thumbnail')
                 ->type(SchemaType::get(Media::class))
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
-            fn () => HasMany::make('urls')
+            HasMany::make('urls')
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
         ];
     }
