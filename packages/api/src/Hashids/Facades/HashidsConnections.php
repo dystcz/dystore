@@ -3,7 +3,6 @@
 namespace Dystore\Api\Hashids\Facades;
 
 use Dystore\Api\Hashids\Contracts\HashidsConnectionsManager;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 
 /**

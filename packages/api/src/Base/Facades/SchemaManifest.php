@@ -3,9 +3,6 @@
 namespace Dystore\Api\Base\Facades;
 
 use Dystore\Api\Base\Contracts\SchemaManifest as SchemaManifestContract;
-use Dystore\Api\Base\Extensions\Extension;
-use Dystore\Api\Domain\JsonApi\Contracts\Schema as SchemaContract;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 
 /**
