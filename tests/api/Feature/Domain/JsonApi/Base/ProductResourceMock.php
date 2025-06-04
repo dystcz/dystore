@@ -1,6 +1,6 @@
 <?php
 
-namespace Dystore\Tests\Api\Feature\Domain\JsonApi\Extensions;
+namespace Dystore\Tests\Api\Feature\Domain\JsonApi\Base;
 
 use Dystore\Api\Domain\JsonApi\Resources\JsonApiResource;
 

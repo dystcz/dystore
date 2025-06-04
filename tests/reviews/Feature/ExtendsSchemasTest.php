@@ -6,7 +6,8 @@ use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('manifests', 'extending');
 
 it('reviews extend "ProductSchema" with reviews relationship', function () {
     /** @var TestCase $this */
