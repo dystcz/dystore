@@ -75,6 +75,50 @@ it('can list related cart lines with purchasable product option values included'
 
 });
 
+it('can list related cart lines with purchasable price included', function (string $include) {
+    /** @var TestCase $this */
+    $expected = $this->cart->lines->map(fn (CartLine $line) => [
+        'type' => 'cart_lines',
+        'id' => (string) $line->getRouteKey(),
+        'attributes' => [
+            'purchasable_id' => $line->purchasable_id,
+            'purchasable_type' => $line->purchasable_type,
+        ],
+    ])->all();
+
+    $includedProductVariants = $this->cart->lines->map(fn (CartLine $line) => [
+        'type' => 'product_variants',
+        'id' => (string) $line->purchasable->getRouteKey(),
+    ]);
+
+    $includedPrices = $this->cart->lines->map(fn (CartLine $line) => [
+        'type' => 'prices',
+        'id' => (string) $line->purchasable->price->getRouteKey(),
+    ]);
+
+    $included = [
+        ...$includedProductVariants->all(),
+        ...$includedPrices->all(),
+    ];
+
+    $response = $this
+        ->actingAs($this->user)
+        ->jsonApi()
+        ->expects('cart_lines')
+        ->includePaths($include)
+        ->get(serverUrl("/carts/{$this->cart->getRouteKey()}/cart_lines"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedMany($expected)
+        ->assertIncluded($included);
+})->with(fn () => [
+    'purchasable.prices',
+    'purchasable.lowest_price',
+    'purchasable.price',
+    'purchasable.highest_price',
+]);
+
 it('cannot list related cart lines without session and when not logged in', function () {
     /** @var TestCase $this */
     $this->cartSession->forget(delete: false);
