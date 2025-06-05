@@ -72,9 +72,7 @@ it('can list related order lines', function () {
 
 it('cannot list order lines relationships without url signature', function () {
     /** @var TestCase $this */
-    $order = Order::query()
-        ->where('cart_id', $this->cart->getKey())
-        ->first();
+    $order = $this->cart->createOrder();
 
     $response = $this
         ->jsonApi()
@@ -87,4 +85,4 @@ it('cannot list order lines relationships without url signature', function () {
         'title' => 'Unauthorized',
     ]);
 
-})->group('orders', 'order_lines', 'policies')->todo();
+})->group('orders', 'order_lines', 'policies');
