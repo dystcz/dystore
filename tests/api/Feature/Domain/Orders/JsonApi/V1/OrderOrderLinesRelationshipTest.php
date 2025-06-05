@@ -31,7 +31,7 @@ beforeEach(function () {
     $this->cartSession->use($this->cart);
 });
 
-it('can list related order lines', function () {
+it('can list related product lines', function () {
     /** @var TestCase $this */
     $response = $this
         ->jsonApi()
@@ -52,23 +52,26 @@ it('can list related order lines', function () {
         ->with(['lines'])
         ->first();
 
-    $included = $order->productLines->map(fn (OrderLine $line) => [
-        'type' => 'order_lines',
+    $expected = $order->productLines->map(fn (OrderLine $line) => [
         'id' => (string) $line->getRouteKey(),
+        'type' => 'order_lines',
+        'attributes' => [
+            'purchasable_type' => $line->purchasable_type,
+            'purchasable_id' => $line->purchasable_id,
+            'type' => $line->type,
+        ],
     ])->all();
 
     $response = $this
         ->actingAs($this->user)
         ->jsonApi()
         ->expects('orders')
-        ->includePaths('product_lines')
-        ->get("{$signedUrl}");
+        ->get(serverUrl("/orders/{$order->getRouteKey()}/product_lines"));
 
     $response
         ->assertSuccessful()
-        ->assertFetchedOne($order)
-        ->assertIncluded($included);
-})->todo();
+        ->assertFetchedMany($expected);
+});
 
 it('cannot list order lines relationships without url signature', function () {
     /** @var TestCase $this */
