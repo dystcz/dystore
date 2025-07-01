@@ -1,80 +1,68 @@
 <?php
 
-use Dystore\Api\Domain\Carts\Factories\CartFactory;
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Checkout\Enums\CheckoutProtectionStrategy;
+use Dystore\Api\Domain\Customers\Models\Customer;
 use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
-use Lunar\Facades\CartSession;
+use Lunar\Base\CartSessionInterface;
+use Lunar\Managers\CartSessionManager;
 
 uses(TestCase::class, RefreshDatabase::class)
     ->group('orders');
 
-it('can read order details without signature when user is logged in and owns the order', function () {
+beforeEach(function () {
     /** @var TestCase $this */
-
-    /** @var User $user */
-    $user = User::factory()->create();
-
-    /** @var CartFactory $factory */
-    $factory = Cart::factory();
-
-    /** @var Cart $cart */
-    $cart = $factory
-        ->withAddresses()
-        ->withLines()
-        ->for($user)
+    $this->user = User::factory()
+        ->has(Customer::factory())
         ->create();
 
-    CartSession::use($cart);
+    $this->cart = Cart::factory()
+        ->for($this->user)
+        ->withAddresses()
+        ->withLines(2)
+        ->create();
 
-    $order = $cart->createOrder();
+    /** @property CartSessionManager $cartSession */
+    $this->cartSession = App::make(CartSessionInterface::class);
+
+    $this->cartSession->use($this->cart);
+});
+
+it('can show order details without signature when user is logged in and owns the order', function () {
+    /** @var TestCase $this */
+    $order = $this->cart->createOrder();
 
     $order = Order::query()
         ->where($order->getKeyName(), $order->getKey())
         ->first();
 
     $response = $this
-        ->actingAs($user)
+        ->actingAs($this->user)
         ->jsonApi()
         ->includePaths(
             'product_lines.purchasable.product',
-            'product_lines.purchasable.prices',
+            'product_lines.purchasable.price',
             'product_lines.purchasable.images',
             'product_lines.currency',
             'customer',
             'order_addresses',
         )
         ->expects('orders')
-        ->get('/api/v1/orders/'.$order->getRouteKey());
+        ->get(serverUrl('/orders/'.$order->getRouteKey()));
 
     $response
+        ->assertSuccessful()
         ->assertFetchedOne($order)
         ->assertIsIncluded('order_lines', $order->lines->first());
-
 });
 
-it('can read order details when accessing order with valid signature', function () {
+it('can show order details when accessing order with valid signature', function () {
     /** @var TestCase $this */
     Config::set('dystore.general.checkout.checkout_protection_strategy', CheckoutProtectionStrategy::SIGNATURE);
-
-    /** @var User $user */
-    $user = User::factory()->create();
-
-    /** @var CartFactory $factory */
-    $factory = Cart::factory();
-
-    /** @var Cart $cart */
-    $cart = $factory
-        ->withAddresses()
-        ->withLines()
-        ->for($user)
-        ->create();
-
-    CartSession::use($cart);
 
     $response = $this
         ->jsonApi()
@@ -91,7 +79,7 @@ it('can read order details when accessing order with valid signature', function 
     $signedUrl = $response->json('data.links')['self.signed'];
 
     $order = Order::query()
-        ->where('cart_id', $cart->getKey())
+        ->where('cart_id', $this->cart->getKey())
         ->first();
 
     $response = $this
@@ -119,18 +107,30 @@ it('can read order details when accessing order with valid signature', function 
         ]);
 });
 
+it('can show order pricing correctly', function () {
+    /** @var TestCase $this */
+    $order = $this->cart->createOrder();
+
+    $order = Order::query()
+        ->where($order->getKeyName(), $order->getKey())
+        ->first();
+
+    $response = $this
+        ->actingAs($this->user)
+        ->jsonApi()
+        ->expects('orders')
+        ->get(serverUrl('/orders/'.$order->getRouteKey()));
+
+    ray($response->json('data.attributes.prices.sub_total'));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($order);
+});
+
 it('returns unauthorized if the user does not own the order', function () {
     /** @var TestCase $this */
-
-    /** @var CartFactory $factory */
-    $factory = Cart::factory();
-
-    /** @var Cart $cart */
-    $cart = $factory->withAddresses()
-        ->withLines()
-        ->create();
-
-    $order = $cart->createOrder();
+    $order = $this->cart->createOrder();
 
     $order = Order::query()
         ->where($order->getKeyName(), $order->getKey())

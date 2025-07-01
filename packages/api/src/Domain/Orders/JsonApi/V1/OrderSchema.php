@@ -2,6 +2,7 @@
 
 namespace Dystore\Api\Domain\Orders\JsonApi\V1;
 
+use Dystore\Api\Domain\JsonApi\Eloquent\Fields\Price;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
@@ -136,10 +137,13 @@ class OrderSchema extends Schema
             Str::make('currency_code'),
             Str::make('compare_currency_code'),
             Map::make('prices', [
-                Number::make('sub_total')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
+
+                Price::make('sub_total'),
+
+                // Number::make('sub_total')
+                //     ->serializeUsing(
+                //         static fn ($value) => $value?->decimal,
+                //     ),
                 Number::make('total', 'total')
                     ->serializeUsing(
                         static fn ($value) => $value?->decimal,

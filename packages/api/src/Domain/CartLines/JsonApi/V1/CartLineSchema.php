@@ -61,7 +61,8 @@ class CartLineSchema extends Schema
                 Number::make('unit_price', 'unitPrice')
                     ->serializeUsing(static fn ($value) => $value?->decimal()),
                 Number::make('quantity', 'quantity'),
-                Number::make('sub_total', 'subTotal')->serializeUsing(static fn ($value) => $value?->decimal()),
+                Number::make('sub_total', 'subTotal')
+                    ->serializeUsing(static fn ($value) => $value?->decimal()),
                 Number::make('sub_total_discounted', 'subTotalDiscounted')
                     ->serializeUsing(static fn ($value) => $value?->decimal()),
                 Number::make('total', 'total')

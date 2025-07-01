@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Lunar\Base\CartSessionInterface;
 use Lunar\Facades\ModelManifest;
 
 class ApiServiceProvider extends ServiceProvider
@@ -442,7 +441,7 @@ class ApiServiceProvider extends ServiceProvider
             Domain\Carts\Contracts\CurrentSessionCart::class,
             function (Application $app): ?\Lunar\Models\Contracts\Cart {
                 /** @var \Lunar\Managers\CartSessionManager $cartSession */
-                $cartSession = $this->app->make(CartSessionInterface::class);
+                $cartSession = $this->app->make(\Lunar\Base\CartSessionInterface::class);
 
                 return $cartSession->current();
             }

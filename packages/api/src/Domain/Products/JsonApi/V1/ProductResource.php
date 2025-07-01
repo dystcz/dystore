@@ -3,11 +3,16 @@
 namespace Dystore\Api\Domain\Products\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Resources\JsonApiResource;
-use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Illuminate\Http\Request;
+use Lunar\Facades\CartSession;
+use Lunar\Facades\Pricing;
+use Lunar\Facades\StorefrontSession;
 use Lunar\Models\Contracts\ProductVariant as ProductVariantContract;
 
+/**
+ * @param  \Dystore\Api\Domain\Products\Models\Product  $resource
+ */
 class ProductResource extends JsonApiResource
 {
     /**
@@ -17,8 +22,18 @@ class ProductResource extends JsonApiResource
      */
     public function attributes($request): iterable
     {
-        /** @var Product $model */
         $model = $this->resource;
+
+        // $variant = $this->variants->firstWhere('id', 2099);
+
+        // ray(CartSession::current()->lines->first()->total);
+
+        // $pricing = Pricing::for($variant)
+        //     ->currency(StorefrontSession::getCurrency())
+        //     ->customerGroups(StorefrontSession::getCustomerGroups())
+        //     ->get();
+        //
+        // ray($pricing);
 
         if ($model->relationLoaded('variants')) {
             /** @var ProductVariant $variant */

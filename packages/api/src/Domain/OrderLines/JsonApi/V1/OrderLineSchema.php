@@ -2,6 +2,8 @@
 
 namespace Dystore\Api\Domain\OrderLines\JsonApi\V1;
 
+use Dystore\Api\Domain\JsonApi\Eloquent\Fields\OrderLinePricing;
+use Dystore\Api\Domain\JsonApi\Eloquent\Fields\Price;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Domain\ShippingOptions\Entities\ShippingOption;
 use Dystore\Api\Support\Models\Actions\SchemaType;
@@ -68,9 +70,11 @@ class OrderLineSchema extends Schema
             Str::make('identifier'),
             Str::make('notes'),
 
-            Map::make('prices', [
-                Number::make('unit_price', 'unit_price')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
+            Map::make('lol', [
+                Price::make('unit_price'),
+
+                // Number::make('unit_price', 'unit_price')
+                //     ->serializeUsing(static fn ($value) => $value?->decimal()),
                 Number::make('unit_quantity', 'unit_quantity'),
                 Number::make('quantity', 'quantity'),
                 Number::make('sub_total', 'sub_total')
@@ -84,6 +88,8 @@ class OrderLineSchema extends Schema
                 ArrayHash::make('tax_breakdown', 'tax_breakdown')
                     ->serializeUsing(static fn ($value) => $value?->amounts),
             ]),
+
+            OrderLinePricing::make('pricing'),
 
             ArrayHash::make('meta'),
 
