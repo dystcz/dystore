@@ -34,8 +34,6 @@ class StripePaymentAdapter extends PaymentAdapter
             'webhook_model' => Config::get('stripe-webhooks.model'),
             'process_webhook_job' => ProcessStripeWebhookJob::class,
         ]);
-
-        $this->stripeManager = Stripe::getFacadeRoot();
     }
 
     /**
@@ -67,15 +65,22 @@ class StripePaymentAdapter extends PaymentAdapter
     {
         $cart = $this->updateCartMeta($cart, $meta);
 
-        $opts = [
+        $opts = array_filter([
+            'amount' => $amount,
             'metadata' => [
                 'eshop_id' => Config::get('dystore.stripe.eshop_id'),
                 ...$meta,
             ],
-        ];
+            ...Config::get('dystore.stripe.automatic_payment_methods', true)
+            ? ['automatic_payment_methods' => ['enabled' => true]]
+            : [
+                'payment_method_types' => Config::get('dystore.stripe.payment_method_types', ['card']),
+                'automatic_payment_methods' => ['enabled' => false],
+            ],
+        ]);
 
         /** @var \Stripe\PaymentIntent $paymentIntent */
-        $stripePaymentIntent = $this->stripeManager->createIntent(
+        $stripePaymentIntent = Stripe::createIntent(
             cart: $cart->calculate(),
             opts: $opts,
         );
