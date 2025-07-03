@@ -63,8 +63,8 @@ it('returns error response when address does not exists', function () {
         ->get('/api/v1/addresses/1');
 
     $response->assertErrorStatus([
-        'status' => '401',
-        'title' => 'Unauthorized',
+        'status' => '404',
+        'title' => 'Not Found',
     ]);
 
 })->group('addresses');
