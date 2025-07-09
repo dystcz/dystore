@@ -4,9 +4,9 @@ namespace Dystore\Api\Domain\Auth\Http\Routing;
 
 use Dystore\Api\Domain\Auth\Contracts\AuthController;
 use Dystore\Api\Domain\Auth\Contracts\AuthUserOrdersController;
+use Dystore\Api\Domain\Auth\Contracts\NewPasswordController;
 use Dystore\Api\Domain\Auth\Contracts\PasswordResetLinkController;
 use Dystore\Api\Domain\Auth\Contracts\RegisterUserWithoutPasswordController;
-use Dystore\Api\Domain\Auth\Http\Controllers\NewPasswordController;
 use Dystore\Api\Facades\Api;
 use Dystore\Api\Routing\Contracts\RouteGroup as RouteGroupContract;
 use Dystore\Api\Routing\RouteGroup;
@@ -66,7 +66,7 @@ class AuthRouteGroup extends RouteGroup implements RouteGroupContract
                             ->post('reset-password')
                             ->name('users.passwords.reset');
                         $actions
-                            ->get('reset-password/{token}', 'create')
+                            ->get('reset-password/{token}/{email}', 'create')
                             ->name('users.passwords.set-new-password');
                     })
                     ->middleware('guest:'.Api::getAuthGuard());

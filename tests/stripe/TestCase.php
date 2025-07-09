@@ -17,6 +17,7 @@ use LaravelJsonApi\Testing\TestExceptionHandler;
 use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\Taxes;
 use Lunar\Models\Currency;
+use Lunar\Models\CustomerGroup;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
@@ -37,6 +38,10 @@ abstract class TestCase extends OrchestraTestCase
         Currency::factory()->create([
             'code' => 'EUR',
             'decimal_places' => 2,
+        ]);
+
+        CustomerGroup::factory()->create([
+            'default' => true,
         ]);
 
         App::get(ShippingModifiers::class)->add(TestShippingModifier::class);
@@ -79,7 +84,7 @@ abstract class TestCase extends OrchestraTestCase
                 'public_key' => env('STRIPE_PUBLIC_KEY'),
                 'key' => env('STRIPE_SECRET_KEY'),
                 'webhooks' => [
-                    'payment_intent' => env('STRIPE_WEBHOOK_SECRET'),
+                    'lunar' => env('STRIPE_WEBHOOK_SECRET'),
                 ],
             ]);
             $config->set('dystore.stripe.automatic_payment_methods', false);

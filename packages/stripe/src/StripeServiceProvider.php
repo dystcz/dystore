@@ -2,7 +2,6 @@
 
 namespace Dystore\Stripe;
 
-use Dystore\Stripe\Managers\StripeManager;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,11 +22,6 @@ class StripeServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app->singleton(
-            'lunar:stripe',
-            fn (Application $app) => $app->make(StripeManager::class),
-        );
-
         $this->loadRoutesFrom(__DIR__.'/../routes/webhooks.php');
 
         StripePaymentAdapter::register();

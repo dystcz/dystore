@@ -24,7 +24,7 @@
         "laravel-json-api/laravel": "^5.1",
         "laravel-json-api/non-eloquent": "^4.2",
         "laravel-json-api/hashids": "^3.2",
-        "lunarphp/lunar": "1.0.0-beta.20",
+        "lunarphp/lunar": "1.0.0-beta.22",
         "staudenmeir/eloquent-has-many-deep": "^1.20"
     },
     "autoload": {
