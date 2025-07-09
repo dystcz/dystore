@@ -202,6 +202,14 @@ class ApiServiceProvider extends ServiceProvider
         Config::set('lunar.cart.pipelines.cart', $cartPipelines);
 
         Config::set(
+            'lunar.cart.pipelines.cart_lines',
+            array_merge(
+                Config::get('lunar.cart.pipelines.cart_lines'),
+                [Domain\CartLines\Pipelines\GetUnitPriceExTax::class]
+            )
+        );
+
+        Config::set(
             'lunar.cart.validators.set_payment_option',
             [Domain\Carts\Validation\PaymentOptionValidator::class],
         );
