@@ -32,12 +32,12 @@
     },
     "minimum-stability": "dev",
     "replace": {
-        "dystcz/dystore-api": "1.0.8",
-        "dystcz/dystore-newsletter": "1.0.8",
-        "dystcz/dystore-product-notifications": "1.0.8",
-        "dystcz/dystore-product-views": "1.0.8",
-        "dystcz/dystore-reviews": "1.0.8",
-        "dystcz/dystore-stripe": "1.0.8"
+        "dystcz/dystore-api": "1.0.9",
+        "dystcz/dystore-newsletter": "1.0.9",
+        "dystcz/dystore-product-notifications": "1.0.9",
+        "dystcz/dystore-product-views": "1.0.9",
+        "dystcz/dystore-reviews": "1.0.9",
+        "dystcz/dystore-stripe": "1.0.9"
     },
     "config": {
         "sort-packages": true,
