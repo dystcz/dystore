@@ -8,6 +8,7 @@ use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use Lunar\DataTypes\Price as PriceData;
 
+// TODO: Finish
 class OrderLinePricing extends Map implements SerializableContract
 {
     private ?Closure $extractor = null;

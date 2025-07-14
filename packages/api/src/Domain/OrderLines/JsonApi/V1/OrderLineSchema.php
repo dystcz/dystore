@@ -70,6 +70,7 @@ class OrderLineSchema extends Schema
             Str::make('identifier'),
             Str::make('notes'),
 
+            // TODO: Remove
             Map::make('lol', [
                 Price::make('unit_price'),
 
@@ -89,6 +90,7 @@ class OrderLineSchema extends Schema
                     ->serializeUsing(static fn ($value) => $value?->amounts),
             ]),
 
+            // TODO: Finish
             OrderLinePricing::make('pricing'),
 
             ArrayHash::make('meta'),

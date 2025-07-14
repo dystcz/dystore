@@ -11,6 +11,7 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
+use Lunar\DataTypes\Price;
 use Lunar\Models\Contracts\CartLine;
 use Lunar\Models\Contracts\Product;
 use Lunar\Models\Contracts\ProductVariant;
@@ -57,23 +58,24 @@ class CartLineSchema extends Schema
             Number::make('purchasable_id'),
             Str::make('purchasable_type'),
 
-            Map::make('prices', [
+            Map::make('pricing', [
+                Number::make('quantity'),
+                Number::make('unit_quantity')
+                    ->serializeUsing(static fn (?Price $value) => $value?->unitQty),
                 Number::make('unit_price', 'unitPrice')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('quantity', 'quantity'),
+                    ->serializeUsing(static fn (?Price $value) => $value?->decimal()),
                 Number::make('sub_total', 'subTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
+                    ->serializeUsing(static fn (?Price $value) => $value?->decimal()),
                 Number::make('sub_total_discounted', 'subTotalDiscounted')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
+                    ->serializeUsing(static fn (?Price $value) => $value?->decimal()),
                 Number::make('total', 'total')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('tax_amount', 'taxAmount')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
+                    ->serializeUsing(static fn (?Price $value) => $value?->decimal()),
+                Number::make('tax_total', 'taxAmount')
+                    ->serializeUsing(static fn (?Price $value) => $value?->decimal()),
                 Number::make('discount_total', 'discounTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
+                    ->serializeUsing(static fn (?Price $value) => $value?->decimal()),
             ]),
 
-            Number::make('quantity'),
             ArrayHash::make('meta'),
 
             BelongsTo::make('cart')
