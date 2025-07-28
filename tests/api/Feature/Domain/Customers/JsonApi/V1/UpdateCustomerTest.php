@@ -44,7 +44,7 @@ it('can update a customer by logged in user', function () {
         'id' => $this->customer->getKey(),
         'first_name' => 'Jane',
         'last_name' => $this->customer->last_name,
-        'vat_no' => 'CZ123456789',
+        'tax_identifier' => 'CZ123456789',
         'account_ref' => '123456789',
     ]);
 })->group('customers');
