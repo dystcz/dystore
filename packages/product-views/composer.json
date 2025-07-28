@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "dystcz/dystore-api": "^1.0.9",
+        "dystcz/dystore-api": "^1.0.10",
         "illuminate/support": "^11.0|^12.0",
         "ext-redis": "*"
     },
