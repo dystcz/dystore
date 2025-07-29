@@ -7,9 +7,10 @@ use Dystore\Api\Domain\ProductVariants\Factories\ProductVariantFactory;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('product_associations');
 
-it('can list inverse productassociations through relationship', function () {
+it('can list inverse product associations through relationship', function () {
     /** @var TestCase $this */
 
     /** @var Product $productA */
@@ -34,7 +35,36 @@ it('can list inverse productassociations through relationship', function () {
         ->assertSuccessful()
         ->assertFetchedMany($productB->inverseAssociations)
         ->assertDoesntHaveIncluded();
-})->group('products');
+});
+
+it('cannot list unpublished product associations through relationship', function () {
+    /** @var TestCase $this */
+
+    /** @var Product $productA */
+    $productA = Product::factory()->create();
+
+    /** @var Product $productB */
+    $productB = Product::factory()
+        ->has(ProductVariantFactory::new()->has(Price::factory()), 'variants')
+        ->create([
+            'status' => 'draft',
+        ]);
+
+    $productA->associate(
+        $productB,
+        ProductAssociation::CROSS_SELL
+    );
+
+    $response = $this
+        ->jsonApi()
+        ->expects('product_associations')
+        ->get(serverUrl("/products/{$productB->getRouteKey()}/inverse_product_associations"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedNone()
+        ->assertDoesntHaveIncluded();
+});
 
 it('can count inverse product associations', function () {
     /** @var TestCase $this */
@@ -62,4 +92,4 @@ it('can count inverse product associations', function () {
         ->assertFetchedOne($productB);
 
     expect($response->json('data.relationships.inverse_product_associations.meta.count'))->toBe(1);
-})->group('products', 'counts');
+})->group('product_associations', 'counts');
