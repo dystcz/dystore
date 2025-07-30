@@ -36,7 +36,7 @@ class OrderLinePricing extends Map implements SerializableContract
 
         $subTotalDiscounted = new PriceData(
             value: $owner->sub_total->value - $owner->discount_total->value,
-            currency: $owner->currency
+            currency: $owner->sub_total->currency
         );
 
         $fields = [
