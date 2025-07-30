@@ -3,12 +3,10 @@
 namespace Dystore\Api\Domain\OrderLines\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Fields\OrderLinePricing;
-use Dystore\Api\Domain\JsonApi\Eloquent\Fields\Price;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Domain\ShippingOptions\Entities\ShippingOption;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
-use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
@@ -70,27 +68,6 @@ class OrderLineSchema extends Schema
             Str::make('identifier'),
             Str::make('notes'),
 
-            // TODO: Remove
-            Map::make('lol', [
-                Price::make('unit_price'),
-
-                // Number::make('unit_price', 'unit_price')
-                //     ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('unit_quantity', 'unit_quantity'),
-                Number::make('quantity', 'quantity'),
-                Number::make('sub_total', 'sub_total')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('total', 'total')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('tax_total', 'tax_total')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('discount_total', 'discount_total')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                ArrayHash::make('tax_breakdown', 'tax_breakdown')
-                    ->serializeUsing(static fn ($value) => $value?->amounts),
-            ]),
-
-            // TODO: Finish
             OrderLinePricing::make('pricing'),
 
             ArrayHash::make('meta'),
