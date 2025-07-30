@@ -23,7 +23,7 @@ class Price extends Attribute
 
     private ?string $related = null;
 
-    public function __construct(
+    final public function __construct(
         private string $fieldName,
         private ?string $column = null,
         private ?PriceData $price = null,
@@ -32,9 +32,9 @@ class Price extends Attribute
 
         $this->extractor = static function (Model $model, string $column, ?PriceData $price): array {
             return [
-                'value' => $price->value,
-                'decimal' => $price->unitDecimal(),
-                'formatted' => $price->unitFormatted(),
+                'value' => $price?->value,
+                'decimal' => $price?->unitDecimal(),
+                'formatted' => $price?->unitFormatted(),
             ];
         };
     }
@@ -76,10 +76,6 @@ class Price extends Attribute
 
         if (is_null($value)) {
             return null;
-        }
-
-        if ($value && $this->keys) {
-            $value = ($this->keys)($value);
         }
 
         if (is_null($value)) {
