@@ -2,6 +2,7 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Models;
 
+use Dystore\Api\Base\Enums\PublishedStatus;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Factories\ReviewFactory;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\BaseModel;
 use Lunar\Base\Traits\HasMedia;
@@ -24,6 +26,7 @@ class Review extends BaseModel implements SpatieHasMedia
 {
     use HasFactory;
     use HasMedia;
+    use SoftDeletes;
 
     protected $guarded = [];
 
@@ -35,6 +38,7 @@ class Review extends BaseModel implements SpatieHasMedia
     protected $casts = [
         'meta' => AsArrayObject::class,
         'published_at' => 'datetime',
+        'status' => PublishedStatus::class,
     ];
 
     /**
