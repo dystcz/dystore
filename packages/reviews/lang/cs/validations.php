@@ -27,4 +27,3 @@ return [
         'string' => 'Typ položky musí být řetězec.',
     ],
 ];
-
