@@ -12,13 +12,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\BaseModel;
+use Lunar\Base\Traits\HasMedia;
+use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 
 /**
  * @method static ReviewBuilder query()
  */
-class Review extends BaseModel
+class Review extends BaseModel implements SpatieHasMedia
 {
     use HasFactory;
+    use HasMedia;
 
     protected $guarded = [];
 
