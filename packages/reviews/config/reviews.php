@@ -21,6 +21,7 @@ return [
                 'include_unpublished_auth_user_reviews' => true,
                 'auth_required' => true,
                 'name_required' => false,
+                'purchasable_required' => false,
                 'auth_middleware' => ['auth'],
             ],
         ],

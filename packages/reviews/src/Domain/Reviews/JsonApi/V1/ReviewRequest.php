@@ -23,7 +23,9 @@ class ReviewRequest extends ResourceRequest
                 'max:5',
             ],
             'name' => [
-                'nullable',
+                Config::get('dystore.reviews.domains.reviews.settings.name_required', false)
+                ? 'required'
+                : 'nullable',
                 'string',
             ],
             'comment' => [
@@ -35,11 +37,15 @@ class ReviewRequest extends ResourceRequest
                 'array',
             ],
             'purchasable_id' => [
-                'required',
+                Config::get('dystore.reviews.domains.reviews.settings.purchasable_required', false)
+                ? 'required'
+                : 'nullable',
                 'integer',
             ],
             'purchasable_type' => [
-                'required',
+                Config::get('dystore.reviews.domains.reviews.settings.purchasable_required', false)
+                ? 'required'
+                : 'nullable',
                 'string',
             ],
             'published_at' => [
@@ -47,10 +53,6 @@ class ReviewRequest extends ResourceRequest
                 JsonApiRule::dateTime(),
             ],
         ];
-
-        if (Config::get('dystore.reviews.domains.reviews.settings.name_required', false)) {
-            $rules['name'] = ['required', ...$rules['name']];
-        }
 
         return $rules;
     }
