@@ -2,12 +2,14 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Models;
 
+use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Factories\ReviewFactory;
 use Dystore\Reviews\Domain\Reviews\Scopes\PublishedScope;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Config;
@@ -58,6 +60,8 @@ class Review extends BaseModel implements SpatieHasMedia
 
     /**
      * Purchasable relation.
+     *
+     * @return MorphTo<Model,Review>
      */
     public function purchasable(): MorphTo
     {
@@ -66,6 +70,8 @@ class Review extends BaseModel implements SpatieHasMedia
 
     /**
      * User relation.
+     *
+     * @return BelongsTo<User,Review>
      */
     public function user(): BelongsTo
     {
