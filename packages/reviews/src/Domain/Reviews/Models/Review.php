@@ -2,11 +2,14 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Models;
 
+use Dystore\Api\Base\Concerns\Publishable;
 use Dystore\Api\Base\Enums\PublishedStatus;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Factories\ReviewFactory;
+use Dystore\Reviews\Domain\Reviews\Observers\ReviewObserver;
 use Dystore\Reviews\Domain\Reviews\Scopes\PublishedScope;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,10 +25,12 @@ use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 /**
  * @method static ReviewBuilder query()
  */
+#[ObservedBy([ReviewObserver::class])]
 class Review extends BaseModel implements SpatieHasMedia
 {
     use HasFactory;
     use HasMedia;
+    use Publishable;
     use SoftDeletes;
 
     protected $guarded = [];
