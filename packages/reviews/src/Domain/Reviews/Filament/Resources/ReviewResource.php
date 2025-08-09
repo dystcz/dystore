@@ -149,7 +149,7 @@ class ReviewResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(__('dystore-reviews::reviews.fields.title'))
+                    ->label(__('dystore-reviews::reviews.fields.name'))
                     ->sortable()
                     ->searchable()
                     ->limit(50),

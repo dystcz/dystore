@@ -11,6 +11,7 @@ return [
     ],
     'fields' => [
         'name' => 'Name',
+        'name' => 'Name',
         'purchasable' => 'Purchasable',
         'user' => 'User',
         'rating' => 'Rating',
