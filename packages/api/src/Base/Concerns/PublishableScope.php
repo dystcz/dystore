@@ -5,6 +5,7 @@ namespace Dystore\Api\Base\Concerns;
 use Carbon\Carbon;
 use Dystore\Api\Base\Enums\PublishedStatus;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Schema;
 
 trait PublishableScope
 {
@@ -17,13 +18,19 @@ trait PublishableScope
         $builder = $this;
 
         return $builder
-            ->where(
-                'status',
-                PublishedStatus::PUBLISHED,
+            ->when(
+                Schema::hasColumn($builder->getModel()->getTable(), 'status'),
+                fn (Builder $query) => $query->where('status', PublishedStatus::PUBLISHED)
             )
-            ->where(fn (Builder $query) => $query
-                ->where('published_at', '<=', Carbon::now())
-                ->orWhere('published_at', null)
+            ->where(
+                'published_at',
+                '!=',
+                null,
+            )
+            ->where(
+                'published_at',
+                '<=',
+                Carbon::now(),
             );
     }
 }
