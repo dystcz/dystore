@@ -3,12 +3,16 @@
 namespace Dystore\Reviews\Domain\Reviews\Builders;
 
 use Carbon\Carbon;
+use Dystore\Api\Base\Enums\PublishedStatus;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
 /**
- * @method self published()
+ * @extends Builder<Model>
+ *
+ * @method ReviewBuilder published()
  */
 class ReviewBuilder extends Builder
 {
@@ -18,11 +22,14 @@ class ReviewBuilder extends Builder
     public function published(): self
     {
         return $this
-            ->where(function (Builder $query) {
-                $query
-                    ->where('published_at', '!=', null)
-                    ->where('published_at', '<=', Carbon::now());
-            })
+            ->where(
+                'status',
+                PublishedStatus::PUBLISHED,
+            )
+            ->where(fn (Builder $query) => $query
+                ->where('published_at', '!==', null)
+                ->where('published_at', '<=', Carbon::now())
+            )
             ->orWhere(function (Builder $query) {
                 $query
                     ->when(
