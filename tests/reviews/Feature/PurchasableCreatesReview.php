@@ -6,7 +6,8 @@ use Dystore\Tests\Reviews\Stubs\Users\User;
 use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('reviews');
 
 it('can as purchasable read reviews', function () {
     /** @var TestCase $this */
