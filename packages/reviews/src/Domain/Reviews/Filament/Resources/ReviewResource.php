@@ -13,6 +13,7 @@ use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MorphToSelect;
 use Filament\Forms\Components\MorphToSelect\Type;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -66,7 +67,7 @@ class ReviewResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label(__('dystore-reviews::reviews.fields.title'))
+                    ->label(__('dystore-reviews::reviews.fields.name'))
                     ->maxLength(255)
                     ->nullable(),
 
@@ -108,6 +109,14 @@ class ReviewResource extends Resource
                     ->rows(4)
                     ->maxLength(65535)
                     ->nullable()
+                    ->columnSpanFull(),
+
+                SpatieMediaLibraryFileUpload::make('image')
+                    ->label(__('dystore-reviews::reviews.fields.image'))
+                    ->collection('images')
+                    ->responsiveImages()
+                    ->preserveFilenames()
+                    ->image()
                     ->columnSpanFull(),
 
                 Select::make('status')
