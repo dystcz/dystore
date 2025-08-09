@@ -11,7 +11,6 @@ return [
     ],
     'fields' => [
         'name' => 'Jméno',
-        'name' => 'Jméno',
         'purchasable' => 'Produkt',
         'user' => 'Uživatel',
         'rating' => 'Hodnocení',
