@@ -14,7 +14,7 @@ use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
-use Dystore\Reviews\Domain\Reviews\Observers\ReviewObserver;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use LaravelJsonApi\Eloquent\Fields\Number;
@@ -59,7 +59,9 @@ class ReviewsServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/Domain/Hub/resources/views', 'dystore-reviews');
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
 
-        Review::observe(ReviewObserver::class);
+        Relation::morphMap([
+            'review' => Review::class,
+        ]);
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
