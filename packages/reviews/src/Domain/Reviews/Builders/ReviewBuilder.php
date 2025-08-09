@@ -26,10 +26,8 @@ class ReviewBuilder extends Builder
                 'status',
                 PublishedStatus::PUBLISHED,
             )
-            ->where(fn (Builder $query) => $query
-                ->where('published_at', '!==', null)
-                ->where('published_at', '<=', Carbon::now())
-            )
+            ->where('published_at', '!=', null)
+            ->where('published_at', '<=', Carbon::now())
             ->orWhere(function (Builder $query) {
                 $query
                     ->when(
@@ -38,7 +36,6 @@ class ReviewBuilder extends Builder
                             false,
                         ),
                         fn (Builder $query) => $query->where('user_id', Auth::id()),
-                        fn (Builder $query) => $query,
                     );
             });
     }
