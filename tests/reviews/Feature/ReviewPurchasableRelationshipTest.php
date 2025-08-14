@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(TestCase::class, RefreshDatabase::class)
     ->group('reviews');
 
-it('can as purchasable read reviews', function () {
+it('can list reviews through a product variant', function () {
     /** @var TestCase $this */
     $user = User::factory()->create();
 
@@ -21,7 +21,7 @@ it('can as purchasable read reviews', function () {
         ->actingAs($user)
         ->jsonApi()
         ->expects('reviews')
-        ->get('/api/v1/variants/'.$review->purchasable->getRouteKey().'/reviews');
+        ->get(serverUrl("/variants/{$review->purchasable->getRouteKey()}/reviews"));
 
     $response->assertFetchedMany([$review]);
-})->todo();
+});
