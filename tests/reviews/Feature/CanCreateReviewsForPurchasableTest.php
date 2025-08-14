@@ -124,7 +124,7 @@ it('requires a rating and comment, but also a name in order to be saved', functi
 
 it('can store anonymous review when configured', function () {
     /** @var TestCase $this */
-    Config::get('dystore.reviews.domains.reviews.settings.auth_required', false);
+    Config::set('dystore.reviews.domains.reviews.settings.auth_required', false);
 
     /** @var Review $review */
     $review = Review::factory()
@@ -159,7 +159,7 @@ it('can store anonymous review when configured', function () {
         'comment' => $review->comment,
         'rating' => $review->rating,
     ]);
-})->todo()->group('reviews');
+})->group('reviews');
 
 it('can create a review for a product', function () {
     /** @var TestCase $this */

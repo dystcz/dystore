@@ -20,10 +20,7 @@ class ReviewsController extends Controller
     {
         if (Config::get('dystore.reviews.domains.reviews.settings.auth_required', true)) {
             $this
-                ->middleware(Config::get(
-                    'dystore.reviews.domains.reviews.settings.auth_middleware',
-                    ['auth'],
-                ))
+                ->middleware(Config::get('dystore.reviews.domains.reviews.settings.auth_middleware', ['auth']))
                 ->only('store');
         }
     }
