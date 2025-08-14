@@ -35,7 +35,7 @@ it('requires logged in user to create a review', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $response->assertErrorStatus([
         'detail' => 'Unauthenticated.',
@@ -72,7 +72,7 @@ it('can save a review with name and meta', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/reviews', $data)
@@ -113,7 +113,7 @@ it('requires a rating and comment, but also a name in order to be saved', functi
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $response
         ->assertErrors(422, [
@@ -146,7 +146,7 @@ it('can store anonymous review when configured', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/reviews', $data)
@@ -182,7 +182,7 @@ it('can store review without purchasable when configured', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/reviews', $data)
@@ -222,7 +222,7 @@ it('can create a review for a product', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/reviews', $data)
@@ -264,7 +264,7 @@ it('can create a review for a product variant', function () {
         ->jsonApi()
         ->expects('reviews')
         ->withData($data)
-        ->post('/api/v1/reviews');
+        ->post(serverUrl('/reviews'));
 
     $id = $response
         ->assertCreatedWithServerId('http://localhost/api/v1/reviews', $data)

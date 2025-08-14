@@ -15,6 +15,7 @@ use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use LaravelJsonApi\Eloquent\Fields\Number;
@@ -90,7 +91,7 @@ class ReviewsServiceProvider extends ServiceProvider
         ];
 
         foreach ($controllers as $abstract => $concrete) {
-            $this->app->bind($abstract, $concrete);
+            $this->app->bind($abstract, fn (Application $app) => $app->make($concrete));
         }
     }
 
@@ -154,6 +155,14 @@ class ReviewsServiceProvider extends ServiceProvider
                     'purchasable_type',
                     ProductVariant::class
                 );
+        });
+
+        Product::resolveRelationUsing('reviews', function ($model) {
+            return $model->morphMany(Review::class, 'purchasable');
+        });
+
+        ProductVariant::resolveRelationUsing('reviews', function ($model) {
+            return $model->morphMany(Review::class, 'purchasable');
         });
     }
 

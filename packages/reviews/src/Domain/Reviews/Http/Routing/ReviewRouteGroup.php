@@ -38,15 +38,13 @@ class ReviewRouteGroup extends RouteGroup
                 $server
                     ->resource(ProductSchema::type(), ProductsController::class)
                     ->relationships(function (Relationships $relationships) {
-                        $relationships->hasMany('reviews')
-                            ->readOnly();
+                        $relationships->hasMany('reviews')->readOnly();
                     })->only();
 
                 $server
                     ->resource(ProductVariantSchema::type(), ProductVariantsController::class)
                     ->relationships(function (Relationships $relationships) {
-                        $relationships->hasMany('reviews')
-                            ->readOnly();
+                        $relationships->hasMany('reviews')->readOnly();
                     })->only();
             });
     }
