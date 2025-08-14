@@ -117,8 +117,8 @@ it('requires a rating and comment, but also a name in order to be saved', functi
 
     $response
         ->assertErrors(422, [
-            ['detail' => __('dystore-reviews::validations.rating.required'), 'status' => '422'],
-            ['detail' => __('dystore-reviews::validations.name.required'), 'status' => '422'],
+            ['detail' => __('dystore-reviews::validations.reviews.rating.required'), 'status' => '422'],
+            ['detail' => __('dystore-reviews::validations.reviews.name.required'), 'status' => '422'],
         ]);
 
 });

@@ -65,17 +65,17 @@ class ReviewRequest extends ResourceRequest
     public function messages(): array
     {
         return [
-            'rating.required' => __('dystore-reviews::validations.rating.required'),
-            'rating.integer' => __('dystore-reviews::validations.rating.integer'),
-            'rating.min' => __('dystore-reviews::validations.rating.min'),
-            'rating.max' => __('dystore-reviews::validations.rating.max'),
-            'name.required' => __('dystore-reviews::validations.name.required'),
-            'name.string' => __('dystore-reviews::validations.name.string'),
-            'comment.string' => __('dystore-reviews::validations.comment.string'),
-            'purchasable_id.required' => __('dystore-reviews::validations.purchasable_id.required'),
-            'purchasable_id.integer' => __('dystore-reviews::validations.surchasable_id.integer'),
-            'purchasable_type.required' => __('dystore-reviews::validations.purchasable_type.required'),
-            'purchasable_type.string' => __('dystore-reviews::validations.strchasable_type.string'),
+            'rating.required' => __('dystore-reviews::validations.reviews.rating.required'),
+            'rating.integer' => __('dystore-reviews::validations.reviews.rating.integer'),
+            'rating.min' => __('dystore-reviews::validations.reviews.rating.min'),
+            'rating.max' => __('dystore-reviews::validations.reviews.rating.max'),
+            'name.required' => __('dystore-reviews::validations.reviews.name.required'),
+            'name.string' => __('dystore-reviews::validations.reviews.name.string'),
+            'comment.string' => __('dystore-reviews::validations.reviews.comment.string'),
+            'purchasable_id.required' => __('dystore-reviews::validations.reviews.purchasable_id.required'),
+            'purchasable_id.integer' => __('dystore-reviews::validations.reviews.surchasable_id.integer'),
+            'purchasable_type.required' => __('dystore-reviews::validations.reviews.purchasable_type.required'),
+            'purchasable_type.string' => __('dystore-reviews::validations.reviews.strchasable_type.string'),
         ];
     }
 }
