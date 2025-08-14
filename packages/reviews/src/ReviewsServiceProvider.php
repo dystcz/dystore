@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use Lunar\Facades\ModelManifest;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
 
@@ -59,6 +60,11 @@ class ReviewsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom("{$this->root}/database/migrations");
         $this->loadViewsFrom(__DIR__.'/Domain/Hub/resources/views', 'dystore-reviews');
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
+
+        ModelManifest::replace(
+            \Dystore\Reviews\Domain\Reviews\Contacts\Review::class,
+            \Dystore\Reviews\Domain\Reviews\Models\Review::class
+        );
 
         Relation::morphMap([
             'review' => Review::class,
