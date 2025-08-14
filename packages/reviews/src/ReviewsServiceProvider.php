@@ -39,6 +39,7 @@ class ReviewsServiceProvider extends ServiceProvider
             'dystore-reviews',
         );
 
+        $this->bindControllers();
         $this->registerSchemas();
 
         $this->booting(function () {
@@ -76,6 +77,21 @@ class ReviewsServiceProvider extends ServiceProvider
     public function registerSchemas(): void
     {
         SchemaManifestFacade::registerSchema(ReviewSchema::class);
+    }
+
+    /**
+     * Bind controllers.
+     */
+    protected function bindControllers(): void
+    {
+        $controllers = [
+            \Dystore\Reviews\Domain\Reviews\Contacts\ReviewsController::class => \Dystore\Reviews\Domain\Reviews\Http\Controllers\ReviewsController::class,
+            \Dystore\Reviews\Domain\Reviews\Contacts\PublishReviewsController::class => \Dystore\Reviews\Domain\Reviews\Http\Controllers\PublishReviewsController::class,
+        ];
+
+        foreach ($controllers as $abstract => $concrete) {
+            $this->app->bind($abstract, $concrete);
+        }
     }
 
     /**

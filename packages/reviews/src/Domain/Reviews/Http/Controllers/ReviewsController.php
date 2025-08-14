@@ -3,13 +3,14 @@
 namespace Dystore\Reviews\Domain\Reviews\Http\Controllers;
 
 use Dystore\Api\Base\Controller;
+use Dystore\Reviews\Domain\Reviews\Contacts\ReviewsController as ReviewsControllerContract;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
 
-class ReviewsController extends Controller
+class ReviewsController extends Controller implements ReviewsControllerContract
 {
     use Destroy;
     use FetchMany;

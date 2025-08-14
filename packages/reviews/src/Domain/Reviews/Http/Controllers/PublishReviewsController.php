@@ -3,13 +3,14 @@
 namespace Dystore\Reviews\Domain\Reviews\Http\Controllers;
 
 use Dystore\Api\Base\Controller;
+use Dystore\Reviews\Domain\Reviews\Contacts\PublishReviewsController as PublishReviewsControllerContract;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use LaravelJsonApi\Core\Responses\DataResponse;
 
-class PublishReviewsController extends Controller
+class PublishReviewsController extends Controller implements PublishReviewsControllerContract
 {
     public function publish(
         ReviewSchema $schema,
