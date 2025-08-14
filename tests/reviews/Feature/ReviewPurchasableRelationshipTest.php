@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(TestCase::class, RefreshDatabase::class)
     ->group('reviews');
 
-it('can list reviews through a product', function () {
+it('can list product reviews', function () {
     /** @var TestCase $this */
     $user = User::factory()->create();
 
@@ -32,7 +32,7 @@ it('can list reviews through a product', function () {
     $response->assertFetchedMany([$review]);
 });
 
-it('can list reviews through a product variant', function () {
+it('can list product variant reviews', function () {
     /** @var TestCase $this */
     $user = User::factory()->create();
 

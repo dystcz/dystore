@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
 
@@ -143,25 +142,11 @@ class ReviewsServiceProvider extends ServiceProvider
      */
     protected function registerDynamicRelations(): void
     {
-        Product::resolveRelationUsing('variantReviews', function ($model) {
-            return $model
-                ->hasManyThrough(
-                    Review::class,
-                    ProductVariant::class,
-                    'product_id',
-                    'purchasable_id'
-                )
-                ->where(
-                    'purchasable_type',
-                    ProductVariant::class
-                );
-        });
-
-        Product::resolveRelationUsing('reviews', function ($model) {
+        Product::resolveRelationUsing('reviews', function (Product $model) {
             return $model->morphMany(Review::class, 'purchasable');
         });
 
-        ProductVariant::resolveRelationUsing('reviews', function ($model) {
+        ProductVariant::resolveRelationUsing('reviews', function (ProductVariant $model) {
             return $model->morphMany(Review::class, 'purchasable');
         });
     }
@@ -200,9 +185,10 @@ class ReviewsServiceProvider extends ServiceProvider
                             ? $model->reviews->count()
                             : $model->reviews()->count(),
                     ),
-                fn () => HasManyThrough::make('reviews')->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                fn () => HasMany::make('reviews', 'reviews')
+                    ->serializeUsing(
+                        static fn ($relation) => $relation->withoutLinks(),
+                    ),
             ])
             ->setShowRelated([
                 'reviews',
@@ -229,7 +215,7 @@ class ReviewsServiceProvider extends ServiceProvider
                 'reviews.user.customers',
             ])
             ->setFields([
-                fn () => HasMany::make('reviews')->serializeUsing(
+                fn () => HasMany::make('reviews', 'reviews')->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
             ])
