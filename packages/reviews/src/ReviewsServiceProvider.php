@@ -12,17 +12,14 @@ use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
-use Dystore\Reviews\Domain\Hub\Components\Slots\ReviewsSlot;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
-use Dystore\Reviews\Domain\Reviews\Observers\ReviewObserver;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
-use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
-use Livewire\Livewire;
-use Lunar\Hub\Facades\Slot;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
 
@@ -42,6 +39,7 @@ class ReviewsServiceProvider extends ServiceProvider
             'dystore-reviews',
         );
 
+        $this->bindControllers();
         $this->registerSchemas();
 
         $this->booting(function () {
@@ -62,18 +60,9 @@ class ReviewsServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/Domain/Hub/resources/views', 'dystore-reviews');
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
 
-        // TODO: Add slots to Filament
-        // Livewire::component(
-        //     'dystore-reviews::reviews-slot',
-        //     ReviewsSlot::class,
-        // );
-        //
-        // Slot::register(
-        //     'product.show',
-        //     ReviewsSlot::class,
-        // );
-
-        Review::observe(ReviewObserver::class);
+        Relation::morphMap([
+            'review' => Review::class,
+        ]);
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
@@ -88,6 +77,21 @@ class ReviewsServiceProvider extends ServiceProvider
     public function registerSchemas(): void
     {
         SchemaManifestFacade::registerSchema(ReviewSchema::class);
+    }
+
+    /**
+     * Bind controllers.
+     */
+    protected function bindControllers(): void
+    {
+        $controllers = [
+            \Dystore\Reviews\Domain\Reviews\Contacts\ReviewsController::class => \Dystore\Reviews\Domain\Reviews\Http\Controllers\ReviewsController::class,
+            \Dystore\Reviews\Domain\Reviews\Contacts\PublishReviewsController::class => \Dystore\Reviews\Domain\Reviews\Http\Controllers\PublishReviewsController::class,
+        ];
+
+        foreach ($controllers as $abstract => $concrete) {
+            $this->app->bind($abstract, fn (Application $app) => $app->make($concrete));
+        }
     }
 
     /**
@@ -138,18 +142,12 @@ class ReviewsServiceProvider extends ServiceProvider
      */
     protected function registerDynamicRelations(): void
     {
-        Product::resolveRelationUsing('variantReviews', function ($model) {
-            return $model
-                ->hasManyThrough(
-                    Review::class,
-                    ProductVariant::class,
-                    'product_id',
-                    'purchasable_id'
-                )
-                ->where(
-                    'purchasable_type',
-                    ProductVariant::class
-                );
+        Product::resolveRelationUsing('reviews', function (Product $model) {
+            return $model->morphMany(Review::class, 'purchasable');
+        });
+
+        ProductVariant::resolveRelationUsing('reviews', function (ProductVariant $model) {
+            return $model->morphMany(Review::class, 'purchasable');
         });
     }
 
@@ -187,9 +185,10 @@ class ReviewsServiceProvider extends ServiceProvider
                             ? $model->reviews->count()
                             : $model->reviews()->count(),
                     ),
-                fn () => HasManyThrough::make('reviews')->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
-                ),
+                fn () => HasMany::make('reviews', 'reviews')
+                    ->serializeUsing(
+                        static fn ($relation) => $relation->withoutLinks(),
+                    ),
             ])
             ->setShowRelated([
                 'reviews',
@@ -216,7 +215,7 @@ class ReviewsServiceProvider extends ServiceProvider
                 'reviews.user.customers',
             ])
             ->setFields([
-                fn () => HasMany::make('reviews')->serializeUsing(
+                fn () => HasMany::make('reviews', 'reviews')->serializeUsing(
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
             ])

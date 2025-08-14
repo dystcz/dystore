@@ -96,7 +96,7 @@ class ReviewSchema extends Schema
                     static fn ($relation) => $relation->withoutLinks(),
                 ),
 
-            MorphTo::make('purchasable', 'reviews')
+            MorphTo::make('purchasable', 'purchasable')
                 ->types(
                     ProductSchema::type(),
                     ProductVariantSchema::type(),
