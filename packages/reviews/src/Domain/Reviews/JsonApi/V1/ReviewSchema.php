@@ -5,6 +5,7 @@ namespace Dystore\Reviews\Domain\Reviews\JsonApi\V1;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
+use Dystore\Api\Support\Models\Actions\SchemaType;
 use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Contacts\Review;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,9 +14,12 @@ use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use LaravelJsonApi\Eloquent\Sorting\SortColumn;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ReviewSchema extends Schema
 {
@@ -93,7 +97,7 @@ class ReviewSchema extends Schema
 
             BelongsTo::make('user')
                 ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
+                    static fn (Relation $relation) => $relation->withoutLinks(),
                 ),
 
             MorphTo::make('purchasable', 'purchasable')
@@ -101,6 +105,12 @@ class ReviewSchema extends Schema
                     ProductSchema::type(),
                     ProductVariantSchema::type(),
                 ),
+
+            HasMany::make('images', 'images')
+                ->type(SchemaType::get(Media::class))
+                ->canCount()
+                ->countAs('images_count')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];

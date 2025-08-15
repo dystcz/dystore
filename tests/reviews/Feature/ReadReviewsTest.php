@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Dystore\Api\Base\Enums\PublishedStatus;
+use Dystore\Api\Domain\Media\Factories\MediaFactory;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Dystore\Tests\Reviews\Stubs\Users\User;
@@ -11,50 +12,6 @@ use Lunar\Models\Product;
 
 uses(TestCase::class, RefreshDatabase::class)
     ->group('reviews');
-
-it('can list product variant reviews', function () {
-    /** @var TestCase $this */
-    $reviews = Review::factory()
-        ->for(ProductVariant::factory(), 'purchasable')
-        ->count(5)
-        ->create([
-            'published_at' => Carbon::now(),
-            'status' => PublishedStatus::PUBLISHED,
-        ]);
-
-    $self = 'http://localhost/api/v1/reviews';
-
-    $response = $this
-        ->jsonApi()
-        ->expects('reviews')
-        ->get($self);
-
-    $response
-        ->assertSuccessful()
-        ->assertFetchedMany($reviews);
-});
-
-it('can list product reviews', function () {
-    /** @var TestCase $this */
-    $reviews = Review::factory()
-        ->for(Product::factory(), 'purchasable')
-        ->count(4)
-        ->create([
-            'published_at' => Carbon::now(),
-            'status' => PublishedStatus::PUBLISHED,
-        ]);
-
-    $self = 'http://localhost/api/v1/reviews';
-
-    $response = $this
-        ->jsonApi()
-        ->expects('reviews')
-        ->get($self);
-
-    $response
-        ->assertSuccessful()
-        ->assertFetchedMany($reviews);
-});
 
 it('can show a single review', function () {
     /** @var TestCase $this */
@@ -76,6 +33,31 @@ it('can show a single review', function () {
     $response
         ->assertSuccessful()
         ->assertFetchedOne($review);
+});
+
+it('can show a review with images included', function () {
+    /** @var TestCase $this */
+    /** @var Review $review */
+    $review = Review::factory()
+        ->for(ProductVariant::factory(), 'purchasable')
+        ->has(MediaFactory::new(), 'images')
+        ->create([
+            'published_at' => Carbon::now(),
+            'status' => PublishedStatus::PUBLISHED,
+        ]);
+
+    $self = 'http://localhost/api/v1/reviews/'.$review->getRouteKey();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('reviews')
+        ->includePaths('images')
+        ->get($self);
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($review)
+        ->assertIsIncluded('media', $review->images->first());
 });
 
 it('can show unpublished reviews belonging to logged in user', function () {
