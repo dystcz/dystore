@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
@@ -87,6 +88,17 @@ class Review extends BaseModel implements SpatieHasMedia
         return $this->belongsTo(
             Config::get('auth.providers.users.model')
         );
+    }
+
+    /**
+     * Images media relation.
+     */
+    public function images(): MorphMany
+    {
+        return $this
+            ->media()
+            ->where('collection_name', 'images')
+            ->orderBy('order_column');
     }
 
     /**

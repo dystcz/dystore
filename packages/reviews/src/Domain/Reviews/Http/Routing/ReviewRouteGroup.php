@@ -26,6 +26,9 @@ class ReviewRouteGroup extends RouteGroup
             ->resources(function (ResourceRegistrar $server) {
                 $server
                     ->resource(ReviewSchema::type(), ReviewsController::class)
+                    ->relationships(function (Relationships $relationships) {
+                        $relationships->hasMany('images')->readOnly();
+                    })
                     ->only('index', 'show', 'store');
 
                 $server
