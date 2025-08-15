@@ -3,6 +3,7 @@
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Tests\Reviews\TestCase;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -12,6 +13,12 @@ test('product has reviews relation', function () {
     $model = new Product;
 
     expect($model->reviews())->toBeInstanceOf(MorphMany::class);
+});
+
+test('product has productVariantReviews relation', function () {
+    $model = new Product;
+
+    expect($model->productVariantReviews())->toBeInstanceOf(HasManyThrough::class);
 });
 
 test('product variant has reviews relation', function () {
