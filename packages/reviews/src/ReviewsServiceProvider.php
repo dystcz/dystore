@@ -47,8 +47,6 @@ class ReviewsServiceProvider extends ServiceProvider
             $this->registerPolicies();
         });
 
-        $this->registerDynamicRelations();
-
         $this->extendSchemas();
     }
 
@@ -61,10 +59,8 @@ class ReviewsServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/Domain/Hub/resources/views', 'dystore-reviews');
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
 
-        ModelManifest::replace(
-            \Dystore\Reviews\Domain\Reviews\Contacts\Review::class,
-            \Dystore\Reviews\Domain\Reviews\Models\Review::class
-        );
+        $this->registerModels();
+        $this->registerDynamicRelations();
 
         Relation::morphMap([
             'review' => Review::class,
@@ -74,6 +70,16 @@ class ReviewsServiceProvider extends ServiceProvider
             $this->publishConfig();
             $this->publishTranslations();
             // $this->publishViews();
+        }
+    }
+
+    /**
+     * Swap models.
+     */
+    protected function registerModels(): void
+    {
+        foreach (DomainConfigCollection::fromConfig('dystore.reviews.domains')->getModelsForModelManifest() as $contract => $model) {
+            ModelManifest::replace($contract, $model);
         }
     }
 
