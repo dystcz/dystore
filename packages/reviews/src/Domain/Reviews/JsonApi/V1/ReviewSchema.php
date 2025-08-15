@@ -6,7 +6,7 @@ use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
-use Dystore\Reviews\Domain\Reviews\Models\Review;
+use Dystore\Reviews\Domain\Reviews\Contacts\Review;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
