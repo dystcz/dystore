@@ -42,6 +42,7 @@ class ReviewRouteGroup extends RouteGroup
                     ->resource(ProductSchema::type(), ProductsController::class)
                     ->relationships(function (Relationships $relationships) {
                         $relationships->hasMany('reviews')->readOnly();
+                        $relationships->hasMany('product_variant_reviews')->readOnly();
                     })->only();
 
                 $server

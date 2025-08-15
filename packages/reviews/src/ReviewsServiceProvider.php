@@ -12,6 +12,7 @@ use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
+use Dystore\Api\Support\Models\Actions\SchemaType;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasManyThrough;
 use Lunar\Facades\ModelManifest;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
@@ -158,6 +160,17 @@ class ReviewsServiceProvider extends ServiceProvider
             return $model->morphMany(Review::class, 'purchasable');
         });
 
+        Product::resolveRelationUsing('productVariantReviews', function (Product $model) {
+            return $model
+                ->hasManyThrough(
+                    Review::modelClass(),
+                    ProductVariant::modelClass(),
+                    'product_id',
+                    'purchasable_id'
+                )
+                ->where('purchasable_type', 'product_variant');
+        });
+
         ProductVariant::resolveRelationUsing('reviews', function (ProductVariant $model) {
             return $model->morphMany(Review::class, 'purchasable');
         });
@@ -178,9 +191,6 @@ class ReviewsServiceProvider extends ServiceProvider
         $productSchemaExtenstion = $schemaManifest::extend(ProductSchema::class);
 
         $productSchemaExtenstion
-            ->setWith([
-                'reviews',
-            ])
             ->setIncludePaths([
                 'reviews',
                 'reviews.user',
@@ -188,6 +198,9 @@ class ReviewsServiceProvider extends ServiceProvider
                 'variants.reviews',
                 'variants.reviews.user',
                 'variants.reviews.user.customers',
+                'product_variant_reviews',
+                'product_variant_reviews.user',
+                'product_variant_reviews.user.customers',
             ])
             ->setFields([
                 fn () => Number::make('rating', 'review_rating'),
@@ -195,18 +208,26 @@ class ReviewsServiceProvider extends ServiceProvider
                     ->extractUsing(
                         static fn ($model) => $model->relationLoaded('reviews')
                             ? $model->reviews->count()
-                            : $model->reviews()->count(),
+                            : null,
                     ),
                 fn () => HasMany::make('reviews', 'reviews')
+                    ->serializeUsing(
+                        static fn ($relation) => $relation->withoutLinks(),
+                    ),
+                fn () => HasManyThrough::make('product_variant_reviews', 'productVariantReviews')
+                    ->type(SchemaType::get(Review::class))
+                    ->retainFieldName()
                     ->serializeUsing(
                         static fn ($relation) => $relation->withoutLinks(),
                     ),
             ])
             ->setShowRelated([
                 'reviews',
+                'product_variant_reviews',
             ])
             ->setShowRelationship([
                 'reviews',
+                'product_variant_reviews',
             ]);
 
         /** @var ResourceExtension $productResourceExtension */
