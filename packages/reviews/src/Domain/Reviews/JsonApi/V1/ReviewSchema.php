@@ -9,6 +9,7 @@ use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Contacts\Review;
+use Dystore\Reviews\Domain\Reviews\JsonApi\Filters\PurchasableOrGeneric;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
@@ -143,6 +144,7 @@ class ReviewSchema extends Schema
             WhereIdIn::make($this),
             WhereIdNotIn::make($this, 'except'),
             WhereNull::make('without_purchasable', 'purchasable_type'),
+            PurchasableOrGeneric::make('purchasable_or_generic'),
 
             ...parent::filters(),
         ];
