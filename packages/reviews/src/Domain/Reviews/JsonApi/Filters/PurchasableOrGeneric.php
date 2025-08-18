@@ -2,8 +2,11 @@
 
 namespace Dystore\Reviews\Domain\Reviews\JsonApi\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Str;
 use LaravelJsonApi\Eloquent\Contracts\Filter;
+use Throwable;
 
 /** @phpstan-consistent-constructor */
 class PurchasableOrGeneric implements Filter
@@ -30,7 +33,7 @@ class PurchasableOrGeneric implements Filter
         return false;
     }
 
-    public function apply($query, $value)
+    public function apply($query, $value): Builder
     {
         if (! is_string($value) || ! Str::contains($value, [':', ','])) {
             return $query;
@@ -42,42 +45,39 @@ class PurchasableOrGeneric implements Filter
         $type = (string) $type;
         $id = (string) $id;
 
-        $classes = match ($type) {
-            'products' => array_values(array_filter([
-                class_exists('Lunar\\Models\\Product') ? 'Lunar\\Models\\Product' : null,
-                class_exists('Dystore\\Api\\Domain\\Products\\Models\\Product') ? 'Dystore\\Api\\Domain\\Products\\Models\\Product' : null,
-            ])),
-            'product_variants' => array_values(array_filter([
-                class_exists('Lunar\\Models\\ProductVariant') ? 'Lunar\\Models\\ProductVariant' : null,
-                class_exists('Dystore\\Api\\Domain\\ProductVariants\\Models\\ProductVariant') ? 'Dystore\\Api\\Domain\\ProductVariants\\Models\\ProductVariant' : null,
-            ])),
-            default => [],
+        // Normalize provided type to morph type keys
+        $morphType = match ($type) {
+            'products', 'product' => 'product',
+            'product_variants', 'product_variant' => 'product_variant',
+            default => null,
         };
 
-        if (empty($classes) || empty($id)) {
+        if (empty($morphType) || empty($id)) {
             return $query;
         }
 
-        // Resolve route key to primary key using available classes
+        // Resolve class from morph map if available
+        $class = Relation::getMorphedModel($morphType);
+
+        // Resolve route key to primary key using resolved class (handles hashed IDs)
         $resolvedKey = null;
-        foreach ($classes as $class) {
+        if ($class && class_exists($class)) {
             try {
                 $model = new $class;
                 $bound = $model->resolveRouteBinding($id);
                 if ($bound) {
                     $resolvedKey = $bound->getKey();
-                    break;
                 }
-            } catch (\Throwable $e) {
-                // ignore and try next
+            } catch (Throwable $e) {
+                // ignore
             }
         }
         $targetKey = $resolvedKey ?? $id;
 
-        return $query->where(function ($q) use ($classes, $targetKey) {
-            $q->whereNull('purchasable_type')
-                ->orWhere(function ($q) use ($classes, $targetKey) {
-                    $q->whereHasMorph('purchasable', $classes, function ($q) use ($targetKey) {
+        return $query->where(function ($q) use ($morphType, $targetKey) {
+            $q->where('purchasable_type', '=', null)
+                ->orWhere(function ($q) use ($morphType, $targetKey) {
+                    $q->whereHasMorph('purchasable', [$morphType], function ($q) use ($targetKey) {
                         $q->whereKey($targetKey);
                     });
                 });
