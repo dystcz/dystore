@@ -20,7 +20,7 @@
     "require": {
         "php": "^8.2",
         "illuminate/support": "^11.0|^12.0",
-        "dystcz/dystore-api": "^1.0.12",
+        "dystcz/dystore-api": "^1.0.13",
         "filament/spatie-laravel-media-library-plugin": "^3.2"
     },
     "autoload": {
