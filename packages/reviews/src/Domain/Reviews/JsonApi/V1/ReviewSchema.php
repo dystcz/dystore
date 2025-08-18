@@ -88,8 +88,7 @@ class ReviewSchema extends Schema
             Number::make('rating')
                 ->sortable(),
 
-            Number::make('purchasable_id'),
-
+            Str::make('purchasable_id'),
             Str::make('purchasable_type'),
 
             ArrayHash::make('meta'),
