@@ -17,8 +17,10 @@ class ReviewRequest extends ResourceRequest
     {
         $rules = [
             'rating' => [
-                'required',
-                'integer',
+                Config::get('dystore.reviews.domains.reviews.settings.rating_required', false)
+                ? 'required'
+                : 'nullable',
+                'numeric',
                 'min:1',
                 'max:5',
             ],
