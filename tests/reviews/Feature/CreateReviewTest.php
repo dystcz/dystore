@@ -61,7 +61,7 @@ it('can save a review with name and meta', function () {
             'comment' => $review->comment,
             'rating' => $review->rating,
             'name' => $review->name,
-            'purchasable_id' => $review->purchasable_id,
+            'purchasable_id' => (string) $review->purchasable_id,
             'purchasable_type' => $review->purchasable_type,
             'meta' => $review->meta,
         ],
