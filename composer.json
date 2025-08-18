@@ -32,12 +32,12 @@
   },
   "minimum-stability": "dev",
   "replace": {
-    "dystcz/dystore-api": "1.0.10",
-    "dystcz/dystore-newsletter": "1.0.10",
-    "dystcz/dystore-product-notifications": "1.0.10",
-    "dystcz/dystore-product-views": "1.0.10",
-    "dystcz/dystore-reviews": "1.0.10",
-    "dystcz/dystore-stripe": "1.0.10"
+    "dystcz/dystore-api": "1.0.12",
+    "dystcz/dystore-newsletter": "1.0.12",
+    "dystcz/dystore-product-notifications": "1.0.12",
+    "dystcz/dystore-product-views": "1.0.12",
+    "dystcz/dystore-reviews": "1.0.12",
+    "dystcz/dystore-stripe": "1.0.12"
   },
   "config": {
     "sort-packages": true,
@@ -104,17 +104,17 @@
   "require": {
     "php": "^8.2",
     "ext-redis": "*",
+    "filament/spatie-laravel-media-library-plugin": "^3.2",
     "h4kuna/ares": "^3.0",
     "illuminate/support": "^11.0|^12.0",
     "laravel-json-api/hashids": "^3.2",
     "laravel-json-api/laravel": "^5.1",
     "laravel-json-api/non-eloquent": "^4.2",
     "laravel-notification-channels/discord": "^1.5",
-    "lunarphp/lunar": "1.0.0-beta.25",
+    "lunarphp/lunar": "1.0.1",
     "lunarphp/stripe": "^1.0.0",
     "spatie/laravel-newsletter": "^5.1",
     "spatie/laravel-stripe-webhooks": "^3.6",
-    "filament/spatie-laravel-media-library-plugin": "^3.2",
     "staudenmeir/eloquent-has-many-deep": "^1.20"
   },
   "type": "library",
