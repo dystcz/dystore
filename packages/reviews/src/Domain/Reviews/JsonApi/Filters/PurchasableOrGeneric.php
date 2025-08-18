@@ -45,7 +45,7 @@ class PurchasableOrGeneric implements Filter
         $type = (string) $type;
         $id = (string) $id;
 
-        // Normalize provided type to morph type keys
+        // Normalize to morph types
         $morphType = match ($type) {
             'products', 'product' => 'product',
             'product_variants', 'product_variant' => 'product_variant',
@@ -69,13 +69,18 @@ class PurchasableOrGeneric implements Filter
                     $resolvedKey = $bound->getKey();
                 }
             } catch (Throwable $e) {
-                // ignore
+                //
             }
         }
         $targetKey = $resolvedKey ?? $id;
 
+        // Only apply whereHasMorph when we have a valid class or a mapped morph type
+        if (! $class && Relation::getMorphedModel($morphType) === null) {
+            return $query;
+        }
+
         return $query->where(function ($q) use ($morphType, $targetKey) {
-            $q->where('purchasable_type', '=', null)
+            $q->whereNull('purchasable_type')
                 ->orWhere(function ($q) use ($morphType, $targetKey) {
                     $q->whereHasMorph('purchasable', [$morphType], function ($q) use ($targetKey) {
                         $q->whereKey($targetKey);

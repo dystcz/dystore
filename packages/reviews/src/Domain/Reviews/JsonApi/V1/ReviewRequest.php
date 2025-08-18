@@ -40,7 +40,7 @@ class ReviewRequest extends ResourceRequest
                 Config::get('dystore.reviews.domains.reviews.settings.purchasable_required', false)
                 ? 'required'
                 : 'nullable',
-                'integer',
+                'numeric',
             ],
             'purchasable_type' => [
                 Config::get('dystore.reviews.domains.reviews.settings.purchasable_required', false)
