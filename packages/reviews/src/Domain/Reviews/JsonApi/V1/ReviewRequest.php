@@ -73,9 +73,9 @@ class ReviewRequest extends ResourceRequest
             'name.string' => __('dystore-reviews::validations.reviews.name.string'),
             'comment.string' => __('dystore-reviews::validations.reviews.comment.string'),
             'purchasable_id.required' => __('dystore-reviews::validations.reviews.purchasable_id.required'),
-            'purchasable_id.integer' => __('dystore-reviews::validations.reviews.surchasable_id.integer'),
+            'purchasable_id.numeric' => __('dystore-reviews::validations.reviews.purchasable_id.numeric'),
             'purchasable_type.required' => __('dystore-reviews::validations.reviews.purchasable_type.required'),
-            'purchasable_type.string' => __('dystore-reviews::validations.reviews.strchasable_type.string'),
+            'purchasable_type.string' => __('dystore-reviews::validations.reviews.purchasable.string'),
         ];
     }
 }

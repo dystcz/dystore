@@ -87,8 +87,13 @@ class ReviewSchema extends Schema
 
             Number::make('rating')
                 ->sortable(),
+            Number::make('purchasable_id')
+                ->acceptStrings()
+                ->serializeUsing(static function ($value) {
+                    $raw = request()->input('data.attributes.purchasable_id');
 
-            Number::make('purchasable_id'),
+                    return is_string($raw) ? (string) $value : $value;
+                }),
 
             Str::make('purchasable_type'),
 
