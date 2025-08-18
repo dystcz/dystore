@@ -32,6 +32,78 @@ it('can list generic reviews', function () {
         ->assertFetchedMany($reviews);
 });
 
+it('includes total count in paginated review listings', function () {
+    /** @var TestCase $this */
+    $total = 9;
+    Review::factory()
+        ->count($total)
+        ->create([
+            'published_at' => Carbon::now(),
+            'status' => PublishedStatus::PUBLISHED,
+        ]);
+
+    $self = serverUrl('/reviews', true);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('reviews')
+        ->page(['size' => '5', 'number' => '2'])
+        ->get($self);
+
+    $response->assertSuccessful();
+    expect($response->json('meta.page.total'))->toBe($total);
+    expect($response->json('data'))->toHaveCount(4);
+});
+
+it('can list generic reviews together with reviews for a given purchasable', function () {
+    /** @var TestCase $this */
+    $product = Product::factory()->create();
+    $variant = ProductVariant::factory()->create(['product_id' => $product->id]);
+
+    $generic = Review::factory()->count(3)->create([
+        'published_at' => Carbon::now(),
+        'status' => PublishedStatus::PUBLISHED,
+    ]);
+
+    $productSpecific = Review::factory()->for($product, 'purchasable')->count(2)->create([
+        'published_at' => Carbon::now(),
+        'status' => PublishedStatus::PUBLISHED,
+    ]);
+
+    $variantSpecific = Review::factory()->for($variant, 'purchasable')->count(2)->create([
+        'published_at' => Carbon::now(),
+        'status' => PublishedStatus::PUBLISHED,
+    ]);
+
+    $self = serverUrl('/reviews', true);
+
+    // fetch for product
+    $responseProduct = $this
+        ->jsonApi()
+        ->expects('reviews')
+        ->filter(['purchasable_or_generic' => 'products:'.$product->getRouteKey()])
+        ->get($self);
+    $responseProduct->assertSuccessful();
+    $idsProduct = collect($responseProduct->json('data.*.id'));
+    expect($idsProduct->sort()->values()->all())
+        ->toEqualCanonicalizing(
+            $generic->pluck('id')->merge($productSpecific->pluck('id'))->map(fn ($id) => (string) $id)->sort()->values()->all()
+        );
+
+    // fetch for variant
+    $responseVariant = $this
+        ->jsonApi()
+        ->expects('reviews')
+        ->filter(['purchasable_or_generic' => 'product_variants:'.$variant->getRouteKey()])
+        ->get($self);
+    $responseVariant->assertSuccessful();
+    $idsVariant = collect($responseVariant->json('data.*.id'));
+    expect($idsVariant->sort()->values()->all())
+        ->toEqualCanonicalizing(
+            $generic->pluck('id')->merge($variantSpecific->pluck('id'))->map(fn ($id) => (string) $id)->sort()->values()->all()
+        );
+});
+
 it('can list reviews sorted by published_at', function () {
     /** @var TestCase $this */
     $now = Carbon::now();
