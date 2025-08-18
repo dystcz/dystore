@@ -3,6 +3,7 @@
 namespace Dystore\Reviews\Domain\Reviews\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
@@ -17,6 +18,9 @@ use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
+use LaravelJsonApi\Eloquent\Filters\WhereNull;
 use LaravelJsonApi\Eloquent\Resources\Relation;
 use LaravelJsonApi\Eloquent\Sorting\SortColumn;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -125,8 +129,22 @@ class ReviewSchema extends Schema
             ...parent::sortables(),
 
             SortColumn::make('id', 'id'),
-
             SortColumn::make('published_at', 'published_at'),
+            InRandomOrder::make('random'),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filters(): array
+    {
+        return [
+            WhereIdIn::make($this),
+            WhereIdNotIn::make($this, 'except'),
+            WhereNull::make('without_purchasable', 'purchasable_type'),
+
+            ...parent::filters(),
         ];
     }
 }
