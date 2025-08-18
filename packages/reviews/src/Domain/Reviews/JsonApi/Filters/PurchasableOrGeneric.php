@@ -62,7 +62,7 @@ class PurchasableOrGeneric implements Filter
         $resolvedKey = null;
         foreach ($classes as $class) {
             try {
-                $model = new $class();
+                $model = new $class;
                 $bound = $model->resolveRouteBinding($id);
                 if ($bound) {
                     $resolvedKey = $bound->getKey();
@@ -76,11 +76,11 @@ class PurchasableOrGeneric implements Filter
 
         return $query->where(function ($q) use ($classes, $targetKey) {
             $q->whereNull('purchasable_type')
-              ->orWhere(function ($q) use ($classes, $targetKey) {
-                  $q->whereHasMorph('purchasable', $classes, function ($q) use ($targetKey) {
-                      $q->whereKey($targetKey);
-                  });
-              });
+                ->orWhere(function ($q) use ($classes, $targetKey) {
+                    $q->whereHasMorph('purchasable', $classes, function ($q) use ($targetKey) {
+                        $q->whereKey($targetKey);
+                    });
+                });
         });
     }
 }
