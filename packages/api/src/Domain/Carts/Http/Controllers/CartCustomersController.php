@@ -20,13 +20,13 @@ class CartCustomersController extends Controller implements CartCustomersControl
         ?CurrentSessionCart $cart
     ): RelationshipResponse {
         /** @var Cart $cart */
-        $this->authorize('updateCustomer', $cart);
+        $this->authorize('updateCustomerRelationship', $cart);
 
         $customer = $schema
             ->repository()
             ->modifyToOne($cart, 'customer')
             ->withRequest($query)
-            ->associate($request->validatedForRelation());
+            ->associate($request->validated('customer'));
 
         $cart->setCustomer($customer);
 
