@@ -3,7 +3,6 @@
 namespace Dystore\Reviews\Domain\Reviews\Filament\Resources;
 
 use Dystore\Api\Base\Enums\PublishedStatus;
-use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\CreateReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\EditReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\ListReviews;
@@ -26,6 +25,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Lunar\Models\Product;
+use Lunar\Models\ProductVariant;
 
 class ReviewResource extends Resource
 {
@@ -79,10 +80,15 @@ class ReviewResource extends Resource
                 MorphToSelect::make('purchasable')
                     ->label(__('dystore-reviews::reviews.fields.purchasable'))
                     ->types([
-                        Type::make(ProductVariant::class)
-                            ->titleAttribute('sku')
+                        Type::make(Product::class)
+                            ->titleAttribute('name')
                             ->getOptionLabelFromRecordUsing(
-                                fn (ProductVariant $record): string => $record->name
+                                fn (Product $record): string => $record->attr('name')
+                            ),
+                        Type::make(ProductVariant::class)
+                            ->titleAttribute('name')
+                            ->getOptionLabelFromRecordUsing(
+                                fn (ProductVariant $record): string => $record->attr('name')
                             ),
                     ])
                     ->searchable()
