@@ -7,10 +7,10 @@ use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
-use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Contacts\Review;
 use Dystore\Reviews\Domain\Reviews\JsonApi\Filters\PurchasableOrGeneric;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
@@ -44,7 +44,7 @@ class ReviewSchema extends Schema
     /**
      * Default sort.
      */
-    protected $defaultSort = '-id';
+    protected $defaultSort = '-published_at';
 
     /**
      * {@inheritDoc}
@@ -64,7 +64,16 @@ class ReviewSchema extends Schema
      */
     public function indexQuery(?Request $request, Builder $query): Builder
     {
-        /** @var ReviewBuilder $query */
+        /** @var \Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder $query */
+        return $query->published();
+    }
+
+    /**
+     * Build a "relatable" query for this resource.
+     */
+    public function relatableQuery(?Request $request, EloquentRelation $query): EloquentRelation
+    {
+        /** @var \Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder $query */
         return $query->published();
     }
 
