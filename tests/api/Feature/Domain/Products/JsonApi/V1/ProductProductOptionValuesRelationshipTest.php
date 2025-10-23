@@ -44,6 +44,93 @@ it('can list product options values through relationship', function () {
         ->assertDoesntHaveIncluded();
 })->group('products');
 
+it('can show product with product option values included', function () {
+    /** @var TestCase $this */
+    $productOption = ProductOption::factory()->create();
+
+    $product = Product::factory()
+        ->hasAttached($productOption, ['position' => 1], 'productOptions')
+        ->create();
+
+    $values = ProductOptionValue::factory()
+        ->for($productOption, 'option')
+        ->count(4)
+        ->create();
+
+    $variant = ProductVariant::factory()
+        ->for($product, 'product')
+        ->hasAttached($values, [], 'values')
+        ->count(4)
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get(serverUrl("/products/{$product->getRouteKey()}?include=product_option_values"));
+
+    $this->assertEquals(
+        $product->variantValues->pluck('id')->sort()->values(),
+        $values->pluck('id')->sort()->values()
+    );
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedOne($product);
+
+    foreach ($product->variantValues as $value) {
+        $response->assertIsIncluded('product_option_values', $value);
+    }
+})->group('products');
+
+it('includes product option values in included section when using include parameter', function () {
+    /** @var TestCase $this */
+    $productOption = ProductOption::factory()->create();
+
+    $product = Product::factory()
+        ->hasAttached($productOption, ['position' => 1], 'productOptions')
+        ->create();
+
+    $values = ProductOptionValue::factory()
+        ->for($productOption, 'option')
+        ->count(3)
+        ->create();
+
+    ProductVariant::factory()
+        ->for($product, 'product')
+        ->hasAttached($values, [], 'values')
+        ->create();
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get(serverUrl("/products/{$product->getRouteKey()}?include=product_option_values"));
+
+    $response->assertSuccessful();
+
+    // Verify the relationship data contains references to all values
+    $relationshipData = $response->json('data.relationships.product_option_values.data');
+    expect($relationshipData)->toBeArray();
+    expect($relationshipData)->toHaveCount(3);
+
+    // Extract IDs from relationship data
+    $relationshipIds = collect($relationshipData)->pluck('id')->sort()->values();
+    $expectedIds = $values->pluck('id')->map(fn ($id) => (string) $id)->sort()->values();
+    expect($relationshipIds->toArray())->toBe($expectedIds->toArray());
+
+    // Verify the included section exists and contains all values
+    $included = $response->json('included');
+    expect($included)->toBeArray();
+    expect($included)->toHaveCount(3);
+
+    // Verify each value is properly included with correct type and attributes
+    foreach ($values as $value) {
+        $includedValue = collect($included)->firstWhere('id', (string) $value->id);
+        expect($includedValue)->not->toBeNull();
+        expect($includedValue['type'])->toBe('product_option_values');
+        expect($includedValue['attributes']['name'])->toBe($value->translate('name'));
+    }
+})->group('products', 'includes');
+
 it('can count product option values', function () {
     /** @var TestCase $this */
     $product = Product::factory()
