@@ -114,8 +114,7 @@
     "lunarphp/lunar": "1.1.0",
     "lunarphp/stripe": "^1.1.0",
     "spatie/laravel-newsletter": "^5.1",
-    "spatie/laravel-stripe-webhooks": "^3.6",
-    "staudenmeir/eloquent-has-many-deep": "^1.20"
+    "spatie/laravel-stripe-webhooks": "^3.6"
   },
   "type": "library",
   "authors": [
