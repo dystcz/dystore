@@ -60,12 +60,18 @@ it('can show product with product option values included', function () {
     $variant = ProductVariant::factory()
         ->for($product, 'product')
         ->hasAttached($values, [], 'values')
+        ->count(4)
         ->create();
 
     $response = $this
         ->jsonApi()
         ->expects('products')
         ->get(serverUrl("/products/{$product->getRouteKey()}?include=product_option_values"));
+
+    $this->assertEquals(
+        $product->variantValues->pluck('id')->sort()->values(),
+        $values->pluck('id')->sort()->values()
+    );
 
     $response
         ->assertSuccessful()
