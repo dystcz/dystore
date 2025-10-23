@@ -135,6 +135,97 @@ class BelongsToManyThrough extends BelongsToMany
     }
 
     /**
+     * Set the constraints for eager loading of the relation.
+     */
+    public function addEagerConstraints(array $models): void
+    {
+        parent::addEagerConstraints($models);
+
+        // Apply GROUP BY to ensure distinct results during eager loading
+        $this->applyDistinctConstraints();
+
+        // Ensure we only select related table columns for GROUP BY to work
+        $this->query->getQuery()->columns = null;
+        $this->query->select($this->related->getTable().'.*');
+    }
+
+    /**
+     * Match the eagerly loaded results to their parents.
+     * Override to ensure distinct results are properly matched.
+     */
+    public function match(array $models, Collection $results, $relation): array
+    {
+        // First deduplicate the results by primary key
+        $results = $results->unique(function ($model) {
+            return $model->getKey();
+        })->values();
+
+        // Then use parent's matching logic
+        return parent::match($models, $results, $relation);
+    }
+
+    /**
+     * Build model dictionary keyed by the relation's foreign key.
+     * Override to work without pivot data by using the through table.
+     */
+    protected function buildDictionary(Collection $results): array
+    {
+        // For a "through" relationship, we need to query which parents
+        // each result belongs to since we don't have pivot data
+        $dictionary = [];
+
+        // Get all the result IDs
+        $resultIds = $results->pluck($this->relatedKey)->all();
+
+        if (empty($resultIds)) {
+            return $dictionary;
+        }
+
+        // Query the relationship to get parent-child mappings
+        // Use a fresh query builder to avoid duplicate joins
+        $mappings = $this->related->getConnection()
+            ->table($this->table)
+            ->join($this->throughTable, $this->table.'.'.$this->foreignPivotKey, '=', $this->throughTable.'.id')
+            ->whereIn($this->table.'.'.$this->relatedPivotKey, $resultIds)
+            ->select([
+                $this->throughTable.'.'.$this->throughForeignKey.' as parent_key',
+                $this->table.'.'.$this->relatedPivotKey.' as related_key',
+            ])
+            ->distinct()
+            ->get();
+
+        // Build dictionary from mappings
+        foreach ($mappings as $mapping) {
+            $parentKey = $this->getDictionaryKey($mapping->parent_key);
+            $relatedKey = $mapping->related_key;
+
+            // Find the result with this related key
+            $result = $results->firstWhere($this->relatedKey, $relatedKey);
+
+            if ($result && ! isset($dictionary[$parentKey])) {
+                $dictionary[$parentKey] = [];
+            }
+
+            if ($result) {
+                // Only add if not already in the dictionary (ensure distinct per parent)
+                $alreadyAdded = false;
+                foreach ($dictionary[$parentKey] as $existing) {
+                    if ($existing->getKey() === $result->getKey()) {
+                        $alreadyAdded = true;
+                        break;
+                    }
+                }
+
+                if (! $alreadyAdded) {
+                    $dictionary[$parentKey][] = $result;
+                }
+            }
+        }
+
+        return $dictionary;
+    }
+
+    /**
      * Get the underlying query builder instance.
      * Override to ensure any direct query builder access also gets our constraints.
      */
