@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Lunar\Models\Product as LunarProduct;
-use Lunar\Models\ProductOptionValue;
 
 /**
  * @method static ProductBuilder query()
