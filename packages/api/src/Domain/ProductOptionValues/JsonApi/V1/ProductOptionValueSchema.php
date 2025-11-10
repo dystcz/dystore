@@ -3,12 +3,14 @@
 namespace Dystore\Api\Domain\ProductOptionValues\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
+use LaravelJsonApi\Eloquent\Sorting\SortColumn;
 use Lunar\Models\Contracts\ProductOption;
 use Lunar\Models\Contracts\ProductOptionValue;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -83,6 +85,19 @@ class ProductOptionValueSchema extends Schema
                 ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function sortables(): iterable
+    {
+        return [
+            ...parent::sortables(),
+
+            SortColumn::make('position', 'position'),
+            InRandomOrder::make('random'),
         ];
     }
 
