@@ -4,6 +4,7 @@ namespace Dystore\Api\Domain\ProductOptionValues\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
+use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
@@ -30,6 +31,11 @@ class ProductOptionValueSchema extends Schema
             ...parent::with(),
         ];
     }
+
+    /**
+     * Default sort.
+     */
+    protected $defaultSort = 'position';
 
     /**
      * {@inheritDoc}
@@ -61,6 +67,9 @@ class ProductOptionValueSchema extends Schema
             Str::make('product_option_handle', 'handle')
                 ->readOnly()
                 ->on('option'),
+
+            Number::make('position')
+                ->readOnly(),
 
             BelongsTo::make('product_option', 'option')
                 ->readOnly()
