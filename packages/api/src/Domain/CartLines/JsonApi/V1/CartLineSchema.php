@@ -2,10 +2,10 @@
 
 namespace Dystore\Api\Domain\CartLines\JsonApi\V1;
 
+use Dystore\Api\Domain\JsonApi\Eloquent\Fields\CartLinePricing;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
-use LaravelJsonApi\Eloquent\Fields\Map;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
@@ -55,24 +55,13 @@ class CartLineSchema extends Schema
             $this->idField(),
 
             Number::make('purchasable_id'),
+
             Str::make('purchasable_type'),
 
-            Map::make('prices', [
-                Number::make('unit_price', 'unitPrice')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('quantity', 'quantity'),
-                Number::make('sub_total', 'subTotal')->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('sub_total_discounted', 'subTotalDiscounted')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('total', 'total')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('tax_amount', 'taxAmount')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-                Number::make('discount_total', 'discounTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal()),
-            ]),
-
             Number::make('quantity'),
+
+            CartLinePricing::make('pricing'),
+
             ArrayHash::make('meta'),
 
             BelongsTo::make('cart')

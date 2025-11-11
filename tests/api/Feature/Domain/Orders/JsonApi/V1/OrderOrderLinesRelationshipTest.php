@@ -3,17 +3,18 @@
 use Dystore\Api\Domain\Carts\Models\Cart;
 use Dystore\Api\Domain\Customers\Models\Customer;
 use Dystore\Api\Domain\OrderLines\Models\OrderLine;
-use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Lunar\Base\CartSessionInterface;
 
 uses(TestCase::class, RefreshDatabase::class)
     ->group('orders', 'order_lines');
 
 beforeEach(function () {
+    Config::set('lunar.pricing.stored_inclusive_of_tax', true);
     /** @var TestCase $this */
     $this->user = User::factory()
         ->has(Customer::factory())
@@ -22,7 +23,7 @@ beforeEach(function () {
     $this->cart = Cart::factory()
         ->for($this->user)
         ->withAddresses()
-        ->withLines(2)
+        ->withLines()
         ->create();
 
     /** @property CartSessionManager $cartSession */
@@ -33,24 +34,9 @@ beforeEach(function () {
 
 it('can list related product lines', function () {
     /** @var TestCase $this */
-    $response = $this
-        ->jsonApi()
-        ->expects('orders')
-        ->withData([
-            'type' => 'carts',
-            'attributes' => [
-                'agree' => true,
-                'create_user' => false,
-            ],
-        ])
-        ->post(serverUrl('/carts/-actions/checkout'));
+    $order = $this->cart->createOrder();
 
-    $signedUrl = $response->json('data.links')['self.signed'];
-
-    $order = Order::query()
-        ->where('cart_id', $this->cart->getKey())
-        ->with(['lines'])
-        ->first();
+    $order->load(['lines']);
 
     $expected = $order->productLines->map(fn (OrderLine $line) => [
         'id' => (string) $line->getRouteKey(),
@@ -71,6 +57,22 @@ it('can list related product lines', function () {
     $response
         ->assertSuccessful()
         ->assertFetchedMany($expected);
+});
+
+it('returns correct product line pricing', function () {
+    /** @var TestCase $this */
+    $order = $this->cart->createOrder();
+
+    $response = $this
+        ->actingAs($this->user)
+        ->jsonApi()
+        ->expects('orders')
+        ->get(serverUrl("/orders/{$order->getRouteKey()}/product_lines"));
+
+    $response
+        ->assertSuccessful();
+
+    ray($response->json('data')[0]['attributes']['pricing']);
 });
 
 it('cannot list order lines relationships without url signature', function () {

@@ -2,19 +2,16 @@
 
 namespace Dystore\Api\Domain\Carts\JsonApi\V1;
 
-use Dystore\Api\Domain\Discounts\Data\DiscountBreakdown;
+use Dystore\Api\Domain\JsonApi\Eloquent\Fields\CartPricing;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
-use LaravelJsonApi\Eloquent\Fields\Map;
-use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Resources\Relation;
-use Lunar\Base\ValueObjects\Cart\DiscountBreakdown as LunarDiscountBreakdown;
 use Lunar\Models\Contracts\Cart;
 use Lunar\Models\Contracts\CartAddress;
 use Lunar\Models\Contracts\CartLine;
@@ -93,54 +90,17 @@ class CartSchema extends Schema
         return [
             $this->idField(),
 
-            Map::make('prices', [
-                Number::make('sub_total', 'subTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal),
-
-                Number::make('sub_total_discounted', 'subTotalDiscounted')
-                    ->serializeUsing(static fn ($value) => $value?->decimal),
-
-                Number::make('total', 'total')
-                    ->serializeUsing(static fn ($value) => $value?->decimal),
-
-                Number::make('shipping_sub_total', 'shippingSubTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal),
-
-                Number::make('shipping_total', 'shippingTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal),
-
-                Number::make('payment_sub_total', 'paymentSubTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal),
-
-                Number::make('payment_total', 'paymentTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal),
-
-                Number::make('tax_total', 'taxTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal),
-
-                Number::make('discount_total', 'discountTotal')
-                    ->serializeUsing(static fn ($value) => $value?->decimal),
-
-                ArrayHash::make('tax_breakdown', 'taxBreakdown')
-                    ->serializeUsing(static fn ($value) => $value?->amounts),
-
-                ArrayHash::make('discount_breakdown', 'discountBreakdown')
-                    ->serializeUsing(static fn ($value) => $value?->map(
-                        fn (LunarDiscountBreakdown $discountBreakdown) => (new DiscountBreakdown($discountBreakdown))->toArray(),
-                    )),
-            ]),
+            CartPricing::make('pricing'),
 
             Str::make('coupon_code'),
 
             Str::make('payment_option'),
 
-            // NOTE: Attributes used for setting shipping options to current session cart
-            Str::make('shipping_option')->hidden(),
+            Str::make('shipping_option')->hidden(), // NOTE: Attributes used for setting shipping options to current session cart
 
             Str::make('address_type')->hidden(),
 
-            // NOTE: Attributes used for determining if user should be created during checkout
-            Boolean::make('create_user')->hidden(),
+            Boolean::make('create_user')->hidden(), // NOTE: Attributes used for determining if user should be created during checkout
 
             Boolean::make('agree')->hidden(),
 

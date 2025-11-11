@@ -2,13 +2,12 @@
 
 namespace Dystore\Api\Domain\Orders\JsonApi\V1;
 
+use Dystore\Api\Domain\JsonApi\Eloquent\Fields\OrderPricing;
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
-use LaravelJsonApi\Eloquent\Fields\Map;
-use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
@@ -135,49 +134,9 @@ class OrderSchema extends Schema
             Str::make('notes'),
             Str::make('currency_code'),
             Str::make('compare_currency_code'),
-            Map::make('prices', [
-                Number::make('sub_total')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
-                Number::make('total', 'total')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
-                Number::make('tax_total', 'tax_total')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
-                Number::make('discount_total', 'discount_total')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
-                Number::make('shipping_total', 'shipping_total')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
-                Number::make('payment_total', 'payment_total')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->decimal,
-                    ),
-                ArrayHash::make('tax_breakdown', 'taxBreakdown')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->amounts,
-                    ),
-                ArrayHash::make('shipping_breakdown')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->items,
-                    ),
-                ArrayHash::make('payment_breakdown')
-                    ->serializeUsing(
-                        static fn ($value) => $value?->items,
-                    ),
-                ArrayHash::make('discount_breakdown', 'discountBreakdown')
-                    ->serializeUsing(
-                        static fn ($value) => $value,
-                    ),
-                Number::make('exchange_rate'),
-            ]),
+
+            OrderPricing::make('pricing'),
+
             DateTime::make('placed_at')
                 ->sortable(),
 
