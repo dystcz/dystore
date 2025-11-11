@@ -2,7 +2,6 @@
 
 namespace Dystore\Api\Domain\ProductVariants\JsonApi\Filters;
 
-use Illuminate\Support\Str;
 use LaravelJsonApi\Eloquent\Contracts\Filter;
 use LaravelJsonApi\Eloquent\Filters\Concerns\DeserializesValue;
 use LaravelJsonApi\Eloquent\Filters\Concerns\HasDelimiter;
@@ -15,14 +14,11 @@ class WhereProductOptionValueSlugs implements Filter
     use HasDelimiter;
     use IsSingular;
 
-    private readonly string $attribute;
-
     private readonly string $name;
 
-    public function __construct(string $name, ?string $attribute = null)
+    public function __construct(string $name)
     {
         $this->name = $name;
-        $this->attribute = $attribute ?? Str::snake($this->name);
     }
 
     /**
@@ -30,9 +26,9 @@ class WhereProductOptionValueSlugs implements Filter
      *
      * @return static
      */
-    public static function make(string $name, ?string $attribute = null): self
+    public static function make(string $name): self
     {
-        return new static($name, $attribute);
+        return new static($name);
     }
 
     /**
