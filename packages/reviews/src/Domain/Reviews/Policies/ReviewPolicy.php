@@ -65,4 +65,9 @@ class ReviewPolicy
     {
         return true;
     }
+
+    public function viewImages(?Authenticatable $user, Review $review): bool
+    {
+        return true;
+    }
 }

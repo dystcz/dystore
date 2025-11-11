@@ -7,6 +7,7 @@ use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasOne;
 use LaravelJsonApi\Eloquent\Fields\Str;
@@ -14,6 +15,7 @@ use LaravelJsonApi\Eloquent\Resources\Relation;
 use Lunar\Models\Contracts\Cart;
 use Lunar\Models\Contracts\CartAddress;
 use Lunar\Models\Contracts\CartLine;
+use Lunar\Models\Contracts\Customer;
 use Lunar\Models\Contracts\Order;
 
 class CartSchema extends Schema
@@ -72,6 +74,10 @@ class CartSchema extends Schema
             'billing_address',
             'billing_address.country',
 
+            'customer',
+            'customer.addresses',
+            'customer.addresses.country',
+
             ...parent::includePaths(),
         ];
     }
@@ -101,6 +107,10 @@ class CartSchema extends Schema
             Boolean::make('agree')->hidden(),
 
             ArrayHash::make('meta'),
+
+            BelongsTo::make('customer', 'customer')
+                ->type(SchemaType::get(Customer::class))
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             HasOne::make('order', 'draftOrder')
                 ->type(SchemaType::get(Order::class))

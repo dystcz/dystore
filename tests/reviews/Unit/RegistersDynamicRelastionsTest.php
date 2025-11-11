@@ -15,10 +15,10 @@ test('product has reviews relation', function () {
     expect($model->reviews())->toBeInstanceOf(MorphMany::class);
 });
 
-test('product has variantReviews relation', function () {
+test('product has productVariantReviews relation', function () {
     $model = new Product;
 
-    expect($model->variantReviews())->toBeInstanceOf(HasManyThrough::class);
+    expect($model->productVariantReviews())->toBeInstanceOf(HasManyThrough::class);
 });
 
 test('product variant has reviews relation', function () {

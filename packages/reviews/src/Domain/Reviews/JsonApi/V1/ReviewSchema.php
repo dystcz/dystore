@@ -3,19 +3,28 @@
 namespace Dystore\Reviews\Domain\Reviews\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
-use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
-use Dystore\Reviews\Domain\Reviews\Models\Review;
+use Dystore\Api\Support\Models\Actions\SchemaType;
+use Dystore\Reviews\Domain\Reviews\Contacts\Review;
+use Dystore\Reviews\Domain\Reviews\JsonApi\Filters\PurchasableOrGeneric;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
 use Illuminate\Http\Request;
 use LaravelJsonApi\Eloquent\Fields\ArrayHash;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Relations\MorphTo;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Filters\WhereIdNotIn;
+use LaravelJsonApi\Eloquent\Filters\WhereNull;
+use LaravelJsonApi\Eloquent\Resources\Relation;
 use LaravelJsonApi\Eloquent\Sorting\SortColumn;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ReviewSchema extends Schema
 {
@@ -35,7 +44,7 @@ class ReviewSchema extends Schema
     /**
      * Default sort.
      */
-    protected $defaultSort = '-id';
+    protected $defaultSort = '-published_at';
 
     /**
      * {@inheritDoc}
@@ -55,7 +64,16 @@ class ReviewSchema extends Schema
      */
     public function indexQuery(?Request $request, Builder $query): Builder
     {
-        /** @var ReviewBuilder $query */
+        /** @var \Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder $query */
+        return $query->published();
+    }
+
+    /**
+     * Build a "relatable" query for this resource.
+     */
+    public function relatableQuery(?Request $request, EloquentRelation $query): EloquentRelation
+    {
+        /** @var \Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder $query */
         return $query->published();
     }
 
@@ -79,7 +97,13 @@ class ReviewSchema extends Schema
             Number::make('rating')
                 ->sortable(),
 
-            Number::make('purchasable_id'),
+            Number::make('purchasable_id')
+                ->acceptStrings()
+                ->serializeUsing(static function ($value) {
+                    $raw = request()->input('data.attributes.purchasable_id');
+
+                    return is_string($raw) ? (string) $value : $value;
+                }),
 
             Str::make('purchasable_type'),
 
@@ -93,14 +117,20 @@ class ReviewSchema extends Schema
 
             BelongsTo::make('user')
                 ->serializeUsing(
-                    static fn ($relation) => $relation->withoutLinks(),
+                    static fn (Relation $relation) => $relation->withoutLinks(),
                 ),
 
-            MorphTo::make('purchasable', 'reviews')
+            MorphTo::make('purchasable', 'purchasable')
                 ->types(
                     ProductSchema::type(),
                     ProductVariantSchema::type(),
                 ),
+
+            HasMany::make('images', 'images')
+                ->type(SchemaType::get(Media::class))
+                ->canCount()
+                ->countAs('images_count')
+                ->serializeUsing(static fn (Relation $relation) => $relation->withoutLinks()),
 
             ...parent::fields(),
         ];
@@ -115,8 +145,23 @@ class ReviewSchema extends Schema
             ...parent::sortables(),
 
             SortColumn::make('id', 'id'),
-
             SortColumn::make('published_at', 'published_at'),
+            InRandomOrder::make('random'),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filters(): array
+    {
+        return [
+            WhereIdIn::make($this),
+            WhereIdNotIn::make($this, 'except'),
+            WhereNull::make('without_purchasable', 'purchasable_type'),
+            PurchasableOrGeneric::make('purchasable_or_generic'),
+
+            ...parent::filters(),
         ];
     }
 }

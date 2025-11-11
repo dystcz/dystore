@@ -6,9 +6,11 @@ use Dystore\Tests\Reviews\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lunar\Hub\Models\Staff;
 
-uses(TestCase::class, RefreshDatabase::class);
+uses(TestCase::class, RefreshDatabase::class)
+    ->group('reviews');
 
 it('can publish a review', function () {
+    /** @var TestCase $this */
     $review = Review::factory()
         ->for(ProductVariant::factory(), 'purchasable')
         ->create([
@@ -28,6 +30,7 @@ it('can publish a review', function () {
 })->skip('Currently not supported by the API');
 
 it('can unpublish a review', function () {
+    /** @var TestCase $this */
     $user = Staff::factory()->create(['admin' => true]);
 
     $review = Review::factory()

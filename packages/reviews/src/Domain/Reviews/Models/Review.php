@@ -2,23 +2,37 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Models;
 
+use Dystore\Api\Base\Concerns\Publishable;
+use Dystore\Api\Base\Enums\PublishedStatus;
+use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Factories\ReviewFactory;
+use Dystore\Reviews\Domain\Reviews\Observers\ReviewObserver;
 use Dystore\Reviews\Domain\Reviews\Scopes\PublishedScope;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\BaseModel;
+use Lunar\Base\Traits\HasMedia;
+use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 
 /**
  * @method static ReviewBuilder query()
  */
-class Review extends BaseModel
+#[ObservedBy([ReviewObserver::class])]
+class Review extends BaseModel implements SpatieHasMedia
 {
     use HasFactory;
+    use HasMedia;
+    use Publishable;
+    use SoftDeletes;
 
     protected $guarded = [];
 
@@ -30,6 +44,7 @@ class Review extends BaseModel
     protected $casts = [
         'meta' => AsArrayObject::class,
         'published_at' => 'datetime',
+        'status' => PublishedStatus::class,
     ];
 
     /**
@@ -55,6 +70,8 @@ class Review extends BaseModel
 
     /**
      * Purchasable relation.
+     *
+     * @return MorphTo<Model,Review>
      */
     public function purchasable(): MorphTo
     {
@@ -63,12 +80,25 @@ class Review extends BaseModel
 
     /**
      * User relation.
+     *
+     * @return BelongsTo<User,Review>
      */
     public function user(): BelongsTo
     {
         return $this->belongsTo(
             Config::get('auth.providers.users.model')
         );
+    }
+
+    /**
+     * Images media relation.
+     */
+    public function images(): MorphMany
+    {
+        return $this
+            ->media()
+            ->where('collection_name', 'images')
+            ->orderBy('order_column');
     }
 
     /**

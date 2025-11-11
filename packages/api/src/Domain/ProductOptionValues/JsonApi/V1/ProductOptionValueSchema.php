@@ -3,11 +3,16 @@
 namespace Dystore\Api\Domain\ProductOptionValues\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
+use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystore\Api\Support\Models\Actions\SchemaType;
+use LaravelJsonApi\Eloquent\Fields\Number;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Filters\Where;
+use LaravelJsonApi\Eloquent\Filters\WhereHas;
 use LaravelJsonApi\Eloquent\Resources\Relation;
+use LaravelJsonApi\Eloquent\Sorting\SortColumn;
 use Lunar\Models\Contracts\ProductOption;
 use Lunar\Models\Contracts\ProductOptionValue;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -30,6 +35,11 @@ class ProductOptionValueSchema extends Schema
             ...parent::with(),
         ];
     }
+
+    /**
+     * Default sort.
+     */
+    protected $defaultSort = 'position';
 
     /**
      * {@inheritDoc}
@@ -62,6 +72,9 @@ class ProductOptionValueSchema extends Schema
                 ->readOnly()
                 ->on('option'),
 
+            Number::make('position')
+                ->readOnly(),
+
             BelongsTo::make('product_option', 'option')
                 ->readOnly()
                 ->type(SchemaType::get(ProductOption::class))
@@ -80,9 +93,26 @@ class ProductOptionValueSchema extends Schema
     /**
      * {@inheritDoc}
      */
+    public function sortables(): iterable
+    {
+        return [
+            ...parent::sortables(),
+
+            SortColumn::make('position', 'position'),
+            InRandomOrder::make('random'),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function filters(): array
     {
         return [
+            Where::make('name'),
+
+            WhereHas::make($this, 'product_option'),
+
             ...parent::filters(),
         ];
     }
