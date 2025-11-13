@@ -33,7 +33,7 @@ class CheckoutCart extends Action implements CheckoutCartContract
         $this->createPaymentIntent = App::make(CreatePaymentIntent::class);
     }
 
-    public function handle(CheckoutCartRequest $request, CartContract $cart): OrderContract
+    public function handle(CartContract $cart, ?CheckoutCartRequest $request = null): OrderContract
     {
         /** @var Cart $cart */
         /** @var Order $order */
@@ -47,7 +47,7 @@ class CheckoutCart extends Action implements CheckoutCartContract
 
         // Update order from checkout request
         $order->update(
-            $request->validated('order_data', [])
+            $request?->validated('order_data', []) ?? []
         );
 
         // Load cart to order

@@ -34,8 +34,8 @@ class CheckoutCartController extends Controller implements CheckoutCartControlle
 
         /** @var Order $order */
         $order = ($checkoutCartAction)(
-            request: $request,
-            cart: $cart
+            cart: $cart,
+            request: $request
         );
 
         return DataResponse::make($order)
