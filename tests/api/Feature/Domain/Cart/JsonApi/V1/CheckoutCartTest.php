@@ -128,6 +128,54 @@ test('it returns order with product lines included after checkout', function () 
     expect($cart->user_id)->toBeNull();
 });
 
+test('it can update order data during checkout', function () {
+    /** @var TestCase $this */
+
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
+    /** @var Cart $cart */
+    $cart = $factory
+        ->withAddresses()
+        ->withLines()
+        ->create();
+
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'agree' => true,
+                'create_user' => false,
+                'order_data' => [
+                    'meta' => [
+                        'foo' => 'bar',
+                    ],
+                    'notes' => 'foobar',
+                ],
+            ],
+        ])
+        ->post(serverUrl('/carts/-actions/checkout'));
+
+    $id = $response
+        ->assertSuccessful()
+        ->assertCreatedWithServerId('http://localhost/api/v1/orders', [])
+        ->id();
+
+    $order = Order::query()->where('id', $id)->first();
+
+    $this->assertDatabaseHas((new Order)->getTable(), [
+        'id' => $id,
+        'notes' => 'foobar',
+        'meta' => json_encode(['foo' => 'bar']),
+    ]);
+});
+
 test('a user cannot checkout a cart if the products are not in stock', function () {
     /** @var TestCase $this */
 
