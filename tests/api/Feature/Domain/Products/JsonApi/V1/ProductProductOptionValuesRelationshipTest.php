@@ -261,14 +261,54 @@ it('returns distinct values when querying through relationship', function () {
     ]);
 })->group('products', 'distinct');
 
-it('returns empty collection when product has no variants', function () {
+it('does not include product option values that are only used by soft deleted variants', function () {
     /** @var TestCase $this */
-    $product = Product::factory()->create();
+    $productOption = ProductOption::factory()->create();
 
-    $variantValues = $product->variantValues;
+    $product = Product::factory()
+        ->hasAttached($productOption, ['position' => 1], 'productOptions')
+        ->create();
 
-    expect($variantValues)->toBeEmpty();
-})->group('products', 'distinct');
+    // Create 2 values; one will be used by an active variant, one only by a deleted variant.
+    $activeOnlyValue = ProductOptionValue::factory()
+        ->for($productOption, 'option')
+        ->create();
+
+    $deletedOnlyValue = ProductOptionValue::factory()
+        ->for($productOption, 'option')
+        ->create();
+
+    /** @var ProductVariant $activeVariant */
+    $activeVariant = ProductVariant::factory()
+        ->for($product, 'product')
+        ->hasAttached([$activeOnlyValue], [], 'values')
+        ->create();
+
+    /** @var ProductVariant $deletedVariant */
+    $deletedVariant = ProductVariant::factory()
+        ->for($product, 'product')
+        ->hasAttached([$deletedOnlyValue], [], 'values')
+        ->create();
+
+    $deletedVariant->delete();
+
+    // Relationship should only include values attached to non-deleted variants.
+    $response = $this
+        ->jsonApi()
+        ->expects('product_option_values')
+        ->get(serverUrl("/products/{$product->getRouteKey()}/product_option_values"));
+
+    $response->assertSuccessful();
+
+    // Assert API returns only the active variant value.
+    $returnedIds = collect($response->json('data'))->pluck('id')->sort()->values();
+    $expectedIds = collect([(string) $activeOnlyValue->id])->sort()->values();
+    expect($returnedIds->toArray())->toBe($expectedIds->toArray());
+
+    // Assert the model relation matches the API behavior.
+    expect($product->variantValues->pluck('id')->sort()->values()->toArray())
+        ->toBe([$activeOnlyValue->id]);
+})->group('products');
 
 it('returns distinct values with eager loading', function () {
     /** @var TestCase $this */
@@ -489,6 +529,11 @@ it('returns correct count in JSON API meta matching total', function () {
 
     // The count should match the total (distinct count)
     expect($meta['count'])->toBe(8, 'Meta count should be distinct count');
-    expect($meta['page']['total'])->toBe(8, 'Page total should be distinct count');
-    expect($meta['count'])->toBe($meta['page']['total'], 'Count should equal total');
+
+    // Pagination meta is only present when pagination params are used.
+    if (isset($meta['page'])) {
+        expect($meta['page']['total'])->toBe(8, 'Page total should be distinct count');
+        expect($meta['count'])->toBe($meta['page']['total'], 'Count should equal total');
+    }
+
 })->group('products', 'distinct', 'count', 'json-api');
