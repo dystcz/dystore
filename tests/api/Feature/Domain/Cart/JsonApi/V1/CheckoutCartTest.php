@@ -430,3 +430,50 @@ it('returns signed urls for order actions', function () {
             ]
         );
 });
+
+it('returns order signature in meta after checkout', function () {
+    /** @var TestCase $this */
+    Config::set('dystore.general.checkout.checkout_protection_strategy', CheckoutProtectionStrategy::SIGNATURE);
+
+    /** @var CartFactory $factory */
+    $factory = Cart::factory();
+
+    /** @var Cart $cart */
+    $cart = $factory
+        ->withAddresses()
+        ->withLines()
+        ->create();
+
+    /** @var CartSessionManager $cartSession */
+    $cartSession = App::make(CartSessionInterface::class);
+    $cartSession->use($cart);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('orders')
+        ->withData([
+            'type' => 'carts',
+            'attributes' => [
+                'agree' => true,
+                'create_user' => false,
+            ],
+        ])
+        ->post(serverUrl('/carts/-actions/checkout'));
+
+    $orderId = $response->json('data.id');
+
+    ray($response->json('meta.order_signature'));
+
+    $response
+        ->assertSuccessful()
+        ->assertCreatedWithServerId(
+            serverUrl('/orders', true),
+            [
+                'type' => 'orders',
+                'id' => (string) $response->json('data.id'),
+            ]
+        )
+        ->assertMeta([
+            'order_signature' => $response->json('meta.order_signature'),
+        ]);
+});
