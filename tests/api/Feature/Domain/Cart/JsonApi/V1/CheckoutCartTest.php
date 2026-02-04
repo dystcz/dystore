@@ -462,8 +462,6 @@ it('returns order signature in meta after checkout', function () {
 
     $orderId = $response->json('data.id');
 
-    ray($response->json('meta.order_signature'));
-
     $response
         ->assertSuccessful()
         ->assertCreatedWithServerId(
