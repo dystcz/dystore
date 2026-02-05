@@ -1,5 +1,67 @@
 # Changelog
 
+## 1.0.14
+
+- Update to Lunar 1.3.0 [#95](https://github.com/dystcz/dystore/pull/95)
+- Update cart address validation messages
+- Update password confirmation validation
+- Update belongs to many through relationship
+- Fix variantValues relationship on products
+- Add order signature to meta in response after checkout
+- Constraint to product option values with variants
+- Do not force pagination
+- Scope only products with published status [#94](https://github.com/dystcz/dystore/pull/94)
+- Update order during checkout [#93](https://github.com/dystcz/dystore/pull/93)
+- Add filters to product variants [#92](https://github.com/dystcz/dystore/pull/92)
+- Order product variant values by position [#90](https://github.com/dystcz/dystore/pull/90), [#91](https://github.com/dystcz/dystore/pull/91)
+- Add filters to product options and product option values [#89](https://github.com/dystcz/dystore/pull/89)
+- Fix variant values relationship on products [#88](https://github.com/dystcz/dystore/pull/88)
+- Refactor `variantValues` relationship [#86](https://github.com/dystcz/dystore/pull/86), [#87](https://github.com/dystcz/dystore/pull/87)
+- Add pivot product position [#86](https://github.com/dystcz/dystore/pull/86)
+- Abort 404 when accessing draft product [#85](https://github.com/dystcz/dystore/pull/85)
+- Update to Lunar 1.1.0 [#84](https://github.com/dystcz/dystore/pull/84)
+- Set customer groups before setting customer to cart [#83](https://github.com/dystcz/dystore/pull/83)
+- Update user customer policies [#82](https://github.com/dystcz/dystore/pull/82)
+- Fix n+1 queries when including prices to resources [#81](https://github.com/dystcz/dystore/pull/81)
+- Add set customer endpoint which works with cart from session [#80](https://github.com/dystcz/dystore/pull/80)
+- Handle cart-customer relationship [#79](https://github.com/dystcz/dystore/pull/79)
+- Make rating required in request configurable [#78](https://github.com/dystcz/dystore/pull/78)
+- Fix review request validation [#76](https://github.com/dystcz/dystore/pull/76), [#77](https://github.com/dystcz/dystore/pull/77)
+
+## 1.0.13
+
+- Update to Lunar 1.0.1 [#74](https://github.com/dystcz/dystore/pull/74)
+- Add filters and sorts to reviews [#75](https://github.com/dystcz/dystore/pull/75)
+
+## 1.0.12
+
+- Update to Lunar 1.0.0 [#73](https://github.com/dystcz/dystore/pull/73)
+- Add product variant reviews relation to products [#72](https://github.com/dystcz/dystore/pull/72)
+- Add images relation to reviews [#71](https://github.com/dystcz/dystore/pull/71)
+- Fix reviews [#70](https://github.com/dystcz/dystore/pull/70)
+- Enhance reviews [#67](https://github.com/dystcz/dystore/pull/67), [#68](https://github.com/dystcz/dystore/pull/68)
+
+## 1.0.11
+
+- Enhance reviews [#67](https://github.com/dystcz/dystore/pull/67)
+
+## 1.0.10
+
+- Update to Lunar 1.0.0-beta.25 [#66](https://github.com/dystcz/dystore/pull/66)
+
+## 1.0.9
+
+- Scope only published product associations [#64](https://github.com/dystcz/dystore/pull/64)
+- Scope products by customer groups [#65](https://github.com/dystcz/dystore/pull/65)
+- Add custom reset password notification
+- Use user contract namespace
+- Use contract namespace for new password controller
+- Fix password reset flow [#62](https://github.com/dystcz/dystore/pull/62)
+
+## 1.0.8
+
+- Fix API headers middleware priority [#61](https://github.com/dystcz/dystore/pull/61)
+
 ## 1.0.7
 
 - Added auto documentation for facades
