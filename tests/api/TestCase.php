@@ -51,9 +51,20 @@ abstract class TestCase extends OrchestraTestCase
             'default' => true,
         ]);
 
-        Country::query()
-            ->where(['iso2' => 'GB'])
-            ->firstOr(fn () => Country::factory()->create(['iso2' => 'GB']));
+        // For test stability, make the required GB country deterministic.
+        Country::updateOrCreate(
+            ['iso2' => 'GB'],
+            [
+                'name' => 'United Kingdom',
+                'iso3' => 'GBR',
+                'phonecode' => '+44',
+                'capital' => 'London',
+                'currency' => 'GBP',
+                'native' => 'en',
+                'emoji' => '🇬🇧',
+                'emoji_u' => 'U+1F1EC U+1F1E7',
+            ]
+        );
 
         Channel::factory()->create([
             'default' => true,
