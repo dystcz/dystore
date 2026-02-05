@@ -58,7 +58,6 @@ class ReviewsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom("{$this->root}/database/migrations");
-        $this->loadViewsFrom(__DIR__.'/Domain/Hub/resources/views', 'dystore-reviews');
         $this->loadRoutesFrom("{$this->root}/routes/api.php");
 
         $this->registerModels();
