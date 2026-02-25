@@ -52,6 +52,15 @@ abstract class TestCase extends Orchestra
             // Livewire
             \Livewire\LivewireServiceProvider::class,
 
+            // Filament
+            \Filament\FilamentServiceProvider::class,
+            \Filament\Forms\FormsServiceProvider::class,
+            \Filament\Tables\TablesServiceProvider::class,
+            \Filament\Actions\ActionsServiceProvider::class,
+            \Filament\Infolists\InfolistsServiceProvider::class,
+            \Filament\Notifications\NotificationsServiceProvider::class,
+            \Filament\Widgets\WidgetsServiceProvider::class,
+
             // Lunar Api
             \Dystore\Api\ApiServiceProvider::class,
             \Dystore\Api\JsonApiServiceProvider::class,
