@@ -2,7 +2,7 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Filament\Plugins;
 
-use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource;
+use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\ReviewResource;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 

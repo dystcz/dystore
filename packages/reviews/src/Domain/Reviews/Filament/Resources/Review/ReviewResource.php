@@ -1,11 +1,11 @@
 <?php
 
-namespace Dystore\Reviews\Domain\Reviews\Filament\Resources;
+namespace Dystore\Reviews\Domain\Reviews\Filament\Resources\Review;
 
 use Dystore\Api\Base\Enums\PublishedStatus;
-use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\CreateReview;
-use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\EditReview;
-use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\ListReviews;
+use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\Pages\CreateReview;
+use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\Pages\EditReview;
+use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\Pages\ListReviews;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\KeyValue;
