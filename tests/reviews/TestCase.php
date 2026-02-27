@@ -7,6 +7,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
@@ -16,6 +17,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 abstract class TestCase extends Orchestra
 {
     use MakesJsonApiRequests;
+    use RefreshDatabase;
     use WithWorkbench;
 
     protected function setUp(): void
@@ -41,16 +43,15 @@ abstract class TestCase extends Orchestra
             \LaravelJsonApi\Laravel\ServiceProvider::class,
             \LaravelJsonApi\Spec\ServiceProvider::class,
 
-            // Lunar core
+            // Lunar
             \Lunar\LunarServiceProvider::class,
+            \Lunar\Admin\LunarPanelProvider::class,
             \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
             \Spatie\Activitylog\ActivitylogServiceProvider::class,
             \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
             \Kalnoy\Nestedset\NestedSetServiceProvider::class,
             \Spatie\LaravelBlink\BlinkServiceProvider::class,
-
-            // Livewire
-            \Livewire\LivewireServiceProvider::class,
+            \Dystore\Tests\Reviews\Providers\LunarPanelTestServiceProvider::class,
 
             // Filament
             \Filament\FilamentServiceProvider::class,
@@ -60,6 +61,11 @@ abstract class TestCase extends Orchestra
             \Filament\Infolists\InfolistsServiceProvider::class,
             \Filament\Notifications\NotificationsServiceProvider::class,
             \Filament\Widgets\WidgetsServiceProvider::class,
+
+            // Livewire
+            \Livewire\LivewireServiceProvider::class,
+            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
+            \Spatie\Permission\PermissionServiceProvider::class,
 
             // Lunar Api
             \Dystore\Api\ApiServiceProvider::class,
@@ -107,7 +113,12 @@ abstract class TestCase extends Orchestra
     protected function defineDatabaseMigrations(): void
     {
         $this->loadLaravelMigrations();
+
+        $this->loadMigrationsFrom(base_path('packages/reviews/database/migrations'));
+
         // $this->loadMigrationsFrom(workbench_path('database/migrations'));
+
+        // $this->artisan('migrate', ['--force' => true])->run();
     }
 
     /**

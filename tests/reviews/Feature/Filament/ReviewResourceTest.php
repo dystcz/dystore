@@ -5,8 +5,8 @@ use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\Pages\CreateReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\Pages\EditReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\Pages\ListReviews;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
-use Dystore\Tests\Reviews\Feature\Filament\TestCase;
 use Dystore\Tests\Reviews\Stubs\Users\User;
+use Dystore\Tests\Reviews\TestCase;
 use Filament\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
@@ -17,8 +17,6 @@ uses(TestCase::class)
     ->group('reviews', 'reviews.filament');
 
 beforeEach(function () {
-    $this->markTestSkipped('Filament test setup requires v4 - skipping for now');
-
     Config::set('auth.providers.users.model', User::class);
 });
 
