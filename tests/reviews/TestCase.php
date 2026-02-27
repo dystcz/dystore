@@ -40,11 +40,6 @@ abstract class TestCase extends Orchestra
             // Ray
             \Spatie\LaravelRay\RayServiceProvider::class,
 
-            // Blade Icons
-            \BladeUI\Icons\BladeIconsServiceProvider::class,
-            \BladeUI\Heroicons\BladeHeroiconsServiceProvider::class,
-            \Technikermathe\LucideIcons\BladeLucideIconsServiceProvider::class,
-
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
             \LaravelJsonApi\Laravel\ServiceProvider::class,
@@ -58,11 +53,10 @@ abstract class TestCase extends Orchestra
             \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
             \Kalnoy\Nestedset\NestedSetServiceProvider::class,
             \Spatie\LaravelBlink\BlinkServiceProvider::class,
-            \Dystore\Tests\Reviews\Providers\LunarPanelTestServiceProvider::class,
 
             // Filament
-            \Filament\Support\SupportServiceProvider::class,
             \Filament\FilamentServiceProvider::class,
+            \Filament\Support\SupportServiceProvider::class,
             \Filament\Forms\FormsServiceProvider::class,
             \Filament\Tables\TablesServiceProvider::class,
             \Filament\Actions\ActionsServiceProvider::class,
@@ -70,8 +64,11 @@ abstract class TestCase extends Orchestra
             \Filament\Notifications\NotificationsServiceProvider::class,
             \Filament\Widgets\WidgetsServiceProvider::class,
             \Filament\Schemas\SchemasServiceProvider::class,
+            \BladeUI\Icons\BladeIconsServiceProvider::class,
+            \BladeUI\Heroicons\BladeHeroiconsServiceProvider::class,
+            \Technikermathe\LucideIcons\BladeLucideIconsServiceProvider::class,
 
-            // Livewire
+            \Dystore\Tests\Reviews\Providers\LunarPanelTestServiceProvider::class,
             \Livewire\LivewireServiceProvider::class,
             \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
             \Spatie\Permission\PermissionServiceProvider::class,
@@ -113,6 +110,8 @@ abstract class TestCase extends Orchestra
                 'database' => ':memory:',
                 'prefix' => '',
             ]);
+
+            $config->set('lunar.database.disable_migrations', true);
         });
     }
 
@@ -123,7 +122,10 @@ abstract class TestCase extends Orchestra
     {
         $this->loadLaravelMigrations();
 
+        $this->loadMigrationsFrom(base_path('vendor/lunarphp/core/database/migrations'));
+        $this->loadMigrationsFrom(base_path('vendor/lunarphp/lunar/database/migrations'));
         $this->loadMigrationsFrom(base_path('packages/reviews/database/migrations'));
+        $this->loadMigrationsFrom(base_path('packages/api/database/migrations'));
 
         // $this->loadMigrationsFrom(workbench_path('database/migrations'));
 

@@ -2,9 +2,10 @@
 
 namespace Dystore\Tests\Reviews\Providers;
 
-use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\ReviewResource;
+use Dystore\Reviews\Domain\Reviews\Filament\Plugins\ReviewsPlugin;
 use Filament\Panel;
 use Illuminate\Support\ServiceProvider;
+use Lunar\Admin\Support\Facades\LunarPanel;
 
 class LunarPanelTestServiceProvider extends ServiceProvider
 {
@@ -15,10 +16,11 @@ class LunarPanelTestServiceProvider extends ServiceProvider
     {
         \Lunar\Admin\Support\Facades\LunarPanel::register();
 
-        Panel::configureUsing(fn (Panel $panel) => $panel
-            ->resources([
-                ReviewResource::class,
-            ])
-        );
+        LunarPanel::panel(
+            fn (Panel $panel) => $panel
+                ->plugins([
+                    ReviewsPlugin::make(),
+                ])
+        )->register();
     }
 }
