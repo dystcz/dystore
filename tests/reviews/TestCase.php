@@ -3,6 +3,7 @@
 namespace Dystore\Tests\Reviews;
 
 use Dystore\Tests\Reviews\Stubs\Lunar\TestUrlGenerator;
+use Dystore\Tests\Reviews\Stubs\Users\User;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
@@ -25,6 +26,7 @@ abstract class TestCase extends Orchestra
         parent::setUp();
 
         Config::set('lunar.urls.generator', TestUrlGenerator::class);
+        Config::set('auth.providers.users.model', User::class);
 
         activity()->disableLogging();
     }
@@ -37,6 +39,11 @@ abstract class TestCase extends Orchestra
         return [
             // Ray
             \Spatie\LaravelRay\RayServiceProvider::class,
+
+            // Blade Icons
+            \BladeUI\Icons\BladeIconsServiceProvider::class,
+            \BladeUI\Heroicons\BladeHeroiconsServiceProvider::class,
+            \Technikermathe\LucideIcons\BladeLucideIconsServiceProvider::class,
 
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
@@ -54,6 +61,7 @@ abstract class TestCase extends Orchestra
             \Dystore\Tests\Reviews\Providers\LunarPanelTestServiceProvider::class,
 
             // Filament
+            \Filament\Support\SupportServiceProvider::class,
             \Filament\FilamentServiceProvider::class,
             \Filament\Forms\FormsServiceProvider::class,
             \Filament\Tables\TablesServiceProvider::class,
@@ -61,6 +69,7 @@ abstract class TestCase extends Orchestra
             \Filament\Infolists\InfolistsServiceProvider::class,
             \Filament\Notifications\NotificationsServiceProvider::class,
             \Filament\Widgets\WidgetsServiceProvider::class,
+            \Filament\Schemas\SchemasServiceProvider::class,
 
             // Livewire
             \Livewire\LivewireServiceProvider::class,

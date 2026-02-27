@@ -10,15 +10,10 @@ use Dystore\Tests\Reviews\TestCase;
 use Filament\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
-use Illuminate\Support\Facades\Config;
 use Livewire\Livewire;
 
 uses(TestCase::class)
     ->group('reviews', 'reviews.filament');
-
-beforeEach(function () {
-    Config::set('auth.providers.users.model', User::class);
-});
 
 it('can render the list reviews page', function () {
     Livewire::test(ListReviews::class)
