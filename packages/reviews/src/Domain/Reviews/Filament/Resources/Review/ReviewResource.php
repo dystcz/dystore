@@ -8,6 +8,7 @@ use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\Pages\CreateReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\Pages\EditReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\Review\Pages\ListReviews;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
+use Dystore\Reviews\Domain\Reviews\Scopes\PublishedScope;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -26,6 +27,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
 use UnitEnum;
@@ -64,6 +66,14 @@ class ReviewResource extends Resource
     }
 
     protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-star';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                PublishedScope::class,
+            ]);
+    }
 
     public static function getNavigationBadge(): ?string
     {

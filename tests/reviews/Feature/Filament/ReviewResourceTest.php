@@ -24,10 +24,7 @@ it('can render the create review page', function () {
 });
 
 it('can render the edit review page', function () {
-    $review = Review::factory()->create([
-        'published_at' => now(),
-        'status' => PublishedStatus::PUBLISHED,
-    ]);
+    $review = Review::factory()->create();
 
     Livewire::test(EditReview::class, ['record' => $review->getRouteKey()])
         ->assertSuccessful();
@@ -86,8 +83,7 @@ it('can delete a review from the table', function () {
 it('can render the edit form with correct fields', function () {
     $review = Review::factory()->create([
         'rating' => 4,
-        'status' => PublishedStatus::PUBLISHED,
-        'published_at' => now(),
+        'status' => PublishedStatus::DRAFT,
     ]);
 
     Livewire::test(EditReview::class, ['record' => $review->getRouteKey()])
@@ -103,8 +99,7 @@ it('can render the edit form with correct fields', function () {
 it('can update a review', function () {
     $review = Review::factory()->create([
         'rating' => 3,
-        'status' => PublishedStatus::PUBLISHED,
-        'published_at' => now(),
+        'status' => PublishedStatus::DRAFT,
     ]);
 
     Livewire::test(EditReview::class, ['record' => $review->getRouteKey()])
@@ -153,8 +148,7 @@ it('validates required fields on create form', function () {
 
 it('validates required fields on edit form', function () {
     $review = Review::factory()->create([
-        'status' => PublishedStatus::PUBLISHED,
-        'published_at' => now(),
+        'status' => PublishedStatus::DRAFT,
     ]);
 
     Livewire::test(EditReview::class, ['record' => $review->getRouteKey()])
