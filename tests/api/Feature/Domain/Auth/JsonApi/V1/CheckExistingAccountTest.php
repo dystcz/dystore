@@ -20,7 +20,7 @@ test('can check if account exists by providing an email', function () {
     $data = [
         'type' => 'auth',
         'attributes' => [
-            'email' => $email = fake()->safeEmail(),
+            'email' => 'fakeemail@gmail.com',
         ],
     ];
 
