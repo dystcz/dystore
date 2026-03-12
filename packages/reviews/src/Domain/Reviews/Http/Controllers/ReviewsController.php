@@ -10,6 +10,8 @@ use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchMany;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\FetchOne;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Store;
+use LaravelJsonApi\Laravel\Http\Requests\ResourceQuery;
+use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
 class ReviewsController extends Controller implements ReviewsControllerContract
 {
@@ -21,8 +23,8 @@ class ReviewsController extends Controller implements ReviewsControllerContract
     /**
      * Handle authentication before creating a review.
      *
-     * @param  \LaravelJsonApi\Laravel\Http\Requests\ResourceRequest  $request
-     * @param  \LaravelJsonApi\Laravel\Http\Requests\ResourceQuery  $query
+     * @param  ResourceRequest  $request
+     * @param  ResourceQuery  $query
      */
     protected function creating($request, $query): ?ErrorResponse
     {

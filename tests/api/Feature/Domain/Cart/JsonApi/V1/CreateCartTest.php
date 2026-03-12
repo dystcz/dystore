@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\CartSessionInterface;
+use Lunar\Managers\CartSessionManager;
 
 uses(TestCase::class, RefreshDatabase::class);
 
@@ -17,7 +18,7 @@ it('can automatically create cart when configured', function () {
         ->expects('carts')
         ->get(serverUrl('/carts/-actions/my-cart'));
 
-    /** @var Lunar\Managers\CartSessionManager $cartSession */
+    /** @var CartSessionManager $cartSession */
     $cartSession = App::make(CartSessionInterface::class);
 
     $cart = $cartSession->current();

@@ -7,6 +7,7 @@ use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
+use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
 use Dystore\Reviews\Domain\Reviews\Contacts\Review;
 use Dystore\Reviews\Domain\Reviews\JsonApi\Filters\PurchasableOrGeneric;
 use Illuminate\Database\Eloquent\Builder;
@@ -64,7 +65,7 @@ class ReviewSchema extends Schema
      */
     public function indexQuery(?Request $request, Builder $query): Builder
     {
-        /** @var \Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder $query */
+        /** @var ReviewBuilder $query */
         return $query->published();
     }
 
@@ -73,7 +74,7 @@ class ReviewSchema extends Schema
      */
     public function relatableQuery(?Request $request, EloquentRelation $query): EloquentRelation
     {
-        /** @var \Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder $query */
+        /** @var ReviewBuilder $query */
         return $query->published();
     }
 

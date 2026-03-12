@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\BaseModel;
 use Lunar\Base\Traits\HasMedia;
@@ -51,7 +52,7 @@ class Review extends BaseModel implements ReviewContract, SpatieHasMedia
     /**
      * Create a new Eloquent query builder for the model.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param  Builder  $query
      * @return ReviewBuilder|static
      */
     public function newEloquentBuilder($query): ReviewBuilder

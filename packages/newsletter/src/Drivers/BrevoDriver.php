@@ -9,6 +9,7 @@ use Brevo\Client\Model\CreateUpdateContactModel;
 use Brevo\Client\Model\GetExtendedContactDetails;
 use Brevo\Client\Model\PostContactInfo;
 use Brevo\Client\Model\RemoveContactFromList;
+use Brevo\Client\Model\UpdateContact;
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\Facades\Log;
@@ -216,7 +217,7 @@ class BrevoDriver implements Driver
         array $listIds = [],
         array $options = [],
     ): bool {
-        $updateContact = new \Brevo\Client\Model\UpdateContact;
+        $updateContact = new UpdateContact;
 
         if (! empty($listIds)) {
             $updateContact->setListIds($listIds);

@@ -1,7 +1,10 @@
 <?php
 
+use Dystore\Newsletter\Drivers\BrevoDriver;
+use Dystore\Newsletter\Drivers\EcomailDriver;
 use Dystore\Tests\Newsletter\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Newsletter\Drivers\MailChimpDriver;
 use Spatie\Newsletter\Facades\Newsletter;
 
 use function Pest\Faker\fake;
@@ -32,9 +35,9 @@ it('can subscribe user to newsletter', function (string $driver) {
 
     $response->assertSuccessful();
 })->with([
-    'mailchimp driver' => Spatie\Newsletter\Drivers\MailChimpDriver::class,
-    'brevo driver' => Dystore\Newsletter\Drivers\BrevoDriver::class,
-    'ecomail driver' => Dystore\Newsletter\Drivers\EcomailDriver::class,
+    'mailchimp driver' => MailChimpDriver::class,
+    'brevo driver' => BrevoDriver::class,
+    'ecomail driver' => EcomailDriver::class,
 ]);
 
 it('requires emails in order to sign up', function () {
