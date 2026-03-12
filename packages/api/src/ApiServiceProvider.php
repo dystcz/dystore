@@ -268,6 +268,7 @@ class ApiServiceProvider extends ServiceProvider
             Domain\Addresses\Contracts\AddressesController::class => Domain\Addresses\Http\Controllers\AddressesController::class,
             Domain\Auth\Contracts\AuthController::class => Domain\Auth\Http\Controllers\AuthController::class,
             Domain\Auth\Contracts\AuthUserOrdersController::class => Domain\Auth\Http\Controllers\AuthUserOrdersController::class,
+            Domain\Auth\Contracts\CheckExistingAccountController::class => Domain\Auth\Http\Controllers\CheckExistingAccountController::class,
             Domain\Auth\Contracts\NewPasswordController::class => Domain\Auth\Http\Controllers\NewPasswordController::class,
             Domain\Auth\Contracts\PasswordResetLinkController::class => Domain\Auth\Http\Controllers\PasswordResetLinkController::class,
             Domain\Auth\Contracts\RegisterUserWithoutPasswordController::class => Domain\Auth\Http\Controllers\RegisterUserWithoutPasswordController::class,
