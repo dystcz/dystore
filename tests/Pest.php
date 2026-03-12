@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Lunar\Base\BaseModel;
 use Lunar\Database\Factories\LanguageFactory;
+use Lunar\Generators\UrlGenerator;
 use Orchestra\Testbench\TestCase;
+use Vinkla\Hashids\Facades\Hashids;
 
 /**
  * $this helper.
@@ -38,7 +40,7 @@ function serverUrl(?string $path = null, bool $full = false): string
  */
 function decodeHashedId(BaseModel $model, mixed $id): mixed
 {
-    /** @var Vinkla\Hashids\Facades\Hashids $hashids */
+    /** @var Hashids $hashids */
     $hashids = App::get('hashids');
 
     return $hashids->connection(ModelKey::get($model))->decode($id);
@@ -63,7 +65,7 @@ function generateUrls(): void
     LanguageFactory::new()->create();
 
     /** @var TestCase $this */
-    Config::set('lunar.urls.generator', Lunar\Generators\UrlGenerator::class);
+    Config::set('lunar.urls.generator', UrlGenerator::class);
 }
 
 /**

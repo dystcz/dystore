@@ -6,6 +6,7 @@ use Dystore\ProductNotifications\Domain\ProductNotifications\Builders\ProductNot
 use Dystore\ProductNotifications\Domain\ProductNotifications\Factories\ProductNotificationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Notifications\Notifiable;
 use Lunar\Base\BaseModel;
 
@@ -33,7 +34,7 @@ class ProductNotification extends BaseModel
     /**
      * Create a new Eloquent query builder for the model.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param  Builder  $query
      * @return ProductNotificationBuilder|static
      */
     public function newEloquentBuilder($query): ProductNotificationBuilder
