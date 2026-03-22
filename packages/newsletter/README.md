@@ -57,6 +57,20 @@ Next, you must provide values for the API key and `list.subscribers.id`. You'll 
 
 The `endpoint` config value can be set to an empty string.
 
+### Using Ecomail
+
+To use Ecomail, install this extra package.
+
+```bash
+composer require ecomailcz/ecomail
+```
+
+The `driver` key of the `newsletter` config file must be set to `Dystore\Newsletter\Drivers\EcomailDriver::class`.
+
+Next, you must provide values for the API key and `list.subscribers.id`. You'll find these values in [Ecomail settings](https://app.ecomail.app/settings).
+
+The `endpoint` config value can be set to an empty string.
+
 ### Using Mailcoach
 
 To let this package work with Mailcoach, you need to install the Mailcoach SDK.
