@@ -12,6 +12,7 @@ test('users can change their password', function () {
     /** @var TestCase $this */
     $this->actingAs($user = User::factory()->create([
         'password' => $oldPassword = Hash::make('password123xxx'),
+        'password_set' => false,
     ]));
 
     $response = $this
@@ -35,4 +36,5 @@ test('users can change their password', function () {
     $user = $user->fresh();
 
     $this->assertNotSame($user->password, $oldPassword);
+    $this->assertTrue($user->password_set);
 });

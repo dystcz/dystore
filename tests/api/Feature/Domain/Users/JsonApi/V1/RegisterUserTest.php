@@ -1,5 +1,7 @@
 <?php
 
+use Dystore\Api\Domain\Users\Contracts\RegistersUser;
+use Dystore\Api\Domain\Users\Data\UserData;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Auth\Events\Registered;
@@ -7,9 +9,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Testing\Fakes\EventFake;
-use Illuminate\Support\Testing\Fakes\NotificationFake;
+use Illuminate\Validation\ValidationException;
 
 uses(TestCase::class, RefreshDatabase::class)
     ->group('auth', 'users');
@@ -20,9 +21,6 @@ it('can register a user', function () {
 
     /** @var EventFake $eventFake */
     $eventFake = Event::fake();
-
-    // /** @var NotificationFake $notificationFake */
-    // $notificationFake = Notification::fake();
 
     $data = [
         'type' => 'users',
@@ -55,5 +53,20 @@ it('can register a user', function () {
     $this->assertDatabaseHas((new User)->getTable(), [
         'id' => $id,
         'email' => $user->email,
+        'password_set' => true,
     ]);
+});
+
+it('throws validation exception when registering with existing email', function () {
+    /** @var TestCase $this */
+    $existingUser = User::factory()->create();
+
+    $this->expectException(ValidationException::class);
+
+    /** @var RegistersUser $registerUser */
+    $registerUser = $this->app->make(RegistersUser::class);
+
+    $registerUser->register(new UserData(
+        email: $existingUser->email,
+    ));
 });

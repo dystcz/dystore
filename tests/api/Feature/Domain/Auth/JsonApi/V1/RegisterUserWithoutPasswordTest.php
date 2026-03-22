@@ -47,5 +47,6 @@ test('users can register without password', function () {
     $this->assertDatabaseHas((new User)->getTable(), [
         'id' => $id,
         'email' => $email,
+        'password_set' => false,
     ]);
 });
