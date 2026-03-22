@@ -10,6 +10,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Testing\Fakes\EventFake;
+use Illuminate\Validation\ValidationException;
 
 uses(TestCase::class, RefreshDatabase::class)
     ->group('auth', 'users');
@@ -56,24 +57,16 @@ it('can register a user', function () {
     ]);
 });
 
-it('returns existing user when registering with existing email', function () {
+it('throws validation exception when registering with existing email', function () {
     /** @var TestCase $this */
     $existingUser = User::factory()->create();
 
-    /** @var EventFake $eventFake */
-    $eventFake = Event::fake();
+    $this->expectException(ValidationException::class);
 
     /** @var RegistersUser $registerUser */
     $registerUser = $this->app->make(RegistersUser::class);
 
-    $user = $registerUser->register(new UserData(
+    $registerUser->register(new UserData(
         email: $existingUser->email,
     ));
-
-    expect($user->getKey())->toBe($existingUser->getKey());
-    expect($user->email)->toBe($existingUser->email);
-
-    $eventFake->assertNotDispatched(Registered::class);
-
-    $this->assertDatabaseCount('users', 1);
 });
