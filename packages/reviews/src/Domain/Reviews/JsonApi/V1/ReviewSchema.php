@@ -67,7 +67,9 @@ class ReviewSchema extends Schema
     public function indexQuery(?Request $request, Builder $query): Builder
     {
         /** @var ReviewBuilder $query */
-        return $query->published();
+        return $query
+            ->published()
+            ->orderBy('published_at', 'desc');
     }
 
     /**
@@ -76,7 +78,9 @@ class ReviewSchema extends Schema
     public function relatableQuery(?Request $request, EloquentRelation $query): EloquentRelation
     {
         /** @var ReviewBuilder $query */
-        return $query->published();
+        return $query
+            ->published()
+            ->orderBy('published_at', 'desc');
     }
 
     /**
