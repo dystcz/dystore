@@ -2,6 +2,8 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Http\Routing;
 
+use Dystore\Api\Domain\Orders\Contracts\OrdersController;
+use Dystore\Api\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystore\Api\Domain\Products\Contracts\ProductsController;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\Contracts\ProductVariantsController;
@@ -47,6 +49,12 @@ class ReviewRouteGroup extends RouteGroup
 
                 $server
                     ->resource(ProductVariantSchema::type(), ProductVariantsController::class)
+                    ->relationships(function (Relationships $relationships) {
+                        $relationships->hasMany('reviews')->readOnly();
+                    })->only();
+
+                $server
+                    ->resource(OrderSchema::type(), OrdersController::class)
                     ->relationships(function (Relationships $relationships) {
                         $relationships->hasMany('reviews')->readOnly();
                     })->only();

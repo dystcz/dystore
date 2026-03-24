@@ -7,6 +7,9 @@ use Dystore\Api\Base\Contracts\SchemaManifest;
 use Dystore\Api\Base\Extensions\ResourceExtension;
 use Dystore\Api\Base\Extensions\SchemaExtension;
 use Dystore\Api\Base\Facades\SchemaManifest as SchemaManifestFacade;
+use Dystore\Api\Domain\Orders\JsonApi\V1\OrderResource;
+use Dystore\Api\Domain\Orders\JsonApi\V1\OrderSchema;
+use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductResource;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;
@@ -175,6 +178,10 @@ class ReviewsServiceProvider extends ServiceProvider
         ProductVariant::resolveRelationUsing('reviews', function (ProductVariant $model) {
             return $model->morphMany(Review::class, 'purchasable');
         });
+
+        Order::resolveRelationUsing('reviews', function (Order $model) {
+            return $model->morphMany(Review::class, 'purchasable');
+        });
     }
 
     /**
@@ -264,6 +271,35 @@ class ReviewsServiceProvider extends ServiceProvider
         $productVariantResourceExtension = $resourceManifest::extend(ProductVariantResource::class);
 
         $productVariantResourceExtension
+            ->setRelationships(fn ($resource) => [
+                'reviews' => $resource->relation('reviews'),
+            ]);
+
+        /** @var SchemaExtension $orderSchemaExtenstion */
+        $orderSchemaExtenstion = $schemaManifest::extend(OrderSchema::class);
+
+        $orderSchemaExtenstion
+            ->setIncludePaths([
+                'reviews',
+                'reviews.user',
+                'reviews.user.customers',
+            ])
+            ->setFields([
+                fn () => HasMany::make('reviews', 'reviews')->serializeUsing(
+                    static fn ($relation) => $relation->withoutLinks(),
+                ),
+            ])
+            ->setShowRelated([
+                'reviews',
+            ])
+            ->setShowRelationship([
+                'reviews',
+            ]);
+
+        /** @var ResourceExtension $orderResourceExtension */
+        $orderResourceExtension = $resourceManifest::extend(OrderResource::class);
+
+        $orderResourceExtension
             ->setRelationships(fn ($resource) => [
                 'reviews' => $resource->relation('reviews'),
             ]);

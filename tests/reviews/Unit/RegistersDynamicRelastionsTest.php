@@ -1,5 +1,6 @@
 <?php
 
+use Dystore\Api\Domain\Orders\Models\Order;
 use Dystore\Api\Domain\Products\Models\Product;
 use Dystore\Api\Domain\ProductVariants\Models\ProductVariant;
 use Dystore\Tests\Reviews\TestCase;
@@ -23,6 +24,12 @@ test('product has productVariantReviews relation', function () {
 
 test('product variant has reviews relation', function () {
     $model = new ProductVariant;
+
+    expect($model->reviews())->toBeInstanceOf(MorphMany::class);
+});
+
+test('order has reviews relation', function () {
+    $model = new Order;
 
     expect($model->reviews())->toBeInstanceOf(MorphMany::class);
 });
