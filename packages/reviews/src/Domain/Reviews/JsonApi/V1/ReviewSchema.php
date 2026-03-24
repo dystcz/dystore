@@ -4,6 +4,7 @@ namespace Dystore\Reviews\Domain\Reviews\JsonApi\V1;
 
 use Dystore\Api\Domain\JsonApi\Eloquent\Schema;
 use Dystore\Api\Domain\JsonApi\Eloquent\Sorts\InRandomOrder;
+use Dystore\Api\Domain\Orders\JsonApi\V1\OrderSchema;
 use Dystore\Api\Domain\Products\JsonApi\V1\ProductSchema;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Models\Actions\SchemaType;
@@ -125,6 +126,7 @@ class ReviewSchema extends Schema
                 ->types(
                     ProductSchema::type(),
                     ProductVariantSchema::type(),
+                    OrderSchema::type(),
                 ),
 
             HasMany::make('images', 'images')
