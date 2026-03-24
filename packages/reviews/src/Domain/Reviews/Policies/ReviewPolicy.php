@@ -2,6 +2,7 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Policies;
 
+use Dystore\Reviews\Domain\Reviews\Contracts\Review as ReviewContract;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +22,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?Authenticatable $user, Review $review): bool
+    public function view(?Authenticatable $user, ReviewContract $review): bool
     {
         return true;
     }
@@ -37,7 +38,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(?Authenticatable $user, Review $review): bool
+    public function update(?Authenticatable $user, ReviewContract $review): bool
     {
         return true;
     }
@@ -45,7 +46,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(?Authenticatable $user, Review $review): bool
+    public function delete(?Authenticatable $user, ReviewContract $review): bool
     {
         return true;
     }
@@ -53,7 +54,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can publish the review.
      */
-    public function publish(?Authenticatable $user, Review $review): bool
+    public function publish(?Authenticatable $user, ReviewContract $review): bool
     {
         return true;
     }
@@ -61,12 +62,12 @@ class ReviewPolicy
     /**
      * Determine whether the user can unpublish the review.
      */
-    public function unpublish(?Authenticatable $user, Review $review): bool
+    public function unpublish(?Authenticatable $user, ReviewContract $review): bool
     {
         return true;
     }
 
-    public function viewImages(?Authenticatable $user, Review $review): bool
+    public function viewImages(?Authenticatable $user, ReviewContract $review): bool
     {
         return true;
     }

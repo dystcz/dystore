@@ -6,7 +6,7 @@ use Dystore\Api\Base\Concerns\Publishable;
 use Dystore\Api\Base\Enums\PublishedStatus;
 use Dystore\Api\Domain\Users\Models\User;
 use Dystore\Reviews\Domain\Reviews\Builders\ReviewBuilder;
-use Dystore\Reviews\Domain\Reviews\Contacts\Review as ReviewContract;
+use Dystore\Reviews\Domain\Reviews\Contracts\Review as ReviewContract;
 use Dystore\Reviews\Domain\Reviews\Factories\ReviewFactory;
 use Dystore\Reviews\Domain\Reviews\Observers\ReviewObserver;
 use Dystore\Reviews\Domain\Reviews\Scopes\PublishedScope;

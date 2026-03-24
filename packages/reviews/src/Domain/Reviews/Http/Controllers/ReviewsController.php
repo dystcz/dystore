@@ -3,7 +3,7 @@
 namespace Dystore\Reviews\Domain\Reviews\Http\Controllers;
 
 use Dystore\Api\Base\Controller;
-use Dystore\Reviews\Domain\Reviews\Contacts\ReviewsController as ReviewsControllerContract;
+use Dystore\Reviews\Domain\Reviews\Contracts\ReviewsController as ReviewsControllerContract;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Core\Responses\ErrorResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions\Destroy;

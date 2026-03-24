@@ -3,7 +3,7 @@
 namespace Dystore\Reviews\Domain\Reviews\Http\Controllers;
 
 use Dystore\Api\Base\Controller;
-use Dystore\Reviews\Domain\Reviews\Contacts\PublishReviewsController as PublishReviewsControllerContract;
+use Dystore\Reviews\Domain\Reviews\Contracts\PublishReviewsController as PublishReviewsControllerContract;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Http\Request;

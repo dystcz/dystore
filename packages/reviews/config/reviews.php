@@ -17,7 +17,7 @@ return [
     'domains' => [
         SchemaType::get(Review::class) => [
             'model' => Review::class,
-            'model_contract' => Dystore\Reviews\Domain\Reviews\Contacts\Review::class,
+            'model_contract' => Dystore\Reviews\Domain\Reviews\Contracts\Review::class,
             'policy' => ReviewPolicy::class,
             'schema' => ReviewSchema::class,
             'resource' => ReviewResource::class,
