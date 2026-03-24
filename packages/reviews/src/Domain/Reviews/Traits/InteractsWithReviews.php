@@ -16,7 +16,7 @@ trait InteractsWithReviews
     public function reviews(): MorphMany
     {
         /** @var Model $this */
-        return $this->morphMany(Review::class, 'purchasable');
+        return $this->morphMany(Review::modelClass(), 'purchasable');
     }
 
     /**

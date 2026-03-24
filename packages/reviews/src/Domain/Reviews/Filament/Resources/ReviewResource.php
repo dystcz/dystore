@@ -3,10 +3,10 @@
 namespace Dystore\Reviews\Domain\Reviews\Filament\Resources;
 
 use Dystore\Api\Base\Enums\PublishedStatus;
+use Dystore\Reviews\Domain\Reviews\Contracts\Review;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\CreateReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\EditReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\ListReviews;
-use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MorphToSelect;

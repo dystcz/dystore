@@ -4,6 +4,7 @@ namespace Dystore\Reviews\Domain\Reviews\Http\Controllers;
 
 use Dystore\Api\Base\Controller;
 use Dystore\Reviews\Domain\Reviews\Contracts\PublishReviewsController as PublishReviewsControllerContract;
+use Dystore\Reviews\Domain\Reviews\Contracts\Review as ReviewContract;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Http\Request;
@@ -15,12 +16,13 @@ class PublishReviewsController extends Controller implements PublishReviewsContr
     public function publish(
         ReviewSchema $schema,
         Request $query,
-        Review $review
+        ReviewContract $review
     ): DataResponse {
         $this->authorize('publish', $review);
 
         abort_if($review->published_at, 403, 'Review is already published.');
 
+        /** @var Review $review */
         $review->update(['published_at' => now()]);
 
         $model = $schema
@@ -35,12 +37,13 @@ class PublishReviewsController extends Controller implements PublishReviewsContr
     public function unpublish(
         ReviewSchema $schema,
         Request $query,
-        Review $review
+        ReviewContract $review
     ): Response {
         $this->authorize('unpublish', $review);
 
         abort_if(! $review->published_at, 403, 'Review is already unpublished.');
 
+        /** @var Review $review */
         $review->update(['published_at' => null]);
 
         return response('', 204);

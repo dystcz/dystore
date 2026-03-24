@@ -69,7 +69,7 @@ class ReviewsServiceProvider extends ServiceProvider
         $this->registerDynamicRelations();
 
         Relation::morphMap([
-            'review' => Review::class,
+            'review' => Review::modelClass(),
         ]);
 
         if ($this->app->runningInConsole()) {
@@ -161,7 +161,7 @@ class ReviewsServiceProvider extends ServiceProvider
     protected function registerDynamicRelations(): void
     {
         Product::resolveRelationUsing('reviews', function (Product $model) {
-            return $model->morphMany(Review::class, 'purchasable');
+            return $model->morphMany(Review::modelClass(), 'purchasable');
         });
 
         Product::resolveRelationUsing('productVariantReviews', function (Product $model) {
@@ -176,11 +176,11 @@ class ReviewsServiceProvider extends ServiceProvider
         });
 
         ProductVariant::resolveRelationUsing('reviews', function (ProductVariant $model) {
-            return $model->morphMany(Review::class, 'purchasable');
+            return $model->morphMany(Review::modelClass(), 'purchasable');
         });
 
         Order::resolveRelationUsing('reviews', function (Order $model) {
-            return $model->morphMany(Review::class, 'purchasable');
+            return $model->morphMany(Review::modelClass(), 'purchasable');
         });
     }
 
