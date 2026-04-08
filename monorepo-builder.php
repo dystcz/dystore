@@ -37,7 +37,7 @@ return static function (MBConfig $mbConfig): void {
             'larastan/larastan' => '^3.0',
             'laravel-json-api/testing' => '^3.1',
             'laravel/pint' => '^1.7',
-            'orchestra/testbench' => '^9.0|^10.0',
+            'orchestra/testbench' => '^10.0|^11.0',
             'pestphp/pest' => '^4.0',
             'pestphp/pest-plugin-faker' => '^4.0',
             'pestphp/pest-plugin-laravel' => '^4.0',
