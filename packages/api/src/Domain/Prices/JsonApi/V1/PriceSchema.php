@@ -150,7 +150,7 @@ class PriceSchema extends Schema
     public function filters(): array
     {
         return [
-            WhereIdIn::make($this),
+            WhereIdIn::make($this)->delimiter(','),
 
             MinPriceFilter::make('min_price', 'price'),
 
