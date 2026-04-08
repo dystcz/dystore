@@ -2,8 +2,12 @@
 
 namespace Dystore\Tests\Api;
 
+use Cartalyst\Converter\Laravel\ConverterServiceProvider;
+use Dystore\Api\ApiHashidsServiceProvider;
+use Dystore\Api\ApiServiceProvider;
 use Dystore\Api\Domain\PaymentOptions\Modifiers\PaymentModifiers;
 use Dystore\Api\Facades\Api;
+use Dystore\Api\JsonApiServiceProvider;
 use Dystore\Tests\Api\Stubs\Carts\Modifiers\TestPaymentModifier;
 use Dystore\Tests\Api\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystore\Tests\Api\Stubs\Lunar\TestTaxDriver;
@@ -16,10 +20,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
+use Kalnoy\Nestedset\NestedSetServiceProvider;
+use LaravelJsonApi\Laravel\ServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
+use Livewire\LivewireServiceProvider;
 use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\Taxes;
+use Lunar\LunarServiceProvider;
 use Lunar\Models\Channel;
 use Lunar\Models\Country;
 use Lunar\Models\Currency;
@@ -27,6 +35,11 @@ use Lunar\Models\CustomerGroup;
 use Lunar\Models\TaxClass;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Spatie\Activitylog\ActivitylogServiceProvider;
+use Spatie\LaravelBlink\BlinkServiceProvider;
+use Spatie\LaravelRay\RayServiceProvider;
+use Spatie\MediaLibrary\MediaLibraryServiceProvider;
+use Vinkla\Hashids\HashidsServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
 {
@@ -100,31 +113,31 @@ abstract class TestCase extends OrchestraTestCase
     {
         return [
             // Ray
-            \Spatie\LaravelRay\RayServiceProvider::class,
+            RayServiceProvider::class,
 
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
-            \LaravelJsonApi\Laravel\ServiceProvider::class,
+            ServiceProvider::class,
             \LaravelJsonApi\Spec\ServiceProvider::class,
 
             // Lunar core
-            \Lunar\LunarServiceProvider::class,
-            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
-            \Spatie\Activitylog\ActivitylogServiceProvider::class,
-            \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
-            \Kalnoy\Nestedset\NestedSetServiceProvider::class,
-            \Spatie\LaravelBlink\BlinkServiceProvider::class,
+            LunarServiceProvider::class,
+            MediaLibraryServiceProvider::class,
+            ActivitylogServiceProvider::class,
+            ConverterServiceProvider::class,
+            NestedSetServiceProvider::class,
+            BlinkServiceProvider::class,
 
             // Livewire
-            \Livewire\LivewireServiceProvider::class,
+            LivewireServiceProvider::class,
 
             // Lunar Api
-            \Dystore\Api\ApiServiceProvider::class,
-            \Dystore\Api\JsonApiServiceProvider::class,
+            ApiServiceProvider::class,
+            JsonApiServiceProvider::class,
 
             // Hashids
-            \Vinkla\Hashids\HashidsServiceProvider::class,
-            \Dystore\Api\ApiHashidsServiceProvider::class,
+            HashidsServiceProvider::class,
+            ApiHashidsServiceProvider::class,
         ];
     }
 

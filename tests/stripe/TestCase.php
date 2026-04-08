@@ -2,6 +2,16 @@
 
 namespace Dystore\Tests\Stripe;
 
+use Cartalyst\Converter\Laravel\ConverterServiceProvider;
+use Dystore\Api\ApiServiceProvider;
+use Dystore\Api\JsonApiServiceProvider;
+use Dystore\Stripe\Jobs\Webhooks\HandleOtherEvent;
+use Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCanceled;
+use Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCreated;
+use Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentFailed;
+use Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentSucceeded;
+use Dystore\Stripe\Jobs\Webhooks\WebhookProfile;
+use Dystore\Stripe\StripeServiceProvider;
 use Dystore\Tests\Api\Stubs\Carts\Modifiers\TestShippingModifier;
 use Dystore\Tests\Api\Stubs\Lunar\TestTaxDriver;
 use Dystore\Tests\Api\Stubs\Lunar\TestUrlGenerator;
@@ -12,14 +22,25 @@ use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\ServiceProvider;
+use Kalnoy\Nestedset\NestedSetServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
+use Livewire\LivewireServiceProvider;
 use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\Taxes;
+use Lunar\LunarServiceProvider;
 use Lunar\Models\Currency;
 use Lunar\Models\CustomerGroup;
+use Lunar\Stripe\StripePaymentsServiceProvider;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Spatie\Activitylog\ActivitylogServiceProvider;
+use Spatie\LaravelBlink\BlinkServiceProvider;
+use Spatie\LaravelRay\RayServiceProvider;
+use Spatie\MediaLibrary\MediaLibraryServiceProvider;
+use Spatie\StripeWebhooks\StripeWebhooksServiceProvider;
+use Spatie\WebhookClient\WebhookClientServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
 {
@@ -103,14 +124,14 @@ abstract class TestCase extends OrchestraTestCase
             // Stripe webhooks
             $config->set('stripe-webhooks.verify_signature', false);
             $config->set('stripe-webhooks.connection', 'sync');
-            $config->set('stripe-webhooks.default_job', \Dystore\Stripe\Jobs\Webhooks\HandleOtherEvent::class);
-            $config->set('stripe-webhooks.profile', \Dystore\Stripe\Jobs\Webhooks\WebhookProfile::class);
+            $config->set('stripe-webhooks.default_job', HandleOtherEvent::class);
+            $config->set('stripe-webhooks.profile', WebhookProfile::class);
             $config->set('stripe-webhooks.jobs', [
-                'payment_intent_created' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCreated::class,
-                'payment_intent_succeeded' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentSucceeded::class,
-                'payment_intent_payment_failed' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentFailed::class,
-                'payment_intent_canceled' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentCanceled::class,
-                'payment_intent_payment_failed' => \Dystore\Stripe\Jobs\Webhooks\HandlePaymentIntentFailed::class,
+                'payment_intent_created' => HandlePaymentIntentCreated::class,
+                'payment_intent_succeeded' => HandlePaymentIntentSucceeded::class,
+                'payment_intent_payment_failed' => HandlePaymentIntentFailed::class,
+                'payment_intent_canceled' => HandlePaymentIntentCanceled::class,
+                'payment_intent_payment_failed' => HandlePaymentIntentFailed::class,
             ]);
         });
 
@@ -120,13 +141,13 @@ abstract class TestCase extends OrchestraTestCase
      * Get package providers.
      *
      * @param  Application  $app
-     * @return array<int, class-string<\Illuminate\Support\ServiceProvider>>
+     * @return array<int, class-string<ServiceProvider>>
      */
     protected function getPackageProviders($app): array
     {
         return [
             // Ray
-            \Spatie\LaravelRay\RayServiceProvider::class,
+            RayServiceProvider::class,
 
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
@@ -134,29 +155,29 @@ abstract class TestCase extends OrchestraTestCase
             \LaravelJsonApi\Spec\ServiceProvider::class,
 
             // Lunar core
-            \Lunar\LunarServiceProvider::class,
-            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
-            \Spatie\Activitylog\ActivitylogServiceProvider::class,
-            \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
-            \Kalnoy\Nestedset\NestedSetServiceProvider::class,
-            \Spatie\LaravelBlink\BlinkServiceProvider::class,
+            LunarServiceProvider::class,
+            MediaLibraryServiceProvider::class,
+            ActivitylogServiceProvider::class,
+            ConverterServiceProvider::class,
+            NestedSetServiceProvider::class,
+            BlinkServiceProvider::class,
 
             // Lunar Stripe
-            \Lunar\Stripe\StripePaymentsServiceProvider::class,
+            StripePaymentsServiceProvider::class,
 
             // Livewire
-            \Livewire\LivewireServiceProvider::class,
+            LivewireServiceProvider::class,
 
             // Dystore API
-            \Dystore\Api\ApiServiceProvider::class,
-            \Dystore\Api\JsonApiServiceProvider::class,
+            ApiServiceProvider::class,
+            JsonApiServiceProvider::class,
 
             // Stripe webhooks
-            \Spatie\WebhookClient\WebhookClientServiceProvider::class,
-            \Spatie\StripeWebhooks\StripeWebhooksServiceProvider::class,
+            WebhookClientServiceProvider::class,
+            StripeWebhooksServiceProvider::class,
 
             // Dystore Stripe
-            \Dystore\Stripe\StripeServiceProvider::class,
+            StripeServiceProvider::class,
         ];
     }
 

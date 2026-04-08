@@ -14,7 +14,7 @@ class LunarPanelTestServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        \Lunar\Admin\Support\Facades\LunarPanel::register();
+        LunarPanel::register();
 
         LunarPanel::panel(
             fn (Panel $panel) => $panel

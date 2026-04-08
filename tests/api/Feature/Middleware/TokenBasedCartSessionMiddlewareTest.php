@@ -6,6 +6,7 @@ use Dystore\Api\Routing\Middleware\TokenBasedCartSessionMiddleware;
 use Dystore\Tests\Api\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Lunar\Facades\CartSession;
@@ -18,7 +19,7 @@ test('if cart is created and returns a token', function () {
 
     $request = (new Request)->setRouteResolver(fn () => Route::getRoutes()->getByName('v1.carts.myCart'));
 
-    $response = $middleware->handle($request, fn () => new Illuminate\Http\Response);
+    $response = $middleware->handle($request, fn () => new Response);
 
     expect($response->headers->get('X-Cart-Token'))->toBeString();
 });
@@ -46,7 +47,7 @@ test('if a new cart is created when the order is placed', function () {
 
     $request->headers->set('X-Cart-Token', $token);
 
-    $response = $middleware->handle($request, fn ($request) => new Illuminate\Http\Response);
+    $response = $middleware->handle($request, fn ($request) => new Response);
 
     $this->assertNotEquals($token, $response->headers->get('X-Cart-Token'));
 });
@@ -60,7 +61,7 @@ test('it should create a new cart and return the token if cart is not found by t
 
     $request->headers->set('X-Cart-Token', $token);
 
-    $response = $middleware->handle($request, fn ($request) => new Illuminate\Http\Response);
+    $response = $middleware->handle($request, fn ($request) => new Response);
 
     expect($response->headers->get('X-Cart-Token'))->not()->toEqual($token);
 });
@@ -80,7 +81,7 @@ test('it should use the cart as the current cart if the cart associated with the
 
     $request->headers->set('X-Cart-Token', $token);
 
-    $response = $middleware->handle($request, fn ($request) => new Illuminate\Http\Response);
+    $response = $middleware->handle($request, fn ($request) => new Response);
 
     expect(CartSession::current()->meta['token'])->toEqual($token);
 });

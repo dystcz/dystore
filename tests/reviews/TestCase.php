@@ -2,17 +2,46 @@
 
 namespace Dystore\Tests\Reviews;
 
+use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
+use BladeUI\Icons\BladeIconsServiceProvider;
+use Cartalyst\Converter\Laravel\ConverterServiceProvider;
+use Dystore\Api\ApiHashidsServiceProvider;
+use Dystore\Api\ApiServiceProvider;
+use Dystore\Api\JsonApiServiceProvider;
+use Dystore\Reviews\ReviewsServiceProvider;
+use Dystore\Tests\Reviews\Providers\LunarPanelTestServiceProvider;
 use Dystore\Tests\Reviews\Stubs\Lunar\TestUrlGenerator;
 use Dystore\Tests\Reviews\Stubs\Users\User;
+use Filament\Actions\ActionsServiceProvider;
+use Filament\FilamentServiceProvider;
+use Filament\Forms\FormsServiceProvider;
+use Filament\Infolists\InfolistsServiceProvider;
+use Filament\Notifications\NotificationsServiceProvider;
+use Filament\Schemas\SchemasServiceProvider;
+use Filament\Support\SupportServiceProvider;
+use Filament\Tables\TablesServiceProvider;
+use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\Config;
+use Kalnoy\Nestedset\NestedSetServiceProvider;
+use LaravelJsonApi\Laravel\ServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
+use Livewire\LivewireServiceProvider;
+use Lunar\Admin\LunarPanelProvider;
+use Lunar\LunarServiceProvider;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\Activitylog\ActivitylogServiceProvider;
+use Spatie\LaravelBlink\BlinkServiceProvider;
+use Spatie\LaravelRay\RayServiceProvider;
+use Spatie\MediaLibrary\MediaLibraryServiceProvider;
+use Spatie\Permission\PermissionServiceProvider;
+use Technikermathe\LucideIcons\BladeLucideIconsServiceProvider;
+use Vinkla\Hashids\HashidsServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -36,51 +65,51 @@ abstract class TestCase extends Orchestra
     {
         return [
             // Ray
-            \Spatie\LaravelRay\RayServiceProvider::class,
+            RayServiceProvider::class,
 
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
-            \LaravelJsonApi\Laravel\ServiceProvider::class,
+            ServiceProvider::class,
             \LaravelJsonApi\Spec\ServiceProvider::class,
 
             // Lunar
-            \Lunar\LunarServiceProvider::class,
-            \Lunar\Admin\LunarPanelProvider::class,
-            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
-            \Spatie\Activitylog\ActivitylogServiceProvider::class,
-            \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
-            \Kalnoy\Nestedset\NestedSetServiceProvider::class,
-            \Spatie\LaravelBlink\BlinkServiceProvider::class,
+            LunarServiceProvider::class,
+            LunarPanelProvider::class,
+            MediaLibraryServiceProvider::class,
+            ActivitylogServiceProvider::class,
+            ConverterServiceProvider::class,
+            NestedSetServiceProvider::class,
+            BlinkServiceProvider::class,
 
             // Filament
-            \Filament\FilamentServiceProvider::class,
-            \Filament\Support\SupportServiceProvider::class,
-            \Filament\Forms\FormsServiceProvider::class,
-            \Filament\Tables\TablesServiceProvider::class,
-            \Filament\Actions\ActionsServiceProvider::class,
-            \Filament\Infolists\InfolistsServiceProvider::class,
-            \Filament\Notifications\NotificationsServiceProvider::class,
-            \Filament\Widgets\WidgetsServiceProvider::class,
-            \Filament\Schemas\SchemasServiceProvider::class,
-            \BladeUI\Icons\BladeIconsServiceProvider::class,
-            \BladeUI\Heroicons\BladeHeroiconsServiceProvider::class,
-            \Technikermathe\LucideIcons\BladeLucideIconsServiceProvider::class,
+            FilamentServiceProvider::class,
+            SupportServiceProvider::class,
+            FormsServiceProvider::class,
+            TablesServiceProvider::class,
+            ActionsServiceProvider::class,
+            InfolistsServiceProvider::class,
+            NotificationsServiceProvider::class,
+            WidgetsServiceProvider::class,
+            SchemasServiceProvider::class,
+            BladeIconsServiceProvider::class,
+            BladeHeroiconsServiceProvider::class,
+            BladeLucideIconsServiceProvider::class,
 
-            \Dystore\Tests\Reviews\Providers\LunarPanelTestServiceProvider::class,
-            \Livewire\LivewireServiceProvider::class,
-            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
-            \Spatie\Permission\PermissionServiceProvider::class,
+            LunarPanelTestServiceProvider::class,
+            LivewireServiceProvider::class,
+            MediaLibraryServiceProvider::class,
+            PermissionServiceProvider::class,
 
             // Lunar Api
-            \Dystore\Api\ApiServiceProvider::class,
-            \Dystore\Api\JsonApiServiceProvider::class,
+            ApiServiceProvider::class,
+            JsonApiServiceProvider::class,
 
             // Hashids
-            \Vinkla\Hashids\HashidsServiceProvider::class,
-            \Dystore\Api\ApiHashidsServiceProvider::class,
+            HashidsServiceProvider::class,
+            ApiHashidsServiceProvider::class,
 
             // Lunar Reviews
-            \Dystore\Reviews\ReviewsServiceProvider::class,
+            ReviewsServiceProvider::class,
         ];
     }
 
@@ -98,7 +127,7 @@ abstract class TestCase extends Orchestra
              */
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
-                'model' => Stubs\Users\User::class,
+                'model' => User::class,
             ]);
 
             $config->set('database.default', 'sqlite');

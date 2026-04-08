@@ -15,7 +15,7 @@ uses(TestCase::class, RefreshDatabase::class)
 
 it('can read lowest price through relationship', function () {
     /** @var TestCase $this */
-    /** @var \Dystore\Api\Domain\ProductVariants\Models\ProductVariant $variant */
+    /** @var ProductVariant $variant */
     $variant = ProductVariantFactory::new()
         ->for(Product::factory(), 'product')
         ->withPrice()
@@ -45,7 +45,7 @@ it('can read lowest price through relationship', function () {
 
 it('can read correct lowest price when customer group is set', function () {
     /** @var TestCase $this */
-    /** @var \Dystore\Api\Domain\ProductVariants\Models\ProductVariant $variant */
+    /** @var ProductVariant $variant */
     $variant = ProductVariantFactory::new()
         ->for(Product::factory(), 'product')
         ->withPrice()

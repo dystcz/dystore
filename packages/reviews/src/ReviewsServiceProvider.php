@@ -13,6 +13,8 @@ use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantResource;
 use Dystore\Api\Domain\ProductVariants\JsonApi\V1\ProductVariantSchema;
 use Dystore\Api\Support\Config\Collections\DomainConfigCollection;
 use Dystore\Api\Support\Models\Actions\SchemaType;
+use Dystore\Reviews\Domain\Reviews\Contacts\PublishReviewsController;
+use Dystore\Reviews\Domain\Reviews\Contacts\ReviewsController;
 use Dystore\Reviews\Domain\Reviews\JsonApi\V1\ReviewSchema;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -98,8 +100,8 @@ class ReviewsServiceProvider extends ServiceProvider
     protected function bindControllers(): void
     {
         $controllers = [
-            \Dystore\Reviews\Domain\Reviews\Contacts\ReviewsController::class => \Dystore\Reviews\Domain\Reviews\Http\Controllers\ReviewsController::class,
-            \Dystore\Reviews\Domain\Reviews\Contacts\PublishReviewsController::class => \Dystore\Reviews\Domain\Reviews\Http\Controllers\PublishReviewsController::class,
+            ReviewsController::class => Domain\Reviews\Http\Controllers\ReviewsController::class,
+            PublishReviewsController::class => Domain\Reviews\Http\Controllers\PublishReviewsController::class,
         ];
 
         foreach ($controllers as $abstract => $concrete) {

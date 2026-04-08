@@ -2,7 +2,12 @@
 
 namespace Dystore\Tests\ProductNotifications;
 
+use Cartalyst\Converter\Laravel\ConverterServiceProvider;
+use Dystore\Api\ApiHashidsServiceProvider;
+use Dystore\Api\ApiServiceProvider;
 use Dystore\Api\Base\Facades\SchemaManifest;
+use Dystore\Api\JsonApiServiceProvider;
+use Dystore\ProductNotifications\ProductNotificationsServiceProvider;
 use Dystore\Tests\ProductNotifications\Stubs\Users\User;
 use Dystore\Tests\ProductNotifications\Stubs\Users\UserSchema;
 use Illuminate\Contracts\Config\Repository;
@@ -10,11 +15,20 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Illuminate\Support\Facades\Config;
+use Kalnoy\Nestedset\NestedSetServiceProvider;
+use LaravelJsonApi\Laravel\ServiceProvider;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
+use Livewire\LivewireServiceProvider;
 use Lunar\Database\Factories\LanguageFactory;
+use Lunar\LunarServiceProvider;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\Activitylog\ActivitylogServiceProvider;
+use Spatie\LaravelBlink\BlinkServiceProvider;
+use Spatie\LaravelRay\RayServiceProvider;
+use Spatie\MediaLibrary\MediaLibraryServiceProvider;
+use Vinkla\Hashids\HashidsServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -50,34 +64,34 @@ abstract class TestCase extends Orchestra
     {
         return [
             // Ray
-            \Spatie\LaravelRay\RayServiceProvider::class,
+            RayServiceProvider::class,
 
             // Laravel JsonApi
             \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
-            \LaravelJsonApi\Laravel\ServiceProvider::class,
+            ServiceProvider::class,
             \LaravelJsonApi\Spec\ServiceProvider::class,
 
             // Lunar core
-            \Lunar\LunarServiceProvider::class,
-            \Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
-            \Spatie\Activitylog\ActivitylogServiceProvider::class,
-            \Cartalyst\Converter\Laravel\ConverterServiceProvider::class,
-            \Kalnoy\Nestedset\NestedSetServiceProvider::class,
-            \Spatie\LaravelBlink\BlinkServiceProvider::class,
+            LunarServiceProvider::class,
+            MediaLibraryServiceProvider::class,
+            ActivitylogServiceProvider::class,
+            ConverterServiceProvider::class,
+            NestedSetServiceProvider::class,
+            BlinkServiceProvider::class,
 
             // Livewire
-            \Livewire\LivewireServiceProvider::class,
+            LivewireServiceProvider::class,
 
             // Lunar Api
-            \Dystore\Api\ApiServiceProvider::class,
-            \Dystore\Api\JsonApiServiceProvider::class,
+            ApiServiceProvider::class,
+            JsonApiServiceProvider::class,
 
             // Hashids
-            \Vinkla\Hashids\HashidsServiceProvider::class,
-            \Dystore\Api\ApiHashidsServiceProvider::class,
+            HashidsServiceProvider::class,
+            ApiHashidsServiceProvider::class,
 
             // Lunar Product Notification
-            \Dystore\ProductNotifications\ProductNotificationsServiceProvider::class,
+            ProductNotificationsServiceProvider::class,
         ];
     }
 
