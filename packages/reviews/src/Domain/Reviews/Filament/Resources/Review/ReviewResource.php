@@ -77,7 +77,7 @@ class ReviewResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return static::getModel()::withoutGlobalScope(PublishedScope::class)->count();
     }
 
     public static function form(Schema $schema): Schema
