@@ -7,6 +7,7 @@ use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\Creat
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\EditReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\ListReviews;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
+use Dystore\Reviews\Domain\Reviews\Scopes\PublishedScope;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MorphToSelect;
@@ -25,6 +26,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
 
@@ -65,7 +67,13 @@ class ReviewResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return static::getModel()::withoutGlobalScope(PublishedScope::class)->count();
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScope(PublishedScope::class);
     }
 
     public static function form(Form $form): Form
