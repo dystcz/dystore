@@ -1,12 +1,32 @@
 # Changelog
 
+## Unreleased
+
+- Add nested `collection_groups` filter on products for multi-group collection filtering [#103](https://github.com/dystcz/dystore/pull/103)
+- Show all reviews in Filament admin by removing `PublishedScope` [#102](https://github.com/dystcz/dystore/pull/102)
+- Add product and variant availability scopes [#101](https://github.com/dystcz/dystore/pull/101)
+- Add order relation to reviews [#100](https://github.com/dystcz/dystore/pull/100)
+- Update registering users without password [#99](https://github.com/dystcz/dystore/pull/99)
+- Add delete user endpoint [#98](https://github.com/dystcz/dystore/pull/98)
+- Add check if account exists endpoint [#97](https://github.com/dystcz/dystore/pull/97)
+- Update Pest testing framework to `^4.0` [#96](https://github.com/dystcz/dystore/pull/96)
+- Make all `WhereIdIn` filters comma-delimited
+- Add and use visible scope for products
+- Allow replacing attributes with single media conversion
+- Fix media definitions and srcset
+- Fix review Filament resource
+- Fix review schema morph types
+- Fix review contracts namespace typo
+- Update order policy
+- Load user before checking if already attached to cart
+
 ## 1.0.14
 
 - Update to Lunar 1.3.0 [#95](https://github.com/dystcz/dystore/pull/95)
 - Update cart address validation messages
 - Update password confirmation validation
 - Update belongs to many through relationship
-- Fix variantValues relationship on products
+- Fix `variantValues` relationship on products
 - Add order signature to meta in response after checkout
 - Constraint to product option values with variants
 - Do not force pagination
@@ -40,6 +60,10 @@
 - Add images relation to reviews [#71](https://github.com/dystcz/dystore/pull/71)
 - Fix reviews [#70](https://github.com/dystcz/dystore/pull/70)
 - Enhance reviews [#67](https://github.com/dystcz/dystore/pull/67), [#68](https://github.com/dystcz/dystore/pull/68)
+- Add Filament reviews resource and media library plugin
+- Add publishable scope and concern to review model
+- Add dynamic name attribute to product variant model
+- Make purchasable relation nullable for more general reviews
 
 ## 1.0.11
 
@@ -64,18 +88,55 @@
 
 ## 1.0.7
 
-- Added auto documentation for facades
+- Update to Lunar 1.0.0-beta.22 [#60](https://github.com/dystcz/dystore/pull/60)
+- Add price relation to product variants [#57](https://github.com/dystcz/dystore/pull/57)
+- Fix price relation hotfix [#58](https://github.com/dystcz/dystore/pull/58)
+- Add order lines prices include paths [#59](https://github.com/dystcz/dystore/pull/59)
+- Add auto documentation for facades [#54](https://github.com/dystcz/dystore/pull/54)
+- Update policies
 
 ### ⚠️ Breaking changes
 
 - `ResourceManifestFacade` has been renamed to `ResourceManifest`
 - `SchemaManifestFacade` has been renamed to `SchemaManifest`
 
+## 1.0.6
+
+- Update routing with `HasRoutes` concern [#53](https://github.com/dystcz/dystore/pull/53)
+- Add `SetApiHeaders` middleware
+- Add webhook route to `HasRoutes` concern
+- Update product and product variant prices [#52](https://github.com/dystcz/dystore/pull/52)
+- Refactor obtaining prices with or without tax
+- Set priceable when prices included to product variants
+- Set product relation when most expensive variant included
+- Add more options to include paths
+- Use published scope
+- Update product schema [#50](https://github.com/dystcz/dystore/pull/50)
+- Add `WhereHas` tags filter to product schema
+- Add hidden sortable `created_at`
+
+## 1.0.5
+
+- Add Ecomail newsletter driver [#49](https://github.com/dystcz/dystore/pull/49)
+
+## 1.0.4
+
+- Re-enable hashids support [#48](https://github.com/dystcz/dystore/pull/48)
+- Update to Lunar 1.0.0-beta.20 [#47](https://github.com/dystcz/dystore/pull/47)
+
+## 1.0.3
+
+- Set `customer_id` when creating a cart [#44](https://github.com/dystcz/dystore/pull/44)
+- Handle customer `customer_groups` relationship [#43](https://github.com/dystcz/dystore/pull/43)
+- Add `customer_groups` relation to customer
+- Add `withCustomerGroup` method
+
 ## 1.0.2
 
-- Removed lunar pipeline overrides #37
-- Updated laravel json api versions #36
-- Payment prices activity log errors workaround #35
+- Removed Lunar pipeline overrides [#37](https://github.com/dystcz/dystore/pull/37)
+- Updated Laravel JSON:API versions [#36](https://github.com/dystcz/dystore/pull/36)
+- Payment prices activity log errors workaround [#35](https://github.com/dystcz/dystore/pull/35)
+- Add product variant builder
 
 ## 1.0.1
 
@@ -87,8 +148,12 @@
 - Processing Stripe webhooks is now controlled by custom `WebhookProfile` which checks `eshop_id`
   (if configured) in payment intent metadata and either dispatches webhook handlers or discards the webhook calls
 - Added `CartCheckedOut` event which is dispatched from `CheckoutCart` action
-- Fixed pricing and prices relations in #33
+- Fixed pricing and prices relations in [#33](https://github.com/dystcz/dystore/pull/33)
 - Added default `api-pricing` middleware to `config/general.php` which scopes prices to currency and customer groups set in storefront session
+- Added custom storefront session manager
+- Refactored authorization actions and payment methods
+- Updated Laravel JSON:API to v5
+- Updated to Lunar 1.0.0-beta.10
 
 ### ⚠️ Breaking changes
 
