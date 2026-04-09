@@ -128,3 +128,115 @@ it('returns all products when collection_groups filter value is empty', function
         ->assertSuccessful()
         ->assertFetchedMany($products);
 });
+
+it('returns no products when filtering by a nonexistent group handle', function () {
+    /** @var TestCase $this */
+    $group = CollectionGroup::factory()->create(['handle' => 'category']);
+    $collection = Collection::factory()->create(['collection_group_id' => $group->id]);
+
+    $product = Product::factory()
+        ->has(ProductVariant::factory()->has(Price::factory()), 'variants')
+        ->create();
+    $product->collections()->attach([$collection->id]);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get(serverUrl("/products?filter[collection_groups][nonexistent-handle][id]={$collection->id}"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedNone();
+});
+
+it('ignores groups with empty collection IDs and returns all products', function () {
+    /** @var TestCase $this */
+    $group = CollectionGroup::factory()->create(['handle' => 'category']);
+    $collection = Collection::factory()->create(['collection_group_id' => $group->id]);
+
+    $products = Product::factory()
+        ->has(ProductVariant::factory()->has(Price::factory()), 'variants')
+        ->count(2)
+        ->create();
+    $products->first()->collections()->attach([$collection->id]);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get(serverUrl('/products?filter[collection_groups][category][id]='));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedMany($products);
+});
+
+it('returns no products when filtering by nonexistent collection IDs', function () {
+    /** @var TestCase $this */
+    $group = CollectionGroup::factory()->create(['handle' => 'category']);
+    $collection = Collection::factory()->create(['collection_group_id' => $group->id]);
+
+    $product = Product::factory()
+        ->has(ProductVariant::factory()->has(Price::factory()), 'variants')
+        ->create();
+    $product->collections()->attach([$collection->id]);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get(serverUrl('/products?filter[collection_groups][category][id]=99999'));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedNone();
+});
+
+it('returns only matching products when mixing valid and nonexistent collection IDs', function () {
+    /** @var TestCase $this */
+    $group = CollectionGroup::factory()->create(['handle' => 'category']);
+    $collectionA = Collection::factory()->create(['collection_group_id' => $group->id]);
+
+    $matchingProduct = Product::factory()
+        ->has(ProductVariant::factory()->has(Price::factory()), 'variants')
+        ->create();
+    $matchingProduct->collections()->attach([$collectionA->id]);
+
+    $nonMatchingProduct = Product::factory()
+        ->has(ProductVariant::factory()->has(Price::factory()), 'variants')
+        ->create();
+
+    $ids = implode(',', [$collectionA->id, 99999]);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get(serverUrl("/products?filter[collection_groups][category][id]={$ids}"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedMany([$matchingProduct])
+        ->assertDoesntHaveIncluded();
+});
+
+it('does not duplicate products belonging to multiple collections within the same group', function () {
+    /** @var TestCase $this */
+    $group = CollectionGroup::factory()->create(['handle' => 'category']);
+    $collectionA = Collection::factory()->create(['collection_group_id' => $group->id]);
+    $collectionB = Collection::factory()->create(['collection_group_id' => $group->id]);
+
+    $product = Product::factory()
+        ->has(ProductVariant::factory()->has(Price::factory()), 'variants')
+        ->create();
+    $product->collections()->attach([$collectionA->id, $collectionB->id]);
+
+    $ids = implode(',', [$collectionA->id, $collectionB->id]);
+
+    $response = $this
+        ->jsonApi()
+        ->expects('products')
+        ->get(serverUrl("/products?filter[collection_groups][category][id]={$ids}"));
+
+    $response
+        ->assertSuccessful()
+        ->assertFetchedMany([$product])
+        ->assertDoesntHaveIncluded();
+});
