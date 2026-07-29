@@ -2,12 +2,16 @@
 
 namespace Dystore\Reviews\Domain\Reviews\Filament\Resources;
 
+use BackedEnum;
 use Dystore\Api\Base\Enums\PublishedStatus;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\CreateReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\EditReview;
 use Dystore\Reviews\Domain\Reviews\Filament\Resources\ReviewResource\Pages\ListReviews;
 use Dystore\Reviews\Domain\Reviews\Models\Review;
 use Dystore\Reviews\Domain\Reviews\Scopes\PublishedScope;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MorphToSelect;
@@ -16,11 +20,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -29,12 +30,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
+use UnitEnum;
 
 class ReviewResource extends Resource
 {
     protected static ?string $model = Review::class;
 
-    protected static ?string $navigationGroup = null;
+    protected static string|UnitEnum|null $navigationGroup = null;
 
     public static function getNavigationGroup(): ?string
     {
@@ -63,7 +65,7 @@ class ReviewResource extends Resource
         return __('dystore-reviews::reviews.model.plural_label');
     }
 
-    protected static ?string $navigationIcon = 'heroicon-o-star';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-star';
 
     public static function getNavigationBadge(): ?string
     {
@@ -76,9 +78,9 @@ class ReviewResource extends Resource
             ->withoutGlobalScope(PublishedScope::class);
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
                 TextInput::make('name')
                     ->label(__('dystore-reviews::reviews.fields.name'))
