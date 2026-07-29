@@ -87,6 +87,8 @@ abstract class TestCase extends Orchestra
             /**
              * App configuration.
              */
+            $config->set('queue.default', 'sync');
+
             $config->set('newsletter.driver', MailChimpDriver::class);
             $config->set('newsletter.driver_arguments.endpoint', '');
 

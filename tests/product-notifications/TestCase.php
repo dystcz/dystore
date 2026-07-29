@@ -105,6 +105,8 @@ abstract class TestCase extends Orchestra
             /**
              * App configuration.
              */
+            $config->set('queue.default', 'sync');
+
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
                 'model' => User::class,

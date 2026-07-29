@@ -92,6 +92,8 @@ abstract class TestCase extends OrchestraTestCase
             /**
              * App configuration
              */
+            $config->set('queue.default', 'sync');
+
             $config->set('database.default', 'sqlite');
             $config->set('database.migrations', 'migrations');
             $config->set('database.connections.sqlite', [
