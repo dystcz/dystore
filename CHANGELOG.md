@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.0.15 - 2026-07-29
 
 - Add nested `collection_groups` filter on products for multi-group collection filtering [#103](https://github.com/dystcz/dystore/pull/103)
 - Show all reviews in Filament admin by removing `PublishedScope` [#102](https://github.com/dystcz/dystore/pull/102)
