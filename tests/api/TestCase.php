@@ -159,6 +159,8 @@ abstract class TestCase extends OrchestraTestCase
             /**
              * App configuration.
              */
+            $config->set('queue.default', 'sync');
+
             $config->set('auth.providers.users', [
                 'driver' => 'eloquent',
                 'model' => \Dystore\Api\Domain\Users\Models\User::class,
