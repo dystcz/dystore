@@ -2,7 +2,6 @@
 
 namespace Dystore\Tests\Stripe;
 
-use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystore\Api\ApiServiceProvider;
 use Dystore\Api\JsonApiServiceProvider;
 use Dystore\Stripe\Jobs\Webhooks\HandleOtherEvent;
@@ -158,7 +157,6 @@ abstract class TestCase extends OrchestraTestCase
             LunarServiceProvider::class,
             MediaLibraryServiceProvider::class,
             ActivitylogServiceProvider::class,
-            ConverterServiceProvider::class,
             NestedSetServiceProvider::class,
             BlinkServiceProvider::class,
 

@@ -2,7 +2,6 @@
 
 namespace Dystore\Tests\Reviews;
 
-use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystore\Api\ApiHashidsServiceProvider;
 use Dystore\Api\ApiServiceProvider;
 use Dystore\Api\JsonApiServiceProvider;
@@ -59,7 +58,6 @@ abstract class TestCase extends Orchestra
             LunarServiceProvider::class,
             MediaLibraryServiceProvider::class,
             ActivitylogServiceProvider::class,
-            ConverterServiceProvider::class,
             NestedSetServiceProvider::class,
             BlinkServiceProvider::class,
 

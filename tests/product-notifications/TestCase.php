@@ -2,7 +2,6 @@
 
 namespace Dystore\Tests\ProductNotifications;
 
-use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystore\Api\ApiHashidsServiceProvider;
 use Dystore\Api\ApiServiceProvider;
 use Dystore\Api\Base\Facades\SchemaManifest;
@@ -75,7 +74,6 @@ abstract class TestCase extends Orchestra
             LunarServiceProvider::class,
             MediaLibraryServiceProvider::class,
             ActivitylogServiceProvider::class,
-            ConverterServiceProvider::class,
             NestedSetServiceProvider::class,
             BlinkServiceProvider::class,
 
