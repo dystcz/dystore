@@ -17,7 +17,9 @@ it('can read storefront session currency', function () {
     $storefrontSession = App::make(StorefrontSessionInterface::class);
 
     /** @var Currency $currency */
-    $currency = Currency::factory()->create();
+    $currency = Currency::factory()->create([
+        'code' => 'USD',
+    ]);
 
     $storefrontSession->setCurrency($currency);
 
