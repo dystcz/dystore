@@ -102,11 +102,11 @@
   },
   "description": "Collection of ecommerce packages built on top of Lunar and Laravel JSON:API.",
   "require": {
-    "php": "^8.2",
+    "php": "^8.3",
     "ext-redis": "*",
     "filament/spatie-laravel-media-library-plugin": "^4.0",
     "h4kuna/ares": "^3.0",
-    "illuminate/support": "^11.0|^12.0",
+    "illuminate/support": "^12.0|^13.0",
     "kalnoy/nestedset": "^6.0.5 <6.0.8",
     "laravel-json-api/hashids": "^3.2",
     "laravel-json-api/laravel": "^5.1",
