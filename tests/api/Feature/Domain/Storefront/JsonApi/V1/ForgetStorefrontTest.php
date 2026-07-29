@@ -19,6 +19,7 @@ it('can forget storefront session', function () {
 
     /** @var Currency $currency */
     $currency = Currency::factory()->create([
+        'code' => 'USD',
         'default' => false,
     ]);
 

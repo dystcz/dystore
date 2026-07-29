@@ -2,7 +2,6 @@
 
 namespace Dystore\Tests\Stripe;
 
-use Cartalyst\Converter\Laravel\ConverterServiceProvider;
 use Dystore\Api\ApiServiceProvider;
 use Dystore\Api\JsonApiServiceProvider;
 use Dystore\Stripe\Jobs\Webhooks\HandleOtherEvent;
@@ -93,6 +92,8 @@ abstract class TestCase extends OrchestraTestCase
             /**
              * App configuration
              */
+            $config->set('queue.default', 'sync');
+
             $config->set('database.default', 'sqlite');
             $config->set('database.migrations', 'migrations');
             $config->set('database.connections.sqlite', [
@@ -158,7 +159,6 @@ abstract class TestCase extends OrchestraTestCase
             LunarServiceProvider::class,
             MediaLibraryServiceProvider::class,
             ActivitylogServiceProvider::class,
-            ConverterServiceProvider::class,
             NestedSetServiceProvider::class,
             BlinkServiceProvider::class,
 

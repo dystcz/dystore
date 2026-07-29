@@ -15,6 +15,7 @@ it('can update storefront session currency', function () {
 
     /** @var Currency $currency */
     $currency = Currency::factory()->create([
+        'code' => 'USD',
         'default' => false,
     ]);
 
